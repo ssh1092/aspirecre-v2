@@ -43,10 +43,16 @@ final class Aspire_Atlas_Enquiry_Admin {
   return $rows;
  }
  private static function dl(array $rows): void {echo '<dl class="atlas-admin-data">';foreach($rows as $label=>$value)echo '<div><dt>'.esc_html($label).'</dt><dd>'.esc_html($value!==''?$value:'—').'</dd></div>';echo '</dl>';}
+ public static function received(WP_Post $post): string {
+  $stored=get_post_meta($post->ID,'_atlas_received_at',true);
+  $timestamp=is_string($stored)&&$stored!==''?strtotime($stored):false;
+  if($timestamp===false)$timestamp=get_post_timestamp($post,'date');
+  return $timestamp!==false?wp_date('M j, Y · g:i A',$timestamp,wp_timezone()):'—';
+ }
  public static function details(WP_Post $post): void {
-  $id=$post->ID;$c=(array)get_post_meta($id,'_atlas_contact',true);$received=get_post_meta($id,'_atlas_received_at',true)?:get_post_time('c',true,$post);
+  $id=$post->ID;$c=(array)get_post_meta($id,'_atlas_contact',true);$received=self::received($post);
   echo '<div class="atlas-admin-grid"><div><section class="atlas-admin-card"><h2>Contact</h2>';
-  self::dl(array('Name'=>$c['name']??'','Email'=>$c['email']??'','Phone'=>$c['phone']??'','Company'=>$c['company']??'','Contact requested'=>!empty($c['consent'])?'Yes':'No','Received (UTC)'=>$received));echo '</section><section class="atlas-admin-card"><h2>Real estate brief</h2>';
+  self::dl(array('Name'=>$c['name']??'','Email'=>$c['email']??'','Phone'=>$c['phone']??'','Company'=>$c['company']??'','Contact requested'=>!empty($c['consent'])?'Yes':'No','Received'=>$received));echo '</section><section class="atlas-admin-card"><h2>Real estate brief</h2>';
   $rows=self::rows($id);if($rows)self::dl($rows);else echo '<p style="white-space:pre-line">'.esc_html(get_post_meta($id,'_atlas_summary',true)?:'Brief details unavailable.').'</p>';
   echo '</section><section class="atlas-admin-card"><h2>Matching Aspire properties</h2><ul class="atlas-admin-properties">';
   $ids=(array)get_post_meta($id,'_atlas_matched_property_ids',true);
@@ -75,7 +81,7 @@ final class Aspire_Atlas_Enquiry_Admin {
   echo '<p>Review requirements shared through Aspire Atlas and keep track of your follow-up.</p><form method="get" class="atlas-admin-filters"><input type="hidden" name="page" value="aspire-atlas-enquiries"><div><label for="atlas-search">Search contact or requirement</label><input id="atlas-search" name="s" type="search" value="'.esc_attr($search).'" placeholder="Name, email, area or requirement"></div><div><label for="atlas-filter-status">Status</label><select id="atlas-filter-status" name="status"><option value="">All statuses</option>';
   foreach(self::STATUSES as $key=>$label)echo '<option value="'.esc_attr($key).'" '.selected($status,$key,false).'>'.esc_html($label).'</option>';echo '</select></div>';submit_button('Filter','secondary','',false);echo '<a href="'.esc_url(self::url()).'">Clear filters</a></form>';
   echo '<p>'.esc_html($query->found_posts).($query->found_posts===1?' enquiry':' enquiries').'</p><div class="atlas-admin-table"><table class="widefat striped"><thead><tr>';foreach(array('Contact','Requirement','Area','Timing','Contact Requested','Received','Status') as $label)echo '<th scope="col">'.esc_html($label).'</th>';echo '</tr></thead><tbody>';
-  foreach($query->posts as $post){$id=$post->ID;$c=(array)get_post_meta($id,'_atlas_contact',true);$r=self::rows($id);echo '<tr><th scope="row"><a href="'.esc_url(self::url($id)).'"><strong>'.esc_html($c['name']??'View enquiry').'</strong></a><small>'.esc_html($c['email']??'').'</small></th><td>'.esc_html(implode(' · ',array_filter(array($r['Goal']??'',$r['Property Type']??'',$r['Size']??'')))).'</td><td>'.esc_html($r['Area']??'').'</td><td>'.esc_html($r['Timing']??'').'</td><td>'.(!empty($c['consent'])?'Yes':'No').'</td><td>'.esc_html(get_post_time('M j, Y',false,$post)).'</td><td><span class="atlas-admin-status">'.esc_html(self::STATUSES[self::status($id)]).'</span></td></tr>';}
+  foreach($query->posts as $post){$id=$post->ID;$c=(array)get_post_meta($id,'_atlas_contact',true);$r=self::rows($id);echo '<tr><th scope="row"><a href="'.esc_url(self::url($id)).'"><strong>'.esc_html($c['name']??'View enquiry').'</strong></a><small>'.esc_html($c['email']??'').'</small></th><td>'.esc_html(implode(' · ',array_filter(array($r['Goal']??'',$r['Property Type']??'',$r['Size']??'')))).'</td><td>'.esc_html($r['Area']??'').'</td><td>'.esc_html($r['Timing']??'').'</td><td><span class="atlas-admin-request '.(!empty($c['consent'])?'is-requested':'is-not-requested').'">'.(!empty($c['consent'])?'Yes':'No').'</span></td><td class="atlas-admin-received">'.esc_html(self::received($post)).'</td><td><span class="atlas-admin-status is-'.esc_attr(self::status($id)).'">'.esc_html(self::STATUSES[self::status($id)]).'</span></td></tr>';}
   if(!$query->posts)echo '<tr><td colspan="7">No enquiries match this view.</td></tr>';echo '</tbody></table></div>';
   if($query->max_num_pages>1)echo '<div class="tablenav"><div class="tablenav-pages">'.wp_kses_post(paginate_links(array('base'=>str_replace('999999','%#%',add_query_arg(array('page'=>'aspire-atlas-enquiries','s'=>$search,'status'=>$status,'paged'=>999999),admin_url('admin.php'))),'format'=>'','current'=>$page,'total'=>$query->max_num_pages))).'</div></div>';
  }

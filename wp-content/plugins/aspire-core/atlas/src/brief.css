@@ -33,3 +33,21 @@
 .aspire-atlas .atlas-brief-intro-copy{font-size:15px;line-height:1.75;color:#d2e0d6;margin:4px 0 18px}.atlas-brief-value-cues{list-style:none;padding:0;margin:28px 0}.atlas-brief-value-cues li{display:flex;gap:12px;padding:15px 0;border-top:1px solid #799b8740;color:#dce8df;font-size:13px}.atlas-brief-value-cues li:before{content:'✓';color:#51ceb3}
 @media(max-width:1100px){.atlas-brief-entry{align-items:flex-start;flex-direction:column;gap:6px}.atlas-brief-entry p{max-width:none}.atlas-results-heading{align-items:flex-start}.atlas-results-heading>span{display:none}}
 @media(max-width:700px){.atlas-results-heading{flex-wrap:wrap}.atlas-brief-entry{flex-basis:100%}}
+/* Founder-demo refinements: preserve the panel grid and reserve room above its actions. */
+.atlas-brief-body{padding-bottom:32px;scroll-padding-block:20px;overflow-anchor:none}
+.atlas-brief-controls{position:relative;z-index:1;box-shadow:0 -8px 16px #14251f18}
+.aspire-atlas .atlas-brief-contact-intro{max-width:44ch;margin:0 0 24px;color:#c5d8cc;font-size:14px;line-height:1.65;text-wrap:pretty}
+.atlas-brief-contact-ending{white-space:nowrap}
+.atlas-cre-brief[data-screen=contact] form{display:grid;gap:18px}
+.atlas-cre-brief[data-screen=contact] .atlas-brief-field{margin:0}
+.atlas-cre-brief[data-screen=contact] .atlas-brief-choice{margin:2px 0 0}
+.atlas-cre-brief[data-screen=contact] .atlas-brief-field>label{font-weight:500;color:#d8e7dd}
+.aspire-atlas .atlas-brief-edit{min-width:44px;padding:8px;border-radius:2px;text-align:center}
+.aspire-atlas .atlas-brief-matches{border-top:1px solid #799b8766;padding-top:22px;margin-top:8px}
+.aspire-atlas .atlas-brief-matches h3{margin-top:0;margin-bottom:18px;font-size:20px;line-height:1.4}
+.atlas-cre-brief button,.atlas-build-brief{transition:background-color .15s,border-color .15s,color .15s}
+.aspire-atlas .atlas-cre-brief button:not(:disabled):hover{border-color:#69d5bb;color:#e4f5eb;background-color:#204a37}
+.aspire-atlas .atlas-brief-controls .atlas-brief-next:not(:disabled):hover{background:#65d4bd;border-color:#65d4bd;color:#08251d}
+.aspire-atlas .atlas-brief-edit:hover{color:#9debd5;text-decoration:underline;text-underline-offset:3px}
+@media(prefers-reduced-motion:reduce){.atlas-cre-brief button,.atlas-build-brief{transition:none}}
+.atlas-brief-body:focus-visible{outline:2px solid #69e0cd;outline-offset:-3px}

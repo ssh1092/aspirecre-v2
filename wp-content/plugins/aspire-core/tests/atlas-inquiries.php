@@ -45,6 +45,15 @@ try{
  inquiry_check(inquiry_request(null,'GET','/wp/v2/atlas_inquiry/'.$id)->get_status()===404,'Individual enquiry REST read unavailable');
  wp_set_current_user(get_users(array('role'=>'administrator','number'=>1))[0]->ID);inquiry_check(current_user_can('edit_post',$id),'Administrator can view enquiry');ob_start();Aspire_Atlas_Enquiry_Admin::details(get_post($id));$html=ob_get_clean();inquiry_check(str_contains($html,'Atlas Contract Test')&&str_contains($html,'Real estate brief')&&str_contains($html,'16840 Clay Road'),'Readable admin details include contact, summary and property link');inquiry_check(!str_contains($html,'name="post_title"')&&!str_contains($html,'name="content"')&&!post_type_supports('atlas_inquiry','editor')&&!post_type_supports('atlas_inquiry','title'),'No title or content editor in enquiry UI');
  inquiry_check(Aspire_Atlas_Enquiry_Admin::status($id)==='new','Old enquiries without status default to New');
+ $original_received=get_post_meta($id,'_atlas_received_at',true);
+ $test_timezone=static fn()=>'America/Chicago';add_filter('pre_option_timezone_string',$test_timezone);
+ try{
+  update_post_meta($id,'_atlas_received_at','2026-09-11T21:49:00+00:00');
+  inquiry_check(Aspire_Atlas_Enquiry_Admin::received(get_post($id))==='Sep 11, 2026 · 4:49 PM','Received date uses site timezone with daylight saving');
+  update_post_meta($id,'_atlas_received_at','2026-12-11T21:49:00+00:00');
+  inquiry_check(Aspire_Atlas_Enquiry_Admin::received(get_post($id))==='Dec 11, 2026 · 3:49 PM','Received date respects winter offset');
+ }finally{remove_filter('pre_option_timezone_string',$test_timezone);update_post_meta($id,'_atlas_received_at',$original_received);}
+
  $snapshot=get_post_meta($id,'_atlas_brief',true);$nonce=wp_create_nonce('atlas_enquiry_update_'.$id);
  inquiry_check(is_wp_error(Aspire_Atlas_Enquiry_Admin::save($id,'qualified','Notes','bad')),'Invalid admin nonce cannot save');
  inquiry_check(is_wp_error(Aspire_Atlas_Enquiry_Admin::save($id,'published','Notes',$nonce)),'Invalid internal status rejected');

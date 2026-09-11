@@ -57,7 +57,7 @@ export function createBrief(root,state,{getFeatures,getDataState,change,close,se
  }
  function contactForm(){
   const form=node('form');form.noValidate=true;form.setAttribute('aria-label','Send your brief');
-  stage.append(node('p','Share your details and Aspire will receive the real estate requirement you just created.'));
+  const intro=node('p','Share your details and Aspire will receive the real estate requirement ','atlas-brief-contact-intro');intro.append(node('span','you just created.','atlas-brief-contact-ending'));stage.append(intro);
   textInput(form,'Name', 'name');textInput(form,'Email','email','email',254);textInput(form,'Phone (optional)','phone','tel',50);textInput(form,'Company (optional)','company');
   const consent=node('label',null,'atlas-brief-choice'),check=node('input');check.type='checkbox';check.name='consent';check.checked=contact.consent;check.addEventListener('change',()=>contact.consent=check.checked);consent.append(check,node('span',"I'd like Aspire to contact me about this requirement."));form.append(consent);
   const trap=node('div',null,'atlas-brief-trap');trap.setAttribute('aria-hidden','true');textInput(trap,'Leave this field empty','website').tabIndex=-1;form.append(trap);
@@ -79,7 +79,7 @@ export function createBrief(root,state,{getFeatures,getDataState,change,close,se
  }
  function render(focus=true){
   const screen=state.brief.screen,step=state.brief.step;revision++;const focused=document.activeElement?.value;
-  panel.hidden=false;stage.replaceChildren();nav.replaceChildren();nav.hidden=screen!=='questions';
+  panel.hidden=false;panel.dataset.screen=screen;stage.replaceChildren();nav.replaceChildren();nav.hidden=screen!=='questions';
   heading.textContent=screen==='intro'?'Create a clear real estate brief.':screen==='review'?'YOUR HOUSTON REAL ESTATE BRIEF':screen==='contact'?'Send your brief to Aspire.':screen==='success'?'BRIEF RECEIVED':titles[step];
   panel.querySelector('.atlas-brief-progress').textContent=screen==='questions'?`STEP ${steps().indexOf(step)+1} OF 6 · ${labels[step].toUpperCase()}`:screen==='review'?'REVIEW':screen==='contact'?'CONTACT':'';
   if(screen==='questions'){
