@@ -9,5 +9,5 @@ export function addPropertyLayers(map, data) {
  // A single GeoJSON source can gain cluster options later without changing the API.
  map.addSource('atlas-properties',{type:'geojson',data});
  map.addLayer({id:'atlas-property-ring',type:'circle',source:'atlas-properties',paint:{'circle-radius':13,'circle-color':'transparent','circle-stroke-width':2,'circle-stroke-color':'#22B7A8','circle-stroke-opacity':['case',['any',['boolean',['feature-state','hover'],false],['boolean',['feature-state','selected'],false]],1,0]}});
- map.addLayer({id:'atlas-properties',type:'circle',source:'atlas-properties',paint:{'circle-radius':6,'circle-color':'#22B7A8','circle-stroke-width':2,'circle-stroke-color':'#07110F'}});
+ map.addLayer({id:'atlas-properties',type:'circle',source:'atlas-properties',paint:{'circle-radius':['case',['boolean',['feature-state','hover'],false],8,6],'circle-opacity':['case',['boolean',['feature-state','dimmed'],false],0.38,1],'circle-stroke-opacity':['case',['boolean',['feature-state','dimmed'],false],0.38,1],'circle-color':'#22B7A8','circle-stroke-width':2,'circle-stroke-color':'#07110F'}});
 }

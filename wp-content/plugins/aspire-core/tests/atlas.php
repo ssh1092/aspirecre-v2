@@ -43,6 +43,13 @@ try{
  update_post_meta($fixtures[4],'_aspire_latitude',0);update_post_meta($fixtures[4],'_aspire_longitude',0);
  atlas_check(count(Aspire_Atlas::collection()['features'])===5,'Numeric zero coordinates accepted');
 }finally{$wpdb->query('ROLLBACK');foreach($fixtures as $id){clean_post_cache($id);}}
+$frontend=Aspire_Atlas::render(array());
+atlas_check(str_contains($frontend,'class="atlas-find" hidden'),'Discovery controls hidden in opening state');
+atlas_check(str_contains($frontend,'data-filter="transactionType"') && preg_match('/value="for-lease"\s+selected=/', $frontend),'Default For Lease uses actual taxonomy slug');
+foreach(get_terms(array('taxonomy'=>'property_type','hide_empty'=>false)) as $term){
+ atlas_check(str_contains($frontend,'value="'.esc_attr($term->slug).'"'), 'Filter contains registered property type: '.$term->slug);
+}
+atlas_check(!str_contains($frontend,'value="ground-lease"'),'Transaction controls limited to approved supported choices');
 $admin=get_users(array('role'=>'administrator','number'=>1));wp_set_current_user($admin[0]->ID);
 define('REST_REQUEST',true);
 $request=new WP_REST_Request('GET','/wp/v2/block-renderer/aspire/atlas');$request->set_param('context','edit');
@@ -51,4 +58,5 @@ $preview=rest_do_request($request);$html=$preview->get_data()['rendered']??'';
 atlas_check($preview->get_status()===200&&str_contains($html,'Custom editorial headline'),'Editor REST preview accepts headline setting');
 atlas_check(str_contains($html,'4 ASPIRE OPPORTUNITIES')&&str_contains($html,'Interactive map renders on the frontend.'),'Useful static editor preview');
 atlas_check(!str_contains($html,'data-atlas')&&!str_contains($html,'class="atlas-input"')&&str_contains($html,'Build My Brief'),'Editor no map initialization; toggles affect preview');
+atlas_check(!str_contains($html,'class="atlas-find"'),'Editor preview excludes frontend-only discovery controls');
 echo "SUCCESS: $checks Atlas checks. Temporary fixtures rolled back.\n";

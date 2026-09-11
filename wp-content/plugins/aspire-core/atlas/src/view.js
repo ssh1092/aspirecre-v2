@@ -2,6 +2,8 @@ import * as maplibregl from 'maplibre-gl';
 import {Protocol,PMTiles} from 'pmtiles';
 import {atlasStyle} from './style.js';
 import {loadProperties,addPropertyLayers} from './properties.js';
+import {createFindSpace} from './find-space.js';
+import {AREAS} from './filters.js';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './view.css';
 const protocol = new Protocol();
@@ -14,11 +16,13 @@ async function start(root) {
  const select=selection.querySelector('select');
  const selectedLabel=selection.querySelector('.atlas-selected-label');
  const count=root.querySelector('.atlas-count');
- let map,selectedId=null,hoverId=null,failed=false;
+ let map,failed=false;
+ const discovery=createFindSpace(root,reduced);
  const fallbackLink=root.querySelector('.atlas-fallback-link');
  root.querySelectorAll('.atlas-fallback-link,.atlas-properties-nav').forEach(link=>link.addEventListener('click',e=>{e.preventDefault();const list=root.querySelector('.atlas-fallback-properties');list.hidden=!list.hidden;fallbackLink.setAttribute('aria-expanded',String(!list.hidden));if(!list.hidden)list.querySelector('a')?.focus();}));
  const fail=message=>{failed=true;root.classList.add('atlas-map-failed');root.dataset.mapState='failed';mapStatus.textContent=message;};
  root.querySelectorAll('.atlas-intent').forEach(button=>button.addEventListener('click',()=>{
+  if(button.hasAttribute('data-find-space'))return;
   root.querySelectorAll('.atlas-intent').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
   root.querySelector('.atlas-intent-status').textContent=button.querySelector('strong').textContent+' selected.';
  }));
@@ -31,8 +35,9 @@ async function start(root) {
   dataStatus.textContent=data.features.length?'':'No opportunities are available on the map yet.';
   data.features.forEach(f=>{const o=document.createElement('option');o.value=String(f.id);o.textContent=f.properties.title;select.append(o);});
   selection.hidden=!data.features.length;
+  discovery.setData(data);
   return data;
- }).catch(()=>{root.classList.add('atlas-data-failed');count.textContent='ASPIRE OPPORTUNITIES';dataStatus.textContent='Property data could not load. Use View Properties or reload to try again.';return null;}).finally(()=>clearTimeout(timeout));
+ }).catch(()=>{discovery.setData(null);root.classList.add('atlas-data-failed');count.textContent='ASPIRE OPPORTUNITIES';dataStatus.textContent='Property data could not load. Use View Properties or reload to try again.';return null;}).finally(()=>clearTimeout(timeout));
  let gl;
  try { gl=document.createElement('canvas').getContext('webgl2'); } catch {}
  if (!gl) {fail('Interactive maps are not supported in this browser. You can still view Properties.');return;}
@@ -44,7 +49,13 @@ async function start(root) {
   const header=await Promise.race([archive.getHeader(),new Promise((_,reject)=>setTimeout(()=>reject(Error('Basemap timeout')),15000))]);
   if(header.tileType!==1) throw Error('Expected vector archive');
   map=new maplibregl.Map({padding:{top:0,right:0,bottom:0,left:root.clientWidth>900?root.clientWidth*.32:0},container:root.querySelector('.atlas-map'),style:atlasStyle(root.dataset.tiles,root.dataset.glyphs),center:[-95.45,29.82],zoom:9.4,bearing:reduced?0:-7,pitch:reduced?0:38,minZoom:8,maxZoom:16,maxBounds:[[-95.95,29.45],[-95.05,30.25]],attributionControl:false,cooperativeGestures:true,renderWorldCopies:false});
-  const composition=new ResizeObserver(()=>map.setPadding({top:0,right:0,bottom:0,left:root.clientWidth>900?root.clientWidth*.32:0}));composition.observe(root);
+  const cameraPadding=()=>{
+   if(discovery.state.mode==='explore')return {top:0,right:0,bottom:0,left:root.clientWidth>900?root.clientWidth*.32:0};
+   const bounds=root.getBoundingClientRect(),rail=root.querySelector('.atlas-filter-rail').getBoundingClientRect(),results=root.querySelector('.atlas-results').getBoundingClientRect();
+   return {top:Math.ceil(rail.bottom-bounds.top+30),bottom:Math.ceil(bounds.bottom-results.top+25),left:45,right:65};
+  };
+  const syncComposition=()=>{map.resize();const padding=cameraPadding();if(Object.keys(padding).some(key=>padding[key]!==map.getPadding()[key]))map.setPadding(padding);};
+  const composition=new ResizeObserver(syncComposition);composition.observe(root);
   map.on('remove',()=>composition.disconnect());
   map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'top-right');
   map.getCanvas().setAttribute('aria-label','Houston property map. Use arrow keys to pan, plus or minus to zoom, or the property selector for keyboard selection.');
@@ -62,26 +73,53 @@ async function start(root) {
     const label=document.createElement('div');label.className='atlas-map-label';label.textContent=f.properties.title;
     popup.setLngLat(f.geometry.coordinates).setDOMContent(label).addTo(map);
    };
-   const choose=f=>{
-    if(selectedId!==null)map.setFeatureState({source:'atlas-properties',id:selectedId},{selected:false});
-    root.dataset.selectedCoordinateStatus=f?.properties.coordinateStatus??'';
-    selectedId=f?.id??null;select.value=f?String(f.id):'';
-    root.dataset.selectedProperty=f?String(f.id):'';
-    if(!f){selectedLabel.textContent='';popup.remove();return;}
-    map.setFeatureState({source:'atlas-properties',id:f.id},{selected:true});showLabel(f);
-    selectedLabel.textContent=f.properties.title+' selected.';
-   };
-   select.addEventListener('change',()=>{const f=data.features.find(f=>String(f.id)===select.value);choose(f);if(f)map.easeTo({center:f.geometry.coordinates,duration:reduced?0:500});});
+   let lastIds='';
+   discovery.connect((state,visible,reason)=>{
+    const finding=state.mode==='find-space';
+    // The original tight camera constraint forces a high minimum zoom on wide screens.
+    // A larger navigation envelope lets Houston listings fit in the shorter discovery viewport.
+    // This changes no tile coverage or cartography; Explore restores its original constraint.
+    if(['enter','explore','ready'].includes(reason))map.setMaxBounds(finding?[[-97,28.4],[-93.8,31.3]]:[[-95.95,29.45],[-95.05,30.25]]);
+    map.getCanvas().setAttribute('aria-label',finding?'Houston property map. Use arrow keys to pan and plus or minus to zoom. Matching property buttons below provide keyboard selection.':'Houston property map. Use arrow keys to pan, plus or minus to zoom, or the property selector for keyboard selection.');
+    const selected=visible.find(f=>f.id===state.selectedPropertyId);
+    const hovered=visible.find(f=>f.id===state.hoveredPropertyId);
+    const ids=visible.map(f=>f.id),signature=ids.join(',');
+    if(signature!==lastIds || reason==='ready'){
+     const filter=['in',['id'],['literal',ids]];
+     map.setFilter('atlas-properties',filter);map.setFilter('atlas-property-ring',filter);
+     root.dataset.markerCount=String(ids.length);lastIds=signature;
+    }
+    data.features.forEach(f=>map.setFeatureState({source:'atlas-properties',id:f.id},{selected:f.id===state.selectedPropertyId,hover:f.id===state.hoveredPropertyId,dimmed:finding && !!hovered && f.id!==hovered.id && f.id!==state.selectedPropertyId}));
+    root.dataset.selectedCoordinateStatus=selected?.properties.coordinateStatus??'';
+    select.value=selected?String(selected.id):'';
+    selectedLabel.textContent=selected?selected.properties.title+' selected.':'';
+    if(hovered || selected)showLabel(hovered??selected);else popup.remove();
+    map.getCanvas().style.cursor=reason==='hover' && hovered?'pointer':'';
+    const duration=reduced?0:700;
+    if(reason==='explore'){
+     map.easeTo({center:[-95.45,29.82],zoom:9.4,bearing:reduced?0:-7,pitch:reduced?0:38,padding:cameraPadding(),duration});
+    }else if(['card','keyboard'].includes(reason) && selected){
+     map.easeTo({center:selected.geometry.coordinates,zoom:finding?13.3:map.getZoom(),padding:cameraPadding(),duration});
+    }else if(finding && ['enter','area','filter','reset','ready','data'].includes(reason)){
+     const area=AREAS[state.filters.area];
+     // Area choices retain their whole approximate region. Other changes fit the matching set.
+     const points=area?area.bounds:visible.map(f=>f.geometry.coordinates);
+     if(points.length){
+      const bounds=points.reduce((box,point)=>box.extend(point),new maplibregl.LngLatBounds(points[0],points[0]));
+      // MapLibre adds fit padding to persistent edge padding: apply the shell inset only once.
+      syncComposition();
+      map.fitBounds(bounds,{padding:0,maxZoom:points.length===1?12.5:11.5,duration,linear:true,bearing:reduced?0:-7});
+     }
+    }
+   });
+   select.addEventListener('change',()=>discovery.select(select.value?Number(select.value):null,'keyboard'));
    map.on('mousemove','atlas-properties',e=>{
-    const f=data.features.find(f=>f.id===e.features?.[0]?.id);if(!f)return;
-    if(hoverId!==null)map.setFeatureState({source:'atlas-properties',id:hoverId},{hover:false});
-    hoverId=f.id;root.dataset.hoveredProperty=String(f.id);map.setFeatureState({source:'atlas-properties',id:f.id},{hover:true});map.getCanvas().style.cursor='pointer';showLabel(f);
+    const id=e.features?.[0]?.id;
+    if(id!==undefined)discovery.hover(id);
    });
-   map.on('mouseleave','atlas-properties',()=>{
-    if(hoverId!==null)map.setFeatureState({source:'atlas-properties',id:hoverId},{hover:false});hoverId=null;root.dataset.hoveredProperty='';map.getCanvas().style.cursor='';
-    const f=data.features.find(f=>f.id===selectedId);if(f)showLabel(f);else popup.remove();
-   });
-   map.on('click','atlas-properties',e=>choose(data.features.find(f=>f.id===e.features?.[0]?.id)));
+   map.on('mouseleave','atlas-properties',()=>discovery.hover(null));
+   map.on('click','atlas-properties',e=>discovery.select(e.features?.[0]?.id??null,'marker'));
+
   });
   map.getCanvas().addEventListener('webglcontextlost',()=>fail('The map graphics connection was lost. View Properties or reload to try again.'));
  } catch {fail('Houston basemap is unavailable. You can still view Properties.');}
