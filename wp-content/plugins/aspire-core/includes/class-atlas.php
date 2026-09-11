@@ -43,6 +43,7 @@ final class Aspire_Atlas {
     'location'=>array( 'address'=>trim( $text('address_line_1').' '.$text('address_line_2') ),'city'=>$text('city'),'state'=>$text('state'),'postalCode'=>$text('postal_code') ),
     'metrics'=>array( 'availableSf'=>self::number($id,'available_sf'),'buildingSf'=>self::number($id,'building_sf'),'lotAcres'=>self::number($id,'lot_acres') ),
     'pricing'=>array( 'leaseRateDisplay'=>$hide_price ? null : ( $text('lease_rate_display') ?: null ),'priceDisplay'=>$hide_price ? null : ( $text('price_display') ?: null ),'salePrice'=>! $hide_price && has_term( array('for-sale','for-sale-or-lease'),'transaction_type',$id ) ? self::number($id,'sale_price') : null ),
+    'propertyHighlights'=>array_values(array_filter(array_map('sanitize_text_field',preg_split('/\r\n|\r|\n/',(string)get_post_meta($id,'_aspire_property_highlights',true))),static fn($line)=>$line!=='')),
     'image'=>$local ? array('url'=>esc_url_raw($src[0]),'alt'=>sanitize_text_field(get_post_meta($image_id,'_wp_attachment_image_alt',true)),'width'=>(int)$src[1],'height'=>(int)$src[2]) : null,
    );
    $features[] = array('type'=>'Feature','id'=>$id,'geometry'=>array('type'=>'Point','coordinates'=>array((float)$lon,(float)$lat)),'properties'=>$properties);

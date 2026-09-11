@@ -50,12 +50,17 @@ async function start(root) {
   if(header.tileType!==1) throw Error('Expected vector archive');
   map=new maplibregl.Map({padding:{top:0,right:0,bottom:0,left:root.clientWidth>900?root.clientWidth*.32:0},container:root.querySelector('.atlas-map'),style:atlasStyle(root.dataset.tiles,root.dataset.glyphs),center:[-95.45,29.82],zoom:9.4,bearing:reduced?0:-7,pitch:reduced?0:38,minZoom:8,maxZoom:16,maxBounds:[[-95.95,29.45],[-95.05,30.25]],attributionControl:false,cooperativeGestures:true,renderWorldCopies:false});
   const cameraPadding=()=>{
+   if(discovery.state.propertyFocusOpen){
+    const bounds=root.getBoundingClientRect(),panel=root.querySelector('.atlas-dossier').getBoundingClientRect(),nav=root.querySelector('.atlas-nav')?.getBoundingClientRect();
+    const top=Math.ceil((nav?.bottom??bounds.top)-bounds.top+25);
+    return root.clientWidth<=700?{top,bottom:Math.ceil(bounds.bottom-panel.top+25),left:24,right:40}:{top,bottom:40,left:24,right:Math.ceil(panel.width+70)};
+   }
    if(discovery.state.mode==='explore')return {top:0,right:0,bottom:0,left:root.clientWidth>900?root.clientWidth*.32:0};
    const bounds=root.getBoundingClientRect(),rail=root.querySelector('.atlas-filter-rail').getBoundingClientRect(),results=root.querySelector('.atlas-results').getBoundingClientRect();
    return {top:Math.ceil(rail.bottom-bounds.top+30),bottom:Math.ceil(bounds.bottom-results.top+25),left:45,right:65};
   };
   const syncComposition=()=>{map.resize();const padding=cameraPadding();if(Object.keys(padding).some(key=>padding[key]!==map.getPadding()[key]))map.setPadding(padding);};
-  const composition=new ResizeObserver(syncComposition);composition.observe(root);
+  const composition=new ResizeObserver(()=>{if(!map.isMoving())syncComposition();});composition.observe(root);
   map.on('remove',()=>composition.disconnect());
   map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'top-right');
   map.getCanvas().setAttribute('aria-label','Houston property map. Use arrow keys to pan, plus or minus to zoom, or the property selector for keyboard selection.');
@@ -76,11 +81,15 @@ async function start(root) {
    let lastIds='';
    discovery.connect((state,visible,reason)=>{
     const finding=state.mode==='find-space';
+    if(reason==='focus-open' && !state.cameraBeforeFocus){
+     const center=map.getCenter();
+     state.cameraBeforeFocus={center:[center.lng,center.lat],zoom:map.getZoom(),bearing:map.getBearing(),pitch:map.getPitch()};
+    }
     // The original tight camera constraint forces a high minimum zoom on wide screens.
     // A larger navigation envelope lets Houston listings fit in the shorter discovery viewport.
     // This changes no tile coverage or cartography; Explore restores its original constraint.
     if(['enter','explore','ready'].includes(reason))map.setMaxBounds(finding?[[-97,28.4],[-93.8,31.3]]:[[-95.95,29.45],[-95.05,30.25]]);
-    map.getCanvas().setAttribute('aria-label',finding?'Houston property map. Use arrow keys to pan and plus or minus to zoom. Matching property buttons below provide keyboard selection.':'Houston property map. Use arrow keys to pan, plus or minus to zoom, or the property selector for keyboard selection.');
+    map.getCanvas().setAttribute('aria-label',state.propertyFocusOpen?'Houston property map. Selected property details are in Property Focus. Use arrow keys to pan and plus or minus to zoom.':finding?'Houston property map. Use arrow keys to pan and plus or minus to zoom. Matching property buttons below provide keyboard selection.':'Houston property map. Use arrow keys to pan, plus or minus to zoom, or the property selector for keyboard selection.');
     const selected=visible.find(f=>f.id===state.selectedPropertyId);
     const hovered=visible.find(f=>f.id===state.hoveredPropertyId);
     const ids=visible.map(f=>f.id),signature=ids.join(',');
@@ -89,14 +98,21 @@ async function start(root) {
      map.setFilter('atlas-properties',filter);map.setFilter('atlas-property-ring',filter);
      root.dataset.markerCount=String(ids.length);lastIds=signature;
     }
-    data.features.forEach(f=>map.setFeatureState({source:'atlas-properties',id:f.id},{selected:f.id===state.selectedPropertyId,hover:f.id===state.hoveredPropertyId,dimmed:finding && !!hovered && f.id!==hovered.id && f.id!==state.selectedPropertyId}));
+    data.features.forEach(f=>map.setFeatureState({source:'atlas-properties',id:f.id},{selected:f.id===state.selectedPropertyId,hover:f.id===state.hoveredPropertyId,dimmed:(state.propertyFocusOpen || finding && !!hovered) && f.id!==state.selectedPropertyId && f.id!==hovered?.id}));
     root.dataset.selectedCoordinateStatus=selected?.properties.coordinateStatus??'';
     select.value=selected?String(selected.id):'';
     selectedLabel.textContent=selected?selected.properties.title+' selected.':'';
-    if(hovered || selected)showLabel(hovered??selected);else popup.remove();
+    if(hovered || selected)showLabel(state.propertyFocusOpen?selected: hovered??selected);else popup.remove();
     map.getCanvas().style.cursor=reason==='hover' && hovered?'pointer':'';
     const duration=reduced?0:700;
-    if(reason==='explore'){
+    if(reason==='focus-open' && selected){
+     map.resize();
+     map.easeTo({center:selected.geometry.coordinates,zoom:14,padding:cameraPadding(),duration});
+    }else if(reason==='focus-close'){
+     map.resize();
+     if(state.cameraBeforeFocus)map.easeTo({...state.cameraBeforeFocus,padding:cameraPadding(),duration});
+     state.cameraBeforeFocus=null;
+    }else if(reason==='explore'){
      map.easeTo({center:[-95.45,29.82],zoom:9.4,bearing:reduced?0:-7,pitch:reduced?0:38,padding:cameraPadding(),duration});
     }else if(['card','keyboard'].includes(reason) && selected){
      map.easeTo({center:selected.geometry.coordinates,zoom:finding?13.3:map.getZoom(),padding:cameraPadding(),duration});

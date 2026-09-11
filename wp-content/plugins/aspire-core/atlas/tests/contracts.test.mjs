@@ -62,3 +62,24 @@ test('property marker layers retain hit targets and support hover, selected and 
  assert.ok(JSON.stringify(paint['circle-opacity']).includes('dimmed'));
  assert.ok(JSON.stringify(layers[0].paint).includes('selected'));
 });
+
+import {focusData,localUrl} from '../src/focus-data.js';
+const origin='http://localhost:8080';
+test('dossier uses real nullable metrics, exact parking highlight and bounded local links',()=>{
+ const p={...inventory[2].properties,title:'Presidio',propertyHighlights:['Class B','160 parking spaces','Built in 2014'],image:{url:origin+'/wp-content/uploads/presidio.webp',alt:''},permalink:origin+'/properties/presidio/',location:{city:'Houston',state:'TX',postalCode:'77083'}};
+ const data=focusData({properties:p},origin);
+ assert.deepEqual(data.metrics,[{label:'BUILDING',value:'42,716 SF'},{label:'PARKING SPACES',value:'160'}]);
+ assert.deepEqual(data.highlights,['Class B','Built in 2014']);assert.equal(data.location,'Houston, TX 77083');
+ assert.equal(data.image.alt,'Presidio');assert.equal(data.permalink,p.permalink);
+ assert.equal(localUrl('javascript:alert(1)',origin),null);assert.equal(localUrl('https://external.example/a.jpg',origin),null);
+ assert.equal(localUrl(undefined,origin),null);
+});
+test('dossier omits missing data and suppressed pricing, and rejects unavailable properties',()=>{
+ const land=focusData(inventory[3],origin);
+ assert.deepEqual(land.metrics,[{label:'SITE',value:'2.21 AC'}]);assert.equal(land.image,null);assert.equal(land.permalink,null);assert.deepEqual(land.highlights,[]);
+ assert.equal(focusData(null,origin),null);assert.equal(focusData({properties:{title:''}},origin),null);
+ const empty=focusData({properties:{title:'Incomplete',metrics:{availableSf:NaN,buildingSf:Infinity,lotAcres:-1},pricing:{salePrice:0,priceDisplay:null},propertyHighlights:[null,undefined,'',23]}},origin);
+ assert.deepEqual(empty.metrics,[]);assert.deepEqual(empty.highlights,[]);
+ const lease=focusData({properties:{title:'Lease',metrics:{availableSf:11273,buildingSf:37309},pricing:{leaseRateDisplay:'$9.75–$11.50/SF/YR'},propertyHighlights:['a','b','c','d','e','f']}},origin);
+ assert.deepEqual(lease.metrics.map(m=>m.label),['AVAILABLE','LEASE RATE','BUILDING']);assert.equal(lease.highlights.length,5);
+});

@@ -1,0 +1,36 @@
+/* Focus changes the Atlas composition; these rules never apply to its opening/results states. */
+.aspire-atlas[data-property-focus="true"]{min-height:max(680px,100svh)}
+body.admin-bar .aspire-atlas[data-property-focus="true"]{min-height:max(680px,calc(100svh - 32px))}
+.aspire-atlas .atlas-dossier{position:absolute;z-index:4;right:0;top:110px;bottom:0;width:38%;display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:#14251f;border-left:1px solid #6b91804d;color:#edf2e9;animation:atlas-focus-enter .3s ease-out both}
+.atlas-dossier-back{padding:8px 24px;border-bottom:1px solid #759b8933}
+.aspire-atlas .atlas-focus-back{min-height:42px;background:none;border:0;color:#b7d7c8;padding:8px 0;font:12px var(--sans,Arial,sans-serif);cursor:pointer}
+.aspire-atlas .atlas-focus-back:hover{color:#69e0cd}
+.atlas-dossier-content{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#547965 #14251f;min-height:0}
+.atlas-dossier-media{aspect-ratio:16/9;width:100%;max-height:220px;overflow:hidden;background:#203a2e}
+.atlas-dossier-media img{width:100%;height:100%;object-fit:cover;display:block}
+.atlas-dossier-image-fallback{height:100%;display:grid;place-items:center;min-height:160px;font-size:13px;letter-spacing:.18em;color:#a3c1b0;background:linear-gradient(145deg,#203a2e,#102019)}
+.atlas-dossier-details{padding:24px}
+.aspire-atlas .atlas-dossier-eyebrow{font:500 10px/1.5 var(--sans,Arial,sans-serif);letter-spacing:.08em;color:#83baa5;margin:0 0 10px}
+.aspire-atlas .atlas-dossier h2{font:500 clamp(21px,1.8vw,28px)/1.2 var(--sans,Arial,sans-serif);letter-spacing:-.025em;color:#f2f1e8;margin:0 0 10px;overflow-wrap:anywhere}
+.aspire-atlas .atlas-dossier-location{font-size:12px;color:#9fb9ac;margin:0 0 20px}
+.atlas-dossier-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px;margin:0 0 24px}
+.atlas-dossier-metrics>div{display:flex;flex-direction:column-reverse;justify-content:flex-end;border-top:1px solid #789c8a40;padding:14px 0;gap:7px}
+.atlas-dossier-metrics dt{font:500 9px/1.3 var(--sans,Arial,sans-serif);letter-spacing:.12em;color:#9ab8a8}
+.atlas-dossier-metrics dd{font:500 18px/1.25 var(--sans,Arial,sans-serif);color:#ebf1e6;margin:0;overflow-wrap:anywhere}
+.aspire-atlas .atlas-dossier h3{font:600 10px/1.4 var(--sans,Arial,sans-serif);letter-spacing:.12em;color:#a6c7b6;margin:0 0 12px}
+.atlas-dossier-highlights ul{padding-left:17px;margin:0;color:#c1d1c6;font:12px/1.65 var(--sans,Arial,sans-serif)}
+.atlas-dossier-highlights li+li{margin-top:8px}.atlas-dossier-highlights li::marker{color:#43b79a}
+.atlas-dossier-actions{display:grid;gap:8px;padding:16px 24px;background:#14251f;border-top:1px solid #759b8933}
+.aspire-atlas .atlas-dossier-actions a{display:flex;align-items:center;justify-content:center;gap:20px;min-height:44px;text-decoration:none;font:600 10px/1.4 var(--sans,Arial,sans-serif);letter-spacing:.08em;border:1px solid #548c7666;border-radius:2px;color:#bfe0cf}
+.aspire-atlas .atlas-dossier-actions .atlas-focus-full{background:#22b7a8;color:#08251d;border-color:#22b7a8;justify-content:space-between;padding:12px 16px}
+.aspire-atlas .atlas-dossier-actions a:hover{background:#23503e;color:#fff}.aspire-atlas .atlas-dossier-actions .atlas-focus-full:hover{background:#65d4bd;color:#08251d}
+.aspire-atlas[data-property-focus="true"] .maplibregl-ctrl-top-right{top:140px;right:calc(38% + 20px)}
+.aspire-atlas[data-property-focus="true"] .atlas-attribution{right:calc(38% + 20px)}
+.aspire-atlas[data-property-focus="true"] .atlas-map-meta{bottom:45px;right:calc(38% + 20px)}
+.aspire-atlas[data-property-focus="true"] .atlas-map-meta>.atlas-count,.aspire-atlas[data-property-focus="true"] .atlas-keyboard-selection{display:none}
+.aspire-atlas .atlas-focus-error{position:absolute;left:4%;bottom:285px;z-index:5;max-width:90%;padding:12px 18px;background:#16372a;color:#e1ede4;border:1px solid #6b9180;font-size:12px}
+@keyframes atlas-focus-enter{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+@media(max-width:1100px) and (min-width:701px){.aspire-atlas .atlas-dossier{width:48%}.aspire-atlas[data-property-focus="true"] :is(.maplibregl-ctrl-top-right,.atlas-attribution,.atlas-map-meta){right:calc(48% + 16px)}.atlas-dossier-details{padding:20px}.atlas-dossier-back,.atlas-dossier-actions{padding-inline:20px}}
+@media(max-width:700px){.aspire-atlas .atlas-dossier{position:relative;inset:auto;width:auto;margin:320px 16px 35px;border:1px solid #6b91804d;grid-template-rows:auto auto auto}.atlas-dossier-content{overflow:visible}.atlas-dossier-details{padding:20px}.atlas-dossier-back,.atlas-dossier-actions{padding-inline:20px}.aspire-atlas[data-property-focus="true"] .maplibregl-ctrl-top-right{top:195px;bottom:auto;right:20px}.aspire-atlas[data-property-focus="true"] .atlas-attribution{right:16px;bottom:9px}.aspire-atlas[data-property-focus="true"] .atlas-map-meta{right:16px;left:16px;top:390px;bottom:auto}.atlas-dossier-metrics dd{font-size:17px}}
+@media(prefers-reduced-motion:reduce){.aspire-atlas .atlas-dossier{animation:none!important}}
+.atlas-dossier-content:focus-visible{outline:2px solid #69e0cd;outline-offset:-3px}

@@ -1,19 +1,23 @@
 import {AREAS,defaultFilters,filterProperties,propertyMetric} from './filters.js';
 import './find-space.css';
+import {createPropertyFocus} from './property-focus.js';
 
 // One state owner for controls, accessible cards, and the map adapter. No network work here.
 export function createFindSpace(root, reduced) {
- const state={mode:'explore',filters:defaultFilters(),selectedPropertyId:null,hoveredPropertyId:null};
+ const state={mode:'explore',filters:defaultFilters(),selectedPropertyId:null,hoveredPropertyId:null,propertyFocusOpen:false,cameraBeforeFocus:null,railScrollBeforeFocus:0};
  const opening=root.querySelector('.atlas-opening'), find=root.querySelector('.atlas-find');
  const list=find.querySelector('.atlas-result-list'), results=find.querySelector('.atlas-results');
  const count=find.querySelector('.atlas-result-count'), empty=find.querySelector('.atlas-empty');
  const selectedLabel=find.querySelector('.atlas-result-selection');
+ const dossier=createPropertyFocus(root),focusAnnouncement=root.querySelector('.atlas-focus-announcement'),focusError=root.querySelector('.atlas-focus-error');
+ let returnFocus=null;
  const controls=[...find.querySelectorAll('[data-filter]')];
  let features=[],visible=[],loaded=false,error=false,adapter=()=>{};
  const cards=new Map();
  const area=find.querySelector('[data-filter="area"]');
  for(const [value,preset] of Object.entries(AREAS)) area.add(new Option(preset.label,value));
  const emit=reason=>{
+  root.dataset.propertyFocus=String(state.propertyFocusOpen);
   root.dataset.mode=state.mode;
   root.dataset.selectedProperty=state.selectedPropertyId??'';
   root.dataset.hoveredProperty=state.hoveredPropertyId??'';
@@ -25,19 +29,49 @@ export function createFindSpace(root, reduced) {
   adapter(state,visible,reason);
  };
  function hover(id) {if(state.hoveredPropertyId===id)return;state.hoveredPropertyId=id;emit('hover');}
+ function focusLayout() {
+  dossier.panel.hidden=!state.propertyFocusOpen;
+  root.setAttribute('aria-labelledby',state.propertyFocusOpen?dossier.panel.querySelector('h2').id:state.mode==='find-space'?find.querySelector('h2').id:opening.querySelector('h1').id);
+  opening.hidden=state.propertyFocusOpen || state.mode==='find-space';
+  find.querySelector('.atlas-filter-rail').hidden=state.propertyFocusOpen;
+  results.hidden=state.propertyFocusOpen;
+  root.dataset.propertyFocus=String(state.propertyFocusOpen);
+ }
+ function closeFocus(message='') {
+  if(!state.propertyFocusOpen){if(message){focusError.hidden=false;focusError.textContent=message;}return;}
+  state.propertyFocusOpen=false;state.hoveredPropertyId=null;focusLayout();emit('focus-close');
+  list.scrollLeft=state.railScrollBeforeFocus;
+  focusAnnouncement.textContent=state.mode==='find-space'?'Returned to property results.':'Returned to Explore.';
+  if(message){focusError.hidden=false;focusError.textContent=message;}
+  const target=returnFocus?.isConnected?returnFocus:find.querySelector('h2');
+  target.focus({preventScroll:true});
+  // Focusing a card highlights it but does not change the saved camera or rail position.
+  list.scrollLeft=state.railScrollBeforeFocus;
+ }
  function select(id,origin='card') {
-  if(id!==null && !visible.some(f=>f.id===id))return;
-  state.selectedPropertyId=id;
-  const f=features.find(f=>f.id===id);
-  selectedLabel.textContent=f?`${f.properties.title} selected.`:'';
-  emit(origin);
-  // Scroll only the horizontal rail: never move the whole document or steal keyboard focus.
-  const card=cards.get(id);
-  if(origin==='marker' && card){
-   const box=card.getBoundingClientRect(), rail=list.getBoundingClientRect();
-   if(box.left<rail.left || box.right>rail.right) list.scrollTo({left:list.scrollLeft+box.left-rail.left-(rail.width-box.width)/2,behavior:reduced?'instant':'smooth'});
+  const f=visible.find(f=>f.id===id);
+  if(id!==null && !f){closeFocus('This property is unavailable. Please choose another opportunity.');return;}
+  if(!f){state.selectedPropertyId=null;emit(origin);return;}
+  const opens=['card','marker','keyboard'].includes(origin);
+  if(opens){
+   try{if(!dossier.render(f))throw Error('Missing property');}
+   catch{closeFocus('This property could not be opened. Please choose another opportunity.');return;}
+   if(!state.propertyFocusOpen){
+    state.railScrollBeforeFocus=list.scrollLeft;
+    returnFocus=origin==='card'?cards.get(id):origin==='keyboard'?root.querySelector('.atlas-selection select'):root.querySelector('.maplibregl-canvas');
+   }
+   state.selectedPropertyId=id;state.hoveredPropertyId=null;state.propertyFocusOpen=true;
+   focusError.hidden=true;
+   dossier.back.textContent=state.mode==='find-space'?'← Back to results':'← Back to Explore';
+   focusLayout();emit('focus-open');
+   focusAnnouncement.textContent=`Property Focus opened: ${f.properties.title}.`;
+   if(root.clientWidth>700 && root.getBoundingClientRect().top<0)root.scrollIntoView({block:'start',behavior:reduced?'instant':'smooth'});
+   dossier.back.focus({preventScroll:true});
+   const box=dossier.back.getBoundingClientRect();
+   if(box.top<0 || box.bottom>innerHeight)dossier.back.scrollIntoView({block:'nearest',behavior:reduced?'instant':'smooth'});
   }
  }
+ dossier.back.addEventListener('click',()=>closeFocus());
  function render() {
   list.replaceChildren();cards.clear();
   results.setAttribute('aria-busy',String(!loaded && !error));
@@ -68,12 +102,14 @@ export function createFindSpace(root, reduced) {
   }
  }
  function update(reason) {
+  if(state.propertyFocusOpen)closeFocus();
   visible=state.mode==='find-space'?filterProperties(features,state.filters):features;
   state.hoveredPropertyId=null;
   if(!visible.some(f=>f.id===state.selectedPropertyId)){state.selectedPropertyId=null;selectedLabel.textContent='';}
   render();emit(reason);
  }
  function mode(next) {
+  if(state.propertyFocusOpen)closeFocus();
   state.mode=next;state.selectedPropertyId=null;state.hoveredPropertyId=null;
   opening.hidden=next==='find-space';find.hidden=next!=='find-space';
   root.querySelector('.atlas-fallback-properties').hidden=true;
