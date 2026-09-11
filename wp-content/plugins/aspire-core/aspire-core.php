@@ -18,3 +18,4 @@ add_action( 'template_redirect', array( 'Aspire_Core_Content_Types', 'block_arch
 Aspire_Core_Admin::init();
 register_activation_hook( __FILE__, array( 'Aspire_Core_Content_Types', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'Aspire_Core_Content_Types', 'deactivate' ) );
+require_once __DIR__ . '/includes/class-blocks.php';

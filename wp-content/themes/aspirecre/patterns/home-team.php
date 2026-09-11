@@ -26,9 +26,7 @@
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
-<!-- wp:shortcode -->
-[aspire_team_members]
-<!-- /wp:shortcode -->
+<!-- wp:aspire-core/team-grid {"count":4} /-->
 </div>
 <!-- /wp:group -->
 </section>

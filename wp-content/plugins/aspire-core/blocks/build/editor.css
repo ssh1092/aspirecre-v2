@@ -1,0 +1,7 @@
+.aspire-editor-dynamic { min-width:0; border:1px solid #d7ddd7; padding:20px; background:#fff; color:#202e2e; }
+.aspire-block-caption { font:600 13px/1.5 sans-serif; color:#124c49; margin-bottom:16px; }
+.aspire-editor-dynamic .finder { width:100%; margin:0; padding:0; border:0; }
+.aspire-editor-dynamic .empty-state { padding:26px 12px; background:#f7f6f2; border:1px solid #d7ddd7; }
+.aspire-editor-dynamic .property-grid,.aspire-editor-dynamic .team-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr)); gap:24px; }
+.aspire-editor-dynamic .finder-form { grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr)); }
+.aspire-editor-dynamic .card-link { pointer-events:none; }

@@ -30,9 +30,11 @@ try {
 	}
 	$properties = aspirecre_featured_properties();
 	$selected = wp_list_pluck( $properties, 'ID' );
-	aspirecre_check( 4 === count( $selected ) && 4 === count( array_unique( $selected ) ), 'Four unique published properties selected' );
-	aspirecre_check( $ids[0] === $selected[0] && $ids[1] === $selected[1], 'Featured available first, then available, then other published' );
+	aspirecre_check( 2 === count( $selected ) && 2 === count( array_unique( $selected ) ), 'Only available published properties selected' );
+	aspirecre_check( $ids[0] === $selected[0] && $ids[1] === $selected[1], 'Featured available first, then available' );
 	aspirecre_check( ! in_array( $ids[3], $selected, true ), 'Draft property excluded' );
+	aspirecre_check( ! in_array( $ids[2], $selected, true ) && ! in_array( $ids[4], $selected, true ), 'Sold and leased properties excluded' );
+	aspirecre_check( 1 === count( aspire_core_block_featured_properties( 1 ) ), 'Property count honored' );
 	$id = $ids[0];
 	update_post_meta( $id, '_aspire_available_sf', 1250.5 );
 	update_post_meta( $id, '_aspire_lot_acres', 2.75 );
@@ -58,6 +60,7 @@ try {
 		$ids[] = $member;
 		update_post_meta( $member, '_aspire_job_title', 'Broker' );
 	}
+	aspirecre_check( 1 === count( aspire_core_block_team_members( 1 ) ), 'Team count honored' );
 	aspirecre_check( 4 === count( aspirecre_team_members() ), 'Four published team members; draft excluded' );
 	ob_start(); get_template_part( 'template-parts/home/team' ); $team = ob_get_clean();
 	aspirecre_check( 4 === substr_count( $team, 'class="team-card"' ) && str_contains( $team, 'Broker' ) && str_contains( $team, '/team/temporary-member-' ), 'Team cards use correct job title and single URLs' );

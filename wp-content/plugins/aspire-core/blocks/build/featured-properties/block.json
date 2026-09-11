@@ -1,0 +1,27 @@
+{
+  "apiVersion": 3,
+  "name": "aspire-core/featured-properties",
+  "version": "1.0.0",
+  "title": "Featured Properties",
+  "category": "aspirecre",
+  "icon": "building",
+  "description": "Available properties, with featured listings first.",
+  "textdomain": "aspire-core",
+  "attributes": {
+    "count": {
+      "type": "integer",
+      "default": 4,
+      "minimum": 1,
+      "maximum": 8
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
+  },
+  "editorScript": "aspire-core-block-editor",
+  "editorStyle": "aspire-core-block-editor"
+}

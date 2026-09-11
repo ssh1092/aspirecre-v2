@@ -6,6 +6,4 @@
  * Inserter: yes
  */
 ?>
-<!-- wp:shortcode {"metadata":{"name":"Property Finder"}} -->
-[aspire_property_finder]
-<!-- /wp:shortcode -->
+<!-- wp:aspire-core/property-finder {"metadata":{"name":"Property Finder"}} /-->

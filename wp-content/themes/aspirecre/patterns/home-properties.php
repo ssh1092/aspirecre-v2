@@ -22,8 +22,6 @@
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
-<!-- wp:shortcode -->
-[aspire_featured_properties]
-<!-- /wp:shortcode -->
+<!-- wp:aspire-core/featured-properties {"count":4} /-->
 </section>
 <!-- /wp:group -->

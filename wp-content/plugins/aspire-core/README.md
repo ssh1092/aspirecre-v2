@@ -53,4 +53,13 @@ The integration script is CLI-only. It exercises plugin activation/deactivation 
 
 Browser checks also covered suite add/edit/remove/re-add and removal of all rows, two broker selections, taxonomy selection, PDF selection, two-image selection, media clearing, persistence after saving, and both editor screens. Temporary UI records and uploaded fixtures were removed afterward.
 
-Known environment warning: the existing `wp-config.php` defines `WP_DEBUG` twice. It is outside this plugin and was not changed. The project folder has no Git repository, so `git diff --stat` and `git status` are unavailable.
+Known environment warning: the existing `wp-config.php` defines `WP_DEBUG` twice. It is outside this plugin and was not changed.
+
+
+## Gutenberg dynamic blocks
+
+`includes/class-blocks.php` registers API v3 `block.json` blocks under AspireCRE: Property Finder, Featured Properties and Team Grid. `blocks/templates/` contains the shared server markup; `includes/block-data.php` reads existing CPTs/taxonomies/meta. No new data definitions or writes are introduced. Featured Properties uses only published available listings, preferring featured records. Grids expose count 1–8, default 4. Empty collections have helpful editor-specific states.
+
+Run `npm run build` in this plugin directory. The dependency-free build checks plain JavaScript, validates metadata, copies editor assets, and generates WordPress script dependencies/version. Runtime uses WordPress’s bundled official block/editor/component/ServerSideRender packages; there is no third-party frontend framework.
+
+Run `php wp-content/plugins/aspire-core/tests/blocks.php` in the WordPress container for REST registration/preview/count/migration checks. The explicit one-time `bin/migrate-home-blocks.php` replaces the three legacy Home shortcode blocks, backing up content and preserving unrelated bytes. Legacy theme shortcodes share these renderers only for compatibility.

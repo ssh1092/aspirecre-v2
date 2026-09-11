@@ -1,0 +1,20 @@
+{
+  "apiVersion": 3,
+  "name": "aspire-core/property-finder",
+  "version": "1.0.0",
+  "title": "Property Finder",
+  "category": "aspirecre",
+  "icon": "search",
+  "description": "Search available properties by type, transaction and location.",
+  "textdomain": "aspire-core",
+  "attributes": {},
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
+  },
+  "editorScript": "aspire-core-block-editor",
+  "editorStyle": "aspire-core-block-editor"
+}
