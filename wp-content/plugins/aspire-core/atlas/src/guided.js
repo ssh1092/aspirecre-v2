@@ -43,7 +43,7 @@ export function createGuided(root,state,onChange,onExplore,onBrief){
   else if(f.step===4)choices(management?'Select all that apply':'Your plans',management?managementNeeds:ownerIntents,management?'needs':'intent',management);
   else review();
   back.hidden=f.step===1;back.textContent='Back';
-  next.hidden=false;next.textContent=f.step===5?'BUILD MY CRE BRIEF →':'Continue →';
+  next.hidden=false;next.textContent=f.step===5?'CREATE MY REAL ESTATE BRIEF →':'Continue →';
   status.textContent=f.step<5?`Step ${f.step} of 4. ${heading.textContent}`:heading.textContent;
   root.dataset.workflowStep=String(f.step);onChange('workflow-step');
   if(focus)heading.focus();

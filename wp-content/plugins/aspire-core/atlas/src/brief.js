@@ -4,11 +4,11 @@ import {investMetric} from './invest.js';
 import {localUrl} from './focus-data.js';
 import './brief.css';
 const titles={goal:'What are you looking to accomplish?',propertyTypes:'What type of property?',location:'Where in Houston?',size:'What scale fits your plans?',timing:'When are you looking to make a move?',priorities:'What matters most?',managementNeeds:'What do you need help with?'};
-const labels={goal:'Goal',propertyTypes:'Property type',location:'Area',size:'Size / budget',timing:'Timing',priorities:'Priorities',managementNeeds:'Management needs'};
+const labels={goal:'Goal',propertyTypes:'Property',location:'Location',size:'Size / Budget',timing:'Timing',priorities:'Priorities',managementNeeds:'Priorities'};
 const node=(tag,text,cls)=>{const e=document.createElement(tag);if(text)e.textContent=text;if(cls)e.className=cls;return e;};
 const button=(text,fn,cls)=>{const e=node('button',text,cls);e.type='button';e.addEventListener('click',fn);return e;};
 export function createBrief(root,state,{getFeatures,getDataState,change,close,select,explore}){
- const panel=root.querySelector('.atlas-cre-brief'),heading=panel.querySelector('h2'),stage=panel.querySelector('.atlas-brief-stage'),nav=panel.querySelector('nav'),back=panel.querySelector('.atlas-brief-back'),next=panel.querySelector('.atlas-brief-next'),status=panel.querySelector('[role=status]');
+ const panel=root.querySelector('.atlas-cre-brief'),heading=panel.querySelector('h2'),stage=panel.querySelector('.atlas-brief-stage'),nav=panel.querySelector('.atlas-brief-steps'),back=panel.querySelector('.atlas-brief-back'),next=panel.querySelector('.atlas-brief-next'),status=panel.querySelector('[role=status]');
  const drafts=new Map();let contact={name:'',email:'',phone:'',company:'',consent:false,website:''},submitting=false,revision=0;
  const b=()=>state.brief.data,steps=()=>stepsFor(b());
  function announce(text){status.textContent=text;}
@@ -24,17 +24,23 @@ export function createBrief(root,state,{getFeatures,getDataState,change,close,se
   });stage.append(field);return field;
  }
  function review(){
-  const dl=node('dl',null,'atlas-brief-summary');
-  summaryRows(b()).forEach(([key,label,value])=>{const row=node('div');row.append(node('dt',label),node('dd',value||'Not specified'),button('Edit',()=>edit(key),'atlas-brief-edit'));row.lastChild.setAttribute('aria-label',`Edit ${label.toLowerCase()}`);dl.append(row);});stage.append(dl);
+  const rows=summaryRows(b());
+  for(const [title,selected] of [
+   ['YOUR REQUIREMENT',rows.filter(r=>['Goal','Property type','Area','Owner intent'].includes(r[1]))],
+   [isMatching(b())?'SPACE / INVESTMENT':'PROPERTY DETAILS',rows.filter(r=>['Approximate size','Budget','Transaction'].includes(r[1]))],
+   [b().goal==='manage_asset'?'TIMING & MANAGEMENT NEEDS':'TIMING & PRIORITIES',rows.filter(r=>['Timing','Priorities','Management needs'].includes(r[1]))],
+  ]){
+   if(!selected.length)continue;
+   const group=node('section',null,'atlas-brief-summary-group'),dl=node('dl',null,'atlas-brief-summary');group.append(node('h3',title),dl);
+   selected.forEach(([key,label,value])=>{const row=node('div');row.append(node('dt',label),node('dd',value||'Not specified'),button('Edit',()=>edit(key),'atlas-brief-edit'));row.lastChild.setAttribute('aria-label',`Edit ${label.toLowerCase()}`);dl.append(row);});stage.append(group);
+  }
   const matches=matchBrief(getFeatures(),b());state.brief.matches=matches;
   if(isMatching(b())){
    const group=node('section',null,'atlas-brief-matches');
    const dataState=getDataState();if(!dataState.loaded){group.append(node('p',dataState.error?'Aspire opportunities could not load. Your brief can still be sent to Aspire.':'Loading Aspire opportunities…'));stage.append(group);return;}
    group.id=`${heading.id}-matches`;
-   group.append(node('h3',matches.length?`${matches.length} Aspire ${matches.length===1?'opportunity matches':'opportunities match'} your brief`:'No current Aspire listings match every part of your brief.'));
-   group.append(node('p',matches.length?'Matches meet your selected type, transaction, approximate area, size and budget where specified. Exact transaction matches appear first.':'Aspire may know of opportunities beyond the properties currently shown here.'));
-   group.append(node('p','Free-text locations, timing and priorities are for Aspire’s review; they are not verified listing filters.','atlas-brief-hint'));
-   if(isInvestment(b()))group.append(node('p','A budget filter uses only published numeric prices. Listings without a reliable price cannot match a specified budget.','atlas-brief-hint'));
+   group.append(node('h3',matches.length?`${matches.length} Aspire ${matches.length===1?"property fits":"properties fit"} what you're looking for.`:"We don't currently have a listed property that fits every part of your brief."));
+   if(!matches.length)group.append(node('p',"That doesn't necessarily mean there isn't an opportunity. Send your brief to Aspire and the team can review your requirement against the wider Houston market."));
    matches.slice(0,3).forEach(f=>{
     const p=f.properties,card=node('article',null,'atlas-brief-match');
     if(localUrl(p.image?.url,location.origin)){const img=node('img');img.src=p.image.url;img.alt=p.image.alt||p.displayTitle||p.title;img.loading='lazy';img.addEventListener('error',()=>img.remove(),{once:true});card.append(img);}
@@ -51,7 +57,7 @@ export function createBrief(root,state,{getFeatures,getDataState,change,close,se
  }
  function contactForm(){
   const form=node('form');form.noValidate=true;form.setAttribute('aria-label','Send your brief');
-  stage.append(node('p','Your brief is ready. Share your contact details to send it to Aspire.'));
+  stage.append(node('p','Share your details and Aspire will receive the real estate requirement you just created.'));
   textInput(form,'Name', 'name');textInput(form,'Email','email','email',254);textInput(form,'Phone (optional)','phone','tel',50);textInput(form,'Company (optional)','company');
   const consent=node('label',null,'atlas-brief-choice'),check=node('input');check.type='checkbox';check.name='consent';check.checked=contact.consent;check.addEventListener('change',()=>contact.consent=check.checked);consent.append(check,node('span',"I'd like Aspire to contact me about this requirement."));form.append(consent);
   const trap=node('div',null,'atlas-brief-trap');trap.setAttribute('aria-hidden','true');textInput(trap,'Leave this field empty','website').tabIndex=-1;form.append(trap);
@@ -74,11 +80,11 @@ export function createBrief(root,state,{getFeatures,getDataState,change,close,se
  function render(focus=true){
   const screen=state.brief.screen,step=state.brief.step;revision++;const focused=document.activeElement?.value;
   panel.hidden=false;stage.replaceChildren();nav.replaceChildren();nav.hidden=screen!=='questions';
-  heading.textContent=screen==='review'?'YOUR HOUSTON CRE BRIEF':screen==='contact'?'Send your brief to Aspire':screen==='success'?'BRIEF RECEIVED':titles[step];
-  panel.querySelector('.atlas-brief-progress').textContent=screen==='questions'?`${steps().indexOf(step)+1} / ${steps().length}`:screen==='review'?'REVIEW':screen==='contact'?'CONTACT':'';
+  heading.textContent=screen==='intro'?'Create a clear real estate brief.':screen==='review'?'YOUR HOUSTON REAL ESTATE BRIEF':screen==='contact'?'Send your brief to Aspire.':screen==='success'?'BRIEF RECEIVED':titles[step];
+  panel.querySelector('.atlas-brief-progress').textContent=screen==='questions'?`STEP ${steps().indexOf(step)+1} OF 6 · ${labels[step].toUpperCase()}`:screen==='review'?'REVIEW':screen==='contact'?'CONTACT':'';
   if(screen==='questions'){
-   steps().forEach((s,i)=>{const btn=button(String(i+1),()=>edit(s));btn.setAttribute('aria-label',`Edit ${labels[s]}`);if(s===step)btn.setAttribute('aria-current','step');nav.append(btn);});
-   stage.append(node('p','Your Atlas choices are carried forward. Use the section numbers to edit any answer.','atlas-brief-hint'));
+   const progress=node('progress');progress.max=6;progress.value=steps().indexOf(step)+1;progress.setAttribute('aria-label',`Step ${progress.value} of 6: ${labels[step]}`);nav.append(progress);
+   stage.append(node('p','Your Atlas selections are already filled in. You can change anything.','atlas-brief-hint'));
    if(step==='goal'){
     choices('Your goal',schema.goals,'goal');
     if(b().goal==='lease_space')choices('Transaction',{'for-lease':'For Lease','for-sale-or-lease':'For Sale or Lease','':'All Transactions'},'transaction');
@@ -92,7 +98,7 @@ export function createBrief(root,state,{getFeatures,getDataState,change,close,se
    }
    if(step==='location'){
     const field=node('fieldset');field.append(node('legend','Houston location'));const label=node('label','Approximate area'),area=node('select');area.add(new Option('All Houston / flexible',''));Object.entries(schema.areas).forEach(([k,v])=>area.add(new Option(v.label,k)));area.value=b().location.areaPreset;area.addEventListener('change',()=>{b().location.areaPreset=area.value;update();change('brief-area');});label.append(area);
-    const address=node('label','Address, area or submarket'),input=node('input');input.type='text';input.maxLength=240;input.value=b().location.text;input.addEventListener('input',()=>b().location.text=input.value);address.append(input);field.append(label,address,node('p','Area presets are approximate. Typed locations are shared with Aspire without geocoding.','atlas-brief-hint'));stage.append(field);
+    const address=node('label','Address, area or submarket'),input=node('input');input.type='text';input.maxLength=240;input.value=b().location.text;input.addEventListener('input',()=>b().location.text=input.value);address.append(input);field.append(label,address,node('p','Choose an approximate Houston area, or tell us a location you have in mind.','atlas-brief-hint'));stage.append(field);
    }
    if(step==='size'){
     choices(isLand(b())?'Approximate lot size':'Approximate building / space size',Object.fromEntries(Object.entries(schema.sizes).filter(([k,v])=>k==='unsure'||v.unit===(isLand(b())?'acres':'sf')&&(!v.legacy||k===b().size)).map(([k,v])=>[k,v.label])),'size');
@@ -101,17 +107,21 @@ export function createBrief(root,state,{getFeatures,getDataState,change,close,se
    if(step==='timing')choices('Timing',schema.timing,'timing');
    if(step==='priorities')choices('Select all that apply',Object.fromEntries(priorityOptions(b()).map(k=>[k,schema.priorities[k]])),'priorities',true);
    if(step==='managementNeeds')choices('Management needs',schema.managementNeeds,'managementNeeds',true);
+  }else if(screen==='intro'){
+   stage.append(node('p',"We'll organise what you're looking for, show any Aspire properties that fit, and create a requirement you can share directly with an Aspire advisor.",'atlas-brief-intro-copy'),node('p','Takes about a minute.','atlas-brief-hint'));
+   const cues=node('ul',null,'atlas-brief-value-cues');['Your requirements, organised','Relevant properties matched','Ready to share with Aspire'].forEach(text=>cues.append(node('li',text)));stage.append(cues);
   }else if(screen==='review')review();
   else if(screen==='contact')contactForm();
-  else {stage.append(node('p',`Thanks, ${state.brief.firstName}. Aspire now has the details of what you're looking to accomplish.`),button('CONTINUE EXPLORING HOUSTON',explore,'atlas-brief-success-action'));if(isMatching(b())&&matchBrief(getFeatures(),b()).length)stage.append(button('VIEW MATCHING PROPERTIES',()=>{go('review');stage.querySelector('.atlas-brief-matches')?.scrollIntoView({block:'nearest'});},'atlas-brief-success-action'));}
+  else {stage.append(node('p',`Thanks, ${state.brief.firstName}. Your real estate brief has been saved and is ready for the Aspire team to review.`),button('CONTINUE EXPLORING HOUSTON',explore,'atlas-brief-success-action'));if(isMatching(b())&&matchBrief(getFeatures(),b()).length)stage.append(button('VIEW MATCHING PROPERTIES',()=>{go('review');stage.querySelector('.atlas-brief-matches')?.scrollIntoView({block:'nearest'});},'atlas-brief-success-action'));}
   back.hidden=screen==='success';next.hidden=screen==='success'||screen==='review'&&state.brief.submitted;
-  back.textContent=screen==='review'?'← Edit answers':screen==='contact'?'← Back to brief':'← Back';
-  next.textContent=screen==='review'||screen==='contact'?'SEND MY BRIEF TO ASPIRE →':state.brief.editing?'Save changes →':'Continue →';
+  back.textContent=screen==='intro'?'← Back to Atlas':screen==='review'?'← Edit answers':screen==='contact'?'← Back to brief':'← Back';
+  next.textContent=screen==='intro'?'CREATE MY BRIEF →':screen==='review'||screen==='contact'?'SEND MY BRIEF TO ASPIRE →':state.brief.editing?'Save changes →':'Continue →';
   if(focus){if(root.clientWidth>700&&root.getBoundingClientRect().top<0)root.scrollIntoView({block:'start',behavior:'instant'});panel.querySelector('.atlas-brief-body').scrollTop=0;heading.focus({preventScroll:true});if(root.clientWidth<=700)heading.scrollIntoView({block:'nearest'});}
   else if(focused)stage.querySelectorAll('input').forEach(i=>{if(i.value===focused)i.focus({preventScroll:true});});
   announce(heading.textContent);
  }
  next.addEventListener('click',()=>{
+  if(state.brief.screen==='intro'){state.brief.editing=false;go('questions','goal');return;}
   if(state.brief.screen==='contact'){stage.querySelector('form').requestSubmit();return;}
   if(state.brief.screen==='review'){go('contact');return;}
   const step=state.brief.step;
@@ -120,18 +130,19 @@ export function createBrief(root,state,{getFeatures,getDataState,change,close,se
   }
   const missing=steps().filter(s=>!stepComplete(b(),s));
   if(state.brief.editing&&!missing.length){state.brief.editing=false;go('review');return;}
-  const later=missing.find(s=>steps().indexOf(s)>steps().indexOf(step));
-  if(later||missing.length)go('questions',later||missing[0]);else go('review');
+  const following=steps()[steps().indexOf(step)+1];
+  if(following)go('questions',following);else if(missing.length)go('questions',missing[0]);else {state.brief.editing=false;go('review');}
  });
  back.addEventListener('click',()=>{
+  if(state.brief.screen==='intro'){close();return;}
   if(state.brief.screen==='contact'){go('review');return;}
   if(state.brief.screen==='review'){edit('goal');return;}
   if(state.brief.editing){state.brief.editing=false;const missing=steps().find(s=>!stepComplete(b(),s));if(!missing){go('review');return;}}
-  const index=steps().indexOf(state.brief.step);if(index>0)go('questions',steps()[index-1]);else close();
+  const index=steps().indexOf(state.brief.step);if(index>0)go('questions',steps()[index-1]);else go('intro');
  });
  panel.querySelector('.atlas-brief-close').addEventListener('click',close);
  return {panel,heading,render,
-  open(){const seed=prefillBrief(state),key=state.mode+JSON.stringify(seed);state.brief=drafts.get(key)||{data:seed,screen:'questions',step:stepsFor(seed).find(s=>!stepComplete(seed,s))||'timing',editing:false,submitted:false};drafts.set(key,state.brief);render();},
+  open(){const seed=prefillBrief(state),key=state.mode+JSON.stringify(seed);state.brief=drafts.get(key)||{data:seed,screen:'intro',step:'goal',editing:false,submitted:false};drafts.set(key,state.brief);render();},
   refresh(){if(state.briefOpen&&state.brief.screen==='review'&&!state.propertyFocusOpen)render(false);},
   matches:()=>matchBrief(getFeatures(),b()),
  };

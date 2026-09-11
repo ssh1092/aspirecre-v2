@@ -2,6 +2,7 @@
 /** Real local REST/storage checks. Every created enquiry and rate transient is removed. */
 if(PHP_SAPI!=='cli')exit;
 require dirname(__DIR__,4).'/wp-load.php';
+require_once ABSPATH.'wp-admin/includes/template.php';
 $checks=0;$created=array();$original_user=get_current_user_id();$original_ip=$_SERVER['REMOTE_ADDR']??null;$_SERVER['REMOTE_ADDR']='atlas-contract-'.wp_generate_uuid4();
 $key='atlas_inquiry_rate_'.hash_hmac('sha256',$_SERVER['REMOTE_ADDR'],wp_salt('nonce'));
 function inquiry_check($ok,$label){global $checks;if(!$ok)throw new RuntimeException($label);++$checks;echo "PASS: $label\n";}
@@ -42,7 +43,19 @@ try{
  inquiry_check(get_post_meta($id,'_atlas_source',true)==='Aspire Atlas'&&get_post_meta($id,'_atlas_received_at',true)!=='','Source and UTC timestamp stored');
  inquiry_check(str_contains(get_post_meta($id,'_atlas_summary',true),'Industrial / Flex')&&!str_contains(get_post_meta($id,'_atlas_summary',true),'lease_space'),'Readable summary stored');
  inquiry_check(inquiry_request(null,'GET','/wp/v2/atlas_inquiry/'.$id)->get_status()===404,'Individual enquiry REST read unavailable');
- wp_set_current_user(get_users(array('role'=>'administrator','number'=>1))[0]->ID);inquiry_check(current_user_can('edit_post',$id),'Administrator can view enquiry');ob_start();Aspire_Atlas_Inquiries::details(get_post($id));$html=ob_get_clean();inquiry_check(str_contains($html,'Atlas Contract Test')&&str_contains($html,'CRE Brief')&&str_contains($html,'16840 Clay Road'),'Readable admin details include contact, summary and property link');wp_set_current_user(0);
+ wp_set_current_user(get_users(array('role'=>'administrator','number'=>1))[0]->ID);inquiry_check(current_user_can('edit_post',$id),'Administrator can view enquiry');ob_start();Aspire_Atlas_Enquiry_Admin::details(get_post($id));$html=ob_get_clean();inquiry_check(str_contains($html,'Atlas Contract Test')&&str_contains($html,'Real estate brief')&&str_contains($html,'16840 Clay Road'),'Readable admin details include contact, summary and property link');inquiry_check(!str_contains($html,'name="post_title"')&&!str_contains($html,'name="content"')&&!post_type_supports('atlas_inquiry','editor')&&!post_type_supports('atlas_inquiry','title'),'No title or content editor in enquiry UI');
+ inquiry_check(Aspire_Atlas_Enquiry_Admin::status($id)==='new','Old enquiries without status default to New');
+ $snapshot=get_post_meta($id,'_atlas_brief',true);$nonce=wp_create_nonce('atlas_enquiry_update_'.$id);
+ inquiry_check(is_wp_error(Aspire_Atlas_Enquiry_Admin::save($id,'qualified','Notes','bad')),'Invalid admin nonce cannot save');
+ inquiry_check(is_wp_error(Aspire_Atlas_Enquiry_Admin::save($id,'published','Notes',$nonce)),'Invalid internal status rejected');
+ inquiry_check(is_wp_error(Aspire_Atlas_Enquiry_Admin::save($id,'qualified',str_repeat('a',10001),$nonce)),'Oversized internal notes rejected');
+ inquiry_check(Aspire_Atlas_Enquiry_Admin::save($id,'qualified',"<b>Call</b> next week.\nPrivate note",$nonce)===true,'Admin status and notes save');
+ inquiry_check(Aspire_Atlas_Enquiry_Admin::status($id)==='qualified'&&get_post_meta($id,'_atlas_internal_notes',true)==="Call next week.\nPrivate note",'Notes sanitized and multiline retained');
+ inquiry_check(get_post_meta($id,'_atlas_brief',true)===$snapshot&&get_post($id)->post_content===''&&get_post_status($id)==='private','Admin update preserves submitted brief and private storage');
+ inquiry_check(str_contains(get_edit_post_link($id),'page=aspire-atlas-enquiries'),'Enquiry links target custom detail screen');
+ wp_set_current_user(0);
+ inquiry_check(is_wp_error(Aspire_Atlas_Enquiry_Admin::save($id,'closed','Intrusion',$nonce))&&Aspire_Atlas_Enquiry_Admin::status($id)==='qualified','Anonymous update blocked without mutation');
+ inquiry_check(!str_contains(wp_json_encode(inquiry_request(null,'GET','/aspire/v1/atlas/properties')->get_data()),'Private note'),'Internal notes absent from public Atlas data');
  set_transient($key,array('attempts'=>20,'saved'=>0,'until'=>time()+600),600);inquiry_check(inquiry_request($body)->get_status()===429,'Attempt rate limit enforced');
  set_transient($key,array('attempts'=>5,'saved'=>5,'until'=>time()+600),600);inquiry_check(inquiry_request($body)->get_status()===429,'Successful submission rate limit enforced');
 }finally{foreach($created as $id)wp_delete_post($id,true);delete_transient($key);wp_set_current_user($original_user);if($original_ip===null)unset($_SERVER['REMOTE_ADDR']);else $_SERVER['REMOTE_ADDR']=$original_ip;}

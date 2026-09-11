@@ -19,7 +19,7 @@
    <?php endforeach; ?>
   </div>
   <?php if($natural): ?><label class="atlas-input-label" for="<?php echo esc_attr($uid); ?>input">Describe what you're looking for…</label><input id="<?php echo esc_attr($uid); ?>input" class="atlas-input" type="text" placeholder="Describe what you're looking for…" readonly aria-describedby="<?php echo esc_attr($uid); ?>example"><p class="atlas-command-example" id="<?php echo esc_attr($uid); ?>example">10,000–20,000 SF industrial space in West Houston</p><?php endif; ?>
-  <?php if($brief): ?><button type="button" class="atlas-brief">Build My Brief <span aria-hidden="true">↗</span></button><?php endif; ?>
+  <?php if($brief): ?><button type="button" class="atlas-brief">CREATE MY REAL ESTATE BRIEF <span aria-hidden="true">↗</span></button><?php endif; ?>
   <?php if($editor): ?><p class="atlas-scope">Interactive map renders on the frontend.</p><?php endif; ?>
   <p class="atlas-intent-status atlas-sr-only" role="status"></p>
  </div>

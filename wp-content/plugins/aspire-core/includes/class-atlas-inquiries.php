@@ -9,8 +9,8 @@ final class Aspire_Atlas_Inquiries {
  public static function register(): void {
   register_post_type('atlas_inquiry',array(
    'labels'=>array('name'=>'Atlas Enquiries','singular_name'=>'Atlas Enquiry','edit_item'=>'View Atlas Enquiry','search_items'=>'Search Atlas Enquiries'),
-   'public'=>false,'publicly_queryable'=>false,'exclude_from_search'=>true,'show_ui'=>true,'show_in_menu'=>true,'show_in_rest'=>false,'has_archive'=>false,'rewrite'=>false,'query_var'=>false,
-   'supports'=>array(),'menu_icon'=>'dashicons-clipboard','map_meta_cap'=>false,
+   'public'=>false,'publicly_queryable'=>false,'exclude_from_search'=>true,'show_ui'=>false,'show_in_menu'=>false,'show_in_rest'=>false,'has_archive'=>false,'rewrite'=>false,'query_var'=>false,
+   'supports'=>false,'menu_icon'=>'dashicons-clipboard','map_meta_cap'=>false,
    'capabilities'=>array('edit_post'=>'manage_options','read_post'=>'manage_options','delete_post'=>'manage_options','edit_posts'=>'manage_options','edit_others_posts'=>'manage_options','publish_posts'=>'do_not_allow','read_private_posts'=>'manage_options','delete_posts'=>'manage_options','delete_private_posts'=>'manage_options','delete_published_posts'=>'manage_options','delete_others_posts'=>'manage_options','edit_private_posts'=>'manage_options','edit_published_posts'=>'manage_options','create_posts'=>'do_not_allow'),
   ));
  }
@@ -98,24 +98,7 @@ final class Aspire_Atlas_Inquiries {
   ++$rate['saved'];set_transient($key,$rate,max(1,$rate['until']-$now));
   $response=new WP_REST_Response(array('received'=>true),201);$response->header('Cache-Control','no-store');return $response;
  }
- public static function admin(): void {
-  remove_meta_box('submitdiv','atlas_inquiry','side');
-  add_meta_box('atlas-inquiry-details','Atlas enquiry',array(self::class,'details'),'atlas_inquiry','normal','high');
- }
- public static function details(WP_Post $post): void {
-  $c=(array)get_post_meta($post->ID,'_atlas_contact',true);
-  echo '<dl>';foreach(array('name'=>'Name','email'=>'Email','phone'=>'Phone','company'=>'Company') as $key=>$label)echo '<dt><strong>'.esc_html($label).'</strong></dt><dd>'.esc_html($c[$key]??'').'</dd>';
-  echo '<dt><strong>Contact requested</strong></dt><dd>'.(!empty($c['consent'])?'Yes':'No').'</dd><dt><strong>Source</strong></dt><dd>Aspire Atlas</dd><dt><strong>Received (UTC)</strong></dt><dd>'.esc_html(get_post_meta($post->ID,'_atlas_received_at',true)).'</dd></dl>';
-  echo '<h2>CRE Brief</h2><p style="white-space:pre-line">'.esc_html(get_post_meta($post->ID,'_atlas_summary',true)).'</p><h2>Matching properties at submission</h2><ul>';
-  $ids=(array)get_post_meta($post->ID,'_atlas_matched_property_ids',true);foreach($ids as $id)echo '<li><a href="'.esc_url(get_edit_post_link($id)).'">'.esc_html(get_the_title($id)?:'Property #'.$id).'</a></li>';
-  if(!$ids)echo '<li>No matching inventory, or matching is not applicable to this goal.</li>';echo '</ul>';
- }
 }
 add_action('init',array(Aspire_Atlas_Inquiries::class,'register'));
 add_action('rest_api_init',array(Aspire_Atlas_Inquiries::class,'routes'));
-add_action('add_meta_boxes_atlas_inquiry',array(Aspire_Atlas_Inquiries::class,'admin'));
-add_filter('manage_atlas_inquiry_posts_columns',static fn($columns)=>array('cb'=>$columns['cb'],'title'=>'Enquiry','atlas_goal'=>'Goal','atlas_email'=>'Email','date'=>'Received'));
-add_action('manage_atlas_inquiry_posts_custom_column',static function($column,$id){if($column==='atlas_goal'){$b=get_post_meta($id,'_atlas_brief',true);echo esc_html(Aspire_Atlas_Inquiries::schema()['goals'][$b['goal']??'']??'');}if($column==='atlas_email'){$c=get_post_meta($id,'_atlas_contact',true);echo esc_html($c['email']??'');}},10,2);
-// Enquiries are received records; keep administration focused on viewing and deletion.
-add_filter('post_row_actions',static function($actions,$post){if($post->post_type==='atlas_inquiry'){unset($actions['inline hide-if-no-js']);if(isset($actions['edit']))$actions['edit']=str_replace('>Edit<','>View<',$actions['edit']);}return $actions;},10,2);
-add_filter('bulk_actions-edit-atlas_inquiry',static function($actions){unset($actions['edit']);return $actions;});
+require_once __DIR__.'/class-atlas-enquiry-admin.php';
