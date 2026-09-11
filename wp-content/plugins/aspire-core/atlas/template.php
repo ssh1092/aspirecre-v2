@@ -23,7 +23,7 @@
   <?php if($editor): ?><p class="atlas-scope">Interactive map renders on the frontend.</p><?php endif; ?>
   <p class="atlas-intent-status atlas-sr-only" role="status"></p>
  </div>
- <?php if(!$editor): require __DIR__.'/find-space.php'; require __DIR__.'/property-focus.php'; require __DIR__.'/guided.php'; endif; ?>
+ <?php if(!$editor): require __DIR__.'/find-space.php'; require __DIR__.'/property-focus.php'; require __DIR__.'/guided.php'; require __DIR__.'/brief.php'; endif; ?>
  <div class="atlas-map-meta">
   <p class="atlas-count" aria-live="polite"><?php echo esc_html($count); ?> ASPIRE OPPORTUNITIES</p>
   <p class="atlas-data-status atlas-sr-only" role="status"><?php if(!$editor): ?>Loading property data…<?php endif; ?></p>

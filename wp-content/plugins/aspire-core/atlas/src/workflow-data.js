@@ -17,6 +17,3 @@ export function toggleNeed(needs,value){
  if(needs.includes(value))return needs.filter(n=>n!==value);
  return value==='Not sure yet'?[value]:[...needs.filter(n=>n!=='Not sure yet'),value];
 }
-export function prepareBrief(flow,mode){
- return {status:'prepared',source:mode,details:{locationText:flow.locationText,areaPreset:flow.areaPreset,propertyType:flow.propertyType,sizeRange:flow.sizeRange,...(mode==='manage-asset'?{needs:[...flow.needs]}:{intent:flow.intent})}};
-}

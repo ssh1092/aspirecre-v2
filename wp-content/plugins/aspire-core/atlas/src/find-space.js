@@ -3,11 +3,12 @@ import './find-space.css';
 import {isDiscovery,isGuided,defaultInvestFilters,filterInvest,investMetric,SF_OPTIONS,ACRE_OPTIONS} from './invest.js';
 import {createGuided} from './guided.js';
 import {newOwner,newManagement} from './workflow-data.js';
+import {createBrief} from './brief.js';
 import {createPropertyFocus} from './property-focus.js';
 
 // One state owner for controls, accessible cards, and the map adapter. No network work here.
 export function createFindSpace(root, reduced) {
- const state={mode:'explore',filters:defaultFilters(),selectedPropertyId:null,hoveredPropertyId:null,propertyFocusOpen:false,cameraBeforeFocus:null,railScrollBeforeFocus:0,findSpaceFilters:defaultFilters(),investFilters:defaultInvestFilters(),ownerDisposition:newOwner(),management:newManagement(),briefPreparation:null};
+ const state={mode:'explore',filters:defaultFilters(),selectedPropertyId:null,hoveredPropertyId:null,propertyFocusOpen:false,cameraBeforeFocus:null,railScrollBeforeFocus:0,findSpaceFilters:defaultFilters(),investFilters:defaultInvestFilters(),ownerDisposition:newOwner(),management:newManagement(),briefOpen:false,brief:null,cameraBeforeBrief:null};
  const opening=root.querySelector('.atlas-opening'), find=root.querySelector('.atlas-find');
  const list=find.querySelector('.atlas-result-list'), results=find.querySelector('.atlas-results');
  const count=find.querySelector('.atlas-result-count'), empty=find.querySelector('.atlas-empty');
@@ -17,11 +18,14 @@ export function createFindSpace(root, reduced) {
  const controls=[...find.querySelectorAll('[data-filter]')];
  let features=[],visible=[],loaded=false,error=false,adapter=()=>{};
  const cards=new Map();
- const guided=createGuided(root,state,reason=>emit(reason),()=>mode('explore'));
+ const guided=createGuided(root,state,reason=>emit(reason),()=>mode('explore'),()=>openBrief());
+ const brief=createBrief(root,state,{getFeatures:()=>features,getDataState:()=>({loaded,error}),change:reason=>{focusLayout();emit(reason);},close:closeBrief,select:id=>select(id,'brief'),explore:()=>{closeBrief();mode('explore');}});
+ let briefReturn=null,briefSelection=null;
  let lastIntent='find-space';
  const area=find.querySelector('[data-filter="area"]');
  for(const [value,preset] of Object.entries(AREAS)) area.add(new Option(preset.label,value));
  const emit=reason=>{
+  root.dataset.briefOpen=String(state.briefOpen);
   root.dataset.propertyFocus=String(state.propertyFocusOpen);
   root.dataset.mode=state.mode;
   root.dataset.selectedProperty=state.selectedPropertyId??'';
@@ -31,22 +35,37 @@ export function createFindSpace(root, reduced) {
    card.setAttribute('aria-pressed',String(id===state.selectedPropertyId));
    card.classList.toggle('is-hovered',id===state.hoveredPropertyId);
   }
-  adapter(state,visible,reason);
+  adapter(state,state.briefOpen?brief.matches():visible,reason);
  };
- function hover(id) {if(isGuided(state.mode))return;if(state.hoveredPropertyId===id)return;state.hoveredPropertyId=id;emit('hover');}
+ function hover(id) {if(state.briefOpen||isGuided(state.mode))return;if(state.hoveredPropertyId===id)return;state.hoveredPropertyId=id;emit('hover');}
  function focusLayout() {
   dossier.panel.hidden=!state.propertyFocusOpen;
-  root.setAttribute('aria-labelledby',state.propertyFocusOpen?dossier.panel.querySelector('h2').id:isDiscovery(state.mode)?find.querySelector('h2').id:opening.querySelector('h1').id);
-  opening.hidden=state.propertyFocusOpen || isDiscovery(state.mode);
+  brief.panel.hidden=!state.briefOpen||state.propertyFocusOpen;
+  guided.panel.hidden=!isGuided(state.mode)||state.briefOpen||state.propertyFocusOpen;
+  root.setAttribute('aria-labelledby',state.propertyFocusOpen?dossier.panel.querySelector('h2').id:state.briefOpen?brief.heading.id:isGuided(state.mode)?guided.heading.id:isDiscovery(state.mode)?find.querySelector('h2').id:opening.querySelector('h1').id);
+  opening.hidden=state.propertyFocusOpen||state.briefOpen||state.mode!=='explore';
+  find.hidden=!isDiscovery(state.mode)||state.briefOpen;
   find.querySelector('.atlas-filter-rail').hidden=state.propertyFocusOpen;
   results.hidden=state.propertyFocusOpen;
   root.dataset.propertyFocus=String(state.propertyFocusOpen);
+ }
+ function openBrief(){
+  if(state.propertyFocusOpen)closeFocus();
+  briefReturn=document.activeElement;briefSelection=state.selectedPropertyId;
+  state.railScrollBeforeBrief=list.scrollLeft;state.briefOpen=true;state.selectedPropertyId=null;state.hoveredPropertyId=null;
+  brief.open();focusLayout();emit('brief-open');
+ }
+ function closeBrief(){
+  if(state.propertyFocusOpen)closeFocus();
+  state.briefOpen=false;state.selectedPropertyId=briefSelection;state.hoveredPropertyId=null;
+  focusLayout();emit('brief-close');list.scrollLeft=state.railScrollBeforeBrief;
+  briefReturn?.focus({preventScroll:true});
  }
  function closeFocus(message='') {
   if(!state.propertyFocusOpen){if(message){focusError.hidden=false;focusError.textContent=message;}return;}
   state.propertyFocusOpen=false;state.hoveredPropertyId=null;focusLayout();emit('focus-close');
   list.scrollLeft=state.railScrollBeforeFocus;
-  focusAnnouncement.textContent=isDiscovery(state.mode)?'Returned to property results.':'Returned to Explore.';
+  focusAnnouncement.textContent=state.briefOpen?'Returned to your CRE Brief.':isDiscovery(state.mode)?'Returned to property results.':'Returned to Explore.';
   if(message){focusError.hidden=false;focusError.textContent=message;}
   const target=returnFocus?.isConnected?returnFocus:find.querySelector('h2');
   target.focus({preventScroll:true});
@@ -54,21 +73,22 @@ export function createFindSpace(root, reduced) {
   list.scrollLeft=state.railScrollBeforeFocus;
  }
  function select(id,origin='card') {
-  if(isGuided(state.mode))return;
-  const f=visible.find(f=>f.id===id);
+  if(isGuided(state.mode)&&!state.briefOpen)return;
+  if(state.briefOpen&&origin!=='brief'&&state.brief.screen!=='review')return;
+  const f=(state.briefOpen?brief.matches():visible).find(f=>f.id===id);
   if(id!==null && !f){closeFocus('This property is unavailable. Please choose another opportunity.');return;}
   if(!f){state.selectedPropertyId=null;emit(origin);return;}
-  const opens=['card','marker','keyboard'].includes(origin);
+  const opens=['card','marker','keyboard','brief'].includes(origin);
   if(opens){
    try{if(!dossier.render(f))throw Error('Missing property');}
    catch{closeFocus('This property could not be opened. Please choose another opportunity.');return;}
    if(!state.propertyFocusOpen){
     state.railScrollBeforeFocus=list.scrollLeft;
-    returnFocus=origin==='card'?cards.get(id):origin==='keyboard'?root.querySelector('.atlas-selection select'):root.querySelector('.maplibregl-canvas');
+    returnFocus=state.briefOpen?document.activeElement:origin==='card'?cards.get(id):origin==='keyboard'?root.querySelector('.atlas-selection select'):root.querySelector('.maplibregl-canvas');
    }
    state.selectedPropertyId=id;state.hoveredPropertyId=null;state.propertyFocusOpen=true;
    focusError.hidden=true;
-   dossier.back.textContent=isDiscovery(state.mode)?'← Back to results':'← Back to Explore';
+   dossier.back.textContent=state.briefOpen?'← Back to my brief':isDiscovery(state.mode)?'← Back to results':'← Back to Explore';
    focusLayout();emit('focus-open');
    focusAnnouncement.textContent=`Property Focus opened: ${f.properties.title}.`;
    if(root.clientWidth>700 && root.getBoundingClientRect().top<0)root.scrollIntoView({block:'start',behavior:reduced?'instant':'smooth'});
@@ -130,9 +150,10 @@ export function createFindSpace(root, reduced) {
   controls.forEach(c=>c.value=state.filters[c.dataset.filter]??'');
  }
  function mode(next) {
+  if(state.briefOpen)closeBrief();
   if(state.propertyFocusOpen)closeFocus();
   if(isDiscovery(state.mode))state[state.mode==='invest'?'investFilters':'findSpaceFilters']=state.filters;
-  if(isGuided(state.mode)){state[state.mode==='manage-asset'?'management':'ownerDisposition']=state.mode==='manage-asset'?newManagement():newOwner();state.briefPreparation=null;}
+  if(isGuided(state.mode)){state[state.mode==='manage-asset'?'management':'ownerDisposition']=state.mode==='manage-asset'?newManagement():newOwner();}
   if(next!=='explore')lastIntent=next;
   focusAnnouncement.textContent='';focusError.hidden=true;
   state.mode=next;state.selectedPropertyId=null;state.hoveredPropertyId=null;
@@ -158,10 +179,11 @@ export function createFindSpace(root, reduced) {
  }));
  root.querySelectorAll('[data-intent]').forEach(button=>button.addEventListener('click',()=>mode(button.dataset.intent)));
  find.querySelector('.atlas-explore').addEventListener('click',()=>mode('explore'));
+ root.querySelectorAll('.atlas-build-brief,.atlas-brief').forEach(button=>button.addEventListener('click',openBrief));
  root.dataset.mode='explore';
  return {
   state,hover,select,
-  setData(data){loaded=!!data;error=!data;features=data?.features??[];update('data');},
+  setData(data){loaded=!!data;error=!data;features=data?.features??[];update('data');brief.refresh();},
   connect(fn){adapter=fn;emit('ready');},
  };
 }

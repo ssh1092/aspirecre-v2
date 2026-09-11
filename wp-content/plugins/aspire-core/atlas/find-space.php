@@ -16,7 +16,7 @@ $transactions = get_terms(array('taxonomy'=>'transaction_type','hide_empty'=>fal
   <button class="atlas-reset" type="button">Reset</button>
  </div>
  <section class="atlas-results" aria-label="Aspire opportunities" aria-busy="true">
-  <div class="atlas-results-heading"><p class="atlas-result-count" role="status" aria-atomic="true">Loading opportunities…</p><span>HOUSTON & SURROUNDING AREAS</span></div>
+  <div class="atlas-results-heading"><button class="atlas-build-brief" type="button">BUILD MY BRIEF ↗</button><p class="atlas-result-count" role="status" aria-atomic="true">Loading opportunities…</p><span>HOUSTON & SURROUNDING AREAS</span></div>
   <ul class="atlas-result-list" aria-label="Matching properties"></ul>
   <div class="atlas-empty" hidden><p>No Aspire opportunities currently match these filters.</p><button class="atlas-reset" type="button">Reset filters</button></div>
   <p class="atlas-results-error" hidden>Opportunities could not load. Reload the page to try again.</p>

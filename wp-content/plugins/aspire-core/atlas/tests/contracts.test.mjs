@@ -85,7 +85,7 @@ test('dossier omits missing data and suppressed pricing, and rejects unavailable
 });
 
 import {defaultInvestFilters,filterInvest,investMetric} from '../src/invest.js';
-import {newOwner,newManagement,workflowValid,toggleNeed,prepareBrief} from '../src/workflow-data.js';
+import {newOwner,newManagement,workflowValid,toggleNeed} from '../src/workflow-data.js';
 test('Invest uses sale intent, building SF vs acres, and only reliable numeric prices',()=>{
  const result=f=>filterInvest(inventory,{...defaultInvestFilters(),...f}).map(p=>p.id);
  assert.deepEqual(result({}),[3,4]);assert.deepEqual(result({price:'under1'}),[]);
@@ -100,12 +100,41 @@ test('guided answers validate per step and land/building sizes stay separate',()
  owner.step=2;owner.propertyType='Land';assert.equal(workflowValid(owner),true);
  owner.step=3;owner.sizeRange='Under 5,000 SF';assert.equal(workflowValid(owner),false);owner.sizeRange='2–5 acres';assert.equal(workflowValid(owner),true);
  owner.step=4;owner.intent='Both';assert.equal(workflowValid(owner),true);
- const prepared=prepareBrief(owner,'owner-disposition');assert.equal(prepared.status,'prepared');assert.equal(prepared.details.locationText,'Un-geocoded address');assert.ok(!('coordinates' in prepared.details));
  assert.notStrictEqual(newOwner(),newOwner());assert.deepEqual(newManagement().needs,[]);
 });
-test('management multi-select handles Not sure exclusively and prepared data is detached',()=>{
+test('management multi-select handles Not sure exclusively',()=>{
  let needs=toggleNeed([],'Tenant relations');needs=toggleNeed(needs,'Financial oversight');assert.equal(needs.length,2);
  needs=toggleNeed(needs,'Not sure yet');assert.deepEqual(needs,['Not sure yet']);needs=toggleNeed(needs,'Day-to-day management');assert.deepEqual(needs,['Day-to-day management']);
  const management={...newManagement(),step:4,needs};assert.equal(workflowValid(management,true),true);
- const prepared=prepareBrief(management,'manage-asset');management.needs.push('Leasing coordination');assert.deepEqual(prepared.details.needs,['Day-to-day management']);
+});
+
+import {schema,prefillBrief,normalizeBrief,matchBrief,stepsFor,stepComplete,summaryRows,priorityOptions,toggleChoice} from '../src/brief-data.js';
+const atlasState=(mode,filters={})=>({mode,filters:{...defaultFilters(),...filters},ownerDisposition:{...newOwner(),locationText:'Owner address',areaPreset:'west',propertyType:'Industrial / Flex',sizeRange:'5,000–25,000 SF',intent:'Both'},management:{...newManagement(),locationText:'Management address',propertyType:'Mixed Use',sizeRange:'25,000–100,000 SF',needs:['Financial oversight']}});
+const leaseBrief=()=>({...prefillBrief(atlasState('find-space',{propertyType:'industrial-flex',size:'large',area:'west'})),timing:'3_6_months',priorities:['loading','parking']});
+test('Brief prefill preserves all four journeys without coordinates or mutating source state',()=>{
+ const state=atlasState('find-space',{propertyType:'industrial-flex',transactionType:'for-sale-or-lease',size:'largest',area:'west'}),b=prefillBrief(state);
+ assert.equal(b.goal,'lease_space');assert.equal(b.transaction,'for-sale-or-lease');assert.equal(b.size,'largest');assert.equal(schema.sizes[b.size].label,'50,000+ SF');assert.equal(b.location.areaPreset,'west');
+ assert.deepEqual(stepsFor(b).filter(s=>!stepComplete(b,s)),['timing','priorities']);b.propertyTypes.push('retail');assert.equal(state.filters.propertyType,'industrial-flex');
+ const invest=prefillBrief(atlasState('invest',{propertyType:'land',size:'acMedium',price:'two',area:'katy'}));assert.equal(invest.goal,'invest');assert.equal(invest.budget,'two');assert.equal(invest.transaction,'for-sale');assert.equal(invest.size,'acMedium');
+ const owner=prefillBrief(atlasState('owner-disposition'));assert.equal(owner.goal,'lease_or_sell');assert.equal(owner.ownerIntent,'both');assert.equal(owner.size,'owner_medium');assert.equal(owner.location.text,'Owner address');assert.deepEqual(Object.keys(owner.location),['text','areaPreset']);
+ const management=prefillBrief(atlasState('manage-asset'));assert.equal(management.size,'owner_large');assert.deepEqual(management.managementNeeds,['financial']);assert.deepEqual(stepsFor(management).filter(s=>!stepComplete(management,s)),['timing']);
+});
+test('Brief conditional normalization clears irrelevant values and separates SF from acreage',()=>{
+ const b=leaseBrief();b.propertyTypes=['land'];assert.equal(normalizeBrief(b).size,'');
+ b.goal='manage_asset';b.budget='five';b.ownerIntent='sell';const m=normalizeBrief(b);assert.deepEqual(m.priorities,[]);assert.equal(m.budget,'any');assert.equal(m.ownerIntent,null);assert.equal(m.transaction,'');
+ assert.ok(!priorityOptions({...b,goal:'lease_space',propertyTypes:['office']}).includes('loading'));
+ assert.deepEqual(toggleChoice(['parking'],'unsure'),['unsure']);assert.deepEqual(toggleChoice(['unsure'],'parking'),['parking']);
+ assert.ok(summaryRows(leaseBrief()).every(row=>typeof row[2]==='string'&&!row[2].includes('lease_space')));
+});
+test('Brief matching requires every chosen criterion, ignores text/timing/priorities, and ranks exact transactions first',()=>{
+ const b=leaseBrief();assert.deepEqual(matchBrief(inventory,b).map(f=>f.id),[2]);b.location.text='An address without geocoding';b.timing='immediately';assert.deepEqual(matchBrief(inventory,b).map(f=>f.id),[2]);
+ b.location.areaPreset='humble';assert.deepEqual(matchBrief(inventory,b),[]);b.location.areaPreset='west';
+ const dual={...inventory[1],id:0,properties:{...inventory[1].properties,transactionType:{slug:'for-sale-or-lease'}}};assert.deepEqual(matchBrief([dual,inventory[1]],b).map(f=>f.id),[2,0]);
+ b.transaction='for-sale-or-lease';assert.deepEqual(matchBrief([dual,inventory[1]],b).map(f=>f.id),[0]);
+ assert.deepEqual(matchBrief(inventory,prefillBrief(atlasState('owner-disposition'))),[]);
+});
+test('Brief investment matching respects half-open price/SF/acre ranges and missing suppressed prices',()=>{
+ const b=prefillBrief(atlasState('invest',{propertyType:'land',size:'acMedium',area:'katy'}));assert.deepEqual(matchBrief(inventory,b).map(f=>f.id),[4]);b.budget='two';assert.deepEqual(matchBrief(inventory,b),[]);
+ const prices=[2499999,2500000,4999999,5000000,null,NaN,'3000000',0].map((salePrice,id)=>({...inventory[3],id,properties:{...inventory[3].properties,pricing:{salePrice}}}));assert.deepEqual(matchBrief(prices,b).map(f=>f.id),[1,2]);
+ const sf={...leaseBrief(),size:'medium'};const sizes=[4999,5000,9999,10000,null].map((availableSf,id)=>({...inventory[1],id,properties:{...inventory[1].properties,metrics:{availableSf}}}));assert.deepEqual(matchBrief(sizes,sf).map(f=>f.id),[1,2]);
 });

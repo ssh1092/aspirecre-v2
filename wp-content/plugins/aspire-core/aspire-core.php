@@ -20,3 +20,4 @@ register_activation_hook( __FILE__, array( 'Aspire_Core_Content_Types', 'activat
 register_deactivation_hook( __FILE__, array( 'Aspire_Core_Content_Types', 'deactivate' ) );
 require_once __DIR__ . '/includes/class-blocks.php';
 require_once __DIR__ . '/includes/class-atlas.php';
+require_once __DIR__ . '/includes/class-atlas-inquiries.php';

@@ -1,0 +1,323 @@
+{
+  "goals": {
+    "lease_space": "Lease Space",
+    "buy_property": "Buy Property",
+    "invest": "Invest",
+    "lease_property": "Lease My Property",
+    "sell_property": "Sell My Property",
+    "lease_or_sell": "Lease or Sell",
+    "manage_asset": "Manage an Asset"
+  },
+  "propertyTypes": {
+    "retail": "Retail",
+    "office": "Office",
+    "industrial-flex": "Industrial / Flex",
+    "land": "Land",
+    "office-condo": "Office Condo",
+    "mixed-use": "Mixed Use",
+    "other": "Other"
+  },
+  "areas": {
+    "west": {
+      "label": "West Houston",
+      "bounds": [
+        [
+          -95.85,
+          29.7
+        ],
+        [
+          -95.5,
+          29.95
+        ]
+      ]
+    },
+    "north": {
+      "label": "North Houston",
+      "bounds": [
+        [
+          -95.7,
+          29.9
+        ],
+        [
+          -95.05,
+          30.25
+        ]
+      ]
+    },
+    "southwest": {
+      "label": "Southwest Houston",
+      "bounds": [
+        [
+          -95.78,
+          29.55
+        ],
+        [
+          -95.4,
+          29.77
+        ]
+      ]
+    },
+    "katy": {
+      "label": "Katy / Richmond",
+      "bounds": [
+        [
+          -95.95,
+          29.55
+        ],
+        [
+          -95.68,
+          29.9
+        ]
+      ]
+    },
+    "humble": {
+      "label": "Humble / Atascocita",
+      "bounds": [
+        [
+          -95.35,
+          29.9
+        ],
+        [
+          -95.05,
+          30.15
+        ]
+      ]
+    }
+  },
+  "sizes": {
+    "small": {
+      "label": "Under 5,000 SF",
+      "unit": "sf",
+      "range": [
+        0,
+        5000
+      ],
+      "legacy": false
+    },
+    "medium": {
+      "label": "5,000\u201310,000 SF",
+      "unit": "sf",
+      "range": [
+        5000,
+        10000
+      ],
+      "legacy": false
+    },
+    "large": {
+      "label": "10,000\u201325,000 SF",
+      "unit": "sf",
+      "range": [
+        10000,
+        25000
+      ],
+      "legacy": false
+    },
+    "larger": {
+      "label": "25,000\u201350,000 SF",
+      "unit": "sf",
+      "range": [
+        25000,
+        50000
+      ],
+      "legacy": false
+    },
+    "fifty": {
+      "label": "50,000\u2013100,000 SF",
+      "unit": "sf",
+      "range": [
+        50000,
+        100000
+      ],
+      "legacy": false
+    },
+    "hundred": {
+      "label": "100,000+ SF",
+      "unit": "sf",
+      "range": [
+        100000,
+        null
+      ],
+      "legacy": false
+    },
+    "largest": {
+      "label": "50,000+ SF",
+      "unit": "sf",
+      "range": [
+        50000,
+        null
+      ],
+      "legacy": true
+    },
+    "owner_medium": {
+      "label": "5,000\u201325,000 SF",
+      "unit": "sf",
+      "range": [
+        5000,
+        25000
+      ],
+      "legacy": true
+    },
+    "owner_large": {
+      "label": "25,000\u2013100,000 SF",
+      "unit": "sf",
+      "range": [
+        25000,
+        100000
+      ],
+      "legacy": true
+    },
+    "acSmall": {
+      "label": "Under 2 acres",
+      "unit": "acres",
+      "range": [
+        0,
+        2
+      ]
+    },
+    "acMedium": {
+      "label": "2\u20135 acres",
+      "unit": "acres",
+      "range": [
+        2,
+        5
+      ]
+    },
+    "acLarge": {
+      "label": "5\u201320 acres",
+      "unit": "acres",
+      "range": [
+        5,
+        20
+      ]
+    },
+    "acLargest": {
+      "label": "20+ acres",
+      "unit": "acres",
+      "range": [
+        20,
+        null
+      ]
+    },
+    "unsure": {
+      "label": "Not sure",
+      "unit": null,
+      "range": null
+    }
+  },
+  "budgets": {
+    "any": {
+      "label": "Any Budget",
+      "range": null
+    },
+    "under1": {
+      "label": "Under $1M",
+      "range": [
+        0,
+        1000000
+      ]
+    },
+    "one": {
+      "label": "$1M\u2013$2.5M",
+      "range": [
+        1000000,
+        2500000
+      ]
+    },
+    "two": {
+      "label": "$2.5M\u2013$5M",
+      "range": [
+        2500000,
+        5000000
+      ]
+    },
+    "five": {
+      "label": "$5M+",
+      "range": [
+        5000000,
+        null
+      ]
+    },
+    "unsure": {
+      "label": "Not sure",
+      "range": null
+    }
+  },
+  "timing": {
+    "immediately": "Immediately",
+    "within_3_months": "Within 3 months",
+    "3_6_months": "3\u20136 months",
+    "6_12_months": "6\u201312 months",
+    "12_plus_months": "12+ months",
+    "exploring": "Just exploring"
+  },
+  "priorities": {
+    "highway_access": "Highway access",
+    "visibility": "Visibility",
+    "loading": "Loading",
+    "parking": "Parking",
+    "customer_traffic": "Customer traffic",
+    "office_component": "Office component",
+    "yard": "Outdoor / yard space",
+    "flexible_layout": "Flexible layout",
+    "growth": "Growth potential",
+    "maximize_value": "Maximize value",
+    "find_tenants": "Find tenants quickly",
+    "market_position": "Understand market position",
+    "reduce_vacancy": "Reduce vacancy",
+    "sale_vs_lease": "Evaluate sale vs lease",
+    "unsure": "Not sure yet"
+  },
+  "managementNeeds": {
+    "day_to_day": "Day-to-day management",
+    "tenant_relations": "Tenant relations",
+    "operations": "Operations / vendors",
+    "financial": "Financial oversight",
+    "leasing": "Leasing coordination",
+    "unsure": "Not sure yet"
+  },
+  "ownerIntents": {
+    "lease": "Lease it",
+    "sell": "Sell it",
+    "both": "Both",
+    "unsure": "Not sure yet"
+  },
+  "priorityGroups": {
+    "seeker": [
+      "highway_access",
+      "visibility",
+      "loading",
+      "parking",
+      "customer_traffic",
+      "office_component",
+      "yard",
+      "flexible_layout",
+      "growth",
+      "unsure"
+    ],
+    "owner": [
+      "maximize_value",
+      "find_tenants",
+      "market_position",
+      "reduce_vacancy",
+      "sale_vs_lease",
+      "unsure"
+    ]
+  },
+  "irrelevantPriorities": {
+    "office": [
+      "loading",
+      "yard"
+    ],
+    "office-condo": [
+      "loading",
+      "yard"
+    ],
+    "land": [
+      "office_component",
+      "flexible_layout"
+    ],
+    "retail": [
+      "office_component"
+    ]
+  }
+}

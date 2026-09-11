@@ -1,11 +1,6 @@
 // Search conveniences only: overlapping approximate boxes, NOT official CRE submarkets.
-export const AREAS = {
- west: {label:'West Houston', bounds:[[-95.85,29.70],[-95.50,29.95]]},
- north: {label:'North Houston', bounds:[[-95.70,29.90],[-95.05,30.25]]},
- southwest: {label:'Southwest Houston', bounds:[[-95.78,29.55],[-95.40,29.77]]},
- katy: {label:'Katy / Richmond', bounds:[[-95.95,29.55],[-95.68,29.90]]},
- humble: {label:'Humble / Atascocita', bounds:[[-95.35,29.90],[-95.05,30.15]]},
-};
+import schema from '../brief-schema.json' with {type:'json'};
+export const AREAS = schema.areas;
 export const SIZES = {
  small:[0,5000], medium:[5000,10000], large:[10000,25000], larger:[25000,50000], largest:[50000,Infinity],
 };
