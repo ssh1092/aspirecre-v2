@@ -1,3 +1,6 @@
 .env
 wp-content/uploads/
 .DS_Store
+node_modules/
+*.pmtiles
+.local-tools/

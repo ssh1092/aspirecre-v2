@@ -1,0 +1,17 @@
+import {build} from 'esbuild';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+const root=new URL('.',import.meta.url);
+const out=new URL('build/',root);
+execFileSync(process.execPath,['--check',new URL('src/editor.js',root).pathname]);
+const metadata=JSON.parse(readFileSync(new URL('block.json',out),'utf8'));
+if(metadata.name!=='aspire/atlas'||metadata.apiVersion!==3)throw Error('Invalid Atlas block');
+await build({entryPoints:[new URL('../node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs',root).pathname],bundle:true,minify:true,format:'iife',target:['es2022'],outfile:new URL('worker.js',out).pathname,legalComments:'linked'});
+await build({entryPoints:[new URL('src/view.js',root).pathname],bundle:true,minify:true,format:'iife',target:['es2022'],outfile:new URL('view.js',out).pathname,legalComments:'linked'});
+writeFileSync(new URL('editor.js',out),readFileSync(new URL('src/editor.js',root)));
+writeFileSync(new URL('editor.css',out),readFileSync(new URL('src/view.css',root),'utf8')+'\n'+readFileSync(new URL('src/editor.css',root),'utf8'));
+const hash=createHash('sha256');
+for(const f of ['view.js','view.css','worker.js','editor.js','editor.css'])hash.update(readFileSync(new URL(f,out)));
+writeFileSync(new URL('manifest.json',out),JSON.stringify({version:hash.digest('hex').slice(0,12)}));
+console.log('Atlas frontend and static editor preview built.');

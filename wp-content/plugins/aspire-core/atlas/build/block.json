@@ -1,0 +1,13 @@
+{
+ "$schema":"https://schemas.wp.org/trunk/block.json",
+ "apiVersion":3,"name":"aspire/atlas","version":"0.1.0","title":"Aspire Atlas","category":"aspirecre","icon":"location-alt",
+ "description":"An interactive Houston commercial real estate map. Task 1 opening experience.",
+ "attributes":{
+  "headline":{"type":"string","default":"Explore Houston.\nFind your next move."},
+  "supportingText":{"type":"string","default":"Commercial real estate intelligence. Real opportunities. A stronger view of Houston."},
+  "showNaturalLanguage":{"type":"boolean","default":true},
+  "enableBrief":{"type":"boolean","default":false}
+ },
+ "supports":{"html":false,"align":["wide","full"]},
+ "editorScript":"aspire-atlas-editor","editorStyle":"aspire-atlas-editor"
+}

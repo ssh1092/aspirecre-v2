@@ -1,0 +1,36 @@
+.aspire-atlas{--atlas-teal:#22B7A8;position:relative;isolation:isolate;min-height:900px;height:calc(100svh - 105px);max-height:1200px;overflow:hidden;background:#09100F;color:#F3F0E8;font:15px/1.5 var(--sans,Arial,sans-serif)}
+.aspire-atlas *{box-sizing:border-box}.aspire-atlas [hidden]{display:none!important}
+.aspire-atlas .atlas-map{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,#1a2923,#09100F)}
+.atlas-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(9,16,15,.97) 0%,rgba(9,16,15,.91) 28%,rgba(9,16,15,.3) 53%,transparent 75%);z-index:1}
+.atlas-opening{position:relative;z-index:2;width:min(510px,45%);padding:48px 0 100px;margin-left:4.8%;pointer-events:none}.atlas-opening>*{pointer-events:auto}
+.aspire-atlas .atlas-eyebrow{font:700 11px/1.5 var(--sans,Arial,sans-serif);letter-spacing:.22em;color:#9DC8BE;margin:0 0 24px;display:flex;align-items:center;gap:10px}.atlas-eyebrow span{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--atlas-teal);box-shadow:0 0 18px #22B7A866}
+.aspire-atlas h1{font:400 clamp(38px,4.1vw,64px)/1.04 var(--serif,Georgia,serif);letter-spacing:-.045em;color:#F3F0E8;margin:0 0 24px;max-width:18ch}
+.aspire-atlas .atlas-support{color:#B8C1BD;font-size:15px;line-height:1.65;max-width:40ch;margin:0 0 28px}
+.aspire-atlas .atlas-prompt{font-size:13px;font-weight:600;color:#D7E0DA;margin:0 0 12px}
+.atlas-intents{display:grid;grid-template-columns:1fr;gap:8px}
+.aspire-atlas button.atlas-intent{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:66px;padding:13px 18px;border:1px solid #33433D;background:#101B18e8;text-align:left;color:#F3F0E8;border-radius:4px;cursor:pointer;font:inherit;transition:border-color .15s,background .15s}
+.atlas-intent strong,.atlas-intent small{display:block}.atlas-intent strong{font-size:15px;font-weight:500}.atlas-intent small{font-size:11px;color:#9DAFA6;margin-top:3px}.atlas-intent>span:last-child{color:#75BDB0;font-size:19px}
+.aspire-atlas button.atlas-intent:hover,.aspire-atlas button.atlas-intent[aria-pressed=true]{border-color:#22B7A8;background:#142A24}
+.aspire-atlas :is(button,a,input,select):focus-visible{outline:2px solid #5EE2D1;outline-offset:4px}
+.atlas-input-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.aspire-atlas input.atlas-input{width:100%;padding:15px 17px;margin:18px 0 0;background:#0B1512;color:#B8C1BD;border:1px solid #34413D;border-radius:4px;font:13px var(--sans,Arial,sans-serif);min-height:48px}.atlas-input::placeholder{color:#9DAFA6}
+.aspire-atlas .atlas-scope{font-size:10px;line-height:1.6;color:#9AA9A2;margin:10px 0 0;max-width:49ch}
+.aspire-atlas .atlas-intent-status{color:#A9DACD;font-size:12px;line-height:1.6;margin:12px 0 0}
+.atlas-map-meta{position:absolute;z-index:2;top:38px;right:5%;text-align:right;max-width:300px;pointer-events:none}.atlas-map-meta a{pointer-events:auto}
+.aspire-atlas .atlas-count{font-size:12px;font-weight:600;letter-spacing:.035em;color:#D6E8E0;margin:0 0 6px}.aspire-atlas :is(.atlas-map-status,.atlas-data-status){font-size:10px;color:#A9BBB1;margin:3px 0}
+.aspire-atlas a{color:#AFE2D7}.atlas-fallback-link{font-size:12px;display:inline-block;margin-top:7px}
+.atlas-selection{position:absolute;bottom:84px;right:4%;z-index:2;width:min(320px,40%);padding:14px;background:#091410e8;border:1px solid #34413D;border-radius:4px}.atlas-selection label{display:block;color:#B8C1BD;font-size:11px;margin-bottom:8px}.aspire-atlas .atlas-selection select{background:#14221B;color:#F3F0E8;border:1px solid #43584D;width:100%;min-height:44px;font:12px var(--sans,Arial,sans-serif);padding:8px}.atlas-selected-label{font-size:11px;color:#B8C1BD;margin:10px 0 0}
+.aspire-atlas .atlas-coordinate-note{position:absolute;bottom:16px;left:4.8%;max-width:570px;width:65%;font-size:10px;line-height:1.5;color:#93A69B;z-index:2;margin:0}
+.atlas-attribution{position:absolute;right:12px;bottom:12px;z-index:3;font:10px/1.5 Arial,sans-serif;padding:4px 8px;background:#09100Fee;color:#B8C1BD}
+.atlas-map .maplibregl-ctrl-top-right{top:170px;right:20px}.atlas-map .maplibregl-ctrl-group{background:#D1DDD5}.atlas-map .maplibregl-popup-content{background:#13231D;color:#F3F0E8;box-shadow:0 6px 28px #0008;padding:12px 15px;border:1px solid #3E6658;border-radius:4px;max-width:270px}.atlas-map .maplibregl-popup-tip{border-top-color:#13231D}.atlas-map-label{font:12px/1.5 var(--sans,Arial,sans-serif)}
+.atlas-map-failed .atlas-map-status{color:#F0CE94}.atlas-map-failed .atlas-map{opacity:.3}.atlas-map-failed .atlas-map-meta{padding:18px;border:1px solid #806A47;background:#111D17;pointer-events:auto}.atlas-noscript{position:absolute;bottom:100px;right:4%;z-index:3;max-width:280px}.atlas-brief{color:#AFF0DF;background:#16382E;border:1px solid #427B67;border-radius:4px;min-height:44px;padding:10px 16px;margin-top:12px}
+@media(min-width:1600px){.atlas-opening{padding-top:65px;width:520px}.aspire-atlas{min-height:940px}}
+@media(max-width:1000px){.atlas-opening{width:46%;margin-left:4%;padding-top:40px}.aspire-atlas h1{font-size:44px}.atlas-coordinate-note{max-width:50%}.atlas-map-meta{right:5%}}
+@media(max-width:700px){.aspire-atlas{height:auto;max-height:none;min-height:1180px;display:flex;flex-direction:column}.aspire-atlas .atlas-map{top:620px;height:540px;bottom:auto}.atlas-shade{background:linear-gradient(#09100F 48%,transparent 70%)}.atlas-opening{width:auto;max-width:540px;margin:0;padding:30px 24px 12px}.aspire-atlas h1{font-size:42px;max-width:18ch}.aspire-atlas .atlas-support{margin-bottom:20px}.atlas-intents{grid-template-columns:1fr 1fr;gap:8px}.aspire-atlas button.atlas-intent{padding:12px;min-height:96px;gap:5px}.atlas-intent strong{font-size:13px}.atlas-intent small{font-size:10px}.atlas-map-meta{position:relative;top:auto;right:auto;margin:14px 24px 0;text-align:left;max-width:none}.atlas-selection{bottom:105px;left:24px;right:24px;width:auto}.aspire-atlas .atlas-coordinate-note{width:auto;max-width:none;left:24px;right:24px;bottom:44px;font-size:9px}.atlas-attribution{font-size:9px}.atlas-map .maplibregl-ctrl-top-right{top:70px;right:12px}}
+@media(prefers-reduced-motion:reduce){.aspire-atlas *{transition:none!important}}
+/* Keep the opening camera's western opportunities clear of the editorial panel. */
+@media(min-width:701px){.aspire-atlas .atlas-map{left:32%}}
+
+.atlas-map-failed .atlas-selection{display:none}
+
+.atlas-fallback-properties{pointer-events:auto;text-align:left;background:#102019;border:1px solid #3D584A;padding:14px;margin-top:12px;font-size:11px;max-height:280px;overflow:auto}.atlas-fallback-properties ul{padding-left:16px}.atlas-fallback-properties li+li{margin-top:10px}

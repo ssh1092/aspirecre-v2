@@ -1,0 +1,3 @@
+# Preserve the exact WordPress backup and upstream license text.
+docs/home-before-atlas.blocks.html whitespace=-blank-at-eof
+docs/licenses/* whitespace=-blank-at-eol

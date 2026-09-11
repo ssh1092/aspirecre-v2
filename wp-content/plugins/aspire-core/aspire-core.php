@@ -19,3 +19,4 @@ Aspire_Core_Admin::init();
 register_activation_hook( __FILE__, array( 'Aspire_Core_Content_Types', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'Aspire_Core_Content_Types', 'deactivate' ) );
 require_once __DIR__ . '/includes/class-blocks.php';
+require_once __DIR__ . '/includes/class-atlas.php';

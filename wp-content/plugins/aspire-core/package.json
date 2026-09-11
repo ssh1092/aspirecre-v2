@@ -1,1 +1,17 @@
-{"name":"aspire-core-blocks","private":true,"version":"0.3.0","scripts":{"build":"node blocks/build.mjs"}}
+{
+  "name": "aspire-core-blocks",
+  "private": true,
+  "version": "0.3.0",
+  "scripts": {
+    "build": "node blocks/build.mjs && node atlas/build.mjs",
+    "test:atlas": "node --test atlas/tests/contracts.test.mjs"
+  },
+  "dependencies": {
+    "maplibre-gl": "6.9.0",
+    "pmtiles": "4.5.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  },
+  "type": "module"
+}
