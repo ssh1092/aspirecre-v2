@@ -1,6 +1,6 @@
 # Aspire Atlas — Task 1 foundation
 
-The existing Home page (ID 74) now contains `aspire/atlas`. The theme's header/footer and `front-page.php` page loop are unchanged. No filters, results rail, dossier, natural-language parser, brief builder or other intent workflow is implemented. Intent buttons acknowledge selection; input is an explicitly described placeholder. A keyboard-accessible property selector gives the same selected marker state as a pointer.
+The existing Home page (ID 74) now contains `aspire/atlas`. The `front-page.php` page loop and footer remain unchanged. Task 1.5 replaces the conventional header only on the Atlas Home page with integrated overlay navigation. No filters, results rail, dossier, natural-language parser, brief builder or other intent workflow is implemented. Intent buttons acknowledge selection; input is an explicitly described placeholder. A keyboard-accessible property selector gives the same selected marker state as a pointer.
 
 ## Source and build
 
@@ -50,7 +50,7 @@ The `aspire_atlas_suppressed_price_ids` option suppresses all Atlas pricing for 
 | Presidio Square | 121 | 29.7076 | -95.6420 | **Provisional — final visual verification required** |
 | 21617 FM 1093 | 122 | 29.6773 | -95.7195 | **Provisional — final visual verification required** |
 
-These are not claimed to be verified parcel centroids. The Atlas UI, accessible selection labels and REST output identify provisional locations. No records were duplicated.
+These are not claimed to be verified parcel centroids. The REST output and `data-selected-coordinate-status` identify provisional locations. Task 1.5 removes development-facing coordinate warnings from visible product labels; the verification requirement remains documented here. No records were duplicated.
 
 ## Safe migration and recovery
 
@@ -75,3 +75,10 @@ The explicit local-only migration reuses posts by slug, populates only coordinat
 - Gutenberg registers Aspire Atlas in the AspireCRE inserter; its REST preview and all four editorial attributes pass checks. The available in-app browser still leaves WordPress's editor iframe blank, and no Chrome connection is available. Direct canvas/Inspector visual interaction could not be verified there; the editor implementation does not initialize WebGL.
 - Existing duplicate `WP_DEBUG` configuration warning remains outside this change.
 - Desktop-first foundation only; final mobile bottom sheets, search/filters, Property Focus and brief workflows remain later tasks. Labels currently use local English/Latin glyph ranges.
+
+
+## Task 1.5 — opening shell polish
+
+The cartographic style, PMTiles, REST contract and coordinates remain unchanged. Home-only overlay navigation uses the real white logo; other pages retain the normal header behavior. The opening surface is compact and translucent, intents use a desktop 2×2 matrix, and the command placeholder includes a subtle example. Map controls and labels use restrained dark surfaces and modern sans-serif UI typography.
+
+Success diagnostics are retained as data attributes rather than visible copy. Errors still expose a useful message and property fallback. The property selector stays in the accessibility tree, visually hidden until it receives keyboard focus; pointer selection does not show the QA panel. Intent selection is announced without implementation-phase copy. Motion is a single subtle panel entrance and control transitions, disabled with reduced motion. No Task 2 behavior was added.

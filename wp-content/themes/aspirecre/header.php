@@ -9,6 +9,7 @@
 <body <?php body_class( 'aspire-site' ); ?>>
 <?php wp_body_open(); ?>
 <a class="skip-link" href="#main-content">Skip to content</a>
+<?php if ( ! ( is_front_page() && has_block( 'aspire/atlas', get_queried_object_id() ) ) ) : ?>
 <header class="site-header">
 	<div class="container header-inner">
 		<?php aspirecre_brand(); ?>
@@ -19,3 +20,4 @@
 		</nav>
 	</div>
 </header>
+<?php endif; ?>

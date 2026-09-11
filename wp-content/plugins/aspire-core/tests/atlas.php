@@ -49,6 +49,6 @@ $request=new WP_REST_Request('GET','/wp/v2/block-renderer/aspire/atlas');$reques
 $request->set_param('attributes',array('headline'=>'Custom editorial headline','showNaturalLanguage'=>false,'enableBrief'=>true));
 $preview=rest_do_request($request);$html=$preview->get_data()['rendered']??'';
 atlas_check($preview->get_status()===200&&str_contains($html,'Custom editorial headline'),'Editor REST preview accepts headline setting');
-atlas_check(str_contains($html,'4 mapped properties')&&str_contains($html,'Interactive map renders on the frontend.'),'Useful static editor preview');
+atlas_check(str_contains($html,'4 ASPIRE OPPORTUNITIES')&&str_contains($html,'Interactive map renders on the frontend.'),'Useful static editor preview');
 atlas_check(!str_contains($html,'data-atlas')&&!str_contains($html,'class="atlas-input"')&&str_contains($html,'Build My Brief'),'Editor no map initialization; toggles affect preview');
 echo "SUCCESS: $checks Atlas checks. Temporary fixtures rolled back.\n";
