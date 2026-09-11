@@ -12,6 +12,8 @@ $data=$response->get_data();$ids=array_column($data['features'],'id');
 atlas_check($data['type']==='FeatureCollection'&&count($ids)===4&&count(array_unique($ids))===4,'Four unique mapped properties');
 foreach($data['features'] as $f){
  $p=$f['properties'];
+ atlas_check(is_string($p['displayTitle']) && $p['displayTitle']!=='' && $p['title']===sanitize_text_field(get_post_field('post_title',$f['id'])),'Atlas display title is additive; WordPress title unchanged');
+ atlas_check(!str_ends_with($p['displayTitle'],$p['location']['postalCode']),'Display title excludes duplicate city/state/ZIP suffix');
  $stored=array_values(array_filter(array_map('sanitize_text_field',preg_split('/\r\n|\r|\n/',(string)get_post_meta($f['id'],'_aspire_property_highlights',true))),static fn($line)=>$line!==''));
  atlas_check($p['propertyHighlights']===$stored,'Atlas highlights match stored plain-text property data');
  atlas_check(array_keys($p['metrics'])===array('availableSf','buildingSf','lotAcres'),'Existing metrics contract unchanged');
@@ -47,6 +49,8 @@ try{
  atlas_check(count(Aspire_Atlas::collection()['features'])===5,'Numeric zero coordinates accepted');
 }finally{$wpdb->query('ROLLBACK');foreach($fixtures as $id){clean_post_cache($id);}}
 $frontend=Aspire_Atlas::render(array());
+atlas_check(str_contains($frontend,'data-intent="invest"') && str_contains($frontend,'data-intent="owner-disposition"') && str_contains($frontend,'data-intent="manage-asset"'),'All remaining opening modes registered');
+atlas_check(str_contains($frontend,'class="atlas-guided"') && !str_contains($frontend,'<form'),'Guided panel has no submission form');
 atlas_check(str_contains($frontend,'class="atlas-dossier"') && str_contains($frontend,'href="tel:+17139332001"'),'Dossier shell and approved phone action present');
 atlas_check(str_contains($frontend,'class="atlas-find" hidden'),'Discovery controls hidden in opening state');
 atlas_check(str_contains($frontend,'data-filter="transactionType"') && preg_match('/value="for-lease"\s+selected=/', $frontend),'Default For Lease uses actual taxonomy slug');

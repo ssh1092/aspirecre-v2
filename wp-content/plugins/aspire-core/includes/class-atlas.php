@@ -23,6 +23,12 @@ final class Aspire_Atlas {
   $terms = wp_get_post_terms( $id, $taxonomy, array( 'orderby'=>'term_id','order'=>'ASC' ) );
   return ! is_wp_error( $terms ) && $terms ? array( 'slug'=>sanitize_title( $terms[0]->slug ),'label'=>sanitize_text_field( $terms[0]->name ) ) : null;
  }
+ private static function display_title(string $title, string $city, string $state, string $zip): string {
+  if($city==='' || $state==='')return $title;
+  $suffix='/(?:,\s*|\s+)'.preg_quote($city,'/').'(?:\s*,\s*|\s+)'.preg_quote($state,'/').($zip!==''?'(?:\s+'.preg_quote($zip,'/').')?':'').'\s*$/iu';
+  $display=trim((string)preg_replace($suffix,'',$title)," ,\t\n\r\0\x0B");
+  return $display!==''?$display:$title;
+ }
  public static function collection(): array {
   $features = array();
   $ids = get_posts( array( 'post_type'=>'property','post_status'=>'publish','numberposts'=>-1,'fields'=>'ids','orderby'=>'ID','order'=>'ASC','meta_query'=>array( array( 'key'=>'_aspire_latitude','compare'=>'EXISTS' ), array( 'key'=>'_aspire_longitude','compare'=>'EXISTS' ), array( 'relation'=>'OR', array( 'key'=>'_aspire_listing_status','value'=>'available' ), array( 'key'=>'_aspire_listing_status','compare'=>'NOT EXISTS' ) ) ) ) );
@@ -38,6 +44,7 @@ final class Aspire_Atlas {
    $hide_price = in_array( $id, $suppressed, true );
    $properties = array(
     'id'=>$id,'slug'=>get_post_field( 'post_name',$id ),'title'=>sanitize_text_field( get_post_field( 'post_title',$id ) ),'permalink'=>esc_url_raw( get_permalink( $id ) ),
+    'displayTitle'=>self::display_title(sanitize_text_field(get_post_field('post_title',$id)),$text('city'),$text('state'),$text('postal_code')),
     'propertyType'=>$type,'transactionType'=>$transaction,'listingStatus'=>'available',
     'coordinateStatus'=>in_array( $id,$provisional,true ) ? 'provisional' : 'prototype',
     'location'=>array( 'address'=>trim( $text('address_line_1').' '.$text('address_line_2') ),'city'=>$text('city'),'state'=>$text('state'),'postalCode'=>$text('postal_code') ),

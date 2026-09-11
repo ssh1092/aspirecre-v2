@@ -15,7 +15,7 @@
   <p class="atlas-prompt">What are you looking to do?</p>
   <div class="atlas-intents">
    <?php foreach(array('Find Space'=>'Lease commercial space','Buy or Invest'=>'Explore investment opportunities','Lease or Sell My Property'=>'Get a market perspective','Manage an Asset'=>'Expert support for better performance') as $title=>$description): ?>
-    <button type="button" class="atlas-intent" <?php if($title==='Find Space'): ?>data-find-space<?php endif; ?> aria-pressed="false"><span><strong><?php echo esc_html($title); ?></strong><small><?php echo esc_html($description); ?></small></span><span aria-hidden="true">↗</span></button>
+    <button type="button" class="atlas-intent" data-intent="<?php echo esc_attr(array('Find Space'=>'find-space','Buy or Invest'=>'invest','Lease or Sell My Property'=>'owner-disposition','Manage an Asset'=>'manage-asset')[$title]); ?>" <?php if($title==='Find Space'): ?>data-find-space<?php endif; ?> aria-pressed="false"><span><strong><?php echo esc_html($title); ?></strong><small><?php echo esc_html($description); ?></small></span><span aria-hidden="true">↗</span></button>
    <?php endforeach; ?>
   </div>
   <?php if($natural): ?><label class="atlas-input-label" for="<?php echo esc_attr($uid); ?>input">Describe what you're looking for…</label><input id="<?php echo esc_attr($uid); ?>input" class="atlas-input" type="text" placeholder="Describe what you're looking for…" readonly aria-describedby="<?php echo esc_attr($uid); ?>example"><p class="atlas-command-example" id="<?php echo esc_attr($uid); ?>example">10,000–20,000 SF industrial space in West Houston</p><?php endif; ?>
@@ -23,7 +23,7 @@
   <?php if($editor): ?><p class="atlas-scope">Interactive map renders on the frontend.</p><?php endif; ?>
   <p class="atlas-intent-status atlas-sr-only" role="status"></p>
  </div>
- <?php if(!$editor): require __DIR__.'/find-space.php'; require __DIR__.'/property-focus.php'; endif; ?>
+ <?php if(!$editor): require __DIR__.'/find-space.php'; require __DIR__.'/property-focus.php'; require __DIR__.'/guided.php'; endif; ?>
  <div class="atlas-map-meta">
   <p class="atlas-count" aria-live="polite"><?php echo esc_html($count); ?> ASPIRE OPPORTUNITIES</p>
   <p class="atlas-data-status atlas-sr-only" role="status"><?php if(!$editor): ?>Loading property data…<?php endif; ?></p>

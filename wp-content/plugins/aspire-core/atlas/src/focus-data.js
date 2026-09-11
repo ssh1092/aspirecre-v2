@@ -22,7 +22,7 @@ export function focusData(feature,origin) {
  else if(positive(prices.salePrice))metrics.push({label:'PRICE',value:new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(prices.salePrice)});
  const imageUrl=text(p.image?.url)?localUrl(p.image.url,origin):null;
  return {
-  title:text(p.title),eyebrow:[text(p.propertyType?.label),text(p.transactionType?.label)].filter(Boolean).join(' · '),
+  title:text(p.displayTitle)||text(p.title),eyebrow:[text(p.propertyType?.label),text(p.transactionType?.label)].filter(Boolean).join(' · '),
   location:[[text(p.location?.city),text(p.location?.state)].filter(Boolean).join(', '),text(p.location?.postalCode)].filter(Boolean).join(' '),
   image:imageUrl?{url:imageUrl,alt:text(p.image?.alt)||text(p.title)}:null,
   permalink:text(p.permalink)?localUrl(p.permalink,origin):null,

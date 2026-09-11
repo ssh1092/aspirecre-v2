@@ -83,3 +83,29 @@ test('dossier omits missing data and suppressed pricing, and rejects unavailable
  const lease=focusData({properties:{title:'Lease',metrics:{availableSf:11273,buildingSf:37309},pricing:{leaseRateDisplay:'$9.75–$11.50/SF/YR'},propertyHighlights:['a','b','c','d','e','f']}},origin);
  assert.deepEqual(lease.metrics.map(m=>m.label),['AVAILABLE','LEASE RATE','BUILDING']);assert.equal(lease.highlights.length,5);
 });
+
+import {defaultInvestFilters,filterInvest,investMetric} from '../src/invest.js';
+import {newOwner,newManagement,workflowValid,toggleNeed,prepareBrief} from '../src/workflow-data.js';
+test('Invest uses sale intent, building SF vs acres, and only reliable numeric prices',()=>{
+ const result=f=>filterInvest(inventory,{...defaultInvestFilters(),...f}).map(p=>p.id);
+ assert.deepEqual(result({}),[3,4]);assert.deepEqual(result({price:'under1'}),[]);
+ assert.deepEqual(result({size:'larger'}),[3]);assert.deepEqual(result({propertyType:'land',size:'acMedium'}),[4]);
+ assert.deepEqual(result({propertyType:'land',size:'larger'}),[]);
+ assert.deepEqual(result({area:'katy'}),[4]);assert.equal(investMetric(inventory[3].properties),'2.21 AC');
+ const prices=[999999,1000000,2499999,2500000,4999999,5000000,null,NaN,'800000',0].map((salePrice,id)=>({...inventory[2],id,properties:{...inventory[2].properties,pricing:{salePrice}}}));
+ for(const [price,expected] of [['under1',[0]],['one',[1,2]],['two',[3,4]],['five',[5]]])assert.deepEqual(filterInvest(prices,{...defaultInvestFilters(),price}).map(f=>f.id),expected);
+});
+test('guided answers validate per step and land/building sizes stay separate',()=>{
+ const owner=newOwner();assert.equal(workflowValid(owner),false);owner.locationText='Un-geocoded address';assert.equal(workflowValid(owner),true);
+ owner.step=2;owner.propertyType='Land';assert.equal(workflowValid(owner),true);
+ owner.step=3;owner.sizeRange='Under 5,000 SF';assert.equal(workflowValid(owner),false);owner.sizeRange='2–5 acres';assert.equal(workflowValid(owner),true);
+ owner.step=4;owner.intent='Both';assert.equal(workflowValid(owner),true);
+ const prepared=prepareBrief(owner,'owner-disposition');assert.equal(prepared.status,'prepared');assert.equal(prepared.details.locationText,'Un-geocoded address');assert.ok(!('coordinates' in prepared.details));
+ assert.notStrictEqual(newOwner(),newOwner());assert.deepEqual(newManagement().needs,[]);
+});
+test('management multi-select handles Not sure exclusively and prepared data is detached',()=>{
+ let needs=toggleNeed([],'Tenant relations');needs=toggleNeed(needs,'Financial oversight');assert.equal(needs.length,2);
+ needs=toggleNeed(needs,'Not sure yet');assert.deepEqual(needs,['Not sure yet']);needs=toggleNeed(needs,'Day-to-day management');assert.deepEqual(needs,['Day-to-day management']);
+ const management={...newManagement(),step:4,needs};assert.equal(workflowValid(management,true),true);
+ const prepared=prepareBrief(management,'manage-asset');management.needs.push('Leasing coordination');assert.deepEqual(prepared.details.needs,['Day-to-day management']);
+});
