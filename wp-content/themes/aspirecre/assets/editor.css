@@ -1,0 +1,7 @@
+.editor-styles-wrapper { background:var(--paper); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.6; }
+.editor-styles-wrapper .wp-block { max-width:none; }
+.editor-styles-wrapper .block-editor-block-list__layout > .wp-block { margin-top:0; margin-bottom:0; }
+.editor-styles-wrapper .hero-copy { padding-left:32px; }
+.editor-styles-wrapper .wp-block-image { min-height:120px; }
+.editor-styles-wrapper .hero-media .wp-block-image { position:relative; }
+.editor-styles-wrapper .wp-block-shortcode { background:white; color:var(--ink); border:1px solid var(--line); padding:20px; }
