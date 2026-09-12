@@ -9,31 +9,31 @@ final class Aspire_Property_Lens {
    'Office'=>array('Building'=>array('building_class','building_size','availability_range','office_configuration','elevator','furnished','move_in_ready'),'Access & parking'=>array('parking_ratio','parking_type','covered_parking','parking_spaces'),'Operations'=>array('24_7_access','security_access','on_site_management','amenities','building_signage','monument_signage')),
    'Land'=>array('Site'=>array('acreage','frontage','visibility'),'Development'=>array('utilities','detention','zoning','floodplain','restrictions','development_ready','shovel_ready','ETJ'),'Access'=>array('access_points','signalized_access','cross_access','nearby_corridors')),
   );
-  $rules=array();foreach($groups[$type==='Office Condo'?'Office':$type]??array() as $group=>$fields)foreach($fields as $field)$rules[$field]=array('label'=>ucwords(str_replace('_',' ',$field)),'group'=>$group,'priority'=>50,'formatter'=>$field,'implication'=>'Consider this detail alongside the requirements of your proposed use.','question'=>'What should be confirmed about '.str_replace('_',' ',$field).'?');
+  $rules=array();foreach($groups[$type==='Office Condo'?'Office':$type]??array() as $group=>$fields)foreach($fields as $field)$rules[$field]=array('label'=>ucwords(str_replace('_',' ',$field)),'group'=>$group,'priority'=>50,'formatter'=>$field,'question'=>'What should be confirmed about '.str_replace('_',' ',$field).'?');
   $specific=array(
-   'clear_height'=>array('Clear height',1,'Clear height is an important fit factor when evaluating storage, racking or equipment requirements.'),
-   'loading_configuration'=>array('Loading configuration',2,'The loading arrangement is worth evaluating against vehicle movements and day-to-day service activity.'),
-   'grade_level_doors'=>array('Grade-level loading',3,'Grade-level access may simplify loading for operations that do not require dock-high service.'),
-   'access_notes'=>array('Access',4,'The listed access connections are relevant when evaluating regional connectivity.'),
-   'construction_type'=>array('Construction',8,'Construction type is a useful starting point when evaluating potential alterations and maintenance.'),
-   'traffic_counts_by_road'=>array('Traffic counts',1,'Traffic volume is one input when evaluating exposure. It does not establish customer demand.'),
-   'turn_lane'=>array('Turn lane',2,'Turn-lane access is worth considering when reviewing arrival and departure movements.'),
-   'signalized_intersection'=>array('Signalized access',2,'A signalized intersection is relevant when evaluating how vehicles reach the property.'),
-   'population_radius_facts'=>array('Population context',3,'The stated radius provides a defined geographic context for evaluating the surrounding trade area.'),
-   'average_household_income'=>array('Household income',4,'Household income is a trade-area input to consider alongside your own customer research.'),
-   'building_class'=>array('Building class',1,'Building class provides a reference point for comparing specifications, services and finish expectations.'),
-   'building_size'=>array('Building size',2,'Building size provides scale; confirm how much space is part of the current offering.'),
-   'parking_spaces'=>array('Parking spaces',3,'The stated parking quantity provides context; allocation and rights should be checked against your needs.'),
-   'parking_ratio'=>array('Parking ratio',4,'Compare the stated ratio with your expected occupancy and visitor parking requirements.'),
-   'parking_type'=>array('Parking',3,'Parking type helps frame arrival, access and day-to-day use of the property.'),
-   'availability_range'=>array('Unit / contiguous space',2,'Compare the stated configuration with your space requirement and confirm which combinations are currently offered.'),
-   'acreage'=>array('Site area',1,'Site area sets the scale for evaluation. Usable area depends on site conditions and applicable requirements.'),
-   'nearby_corridors'=>array('Corridor context',2,'The listed corridor connections provide context for evaluating access. Confirm permitted site access separately.'),
-   'office_sf'=>array('Office area',5,'Compare the office allocation with the needs of your proposed operation.'),
-   'warehouse_sf'=>array('Warehouse area',6,'Compare the warehouse allocation with your storage and operational requirements.'),
-   'HVAC'=>array('HVAC',20,'Review HVAC coverage and operating terms against your intended use.'),
+   'clear_height'=>array('Clear height',1),
+   'loading_configuration'=>array('Loading configuration',2),
+   'grade_level_doors'=>array('Grade-level loading',3),
+   'access_notes'=>array('Access',4),
+   'construction_type'=>array('Construction',8),
+   'traffic_counts_by_road'=>array('Traffic counts',1),
+   'turn_lane'=>array('Turn lane',2),
+   'signalized_intersection'=>array('Signalized access',2),
+   'population_radius_facts'=>array('Population context',3),
+   'average_household_income'=>array('Household income',4),
+   'building_class'=>array('Building class',1),
+   'building_size'=>array('Building size',2),
+   'parking_spaces'=>array('Parking spaces',3),
+   'parking_ratio'=>array('Parking ratio',4),
+   'parking_type'=>array('Parking',3),
+   'availability_range'=>array('Unit / contiguous space',2),
+   'acreage'=>array('Site area',1),
+   'nearby_corridors'=>array('Corridor context',2),
+   'office_sf'=>array('Office area',5),
+   'warehouse_sf'=>array('Warehouse area',6),
+   'HVAC'=>array('HVAC',20),
   );
-  foreach($specific as $key=>[$label,$priority,$implication])if(isset($rules[$key]))$rules[$key]=array_replace($rules[$key],compact('label','priority','implication'));
+  foreach($specific as $key=>[$label,$priority])if(isset($rules[$key]))$rules[$key]=array_replace($rules[$key],compact('label','priority'));
   return $rules;
  }
  public static function known(array $intel,string $key): bool {
@@ -101,9 +101,10 @@ final class Aspire_Property_Lens {
    'Industrial / Flex'=>array('power_capacity'=>'What electrical service and power capacity are available?','loading_dimensions'=>'What are the loading-door dimensions and exact door count?','parking'=>'How is parking allocated?','yard'=>'Are there yard or outdoor-storage restrictions?','HVAC'=>'What HVAC coverage serves the warehouse and office areas?','space_split'=>'How is the current space divided between office and warehouse use?'),
    'Retail'=>array('nnn_cam'=>'What are the current NNN/CAM charges?','signage'=>'What signage rights are included?','ingress_egress'=>'How is delivery and service access handled?','tenant_improvements'=>'Are tenant-improvement allowances available?','use_restrictions'=>'Are there use restrictions or exclusives relevant to the space?'),
    'Office'=>array('operating_expenses'=>'What operating expenses are currently passed through?','parking_allocation'=>'How is parking allocated to tenants?','HVAC'=>'What HVAC hours and after-hours terms apply?','building_signage'=>'What signage opportunities are available?','tenant_improvements'=>'What tenant-improvement package is available?'),
+   'Office Condo'=>array('association_dues'=>'What are the current association dues and assessments?','combination_approvals'=>'What approvals are needed to combine units?','use_restrictions'=>'What restrictions apply to medical or office use?','parking_allocation'=>'What parking rights come with each unit?','delivery_condition'=>'What is included in the unit delivery condition?','utilities'=>'How are utilities metered and allocated?'),
    'Land'=>array('utilities'=>'What utilities are currently available at the site?','detention'=>'What detention requirements apply?','floodplain'=>'What floodplain conditions should be considered?','zoning'=>'What zoning or entitlement restrictions apply?','access_points'=>'What access points are permitted?','due_diligence'=>'What due-diligence materials are available?'),
   );
-  $out=array();foreach($sets[$type==='Office Condo'?'Office':$type]??array() as $key=>$question){
+  $out=array();foreach($sets[$type]??array() as $key=>$question){
    $answered=isset($facts[$key]);
    if(self::known($intel,$key)&&self::format($key,$intel['facts'][$key]['value']??'')!=='')$answered=true;
    if($key==='space_split')$answered=isset($facts['office_sf'],$facts['warehouse_sf']);

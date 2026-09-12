@@ -8,7 +8,7 @@ $models=array();foreach(array(119,120,121,122,351,392) as $id){
  lens_check(count($d['lens']['standouts'])<=4,'Standout cap');
  lens_check(wp_json_encode($d)===wp_json_encode(Aspire_Property_Dossier::data($id)),'Deterministic model');
  $json=wp_json_encode($d['lens']);foreach(array('evidence','v2_pointer','contact_candidates','source_url','migration_id','REVIEW_REQUIRED') as $private)lens_check(!str_contains($json,$private),'Private data excluded '.$private);
- foreach($d['lens']['standouts'] as $fact)lens_check(!preg_match('/perfect|ideal for|guarantee|will reduce/i',$fact['implication']),'No suitability promises');
+ foreach($d['lens']['standouts'] as $fact)lens_check(!isset($fact['implication']),'Educational implications retired');
 }
 $c=$models[120];lens_check($c['lens']['facts']['clear_height']['value']==='14′','Clay clear height');
 lens_check(!isset($c['lens']['facts']['office_sf'],$c['lens']['facts']['warehouse_sf']),'Clay source split withheld');
@@ -38,14 +38,14 @@ $contexts=array(array('label'=>'Parcel A / Ground lease','status'=>'known','fact
 $r=Aspire_Property_Lens::contexts($contexts,true);lens_check(count($r)===2&&count($r[0]['facts'])===1&&$r[1]['facts'][0]['value']==='4 acres','Contexts stay distinct, conflict/pricing omitted');
 foreach(array(null,0,'0','',array(),NAN) as $value)lens_check(Aspire_Property_Lens::format('office_sf',$value)==='','Missing/invalid number omitted');
 lens_check(array_column($models[392]['transactions'],'name')===array('For Sale','For Lease'),'Explicit ordered multi-intent display');
-function lens_partial($part,$data){ob_start();get_template_part('template-parts/property/'.$part,null,array('data'=>$data));return ob_get_clean();}
-foreach(array(0,1,2,3) as $count){$d=$models[120];$d['photos']=array_slice($d['photos'],0,$count);$html=lens_partial('media',$d);lens_check($count?str_contains($html,'dossier-mosaic-'.$count):!str_contains($html,'dossier-mosaic'),'Adaptive mosaic without blank cells');}
-lens_check(!str_contains(lens_partial('details',$models[122]),'PROPERTY DOCUMENTS'),'No FM documents shell');
-lens_check(str_contains(lens_partial('details',$models[121]),'PROPERTY DOCUMENTS'),'Real local brochure document area');
+function lens_partial($part,$data){ob_start();get_template_part('template-parts/property/'.$part,null,array('data'=>$data,'workspace'=>Aspire_Property_Dossier::workspace($data)));return ob_get_clean();}
+foreach(array(0,1,2,3) as $count){$d=$models[120];$d['photos']=array_slice($d['photos'],0,$count);$html=lens_partial('media',$d);lens_check($count?str_contains($html,'property-stage-image'):!str_contains($html,'property-stage-image'),'Single photo stage follows real media');}
+lens_check(!str_contains(lens_partial('due-diligence',$models[122]),'Property brochure'),'No FM documents shell');
+lens_check(str_contains(lens_partial('due-diligence',$models[121]),'Property brochure'),'Real local brochure document area');
 foreach(array(351,392) as $id){
  $response=wp_remote_get(str_replace('localhost:8080','localhost',get_permalink($id)),array('headers'=>array('Host'=>'localhost:8080'),'redirection'=>0));
  lens_check(wp_remote_retrieve_response_code($response)!==200,'Draft absent from anonymous permalink');
- $html=lens_partial('lens',$models[$id]);lens_check(str_contains($html,'ASPIRE LENS')&&!str_contains($html,'REVIEW_REQUIRED'),'Draft safe presentation');
+ $html=lens_partial('property',$models[$id]);lens_check(str_contains($html,'PROPERTY SNAPSHOT')&&!str_contains($html,'REVIEW_REQUIRED'),'Draft safe presentation');
 }
 $q=Aspire_Property_Lens::questions('Retail',array(),array(array('notes'=>'$24/SF Base + NNN')),array());lens_check(in_array('nnn_cam',array_column($q,'key'),true),'Base rate alone does not answer NNN');
 $q=Aspire_Property_Lens::questions('Retail',array(),array(),array(),array('lease_rate_display'=>'$18/SF Base + $5.84/SF NNN'));lens_check(!in_array('nnn_cam',array_column($q,'key'),true),'Known curated NNN not asked');

@@ -13,6 +13,51 @@ final class Aspire_Property_Dossier {
   $url=wp_get_attachment_url($id);
   return $id>0&&get_post_type($id)==='attachment'&&$url&&wp_parse_url($url,PHP_URL_HOST)===wp_parse_url(home_url(),PHP_URL_HOST)&&($image?wp_attachment_is_image($id):get_post_mime_type($id)==='application/pdf');
  }
+ /** A small, deterministic view composed exclusively from the safe property model. */
+ public static function workspace(array $d): array {
+  $type=$d['type']->name??'';$facts=$d['lens']['facts'];$snapshot=$d['snapshot'];$rail=array();
+  $keys=match($type){'Industrial / Flex'=>array('AVAILABLE','BUILDING','CLEAR HEIGHT'),'Retail'=>array('AVAILABLE','LISTED SUITE SIZES','SITE'),'Office Condo'=>array('UNIT SIZE','CONTIGUOUS'),'Office'=>array('BUILDING','CLASS','PARKING'),default=>array('SITE')};
+  foreach($keys as $key)if(isset($snapshot[$key]))$rail[$key]=$snapshot[$key];
+  if($type==='Retail'&&$d['suites']){$rail=array_slice($rail,0,1,true)+array('LISTED SPACES'=>(string)count($d['suites']))+array_slice($rail,1,null,true);}
+  $rail=array_slice($rail,0,3,true);$labels=array('UNIT SIZE'=>'Per unit','CONTIGUOUS'=>'Contiguous · one building','LISTED SUITE SIZES'=>'Known suite range','LISTED SPACES'=>'Listed spaces');
+  $metrics=array();foreach($rail as $label=>$value)$metrics[]=array('label'=>$labels[$label]??ucfirst(strtolower($label)),'value'=>str_replace(' (one building)','',$value));
+  $sentences=array();$available=$d['hero']['AVAILABLE']??'';$building=$d['hero']['BUILDING']??'';
+  if($type==='Office Condo'&&isset($snapshot['UNIT SIZE'],$snapshot['CONTIGUOUS']))$sentences[]='Listed units are '.$snapshot['UNIT SIZE'].' each and can combine to '.lcfirst($snapshot['CONTIGUOUS']).'.';
+  elseif($d['suites']){
+   $count=count($d['suites']);$sentence=$count.' listed '.($count===1?'space':'spaces');
+   if($available)$sentence.=' with '.$available.' advertised in total';
+   $sentences[]=ucfirst($sentence).'.';
+   if(isset($snapshot['LISTED SUITE SIZES']))$sentences[]='Known suite sizes range from '.$snapshot['LISTED SUITE SIZES'].(count(array_filter(array_column($d['suites'],'square_feet')))<$count?'; some suite areas are not specified.':'.');
+  }elseif($available)$sentences[]=$available.' is listed as available'.($building?' within a '.$building.' building':'').'.';
+  elseif($building)$sentences[]='The listing comprises a '.$building.' '.strtolower($type).' building'.(!empty($d['groups']['Building']['Stories'])?' across '.$d['groups']['Building']['Stories'].' stories':'').'.';
+  elseif(isset($d['hero']['SITE']))$sentences[]='The listed site comprises '.$d['hero']['SITE'].'.';
+  $signals=array();$location=array();
+  foreach($facts as $key=>$fact){
+   if(in_array($key,array('traffic_counts_by_road','population_radius_facts','average_household_income','nearby_corridors','access_notes','frontage','ingress_egress'),true))$location[$key]=$fact;
+   if(!in_array($key,array('availability_range','building_size','acreage','clear_height','average_household_income'),true))$signals[$key]=$fact;
+  }
+  // A narrowly recognized, already stored configuration; never infer unit inventory.
+  if($type==='Office Condo'){
+   $parking=$facts['parking_type']['value']??'';$signals=array();
+   foreach(array('private front-door entrance'=>'Private front-door entrance','surface parking'=>'Surface parking') as $needle=>$label)if(stripos($parking,$needle)!==false)$signals[$needle]=array('label'=>$label,'value'=>$label);
+   if(isset($facts['availability_range']))$signals['combine']=array('label'=>'Combination','value'=>'Units can combine');
+   foreach($d['highlights'] as $line)if(preg_match('/floor plans available for medical or standard office use/i',$line))$signals['configuration']=array('label'=>'Configuration','value'=>'Medical / standard office configuration');
+  }
+  if(count($sentences)<2){
+   if(isset($facts['nearby_corridors']))$sentences[]='Source materials place the property along the '.$facts['nearby_corridors']['value'].'.';
+   elseif($signals)$sentences[]='Listing materials identify '.implode(' and ',array_map(static fn($f)=>($f['key']??'')==='clear_height'?$f['value'].' clear height':lcfirst($f['value']),array_slice(array_values($signals),0,2))).'.';
+   elseif($d['locality'])$sentences[]='The property is located in '.$d['locality'].'.';
+  }
+  $spaces=array();foreach($d['suites'] as $suite){
+   $use=$suite['former_use'];
+   if(!$use&&preg_match('/(?:^|\|)\s*(Medical\s*\/\s*Office|Retail|Office|Medical)\s*(?:\||$)/i',$suite['notes'],$m))$use=preg_replace('/\s*\/\s*/',' / ',$m[1]);
+   $spaces[]=array('name'=>$suite['suite_name'],'size'=>$suite['square_feet']?$suite['square_feet'].' SF':'','use'=>$use,'rate'=>$suite['rate']?$suite['rate'].'/SF'.($suite['rate_type']?' '.$suite['rate_type']:''):'','status'=>$suite['availability_status']);
+  }
+  $space_facts=array();foreach(array('Space','Building','Site','Pricing','Parking') as $group)foreach($d['groups'][$group]??array() as $label=>$value)$space_facts[$label]=$value;
+  foreach($facts as $key=>$fact)if(in_array($key,array('clear_height','loading_configuration','office_sf','warehouse_sf','grade_level_doors','availability_range','parking_type'),true))$space_facts[$fact['label']]=$fact['value'];
+  if($type==='Office Condo'&&isset($snapshot['UNIT SIZE'],$snapshot['CONTIGUOUS'])){unset($space_facts['Unit / contiguous space']);$space_facts=array('Per unit'=>$snapshot['UNIT SIZE'],'Combinable'=>$snapshot['CONTIGUOUS'])+$space_facts;}
+  return array('metrics'=>$metrics,'summary'=>implode(' ',array_slice($sentences,0,3)),'signals'=>array_slice(array_values($signals),0,5),'location'=>array_values($location),'spaces'=>$spaces,'space_facts'=>$space_facts,'known'=>array_slice(array_values($facts),0,6));
+ }
  public static function data(int $id): array {
   $text=static fn($key)=>self::text($id,$key);$num=static fn($key,$suffix='')=>self::number($id,$key,$suffix);
   $city=$text('city');$state=$text('state');$zip=$text('postal_code');$title=sanitize_text_field(get_post_field('post_title',$id));

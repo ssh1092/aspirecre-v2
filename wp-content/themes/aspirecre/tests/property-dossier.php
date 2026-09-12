@@ -13,14 +13,15 @@ foreach($ids as $id){
  $html=wp_remote_retrieve_body($response);
  check(str_contains($html,'class="property-dossier"')&&str_contains($html,'id="property-title"'),'Single dossier template '.$id);
  check(str_contains($html,'srcset=')&&str_contains($html,'fetchpriority="high"'),'Responsive featured image '.$id);
- check(str_contains($html,'tel:+17139332001')&&str_contains($html,'CREATE MY REAL ESTATE BRIEF'),'Genuine actions '.$id);
+ check(str_contains($html,'tel:+17139332001')&&str_contains($html,'INTERESTED IN THIS PROPERTY?'),'Genuine actions '.$id);
  check(!str_contains($html,'aspire-atlas-view-js')&&!str_contains($html,'aspire-directory-view-js'),'No application runtime '.$id);
  check(!preg_match('/<link[^>]+href=["\'][^"\']*\/map\.css/',$html),'Map stylesheet not eager '.$id);
- check(str_contains($html,'id="property-gallery"')===(bool)$d['gallery'],'Gallery follows local attachment data '.$id);
- check(str_contains($html,'DOWNLOAD BROCHURE')===(bool)$d['brochure'],'Brochure follows local PDF field '.$id);
- check(str_contains($html,'YOUR ASPIRE ADVISORS')===(bool)$d['brokers'],'Only assigned advisors render '.$id);
+ check(str_contains($html,'class="dossier-viewer"')===(bool)$d['photos'],'Gallery follows local attachment data '.$id);
+ check(str_contains($html,'VIEW BROCHURE')===(bool)$d['brochure'],'Brochure follows local PDF field '.$id);
+ check(str_contains($html,'Assigned Aspire advisors')===(bool)$d['brokers'],'Only assigned advisors render '.$id);
  check(!str_contains($html,'PROPERTY OVERVIEW</h2>'),'Empty editor body omitted '.$id);
- check(str_contains($html,'PROPERTY HIGHLIGHTS')&&str_contains($html,esc_html($d['highlights'][0])),'Structured highlights '.$id);
+ check(str_contains($html,esc_html(Aspire_Property_Dossier::workspace($d)['summary'])),'Core factual synthesis '.$id);
+ check(substr_count($html,'role="tabpanel"')===4&&substr_count($html,'tabindex="0" hidden')===3,'Four modes with one initially visible '.$id);
  check(!str_contains($html,'comments-area')&&!str_contains($html,'post-navigation')&&!str_contains($html,'entry-meta'),'No blog UI '.$id);
  check($d['map']&&$d['map']['id']===$id&&count($d['map']['geometry']['coordinates'])===2,'Single property coordinates '.$id);
 }

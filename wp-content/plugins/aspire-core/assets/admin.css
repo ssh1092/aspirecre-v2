@@ -1,8 +1,4 @@
+/* Native Team Member fields; Property uses its own workspace stylesheet. */
 .aspire-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
 .aspire-fields label { display: block; font-weight: 600; margin-bottom: 6px; }
 .aspire-fields select { width: 100%; max-width: 100%; }
-.aspire-suite { border: 1px solid #c3c4c7; padding: 16px; margin-bottom: 16px; }
-.aspire-suite legend { font-weight: 600; padding: 0 6px; }
-.aspire-brokers { max-height: 260px; overflow: auto; margin-top: 12px; }
-.aspire-brokers label { display: block; padding: 6px 0; }
-.aspire-media + .aspire-media { margin-top: 24px; }

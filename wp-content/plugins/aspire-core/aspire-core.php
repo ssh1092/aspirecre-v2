@@ -26,3 +26,5 @@ require_once __DIR__ . '/includes/class-property-intelligence.php';
 
 require_once __DIR__ . '/includes/class-property-lens.php';
 require_once __DIR__ . '/includes/class-property-dossier.php';
+
+require_once __DIR__ . '/includes/class-property-workspace.php';

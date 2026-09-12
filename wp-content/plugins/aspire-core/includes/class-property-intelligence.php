@@ -6,7 +6,6 @@ final class Aspire_Property_Intelligence {
  const SOURCE = '_aspire_migration';
  public static function init() {
   add_action('init',array(__CLASS__,'register'));
-  add_action('add_meta_boxes_property',array(__CLASS__,'boxes'));
   add_action('save_post_property',array(__CLASS__,'save'),20,2);
  }
  public static function catalog() { return json_decode(file_get_contents(__DIR__.'/intelligence-fields.json'),true); }
@@ -38,10 +37,6 @@ final class Aspire_Property_Intelligence {
   foreach(array(self::META,self::SOURCE) as $key)register_post_meta('property',$key,array('type'=>'object','single'=>true,'show_in_rest'=>false,'sanitize_callback'=>($key===self::META?array(__CLASS__,'sanitize'):static fn($value)=>self::sanitize_tree($value)),'auth_callback'=>static fn($allowed,$key,$id)=>current_user_can('edit_post',$id)));
   foreach(array('_aspire_legacy_asset_url','_aspire_legacy_asset_sha256','_aspire_legacy_media_sources') as $key)register_post_meta('attachment',$key,array('single'=>true,'show_in_rest'=>false,'sanitize_callback'=>static fn($value)=>self::sanitize_tree($value),'auth_callback'=>static fn($allowed,$key,$id)=>current_user_can('edit_post',$id)));
  }
- public static function boxes() {
-  add_meta_box('aspire-intelligence','PROPERTY INTELLIGENCE',array(__CLASS__,'intelligence_box'),'property','normal','high');
-  add_meta_box('aspire-migration','SOURCE & MIGRATION',array(__CLASS__,'source_box'),'property','normal','default');
- }
  public static function label($field) {
   return array('clear_height'=>'Clear Height (ft)','office_sf'=>'Office Area (SF)','warehouse_sf'=>'Warehouse Area (SF)','24_7_access'=>'24/7 Access','HVAC'=>'HVAC','ETJ'=>'ETJ','traffic_counts_by_road'=>'Traffic Counts by Road (VPD)')[$field]??ucwords(str_replace('_',' ',$field));
  }
@@ -59,14 +54,7 @@ final class Aspire_Property_Intelligence {
   foreach(array('known','unknown','conflicting') as $s)echo '<option value="'.esc_attr($s).'" '.selected($status,$s,false).'>'.esc_html(ucfirst($s)).'</option>';
   echo '</select><textarea class="widefat" rows="2" id="'.esc_attr($id).'" name="aspire_intelligence[value]['.esc_attr($field).']">'.esc_textarea(self::display($value)).'</textarea></div>';
  }
- public static function intelligence_box($post) {
-  wp_nonce_field('aspire_intelligence_'.$post->ID,'aspire_intelligence_nonce');$data=get_post_meta($post->ID,self::META,true);$type=self::type($post->ID);
-  echo '<p><strong>'.esc_html($type).'</strong> · Source-backed decision fields. Unknown or conflicting values are not asserted as facts.</p>';
-  $unknown=array();foreach(self::catalog()[$type] as $field) {if(($data['decision_field_status'][$field]??'unknown')==='unknown')$unknown[]=$field;else self::field($field,$data);}
-  echo '<details><summary>Additional decision fields ('.count($unknown).')</summary>';
-  foreach($unknown as $field)self::field($field,$data);
-  echo '</details><p class="description">One statement per line. Traffic: road name — count VPD. Changing Property Type updates the relevant fields after saving. Leave unknown values empty.</p>';
- }
+ public static function intelligence_box($post) { Aspire_Property_Workspace::intelligence($post); }
  public static function source_box($post) {
   $data=get_post_meta($post->ID,self::SOURCE,true);if(!$data){echo '<p>No migration source recorded.</p>';return;}
   echo '<dl>';

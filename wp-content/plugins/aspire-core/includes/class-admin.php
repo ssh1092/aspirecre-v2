@@ -3,7 +3,7 @@
 defined( 'ABSPATH' ) || exit;
 final class Aspire_Core_Admin {
 	public static function init() {
-		// These data-heavy editors use WordPress's native classic meta-box layout.
+		// Property uses a dedicated workspace within the native WordPress form.
 		add_filter( 'use_block_editor_for_post_type', static function ( $use, $type ) {
 			return in_array( $type, array( 'property', 'team_member' ), true ) ? false : $use;
 		}, 10, 2 );
@@ -13,23 +13,16 @@ final class Aspire_Core_Admin {
 	}
 	public static function assets() {
 		$screen = get_current_screen();
-		if ( ! $screen || 'post' !== $screen->base || ! in_array( $screen->post_type, array( 'property', 'team_member' ), true ) ) { return; }
+		if ( ! $screen || 'post' !== $screen->base || 'team_member' !== $screen->post_type ) { return; }
 		wp_enqueue_style( 'aspire-core-admin', plugins_url( 'assets/admin.css', ASPIRE_CORE_FILE ), array(), '0.2.0' );
-		if ( 'property' === $screen->post_type ) {
-			wp_enqueue_media();
-			wp_enqueue_script( 'aspire-core-admin', plugins_url( 'assets/admin.js', ASPIRE_CORE_FILE ), array( 'jquery', 'media-views' ), '0.2.0', true );
-		}
+
 	}
 	public static function boxes( $type ) {
-		if ( ! in_array( $type, array( 'property', 'team_member' ), true ) ) { return; }
+		if ( 'team_member' !== $type ) { return; }
 		foreach ( Aspire_Core_Fields::groups( $type ) as $title => $fields ) {
 			add_meta_box( 'aspire-' . sanitize_title( $title ), $title, array( __CLASS__, 'fields_box' ), $type, 'normal', 'default', $fields );
 		}
-		if ( 'property' === $type ) {
-			foreach ( array( 'suites' => 'Suite Availability', 'media' => 'Media', 'brokers' => 'Listing Brokers' ) as $key => $title ) {
-				add_meta_box( 'aspire-' . $key, $title, array( __CLASS__, $key . '_box' ), $type, 'normal' );
-			}
-		}
+
 	}
 	public static function label( $name ) {
 		return ucwords( str_replace( array( '_', 'sf', 'vpd', 'ft', 'url' ), array( ' ', 'SF', 'VPD', 'ft', 'URL' ), $name ) );
@@ -66,33 +59,6 @@ final class Aspire_Core_Admin {
 			echo '</div>';
 		}
 		echo '</div>';
-	}
-	public static function suite_row( $index, $suite ) {
-		echo '<fieldset class="aspire-suite"><legend>Suite</legend><div class="aspire-fields">';
-		foreach ( Aspire_Core_Fields::suites() as $name => $kind ) {
-			$id = 'aspire-suite-' . $index . '-' . $name;
-			echo '<div><label for="' . esc_attr( $id ) . '">' . esc_html( self::label( $name ) ) . '</label>';
-			self::control( 'aspire[suites][' . $index . '][' . $name . ']', $kind, $suite[ $name ] ?? '', $id );
-			echo '</div>';
-		}
-		echo '</div><p><button type="button" class="button aspire-remove-suite">Remove Suite</button></p></fieldset>';
-	}
-	public static function suites_box( $post ) {
-		echo '<input type="hidden" name="aspire[suites_present]" value="1"><div id="aspire-suite-rows">';
-		$suites = get_post_meta( $post->ID, '_aspire_suites', true );
-		foreach ( is_array( $suites ) ? $suites : array() as $index => $suite ) { self::suite_row( $index, $suite ); }
-		echo '</div><template id="aspire-suite-template">';
-		self::suite_row( '__INDEX__', array() );
-		echo '</template><button type="button" class="button" id="aspire-add-suite">Add Suite</button><p class="description">Changes are saved when you save or update this property.</p>';
-	}
-	public static function media_box( $post ) {
-		foreach ( array( 'brochure_attachment_id' => 'Brochure PDF', 'gallery_attachment_ids' => 'Image Gallery' ) as $name => $label ) {
-			$value = get_post_meta( $post->ID, '_aspire_' . $name, true );
-			$ids = is_array( $value ) ? $value : array_filter( array( (int) $value ) );
-			echo '<div class="aspire-media" data-kind="' . esc_attr( $name ) . '"><p><strong>' . esc_html( $label ) . '</strong></p><input type="hidden" name="aspire[' . esc_attr( $name ) . ']" value="' . esc_attr( implode( ',', $ids ) ) . '"><ul class="aspire-media-preview">';
-			foreach ( $ids as $id ) { echo '<li><a href="' . esc_url( wp_get_attachment_url( $id ) ) . '" target="_blank" rel="noopener">' . ( wp_attachment_is_image( $id ) ? wp_get_attachment_image( $id, array( 96, 72 ) ) : '' ) . esc_html( get_the_title( $id ) ?: 'Attachment ' . $id ) . ' (#' . esc_html( $id ) . ')</a></li>'; }
-			echo '</ul><button type="button" class="button aspire-select-media">Select ' . esc_html( $label ) . '</button> <button type="button" class="button aspire-clear-media">Clear</button></div>';
-		}
 	}
 	public static function brokers_box( $post ) {
 		$selected = array_map( 'intval', get_post_meta( $post->ID, '_aspire_listing_broker_id', false ) );

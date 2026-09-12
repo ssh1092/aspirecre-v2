@@ -1,0 +1,4 @@
+<?php defined('ABSPATH') || exit;$d=$args['data'];$w=$args['workspace']; ?>
+<div class="property-synthesis"><div><h2 class="dossier-eyebrow">PROPERTY SNAPSHOT</h2><p><?php echo esc_html($w['summary']); ?></p></div>
+<?php if($w['signals']): ?><ul class="property-signals" aria-label="Property signals"><?php foreach($w['signals'] as $fact): ?><li><?php if($fact['label']!==$fact['value']): ?><span><?php echo esc_html($fact['label']); ?></span><?php endif; ?><strong><?php echo esc_html($fact['value']); ?></strong></li><?php endforeach; ?></ul><?php endif; ?></div>
+<?php if($d['brokers']): ?><div class="property-advisors"><h3>Assigned Aspire advisors</h3><?php foreach($d['brokers'] as $id): ?><a href="<?php echo esc_url(get_permalink($id)); ?>"><?php echo esc_html(get_the_title($id)); ?></a><?php endforeach; ?></div><?php endif; ?>
