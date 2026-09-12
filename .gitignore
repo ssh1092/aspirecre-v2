@@ -4,3 +4,9 @@ wp-content/uploads/
 node_modules/
 *.pmtiles
 .local-tools/
+
+# Legacy audit HTML and local read-only snapshots
+/var/migration/
+
+# Python audit bytecode
+__pycache__/

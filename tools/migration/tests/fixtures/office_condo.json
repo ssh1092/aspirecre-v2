@@ -1,0 +1,74 @@
+{
+  "source_url": "https://www.aspirecre.com/properties/kingsley-ridge-office-condos-3129-kingsley-drive-pearland-tx-77584",
+  "title": "Kingsley Ridge Office Condos - 3129 Kingsley Drive Pearland, TX 77584",
+  "category": "Office Condos",
+  "blocks": [
+    [
+      {
+        "tag": "h3",
+        "text": "Property Highlights:"
+      },
+      {
+        "tag": "li",
+        "text": "1,225 SF units available for lease"
+      },
+      {
+        "tag": "li",
+        "text": "Brand new construction"
+      },
+      {
+        "tag": "li",
+        "text": "Move-in ready condition"
+      },
+      {
+        "tag": "li",
+        "text": "Floor plans available for medical or standard office use"
+      },
+      {
+        "tag": "li",
+        "text": "Single-story with private front door entrance and surface parking"
+      },
+      {
+        "tag": "li",
+        "text": "High-end finishes throughout"
+      },
+      {
+        "tag": "li",
+        "text": "Common Area Maintenance includes: parking lot maintenance, landscaping, exterior lighting, dumpster trash, water, and insurance"
+      }
+    ]
+  ],
+  "images": [
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/f7f5dab0-cf8b-468e-af81-ef3a0c0c0c4f/IMG_3940.jpg",
+      "alt_text": "",
+      "gallery": false
+    },
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1737992293071-WNXMH6U2GMGPXRDLX3PU/IMG_3951.jpg",
+      "alt_text": "IMG_3951.jpg",
+      "gallery": true
+    },
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1737992297693-T3GWY05J3IJR4Q8A6RTV/MedCoShare+4.jpg",
+      "alt_text": "MedCoShare 4.jpg",
+      "gallery": true
+    },
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1737992301551-RT4BG96TND6OHGQ1LKZU/MedCoShare+5.jpg",
+      "alt_text": "MedCoShare 5.jpg",
+      "gallery": true
+    },
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1737992305436-BSLI9MQCVOB6MXTT1L55/MedCoShare+6.jpg",
+      "alt_text": "MedCoShare 6.jpg",
+      "gallery": true
+    }
+  ],
+  "links": [
+    {
+      "url": "/s/Kingsley-Ridge-Office-Condos-Flyer-Compressed.pdf",
+      "text": "DOWNLOAD THE BROCHURE"
+    }
+  ]
+}

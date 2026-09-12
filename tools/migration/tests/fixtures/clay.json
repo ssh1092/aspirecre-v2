@@ -1,0 +1,74 @@
+{
+  "source_url": "https://www.aspirecre.com/properties/16840-clay-road-houston-tx-77084",
+  "title": "16840 Clay Road Houston, TX 77084",
+  "category": "Industrial",
+  "blocks": [
+    [
+      {
+        "tag": "h3",
+        "text": "Building Highlights:"
+      },
+      {
+        "tag": "li",
+        "text": "Masonry Construction"
+      },
+      {
+        "tag": "li",
+        "text": "14’ Clear Height"
+      },
+      {
+        "tag": "li",
+        "text": "Grade Level Loading Doors"
+      },
+      {
+        "tag": "li",
+        "text": "Rear Load Configuration"
+      },
+      {
+        "tag": "li",
+        "text": "Professionally Leased and Managed"
+      },
+      {
+        "tag": "li",
+        "text": "Ample Parking"
+      },
+      {
+        "tag": "li",
+        "text": "Convenient Access to Highway 6"
+      }
+    ]
+  ],
+  "images": [
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1699323166123-BTJXOMNXXY653TWC9FAL/Clay+Rd.+2.jpg",
+      "alt_text": "",
+      "gallery": false
+    },
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1699323401895-K27B4U5IRHIMCCVBORE1/IMG_7364.jpg",
+      "alt_text": "IMG_7364.jpg",
+      "gallery": true
+    },
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1699323413844-SFO40UV66XTBH7MU70EW/IMG_7365.jpg",
+      "alt_text": "IMG_7365.jpg",
+      "gallery": true
+    },
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1699323430162-SI7FJ49OWFYM9VG8TOQ8/IMG_7369.jpg",
+      "alt_text": "IMG_7369.jpg",
+      "gallery": true
+    },
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1699323442291-Y7OAUKWK7PU4FYCZ8CQ7/IMG_7370.jpg",
+      "alt_text": "IMG_7370.jpg",
+      "gallery": true
+    }
+  ],
+  "links": [
+    {
+      "url": "/s/16840-Clay-Road-Flyer-STE-101-zheg.pdf",
+      "text": "DOWNLOAD THE BROCHURE"
+    }
+  ]
+}

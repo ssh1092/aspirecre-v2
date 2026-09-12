@@ -1,0 +1,106 @@
+{
+  "source_url": "https://www.aspirecre.com/properties/14602-presidio-square-boulevard-houston-tx-77083",
+  "title": "14602 Presidio Square Boulevard, Houston, TX 77083",
+  "category": "Office",
+  "blocks": [
+    [
+      {
+        "tag": "h3",
+        "text": "Property Highlights:"
+      },
+      {
+        "tag": "p",
+        "text": "The property is located along two high traffic corridors that quickly connect it to the surrounding Houston Metro area"
+      },
+      {
+        "tag": "li",
+        "text": "PROPERTY TYPE - Office"
+      },
+      {
+        "tag": "li",
+        "text": "BUILDING SIZE - 42,716 S"
+      },
+      {
+        "tag": "li",
+        "text": "BUILDING CLASS - B"
+      },
+      {
+        "tag": "li",
+        "text": "YEAR BUILT/RENOVATED - 2014"
+      },
+      {
+        "tag": "li",
+        "text": "BUILDING HEIGH - 3 Stories"
+      },
+      {
+        "tag": "li",
+        "text": "TYPICAL FLOOR SIZE - 6,789 SF"
+      },
+      {
+        "tag": "li",
+        "text": "BUILDING FAR - 0.40"
+      },
+      {
+        "tag": "li",
+        "text": "LOT SIZE - 2.48 AC"
+      },
+      {
+        "tag": "li",
+        "text": "PARKING - 160 Spaces (3.95 Spaces per 1,000 SF Leased)"
+      }
+    ]
+  ],
+  "images": [
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/706db0e6-0f2e-4214-9ec6-ce533ba2fbad/DJI_20251006152303_0288_D+copy.jpg",
+      "alt_text": "",
+      "gallery": false
+    },
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1760378846066-BFSNIBB4VYKCJORA2E03/DJI_20251006152220_0287_D.jpg",
+      "alt_text": "DJI_20251006152220_0287_D.jpg",
+      "gallery": true
+    },
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1760378845848-ON9FRKB7HG478JB7EISQ/DJI_20251006152303_0288_D+copy.jpg",
+      "alt_text": "DJI_20251006152303_0288_D copy.jpg",
+      "gallery": true
+    },
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1760378851292-Y7M4SRIZF1BDGG9AB7D2/DJI_20251006152426_0293_D+copy.jpg",
+      "alt_text": "DJI_20251006152426_0293_D copy.jpg",
+      "gallery": true
+    },
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1760378851821-ZBFW5X5N031S4I44KDTF/DJI_20251006152449_0294_D+copy.jpg",
+      "alt_text": "DJI_20251006152449_0294_D copy.jpg",
+      "gallery": true
+    },
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1760378857437-Y03PLVPS79N3NG5RWQ46/DJI_20251006152701_0301_D+copy.jpg",
+      "alt_text": "DJI_20251006152701_0301_D copy.jpg",
+      "gallery": true
+    },
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1760378858302-DC2LAF1ZT2TPL6G7NZ2A/DJI_20251006152735_0303_D-Recovered+copy.jpg",
+      "alt_text": "DJI_20251006152735_0303_D-Recovered copy.jpg",
+      "gallery": true
+    },
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1760378864318-IL6XPHOPNL0Y7H0R0TA1/Presidio+Boulevard+-+Drone++Photo+1.jpg",
+      "alt_text": "Presidio Boulevard - Drone  Photo 1.jpg",
+      "gallery": true
+    },
+    {
+      "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1760378865374-HY65PC2C4O67NEV5Y0A0/Presidio+Boulevard+-+Drone++Photo.jpg",
+      "alt_text": "Presidio Boulevard - Drone  Photo.jpg",
+      "gallery": true
+    }
+  ],
+  "links": [
+    {
+      "url": "/s/14602-Presidio-Square-Boulevard-Flyer-_email.pdf",
+      "text": "DOWNLOAD THE BROCHURE"
+    }
+  ]
+}
