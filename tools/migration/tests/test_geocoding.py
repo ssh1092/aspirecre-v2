@@ -9,8 +9,13 @@ import struct
 import subprocess
 import sys
 import unittest
+import tempfile
+import shutil
+from unittest.mock import patch
+import contextlib
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+import geocode
 from geocode import submissions,input_bytes,parse_batch,classify,valid_coordinates,street_parts,distance_m,comparison,inside,wp_coordinate
 ROOT=Path(__file__).resolve().parents[3]
 V3=json.loads((ROOT/'docs/migration/aspire-properties-manifest-v3.json').read_text())
@@ -109,7 +114,16 @@ class GeocodingTests(unittest.TestCase):
     def test_cached_output_determinism(self):
         paths=[ROOT/'docs/migration'/n for n in ['aspire-properties-manifest-v4.json','aspire-properties-review-v4.csv','aspire-properties-geocoding-summary.md']]
         before=[p.read_bytes() for p in paths]
-        subprocess.check_output([sys.executable,'tools/migration/geocode.py'],cwd=ROOT)
+        # Rebuild historical evidence in isolation: later migration reports must not
+        # become new V4 inputs, and tests must never rewrite authoritative outputs.
+        with tempfile.TemporaryDirectory() as tmp:
+            out=Path(tmp)/'output';out.mkdir()
+            for name in V4['preserved_audit_sha256']:
+                shutil.copy2(ROOT/'docs/migration'/name,out/name)
+            work=Path(tmp)/'cache';shutil.copytree(geocode.WORK,work)
+            with patch.object(geocode,'OUT',out),patch.object(geocode,'V3',out/'aspire-properties-manifest-v3.json'),patch.object(geocode,'WORK',work),contextlib.redirect_stdout(io.StringIO()):
+                geocode.run()
+            self.assertEqual(before,[(out/p.name).read_bytes() for p in paths])
         self.assertEqual(before,[p.read_bytes() for p in paths])
         with paths[1].open() as f:rows=list(csv.DictReader(f))
         self.assertEqual(len(rows),87);self.assertTrue(all(not r['review_decision'] and not r['review_notes'] for r in rows))

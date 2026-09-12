@@ -23,3 +23,6 @@ require_once __DIR__ . '/includes/class-atlas.php';
 require_once __DIR__ . '/includes/class-atlas-inquiries.php';
 require_once __DIR__ . '/includes/class-property-directory.php';
 require_once __DIR__ . '/includes/class-property-intelligence.php';
+
+require_once __DIR__ . '/includes/class-property-lens.php';
+require_once __DIR__ . '/includes/class-property-dossier.php';
