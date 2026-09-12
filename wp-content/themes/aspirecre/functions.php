@@ -24,3 +24,4 @@ add_action( 'wp_enqueue_scripts', static function (): void {
 } );
 require_once __DIR__ . '/inc/blocks.php';
 require_once __DIR__ . '/inc/property-directory.php';
+require_once __DIR__ . '/inc/property-dossier.php';
