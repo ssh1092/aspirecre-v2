@@ -1,3 +1,4 @@
+import {mobileDirectory} from './mobile.js';
 import {loadProperties} from '../../atlas/src/properties.js';
 import {areas,SF,ACRES,defaults,fromURL,toURL,filter,sort,cardData} from './data.js';
 const node=(tag,text,cls)=>{const el=document.createElement(tag);if(text)el.textContent=text;if(cls)el.className=cls;return el;};
@@ -7,6 +8,7 @@ async function start(root){
  const types=[...type.options].map(o=>o.value),transactions=[...transaction.options].map(o=>o.value),reduced=matchMedia('(prefers-reduced-motion: reduce)');
  areas.forEach(a=>area.add(new Option(a.label,a.value)));
  let filters=fromURL(location.search,types,transactions),features=[],visible=[],selected=null,hovered=null,order='featured',map=null,mapPromise=null,loaded=false;
+ let mobile;
  const perLoad=Number(root.dataset.perLoad),cards=new Map();let limit=perLoad||Infinity;
  function configure(){size.replaceChildren(...(filters.type==='land'?ACRES:SF).map(([value,label])=>new Option(label,value)));root.querySelector('.directory-size-label').textContent=filters.type==='land'?'SIZE · ACRES':'SIZE';controls.forEach(c=>c.value=filters[c.name]);root.querySelectorAll('[data-quick-type]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.quickType===filters.type)));}
  function visual(reason){root.dataset.selectedProperty=selected??'';root.dataset.hoveredProperty=hovered??'';for(const [id,card] of cards){card.classList.toggle('is-selected',id===selected);card.classList.toggle('is-hovered',id===hovered);card.querySelector('.directory-card-select').setAttribute('aria-pressed',String(id===selected));}if(mapSelect)mapSelect.value=selected===null?'':String(selected);map?.update(visible,selected,hovered,reason);}
@@ -15,7 +17,7 @@ async function start(root){
   if(id!==null&&!visible.some(f=>f.id===id))return;selected=id;hovered=null;
   if(id!==null){const index=visible.findIndex(f=>f.id===id);if(index>=limit){limit=perLoad?Math.ceil((index+1)/perLoad)*perLoad:Infinity;render();}status.textContent=`${visible[index].properties.displayTitle||visible[index].properties.title} selected.`;}
   else status.textContent='Property selection cleared.';
-  visual('select');if(origin==='map'&&cards.has(id))cards.get(id).scrollIntoView({block:'center',behavior:reduced.matches?'instant':'smooth'});
+  visual('select');if(origin==='map'&&!mobile?.isMap()&&cards.has(id))cards.get(id).scrollIntoView({block:'center',behavior:reduced.matches?'instant':'smooth'});
  }
  function render(){
   list.replaceChildren();cards.clear();
@@ -27,7 +29,7 @@ async function start(root){
    if(data.featured)media.append(node('span','FEATURED','directory-featured'));
    const choose=node('button','⌖','directory-card-select');choose.type='button';choose.setAttribute('aria-label',`Select ${data.title}`);choose.setAttribute('aria-pressed',String(selected===feature.id));choose.title='Select property';choose.addEventListener('click',()=>select(feature.id));media.append(choose);
    body.append(node('p',data.eyebrow,'directory-card-kind'),node('h2',data.title),node('p',[feature.properties.location?.city,feature.properties.location?.state].filter(Boolean).join(', '),'directory-card-location'));
-   const metrics=node('dl',null,'directory-card-metrics');data.metrics.forEach(({label,value})=>{const group=node('div');group.append(node('dt',label),node('dd',value));metrics.append(group);});if(data.metrics.length)body.append(metrics);
+   const metrics=node('dl',null,'directory-card-metrics');data.metrics.forEach(({label,value},index)=>{const group=node('div');if(!data.mobileMetrics.includes(index))group.className='directory-desktop-metric';group.append(node('dt',label),node('dd',value));metrics.append(group);});if(data.metrics.length)body.append(metrics);
    if(data.highlights.length){const highlights=node('ul',null,'directory-highlights');data.highlights.forEach(line=>highlights.append(node('li',line)));body.append(highlights);}
    if(data.permalink){const link=node('a','VIEW PROPERTY →','directory-card-link');link.href=data.permalink;link.setAttribute('aria-label',`View property: ${data.title}`);body.append(link);}
    card.append(media,body);item.append(card);list.append(item);cards.set(feature.id,card);
@@ -38,18 +40,19 @@ async function start(root){
   root.querySelector('.directory-empty').hidden=visible.length>0;root.dataset.resultCount=String(visible.length);
   if(mapSelect)mapSelect.replaceChildren(new Option('Choose a property',''),...visible.map(f=>new Option(f.properties.displayTitle||f.properties.title,String(f.id))));
  }
- function update(reason,write=false){configure();visible=sort(filter(features,filters),order);if(!visible.some(f=>f.id===selected))selected=null;hovered=null;limit=perLoad||Infinity;if(loaded)render();if(write){const url=toURL(root.dataset.base,filters);if(url!==location.pathname+location.search)history.pushState(null,'',url);}visual(reason);}
- async function ensureMap(){if(!root.dataset.mapModule||root.dataset.view!=='split'||!loaded)return;if(map){map.resize();return;}if(!mapPromise){mapPromise=import(root.dataset.mapModule).then(module=>module.createDirectoryMap(root,features,{hover,select})).then(value=>{map=value;map.update(visible,selected,hovered,'ready');}).catch(()=>{root.querySelector('.directory-map-status').textContent='The map is unavailable. All property details remain available in the list.';});}await mapPromise;}
+ function update(reason,write=false){configure();visible=sort(filter(features,filters),order);if(!visible.some(f=>f.id===selected))selected=null;hovered=null;limit=perLoad||Infinity;if(loaded)render();if(write){const url=toURL(root.dataset.base,filters);if(url!==location.pathname+location.search)history.pushState(null,'',url);}visual(reason);mobile?.refresh();}
+ async function ensureMap(){if(!root.dataset.mapModule||root.dataset.view!=='split'||!loaded)return;if(map){map.resize();if(mobile?.isMap())map.update(visible,selected,hovered,'ready');return;}if(!mapPromise){mapPromise=new Promise((resolve,reject)=>{const css=document.createElement('link');css.rel='stylesheet';css.href=root.dataset.mapStyle;css.onload=resolve;css.onerror=reject;document.head.append(css);}).then(()=>import(root.dataset.mapModule)).then(module=>module.createDirectoryMap(root,features,{hover,select})).then(value=>{map=value;map.update(visible,selected,hovered,'ready');}).catch(()=>{root.querySelector('.directory-map-status').textContent='The map is unavailable. All property details remain available in the list.';});}await mapPromise;}
  function view(value){root.dataset.view=value;if(mapPanel)mapPanel.hidden=value==='list';root.querySelectorAll('[data-view-choice]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.viewChoice===value)));ensureMap();}
  controls.forEach(c=>c.addEventListener('change',()=>{if(c.name==='type'&&(filters.type==='land')!==(c.value==='land'))filters.size='';filters[c.name]=c.value;update('filter',true);}));
  root.querySelector('.directory-filters').addEventListener('submit',e=>e.preventDefault());
  root.querySelectorAll('[data-quick-type]').forEach(b=>b.addEventListener('click',()=>{if((filters.type==='land')!==(b.dataset.quickType==='land'))filters.size='';filters.type=b.dataset.quickType;update('filter',true);}));
- root.querySelectorAll('.directory-reset').forEach(b=>b.addEventListener('click',()=>{filters=defaults();update('filter',true);if(!b.isConnected||b.closest('.directory-empty'))type.focus();}));
+ root.querySelectorAll('.directory-reset').forEach(b=>b.addEventListener('click',()=>{filters=defaults();update('filter',true);if(!b.isConnected||b.closest('.directory-empty'))mobile?.isMobile()?mobile.focus():type.focus();}));
  root.querySelector('[name=sort]').addEventListener('change',e=>{order=e.target.value;root.querySelector('.directory-sort-note').hidden=order!=='largest';update('sort');});
- root.querySelectorAll('[data-view-choice]').forEach(b=>b.addEventListener('click',()=>view(b.dataset.viewChoice)));
- more.addEventListener('click',()=>{const firstNew=limit;limit+=perLoad;render();visual('more');cards.get(visible[firstNew]?.id)?.querySelector('button').focus({preventScroll:true});});
+ root.querySelectorAll('[data-view-choice]').forEach(b=>b.addEventListener('click',()=>mobile.desktopView(b.dataset.viewChoice)));
+ more.addEventListener('click',()=>{const firstNew=limit;limit+=perLoad;render();visual('more');cards.get(visible[firstNew]?.id)?.querySelector(mobile?.isMobile()?'a':'button').focus({preventScroll:true});});
  mapSelect?.addEventListener('change',()=>select(mapSelect.value?Number(mapSelect.value):null,'map'));
- window.addEventListener('popstate',()=>{filters=fromURL(location.search,types,transactions);update('filter');});configure();view(root.dataset.view);
+ mobile=mobileDirectory(root,{features:()=>features,filters:()=>filters,apply:value=>{filters=value;update('filter',true);},view,scrollSelected:()=>cards.get(selected)?.scrollIntoView({block:'center'} )});
+ window.addEventListener('popstate',()=>{mobile.close();filters=fromURL(location.search,types,transactions);update('filter');});configure();
  const abort=new AbortController(),timer=setTimeout(()=>abort.abort(),15000);
  try{const data=await loadProperties(root.dataset.endpoint,abort.signal);features=data.features;loaded=true;update('ready');await ensureMap();}
  catch{count.textContent='OPPORTUNITIES UNAVAILABLE';root.querySelector('.directory-error').hidden=false;if(mapPanel)mapPanel.hidden=true;}

@@ -11,11 +11,6 @@ final class Aspire_Property_Directory {
   wp_register_style('aspire-directory-editor',$url.'editor.css',array(),$version);
   register_block_type($base,array('render_callback'=>array(self::class,'render')));
  }
- public static function assets(): void {
-  if(!is_singular())return;
-  $walk=static function(array $blocks) use (&$walk): bool {foreach($blocks as $block){if($block['blockName']==='aspire/property-directory'&&($block['attrs']['showMap']??true))return true;if($walk($block['innerBlocks']??array()))return true;}return false;};
-  if($walk(parse_blocks(get_post_field('post_content',get_queried_object_id()))))wp_enqueue_style('aspire-directory-map');
- }
  public static function enrich(array $data): array {
   foreach($data['features'] as &$feature){
    $id=(int)$feature['id'];$detail=array();
@@ -42,7 +37,7 @@ final class Aspire_Property_Directory {
   $per_load=in_array((int)($attributes['perLoad']??0),array(0,12,24),true)?(int)($attributes['perLoad']??0):0;
   $uid=wp_unique_id('aspire-directory-');
   $types=get_terms(array('taxonomy'=>'property_type','hide_empty'=>false));$transactions=get_terms(array('taxonomy'=>'transaction_type','hide_empty'=>false));
-  if(!$editor){wp_enqueue_script('aspire-directory-view');if($show_map)wp_enqueue_style('aspire-directory-map');}
+  if(!$editor)wp_enqueue_script('aspire-directory-view');
   ob_start();require dirname(ASPIRE_CORE_FILE).'/directory/template.php';return ob_get_clean();
  }
 }
@@ -50,5 +45,3 @@ add_action('init',array(Aspire_Property_Directory::class,'register'));
 add_filter('rest_post_dispatch',array(Aspire_Property_Directory::class,'response'),10,3);
 add_filter('wp_robots',array(Aspire_Property_Directory::class,'robots'));
 add_filter('get_canonical_url',array(Aspire_Property_Directory::class,'canonical'),10,2);
-
-add_action('wp_enqueue_scripts',array(Aspire_Property_Directory::class,'assets'));
