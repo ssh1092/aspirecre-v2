@@ -64,3 +64,41 @@ Candidates retain page/brochure evidence separately. Conflicts leave numeric and
 Coordinates and primary-image evidence come from cached HTML only. Repeated coordinates across different addresses are retained as evidence but withheld as usable candidates. Image confidence requires matching legitimate existing property media; gallery ordering is preserved and no images are downloaded. Type-specific completeness scores count known fields divided by the documented field catalog and are internal QA only.
 
 Nine additional reduced evidence fixtures cover Clay, Atascocita, Broadway, Woodson's, Greatwood, Prairie, Monroe, Hiram Clarke land and FM 1093. `make_enrichment_fixtures.py` regenerates them offline from the cache. Cache tests make no network requests. No WordPress write API, importer, frontend changes, external geocoder or media-library operation is involved.
+
+## V3 import-candidate normalization (still audit only)
+
+V3 reads the committed V2 evidence and cached HTML. It makes no network requests,
+imports nothing and writes only the three new V3 review outputs. Do not rerun V1
+or V2 generators as part of normalization.
+
+```sh
+docker compose exec -T wordpress php < tools/migration/snapshot.php > var/migration/aspire-properties/normalization-before.json
+docker compose exec -T wordpress php < tools/migration/snapshot.php > var/migration/aspire-properties/normalization-after.json
+var/migration/venv/bin/python tools/migration/normalize.py
+var/migration/venv/bin/python -m unittest discover -s tools/migration/tests -v
+```
+
+Each V3 record has a separate `import_candidate` and an immutable V2 file hash /
+record JSON-pointer reference. Evidence pointers beneath that record identify
+original quotes. Additional parcel block evidence records the cached HTML hash
+and block index. All six V1/V2 artifacts are hash-checked and never rewritten.
+
+The normalizer documents positive gates for every decision-field matcher, fixes
+combined built/renovated years, rejects malformed prices, separates suite and
+parcel pricing, and groups road-specific traffic. Excluded V2 matches remain in
+`parser_matches_removed`; exclusion counts include conservative omissions and
+repeated source matches, not just proven false positives. Type changes retain
+supporting evidence. Tier B transaction derivations require human approval.
+
+Multiple transaction intents are semantic arrays. Sale plus ground lease never
+becomes ordinary sale-or-lease. WordPress can store multiple terms, but Atlas's
+current first-term/scalar model needs a separate future compatibility decision.
+No taxonomy or frontend changes are made here.
+
+`READY_WITH_NULLS` permits eventual draft migration with missing optional data;
+`REVIEW_REQUIRED` covers derived intents, image/type decisions and substantive
+conflicts. Missing critical addresses and wrong-subject brochures are `BLOCKED`.
+No classification authorizes publication. Contact candidates are not approved
+for display and team order does not select a primary. The CSV leaves both human
+review columns blank. Tests exercise the ten requested real-property cases plus
+immutability, coordinates, pricing policy, transaction semantics and CSV safety.
