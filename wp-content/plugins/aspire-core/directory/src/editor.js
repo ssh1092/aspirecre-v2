@@ -1,0 +1,6 @@
+/* global wp */
+(function({blocks,element,blockEditor,components,serverSideRender}){
+ const el=element.createElement,SSR=serverSideRender.default||serverSideRender;
+ blocks.registerBlockType('aspire/property-directory',{apiVersion:3,title:'Aspire Property Directory',category:'aspirecre',icon:'location',attributes:{defaultView:{type:'string',default:'split'},showMap:{type:'boolean',default:true},perLoad:{type:'number',default:0}},supports:{html:false,multiple:false,align:['wide','full']},
+ edit({attributes,setAttributes}){return el(element.Fragment,null,el(blockEditor.InspectorControls,null,el(components.PanelBody,{title:'Directory settings'},el(components.SelectControl,{label:'Default View',value:attributes.defaultView,options:[{label:'Split',value:'split'},{label:'List',value:'list'}],onChange:defaultView=>setAttributes({defaultView})}),el(components.ToggleControl,{label:'Show Map',checked:attributes.showMap,onChange:showMap=>setAttributes({showMap})}),el(components.SelectControl,{label:'Properties per load',value:String(attributes.perLoad),options:[{label:'All',value:'0'},{label:'12',value:'12'},{label:'24',value:'24'}],onChange:perLoad=>setAttributes({perLoad:Number(perLoad)})}))),el('div',blockEditor.useBlockProps(),el(components.Disabled,null,el(SSR,{block:'aspire/property-directory',attributes}))));},save:()=>null});
+})(wp);

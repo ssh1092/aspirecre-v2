@@ -23,3 +23,4 @@ add_action( 'wp_enqueue_scripts', static function (): void {
 	wp_enqueue_script( 'aspire-navigation', get_theme_file_uri( '/assets/js/navigation.js' ), array(), (string) filemtime( get_theme_file_path( '/assets/js/navigation.js' ) ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
 } );
 require_once __DIR__ . '/inc/blocks.php';
+require_once __DIR__ . '/inc/property-directory.php';

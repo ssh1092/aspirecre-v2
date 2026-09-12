@@ -3,8 +3,9 @@
   "private": true,
   "version": "0.3.0",
   "scripts": {
-    "build": "node blocks/build.mjs && node atlas/build.mjs",
-    "test:atlas": "node --test atlas/tests/contracts.test.mjs"
+    "build": "node blocks/build.mjs && node atlas/build.mjs && node directory/build.mjs",
+    "test:atlas": "node --test atlas/tests/contracts.test.mjs",
+    "test:directory": "node --test directory/tests/*.test.mjs"
   },
   "dependencies": {
     "maplibre-gl": "6.9.0",
