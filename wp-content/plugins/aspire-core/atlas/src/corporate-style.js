@@ -21,7 +21,7 @@ export function corporateStyle(base) {
   if(layer.id==='freeways')layer.paint['line-width']=['interpolate',['linear'],['zoom'],7,1.2,10,2.4,13,4,15,7];
   if(layer.type==='symbol'){
    layer.paint['text-halo-color']='#f7f5ef';layer.paint['text-halo-width']=1.8;
-   layer.paint['text-color']=layer.id==='localities'?'#454b43':layer.id==='route-numbers'?'#62675f':'#687066';
+   layer.paint['text-color']=layer.id==='localities'?'#343e37':layer.id==='route-numbers'?'#62675f':'#687066';
   }
   if(layer.id==='localities'){
    layer.layout['text-size']=['interpolate',['linear'],['zoom'],7,['case',['==',['get','name'],'Houston'],19,11],11,['case',['==',['get','name'],'Houston'],24,14],15,17];
@@ -33,7 +33,7 @@ export function corporateStyle(base) {
  const roadIndex=style.layers.findIndex(layer=>layer.id==='minor-roads');
  const roads=style.layers.find(layer=>layer.id==='major-roads');
  style.layers.splice(roadIndex,0,
-  {...structuredClone(roads),id:'arterial-casing',paint:{'line-color':'#d6d2c6','line-width':['interpolate',['linear'],['zoom'],8,1.3,11,2.8,15,8]}},
+  {...structuredClone(roads),id:'arterial-casing',paint:{'line-color':'#ccc8bc','line-width':['interpolate',['linear'],['zoom'],8,1.3,11,2.8,15,8]}},
   {...structuredClone(roads),id:'highway-casing',filter:['==',['get','kind'],'highway'],paint:{'line-color':'#c4baa3','line-width':['interpolate',['linear'],['zoom'],7,1.9,10,3.5,13,5.6,15,9.2]}}
  );
  const localityIndex=style.layers.findIndex(layer=>layer.id==='localities');
@@ -49,8 +49,8 @@ export function corporateMarkers(map) {
  map.setPaintProperty('atlas-property-ring','circle-radius',15);
  map.setPaintProperty('atlas-property-ring','circle-stroke-color','#42664a');
  map.setPaintProperty('atlas-property-ring','circle-stroke-width',1.25);
- map.setPaintProperty('atlas-properties','circle-radius',['case',['boolean',['feature-state','selected'],false],10,['boolean',['feature-state','hover'],false],9,7]);
- map.setPaintProperty('atlas-properties','circle-color',['case',['any',['boolean',['feature-state','selected'],false],['boolean',['feature-state','hover'],false]],'#214e38','#426c4c']);
+ map.setPaintProperty('atlas-properties','circle-radius',['case',['boolean',['feature-state','selected'],false],10.5,['boolean',['feature-state','hover'],false],9,7.5]);
+ map.setPaintProperty('atlas-properties','circle-color',['case',['any',['boolean',['feature-state','selected'],false],['boolean',['feature-state','hover'],false]],'#214e38','#326044']);
  map.setPaintProperty('atlas-properties','circle-stroke-color','#faf9f3');
  map.setPaintProperty('atlas-properties','circle-stroke-width',2.5);
 }

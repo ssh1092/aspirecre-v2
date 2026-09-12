@@ -41,7 +41,7 @@ $journeys = array(
 		array( 'Reassess', 'Keep the property and the objective aligned.', 'Review what has changed and what the asset needs next.', 'Aspire revisits operations, leasing and the broader ownership direction.', 'An updated set of priorities for the next stage of the asset.', 'The record preserves the history. Human judgment determines the next move.' ),
 	) ),
 );
-$intro = aspire_hp_p( '01 / Your objective, made tangible', 'hp-kicker' ) . aspire_hp_h( 'Commercial Real Estate Services Built Around Your Objective' ) . aspire_hp_p( 'Every property decision has a path. See what yours could look like.', 'hp-lead' );
+$intro = aspire_hp_h( 'Your real estate journey', 2, 'hp-journey-heading' );
 $selector = '';
 foreach ( $journeys as $key => $journey ) { $selector .= aspire_hp_link( $journey[0] . ' ↗', '#journey-' . $key, 'hp-objective-link' ); }
 $intro .= aspire_hp_group( $selector, 'hp-objectives', '', 'div', 'Choose a client objective' );

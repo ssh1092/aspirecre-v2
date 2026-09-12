@@ -2,6 +2,7 @@
 (function (blocks, element, blockEditor, components, serverSideRender) {
 	'use strict';
 	const el = element.createElement;
+	const typeDescriptions = {"office": "Places for teams, clients and the working day.", "industrial-flex": "Space for operations, production and the movement of goods.", "land": "Sites to consider in the context of access, use and future plans.", "retail": "Places where businesses meet their customers."};
 	const SSR = serverSideRender.default || serverSideRender;
 	[
 		['property-finder', 'Property Finder', 'search', null],
@@ -16,11 +17,16 @@
 			title: definition[1],
 			icon: definition[2],
 			category: 'aspirecre',
-			attributes: definition[3] ? { count: { type: 'integer', default: 4 }, presentation: { type: 'string', enum: presentationOptions.map(function (option) { return option.value; }), default: 'classic' }, ...(definition[0] === 'team-grid' ? { hideWhenEmpty: { type: 'boolean', default: false } } : {}) } : {},
+			attributes: definition[3] ? { count: { type: 'integer', default: 4 }, presentation: { type: 'string', enum: presentationOptions.map(function (option) { return option.value; }), default: 'classic' }, ...(definition[0] === 'team-grid' ? { hideWhenEmpty: { type: 'boolean', default: false } } : {}) } : definition[0] === 'property-types' ? { descriptions: { type: 'object', default: typeDescriptions } } : {},
 			supports: { html: false, align: ['wide', 'full'] },
 			edit: function (props) {
 				const count = Math.max(1, Math.min(8, props.attributes.count || 4));
 				return el(element.Fragment, null,
+                    definition[0] === 'property-types' && el(blockEditor.InspectorControls, null,
+                        el(components.PanelBody, { title: 'Property type descriptions' }, Object.keys(typeDescriptions).map(function (slug) {
+                            return el(components.TextareaControl, { key: slug, label: slug.replace(/-/g, ' '), value: (props.attributes.descriptions || typeDescriptions)[slug] || '', onChange: function (value) { props.setAttributes({ descriptions: Object.assign({}, props.attributes.descriptions || typeDescriptions, { [slug]: value }) }); } });
+                        }))
+                    ),
 					definition[3] && el(blockEditor.InspectorControls, null,
 						el(components.PanelBody, { title: 'Display settings', initialOpen: true },
 							el(components.RangeControl, {
@@ -33,7 +39,7 @@
 					),
 					el('div', blockEditor.useBlockProps({ className: 'aspire-editor-dynamic aspire-editor-' + definition[0] }),
 						el('div', { className: 'aspire-block-caption' }, definition[1]),
-						el(components.Disabled, null, el(SSR, { block: name, attributes: definition[3] ? { count: count, presentation: props.attributes.presentation, ...(definition[0] === 'team-grid' ? { hideWhenEmpty: !!props.attributes.hideWhenEmpty } : {}) } : {}, httpMethod: 'GET' }))
+						el(components.Disabled, null, el(SSR, { block: name, attributes: definition[3] ? { count: count, presentation: props.attributes.presentation, ...(definition[0] === 'team-grid' ? { hideWhenEmpty: !!props.attributes.hideWhenEmpty } : {}) } : definition[0] === 'property-types' ? { descriptions: props.attributes.descriptions || typeDescriptions } : {}, httpMethod: 'GET' }))
 					)
 				);
 			},

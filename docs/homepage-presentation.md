@@ -1,5 +1,7 @@
 # Homepage presentation
 
+The subsequent [choreography pass](homepage-choreography.md) updates the journey canvas, section pacing, photographic rails and mobile presentation described below.
+
 ## Presentation and publishing architecture
 
 The homepage moves from Houston geography into a client objective, advisory work, physical properties, real people and a conversation. Atlas remains the hero, followed by six compositions: Client Journey, Current Opportunities, Property Types, Team, In the Field and the final human CTA. Large property photography, editorial serif statements and restrained sans-serif metadata provide scale. White, warm white and architectural gray carry the page; Aspire green identifies actions and geographic markers.

@@ -29,7 +29,7 @@ phase2_check( 1 === $xpath->query( '//*[@data-atlas]' )->length, 'Exactly one At
 phase2_check( str_contains( phase2_text( $doc->documentElement ), 'Explore Houston. Find your next move.' ), 'Atlas product language remains visible and distinct from the H1' );
 phase2_check( str_contains( phase2_text( $doc->documentElement ), 'Aspire Commercial helps tenants, property owners, investors and developers navigate leasing, investment, development, property management and commercial real estate decisions across Greater Houston.' ), 'Company purpose and all four audiences are explicit' );
 $outline = array(
-	'client-journey' => 'Commercial Real Estate Services Built Around Your Objective',
+	'client-journey' => 'Your real estate journey',
 	'current-opportunities' => 'Commercial Real Estate Opportunities Across Houston',
 	'property-types' => 'Explore Houston Commercial Properties by Type',
 	'human-expertise' => 'Meet the Aspire Commercial Team',
@@ -130,5 +130,22 @@ phase2_check( 1 === $xpath->query( '//section[@id="talk-to-aspire"]//a[starts-wi
 foreach ( $xpath->query( '//section[contains(@class,"aspire-corporate-section")]//img' ) as $image ) {
 	phase2_check( 'lazy' === $image->getAttribute( 'loading' ) && '' !== $image->getAttribute( 'srcset' ), 'Below-fold corporate image is lazy and responsive' );
 }
+// Choreography removes redundant scaffolding while retaining native source content.
+phase2_check( ! str_contains( $html, 'Commercial Real Estate Services Built Around Your Objective' ), 'Redundant objective headline has been removed from published Home' );
+phase2_check( 0 === $xpath->query( '//*[contains(concat(" ",normalize-space(@class)," ")," hp-human-transition ")]' )->length, 'Human statement is integrated into Team rather than a separate transition section' );
+phase2_check( 1 === $xpath->query( '//section[@id="human-expertise"]//*[contains(concat(" ",normalize-space(@class)," ")," hp-human-statement ")]' )->length, 'Editable human statement is retained once within Team' );
+phase2_check( 4 === $xpath->query( '//*[contains(concat(" ",normalize-space(@class)," ")," hp-type-description ") and normalize-space(.)!=""]' )->length, 'All four property-type descriptions render without JavaScript' );
+$escaped_types = Aspire_Core_Blocks::render( 'types', array( 'descriptions' => array( 'office' => '<script>alert(1)</script>', 'land' => array( 'unexpected' ) ) ), false );
+phase2_check( ! str_contains( $escaped_types, '<script>' ) && str_contains( $escaped_types, '&lt;script&gt;' ), 'Type descriptions escape markup and safely ignore malformed values' );
+$before_choreography = get_post_meta( $home->ID, '_aspirecre_before_home_choreography', true );
+$collect_stages = function ( $blocks ) use ( &$collect_stages ): array {
+    $result = array();
+    foreach ( $blocks as $block ) {
+        if ( in_array( 'hp-stage', explode( ' ', $block['attrs']['className'] ?? '' ), true ) ) { $result[ $block['attrs']['anchor'] ] = serialize_block( $block ); }
+        $result += $collect_stages( $block['innerBlocks'] );
+    }
+    return $result;
+};
+phase2_check( is_string( $before_choreography ) && 24 === count( $collect_stages( parse_blocks( $before_choreography ) ) ) && $collect_stages( parse_blocks( $before_choreography ) ) === $collect_stages( parse_blocks( $home->post_content ) ), 'All 24 approved native journey stages are byte-for-byte preserved' );
 wp_reset_postdata();
 echo "SUCCESS: $checks homepage presentation checks\n";

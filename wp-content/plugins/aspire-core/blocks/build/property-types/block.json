@@ -7,7 +7,17 @@
   "icon": "category",
   "description": "Office, Industrial / Flex, Land and Retail with real current inventory and local photography.",
   "textdomain": "aspire-core",
-  "attributes": {},
+  "attributes": {
+    "descriptions": {
+      "type": "object",
+      "default": {
+        "office": "Places for teams, clients and the working day.",
+        "industrial-flex": "Space for operations, production and the movement of goods.",
+        "land": "Sites to consider in the context of access, use and future plans.",
+        "retail": "Places where businesses meet their customers."
+      }
+    }
+  },
   "supports": {
     "html": false,
     "align": [
