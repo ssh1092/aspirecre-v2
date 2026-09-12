@@ -1,0 +1,478 @@
+{
+  "record": {
+    "source_title": "912 Prairie Street Houston, TX 77002",
+    "source_category": "Office",
+    "source_author": "Eljohn Aytona",
+    "source_publish_date": "2025-07-01T13:01:43-0400",
+    "property_type": "Office",
+    "transaction_type_candidate": null,
+    "transaction_confidence": null,
+    "address_line_1": "912 Prairie Street",
+    "address_line_2": null,
+    "city": "Houston",
+    "state": "TX",
+    "postal_code": "77002",
+    "address_confidence": "high",
+    "building_sf": null,
+    "available_sf": 1250,
+    "minimum_available_sf": null,
+    "maximum_contiguous_sf": null,
+    "lot_acres": null,
+    "year_built": null,
+    "renovated_year": null,
+    "building_class": null,
+    "stories": null,
+    "clear_height_ft": null,
+    "parking_spaces": null,
+    "parking_ratio": null,
+    "traffic_count_vpd": null,
+    "sale_price": null,
+    "lease_rate_min": null,
+    "lease_rate_max": null,
+    "lease_rate_type": null,
+    "lease_rate_display": null,
+    "price_display": null,
+    "featured_image_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/ea58c024-6c4b-4f0e-b3d6-c22977955353/912_Prairie_Cover.jpg",
+    "brochure_url": "https://www.aspirecre.com/s/912-Prairie-Street-Flyer_email.pdf",
+    "existing_wp_post_id": null,
+    "source_url": "https://www.aspirecre.com/properties/912-prairie-street-houston-tx-77002",
+    "source_path": "/properties/912-prairie-street-houston-tx-77002",
+    "source_slug": "912-prairie-street-houston-tx-77002",
+    "migration_review_status": "needs_review",
+    "warnings": [
+      "suite_parse_review",
+      "missing_transaction",
+      "featured_image_low_confidence",
+      "no_structured_highlights"
+    ],
+    "warning_details": [
+      {
+        "code": "suite_parse_review",
+        "detail": "Availability/suite language lacks unambiguous suite headings"
+      }
+    ],
+    "field_evidence": {
+      "available_sf": [
+        {
+          "value": 1250,
+          "source_text": "1,250 SF available",
+          "confidence": "high"
+        }
+      ]
+    },
+    "property_highlights": [],
+    "suite_candidates": [],
+    "gallery_images": [
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814844588-TR46ECMCQMMZE4W1KDZD/912_Prairie_Cover.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814844588-TR46ECMCQMMZE4W1KDZD/912_Prairie_Cover.jpg",
+        "filename": "912_Prairie_Cover.jpg",
+        "alt_text": "912_Prairie_Cover.jpg",
+        "order": 1,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814835533-NQYDWM26AHJ749PGOJER/912_Prairie_ExteriorPhoto-01.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814835533-NQYDWM26AHJ749PGOJER/912_Prairie_ExteriorPhoto-01.jpg",
+        "filename": "912_Prairie_ExteriorPhoto-01.jpg",
+        "alt_text": "912_Prairie_ExteriorPhoto-01.jpg",
+        "order": 2,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814844434-WSMK9B7FSMKQSK9M5AIN/912_Prairie_ExteriorPhoto-02.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814844434-WSMK9B7FSMKQSK9M5AIN/912_Prairie_ExteriorPhoto-02.jpg",
+        "filename": "912_Prairie_ExteriorPhoto-02.jpg",
+        "alt_text": "912_Prairie_ExteriorPhoto-02.jpg",
+        "order": 3,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814852975-26EUGCH6Y3XH48HSUZ97/912_Prairie_ExteriorPhoto-03.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814852975-26EUGCH6Y3XH48HSUZ97/912_Prairie_ExteriorPhoto-03.jpg",
+        "filename": "912_Prairie_ExteriorPhoto-03.jpg",
+        "alt_text": "912_Prairie_ExteriorPhoto-03.jpg",
+        "order": 4,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814853184-AX7P8WRMRPYQPDT4RC0G/912_Prairie_InteriorPhoto-01.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814853184-AX7P8WRMRPYQPDT4RC0G/912_Prairie_InteriorPhoto-01.jpg",
+        "filename": "912_Prairie_InteriorPhoto-01.jpg",
+        "alt_text": "912_Prairie_InteriorPhoto-01.jpg",
+        "order": 5,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814861152-XKX20MBHN2CZNP3A5O8K/912_Prairie_InteriorPhoto-02.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814861152-XKX20MBHN2CZNP3A5O8K/912_Prairie_InteriorPhoto-02.jpg",
+        "filename": "912_Prairie_InteriorPhoto-02.jpg",
+        "alt_text": "912_Prairie_InteriorPhoto-02.jpg",
+        "order": 6,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814859272-FCVATXDAX9W2BF7UGBC9/912_Prairie_InteriorPhoto-03.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814859272-FCVATXDAX9W2BF7UGBC9/912_Prairie_InteriorPhoto-03.jpg",
+        "filename": "912_Prairie_InteriorPhoto-03.jpg",
+        "alt_text": "912_Prairie_InteriorPhoto-03.jpg",
+        "order": 7,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814864141-GDEB57Z589QE5FEJ1BH6/912_Prairie_InteriorPhoto-04.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814864141-GDEB57Z589QE5FEJ1BH6/912_Prairie_InteriorPhoto-04.jpg",
+        "filename": "912_Prairie_InteriorPhoto-04.jpg",
+        "alt_text": "912_Prairie_InteriorPhoto-04.jpg",
+        "order": 8,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814865697-4O23IMMZDWH074TQRKKC/912_Prairie_InteriorPhoto-05.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814865697-4O23IMMZDWH074TQRKKC/912_Prairie_InteriorPhoto-05.jpg",
+        "filename": "912_Prairie_InteriorPhoto-05.jpg",
+        "alt_text": "912_Prairie_InteriorPhoto-05.jpg",
+        "order": 9,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814869982-K52BKNWP51KDLSW3948W/912_Prairie_InteriorPhoto-07.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814869982-K52BKNWP51KDLSW3948W/912_Prairie_InteriorPhoto-07.jpg",
+        "filename": "912_Prairie_InteriorPhoto-07.jpg",
+        "alt_text": "912_Prairie_InteriorPhoto-07.jpg",
+        "order": 10,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814872463-VLP6U2DU1I59AMTAIPPX/912_Prairie_InteriorPhoto-08.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814872463-VLP6U2DU1I59AMTAIPPX/912_Prairie_InteriorPhoto-08.jpg",
+        "filename": "912_Prairie_InteriorPhoto-08.jpg",
+        "alt_text": "912_Prairie_InteriorPhoto-08.jpg",
+        "order": 11,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814875106-FFXFIXSFFVTM9MDCCB4R/912_Prairie_InteriorPhoto-09.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814875106-FFXFIXSFFVTM9MDCCB4R/912_Prairie_InteriorPhoto-09.jpg",
+        "filename": "912_Prairie_InteriorPhoto-09.jpg",
+        "alt_text": "912_Prairie_InteriorPhoto-09.jpg",
+        "order": 12,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814876575-NRWPLILIR1E6TH83MNZ8/912_Prairie_InteriorPhoto-10.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814876575-NRWPLILIR1E6TH83MNZ8/912_Prairie_InteriorPhoto-10.jpg",
+        "filename": "912_Prairie_InteriorPhoto-10.jpg",
+        "alt_text": "912_Prairie_InteriorPhoto-10.jpg",
+        "order": 13,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814879348-I87Q6PYRI5V1DOP0K33L/912_Prairie_InteriorPhoto-11.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814879348-I87Q6PYRI5V1DOP0K33L/912_Prairie_InteriorPhoto-11.jpg",
+        "filename": "912_Prairie_InteriorPhoto-11.jpg",
+        "alt_text": "912_Prairie_InteriorPhoto-11.jpg",
+        "order": 14,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814882725-EVWG1ZF9MSOPZVO1RRZR/912_Prairie_InteriorPhoto-12.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814882725-EVWG1ZF9MSOPZVO1RRZR/912_Prairie_InteriorPhoto-12.jpg",
+        "filename": "912_Prairie_InteriorPhoto-12.jpg",
+        "alt_text": "912_Prairie_InteriorPhoto-12.jpg",
+        "order": 15,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814883711-OC67SFZKJ5FPMU7MZU84/912_Prairie_InteriorPhoto-13.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814883711-OC67SFZKJ5FPMU7MZU84/912_Prairie_InteriorPhoto-13.jpg",
+        "filename": "912_Prairie_InteriorPhoto-13.jpg",
+        "alt_text": "912_Prairie_InteriorPhoto-13.jpg",
+        "order": 16,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814888091-NV3INAPDL3MPRMIKJAI6/912_Prairie_InteriorPhoto-14.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814888091-NV3INAPDL3MPRMIKJAI6/912_Prairie_InteriorPhoto-14.jpg",
+        "filename": "912_Prairie_InteriorPhoto-14.jpg",
+        "alt_text": "912_Prairie_InteriorPhoto-14.jpg",
+        "order": 17,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814888667-9R3N38U6NUSPS9CUBD57/912_Prairie_InteriorPhoto-15.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814888667-9R3N38U6NUSPS9CUBD57/912_Prairie_InteriorPhoto-15.jpg",
+        "filename": "912_Prairie_InteriorPhoto-15.jpg",
+        "alt_text": "912_Prairie_InteriorPhoto-15.jpg",
+        "order": 18,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814891849-Z0WXQJCD3W2OLWB7U7D2/912_Prairie_InteriorPhoto-06.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1779814891849-Z0WXQJCD3W2OLWB7U7D2/912_Prairie_InteriorPhoto-06.jpg",
+        "filename": "912_Prairie_InteriorPhoto-06.jpg",
+        "alt_text": "912_Prairie_InteriorPhoto-06.jpg",
+        "order": 19,
+        "is_featured": false
+      }
+    ],
+    "brochure_candidates": [
+      "https://www.aspirecre.com/s/912-Prairie-Street-Flyer_email.pdf"
+    ],
+    "proposed_wp_slug": "912-prairie-street-houston-tx-77002",
+    "redirect_required": false,
+    "source_categories": [
+      "Office"
+    ],
+    "address_source_text": "912 Prairie Street Houston, TX 77002",
+    "source_headings": [
+      "Property Identity:",
+      "Key Stats to Highlight:",
+      "Historic Credentials:",
+      "Architectural Features:",
+      "Space & Building Specs:",
+      "Location & Access:",
+      "Neighborhood Draws:"
+    ],
+    "unparsed_availability_blocks": [
+      "Property Identity: 912 Prairie Street, Houston, TX The Scholibo Building Suite 250 — Second Floor 1,250 SF available Built 1880 Key Stats to Highlight: Walk Score: 97 (Walker’s Paradise) Transit Score: 88 (Excellent Transit) Historic Credentials: Listed in the National Register of Historic Places (1983) City of Houston Historic District designation (1997) Classified as a “contributing structure” to the Main Street Market Square Historic District Architectural Features: Two-story Italianate structure Exposed original brick Hardwood floors throughout second floor Original arched windows/doors on facade Space & Building Specs: Key card entry, interior wired for security/alarm Men’s and women’s restrooms on second floor Location & Access: Downtown Houston / Main Street Market Square Historic District Metered parking directly in front Nearby public parking garages METRORail light rail access Easy access to I-45, I-10, and US-59 Downtown Tunnel System access Neighborhood Draws: Market Square Park (full city block — dog run, green space, live music, movie nights, bike rentals) Downtown’s highest concentration of bistros, coffee shops, restaurants, and bars Aris Market Square & Market Square Tower luxury multifamily The Brava Theater District, Minute Maid Park, Harris County Courts Complex nearby Boutique hotels within walking distance"
+    ],
+    "transaction_evidence": {},
+    "featured_image_confidence": "low",
+    "image_count": 20
+  },
+  "info": {
+    "brochure_url": "https://www.aspirecre.com/s/912-Prairie-Street-Flyer_email.pdf",
+    "brochure_download_status": "success",
+    "brochure_text_status": "available",
+    "brochure_file_size": 1546652,
+    "brochure_sha256": "d0064f9c99c179f50edcbd2fa01785858f61ec05d0a49ee3e9c1ff6764c0b555",
+    "cache_key": "018be933dd8e7180d68be346",
+    "http_status": 200,
+    "brochure_page_count": 12
+  },
+  "metadata": [
+    {
+      "property": "og:site_name",
+      "content": "Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:title",
+      "content": "912 Prairie Street Houston, TX 77002 — Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:latitude",
+      "content": "30.1257049"
+    },
+    {
+      "property": "og:longitude",
+      "content": "-95.4524393"
+    },
+    {
+      "property": "og:street-address",
+      "content": "525 Sawdust Road"
+    },
+    {
+      "property": "og:locality",
+      "content": "The Woodlands"
+    },
+    {
+      "property": "og:region",
+      "content": "TX"
+    },
+    {
+      "property": "og:postal-code",
+      "content": "77380"
+    },
+    {
+      "property": "og:country-name",
+      "content": "United States"
+    },
+    {
+      "property": "og:url",
+      "content": "https://www.aspirecre.com/properties/912-prairie-street-houston-tx-77002"
+    },
+    {
+      "property": "og:type",
+      "content": "article"
+    },
+    {
+      "property": "og:description",
+      "content": "912 Prairie Street Houston, TX 77002"
+    },
+    {
+      "property": "og:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/6526f62ab7c3436641af8c21/6a15cec138082f6e2ba5a798/1779814947162/Norfolk+2211+IMG+01_1_1z.jpg?format=1500w"
+    },
+    {
+      "property": "og:image:width",
+      "content": "1500"
+    },
+    {
+      "property": "og:image:height",
+      "content": "999"
+    },
+    {
+      "name": "twitter:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/6526f62ab7c3436641af8c21/6a15cec138082f6e2ba5a798/1779814947162/Norfolk+2211+IMG+01_1_1z.jpg?format=1500w"
+    }
+  ],
+  "page_blocks": [
+    [
+      {
+        "tag": "h3",
+        "text": "Property Identity:"
+      },
+      {
+        "tag": "li",
+        "text": "912 Prairie Street, Houston, TX"
+      },
+      {
+        "tag": "li",
+        "text": "The Scholibo Building"
+      },
+      {
+        "tag": "li",
+        "text": "Suite 250 — Second Floor"
+      },
+      {
+        "tag": "li",
+        "text": "1,250 SF available"
+      },
+      {
+        "tag": "li",
+        "text": "Built 1880"
+      },
+      {
+        "tag": "h3",
+        "text": "Key Stats to Highlight:"
+      },
+      {
+        "tag": "li",
+        "text": "Walk Score: 97 (Walker’s Paradise)"
+      },
+      {
+        "tag": "li",
+        "text": "Transit Score: 88 (Excellent Transit)"
+      },
+      {
+        "tag": "h3",
+        "text": "Historic Credentials:"
+      },
+      {
+        "tag": "li",
+        "text": "Listed in the National Register of Historic Places (1983)"
+      },
+      {
+        "tag": "li",
+        "text": "City of Houston Historic District designation (1997)"
+      },
+      {
+        "tag": "li",
+        "text": "Classified as a “contributing structure” to the Main Street Market Square Historic District"
+      },
+      {
+        "tag": "h3",
+        "text": "Architectural Features:"
+      },
+      {
+        "tag": "li",
+        "text": "Two-story Italianate structure"
+      },
+      {
+        "tag": "li",
+        "text": "Exposed original brick"
+      },
+      {
+        "tag": "li",
+        "text": "Hardwood floors throughout second floor"
+      },
+      {
+        "tag": "li",
+        "text": "Original arched windows/doors on facade"
+      },
+      {
+        "tag": "h3",
+        "text": "Space & Building Specs:"
+      },
+      {
+        "tag": "li",
+        "text": "Key card entry, interior wired for security/alarm"
+      },
+      {
+        "tag": "li",
+        "text": "Men’s and women’s restrooms on second floor"
+      },
+      {
+        "tag": "h3",
+        "text": "Location & Access:"
+      },
+      {
+        "tag": "li",
+        "text": "Downtown Houston / Main Street Market Square Historic District"
+      },
+      {
+        "tag": "li",
+        "text": "Metered parking directly in front"
+      },
+      {
+        "tag": "li",
+        "text": "Nearby public parking garages"
+      },
+      {
+        "tag": "li",
+        "text": "METRORail light rail access"
+      },
+      {
+        "tag": "li",
+        "text": "Easy access to I-45, I-10, and US-59"
+      },
+      {
+        "tag": "li",
+        "text": "Downtown Tunnel System access"
+      },
+      {
+        "tag": "h3",
+        "text": "Neighborhood Draws:"
+      },
+      {
+        "tag": "li",
+        "text": "Market Square Park (full city block — dog run, green space, live music, movie nights, bike rentals)"
+      },
+      {
+        "tag": "li",
+        "text": "Downtown’s highest concentration of bistros, coffee shops, restaurants, and bars"
+      },
+      {
+        "tag": "li",
+        "text": "Aris Market Square & Market Square Tower luxury multifamily"
+      },
+      {
+        "tag": "li",
+        "text": "The Brava"
+      },
+      {
+        "tag": "li",
+        "text": "Theater District, Minute Maid Park, Harris County Courts Complex nearby"
+      },
+      {
+        "tag": "li",
+        "text": "Boutique hotels within walking distance"
+      }
+    ]
+  ],
+  "brochure_pages": [
+    "",
+    "  \n \nSUGAR LAND, TEXAS 77479\n \n \n  \n \nSUGAR LAND, TEXAS 77479\n \n \n  \n912 PRAIRIE STREET\nHOUSTON, TEXAS 77002\nProperty Identity:\n• \t912 Prairie Street, Houston, TX\n• \tThe Scholibo Building\n• \tSuite 250 — Second Floor\n• \t1,250 SF available\n• \tBuilt 1880\nKey Stats to Highlight:\n• \tWalk Score: 97 (Walker’s Paradise)\n• \tTransit Score: 88 (Excellent Transit)\nHistoric Credentials:\n• \tListed in the National Register of Historic Places (1983)\n• \tCity of Houston Historic District designation (1997)\n• \tClassified\tas\ta\t“contributing\tstructure”\tto\tthe\tMain\tStreet\tMarket\tSquare\tHistoric\tDistrict\nArchitectural Features:\n• \tTwo-story Italianate structure\n• \tExposed original brick\n• \tHardwood\tfloors\tthroughout\tsecond\tfloor\n• \tOriginal arched windows/doors on facade",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "dedicated to providing their expertise to \nassist you throughout a customized \ntransaction process aligning with your \nspecific\trequirements.\t\nAbout Us\nCommercial Real Estate,\nReimagined\nSUGAR LAND, TEXAS 77479SUGAR LAND, TEXAS 77479SUGAR LAND, TEXAS 77479\nLeasing Team\n \nMatthew Trow\n(281) 904-9110\nmatthewt@aspirecre.com\nAnalystAnalyst\n912 PRAIRIE STREET\nHOUSTON, TEXAS 77002",
+    "",
+    ""
+  ]
+}

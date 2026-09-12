@@ -1,0 +1,256 @@
+{
+  "record": {
+    "source_title": "0 Hiram Clarke Road Houston, TX 77045",
+    "source_category": "Land",
+    "source_author": "Eljohn Aytona",
+    "source_publish_date": "2025-05-01T10:18:58-0400",
+    "property_type": "Land",
+    "transaction_type_candidate": null,
+    "transaction_confidence": null,
+    "address_line_1": "0 Hiram Clarke Road",
+    "address_line_2": null,
+    "city": "Houston",
+    "state": "TX",
+    "postal_code": "77045",
+    "address_confidence": "high",
+    "building_sf": null,
+    "available_sf": null,
+    "minimum_available_sf": null,
+    "maximum_contiguous_sf": null,
+    "lot_acres": 0.91,
+    "year_built": null,
+    "renovated_year": null,
+    "building_class": null,
+    "stories": null,
+    "clear_height_ft": null,
+    "parking_spaces": null,
+    "parking_ratio": null,
+    "traffic_count_vpd": null,
+    "sale_price": null,
+    "lease_rate_min": null,
+    "lease_rate_max": null,
+    "lease_rate_type": null,
+    "lease_rate_display": null,
+    "price_display": null,
+    "featured_image_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/5b7c68f4-daf9-4ebd-ba14-f4316b05f1bc/Cover+copy+2.jpg",
+    "brochure_url": "https://www.aspirecre.com/s/0-Hiram-Clarke-Road-Land-Flyer_email.pdf",
+    "existing_wp_post_id": null,
+    "source_url": "https://www.aspirecre.com/properties/0-hiram-clarke-road-houston-tx-77045",
+    "source_path": "/properties/0-hiram-clarke-road-houston-tx-77045",
+    "source_slug": "0-hiram-clarke-road-houston-tx-77045",
+    "migration_review_status": "needs_review",
+    "warnings": [
+      "missing_transaction",
+      "featured_image_low_confidence"
+    ],
+    "warning_details": [],
+    "field_evidence": {
+      "lot_acres": [
+        {
+          "value": 0.91,
+          "source_text": "LOT SIZE - 0.91 Acres",
+          "confidence": "high"
+        }
+      ]
+    },
+    "property_highlights": [
+      "Shovel-ready infill development site with utilities in place, prior approvals secured, and full due diligence package included",
+      "First commercial development opportunity on the left (West) side of Hiram Clarke Rd below Hwy 90",
+      "High-exposure corner positioned to capture inbound and outbound Highway 90 traffic",
+      "Premier frontage position with 200’ on Hiram Clarke Rd",
+      "12” water and 10” sanitary sewer lines located in Hiram Clarke Rd, previously confirmed by the City of Houston",
+      "Positioned outside the floodplain per FEMA mapping"
+    ],
+    "suite_candidates": [],
+    "gallery_images": [
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1777904331887-V5YS4BB8ZSXSS3GMK1NW/Cover+copy+2.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1777904331887-V5YS4BB8ZSXSS3GMK1NW/Cover+copy+2.jpg",
+        "filename": "Cover+copy+2.jpg",
+        "alt_text": "Cover copy 2.jpg",
+        "order": 1,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1777904331114-5OTY0SE9EAJGY2MSXL83/DJI_20260427113916_0167_D+copy+2.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1777904331114-5OTY0SE9EAJGY2MSXL83/DJI_20260427113916_0167_D+copy+2.jpg",
+        "filename": "DJI_20260427113916_0167_D+copy+2.jpg",
+        "alt_text": "DJI_20260427113916_0167_D copy 2.jpg",
+        "order": 2,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1777904355520-K478A1ETWYKZB8OCBYXP/DJI_20260427114204_0178_D+copy+2.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1777904355520-K478A1ETWYKZB8OCBYXP/DJI_20260427114204_0178_D+copy+2.jpg",
+        "filename": "DJI_20260427114204_0178_D+copy+2.jpg",
+        "alt_text": "DJI_20260427114204_0178_D copy 2.jpg",
+        "order": 3,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1777904356199-E68I5EZDTUCYZ5T3HRKM/DJI_20260427114237_0180_D+copy+2.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1777904356199-E68I5EZDTUCYZ5T3HRKM/DJI_20260427114237_0180_D+copy+2.jpg",
+        "filename": "DJI_20260427114237_0180_D+copy+2.jpg",
+        "alt_text": "DJI_20260427114237_0180_D copy 2.jpg",
+        "order": 4,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1777904367816-NNJYLV1GOJ47P2W51NEX/Picture+2+copy+2.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1777904367816-NNJYLV1GOJ47P2W51NEX/Picture+2+copy+2.jpg",
+        "filename": "Picture+2+copy+2.jpg",
+        "alt_text": "Picture 2 copy 2.jpg",
+        "order": 5,
+        "is_featured": false
+      }
+    ],
+    "brochure_candidates": [
+      "https://www.aspirecre.com/s/0-Hiram-Clarke-Road-Land-Flyer_email.pdf"
+    ],
+    "proposed_wp_slug": "0-hiram-clarke-road-houston-tx-77045",
+    "redirect_required": false,
+    "source_categories": [
+      "Land"
+    ],
+    "address_source_text": "0 Hiram Clarke Road Houston, TX 77045",
+    "source_headings": [
+      "Property Details:",
+      "Property Highlights:"
+    ],
+    "unparsed_availability_blocks": [],
+    "transaction_evidence": {},
+    "featured_image_confidence": "low",
+    "image_count": 6
+  },
+  "info": {
+    "brochure_url": "https://www.aspirecre.com/s/0-Hiram-Clarke-Road-Land-Flyer_email.pdf",
+    "brochure_download_status": "success",
+    "brochure_text_status": "available",
+    "brochure_file_size": 1760004,
+    "brochure_sha256": "842cfe2aafa01a2aa9467fec5cb709f3259da51cf84974b11ee42dcb6e8117c7",
+    "cache_key": "1b0b0d12a41011f0868e94a4",
+    "http_status": 200,
+    "brochure_page_count": 9
+  },
+  "metadata": [
+    {
+      "property": "og:site_name",
+      "content": "Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:title",
+      "content": "0 Hiram Clarke Road Houston, TX 77045 — Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:latitude",
+      "content": "30.1257049"
+    },
+    {
+      "property": "og:longitude",
+      "content": "-95.4524393"
+    },
+    {
+      "property": "og:street-address",
+      "content": "Shops at Almeda - 10900 Gulf Freeway, Houston ,TX 77034"
+    },
+    {
+      "property": "og:locality",
+      "content": "Humble"
+    },
+    {
+      "property": "og:region",
+      "content": "TX"
+    },
+    {
+      "property": "og:postal-code",
+      "content": "77346"
+    },
+    {
+      "property": "og:country-name",
+      "content": "United States"
+    },
+    {
+      "property": "og:url",
+      "content": "https://www.aspirecre.com/properties/0-hiram-clarke-road-houston-tx-77045"
+    },
+    {
+      "property": "og:type",
+      "content": "article"
+    },
+    {
+      "property": "og:description",
+      "content": "0 Hiram Clarke Road, Houston, TX 77045"
+    },
+    {
+      "property": "og:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/6526f62ab7c3436641af8c21/69f8a998d10b6e6e153497f0/1777904530420/Cover+copy+2.jpg?format=1500w"
+    },
+    {
+      "property": "og:image:width",
+      "content": "1500"
+    },
+    {
+      "property": "og:image:height",
+      "content": "843"
+    },
+    {
+      "name": "twitter:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/6526f62ab7c3436641af8c21/69f8a998d10b6e6e153497f0/1777904530420/Cover+copy+2.jpg?format=1500w"
+    }
+  ],
+  "page_blocks": [
+    [
+      {
+        "tag": "h3",
+        "text": "Property Details:"
+      },
+      {
+        "tag": "li",
+        "text": "LOT SIZE - 0.91 Acres"
+      },
+      {
+        "tag": "li",
+        "text": "PRICE - Contact Broker"
+      },
+      {
+        "tag": "h3",
+        "text": "Property Highlights:"
+      },
+      {
+        "tag": "li",
+        "text": "Shovel-ready infill development site with utilities in place, prior approvals secured, and full due diligence package included"
+      },
+      {
+        "tag": "li",
+        "text": "First commercial development opportunity on the left (West) side of Hiram Clarke Rd below Hwy 90"
+      },
+      {
+        "tag": "li",
+        "text": "High-exposure corner positioned to capture inbound and outbound Highway 90 traffic"
+      },
+      {
+        "tag": "li",
+        "text": "Premier frontage position with 200’ on Hiram Clarke Rd"
+      },
+      {
+        "tag": "li",
+        "text": "12” water and 10” sanitary sewer lines located in Hiram Clarke Rd, previously confirmed by the City of Houston"
+      },
+      {
+        "tag": "li",
+        "text": "Positioned outside the floodplain per FEMA mapping"
+      }
+    ]
+  ],
+  "brochure_pages": [
+    "",
+    " \nSUGAR LAND, TEXAS 77479\n \n  \n \nSUGAR LAND, TEXAS 77479\n \n  \n0  HIRAM CLARKE ROAD\nHOUSTON, TEXAS 77045\n  \n• \tShovel-ready\tinfill\tdevelopment\tsite\twith\tutilities\t\nin\tplace,\tprior\tapprovals\tsecured,\tand\tfull\tdue\t\ndiligence\tpackage\tincluded\n• \tFirst\tcommercial\tdevelopment\topportunity\ton\t\nthe\tleft\t(West)\tside\tof\tHiram\tClarke\tRd\tbelow\t\nHwy\t90\n• \tHigh-exposure\tcorner\tpositioned\tto\tcapture\t\n• \tinbound\tand\toutbound\tHighway\t90\ttraffic\n• \tPremier\tfrontage\tposition\twith\t200’\ton\tHiram\t\nClarke\tRd\n• \t12”\twater\tand\t10”\tsanitary\tsewer\tlines\tlocated\tin\t\nHiram\tClarke\tRd,\tpreviously\tconfirmed\tby\tthe\t\nCity\tof\tHouston\n• \tPositioned\toutside\tthe\tfloodplain\tper\tFEMA\t\n• \tmapping\nProperty Details\nProperty Highights\nPROPERTY DETAILS\nLOT SIZE 0.91 Acres\nPRICE Contact Broker\n",
+    "",
+    "",
+    "",
+    "",
+    "assist\tyou\tthroughout\ta\tcustomized\t\ntransaction\tprocess\taligning\twith\tyour\t\nspecific\trequirements.\t\nAbout Us\nCommercial Real Estate,\nReimagined\nBrandon Avedikian \n(713) 347-2904\nbrandona@aspirecre.com\nFounderFounder\nSales Team\nLuke Stavinoha  \n(713) 392-2716\nlukes@aspirecre.com\nAssociateAssociate\n0  HIRAM CLARKE ROAD\nHOUSTON, TEXAS 77045\nBenjamin Nicknish\n(713) 379-7951\nAssociateAssociate\nbenn@aspirecre.com",
+    "",
+    ""
+  ]
+}

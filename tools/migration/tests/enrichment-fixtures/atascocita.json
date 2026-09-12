@@ -1,0 +1,279 @@
+{
+  "record": {
+    "source_title": "Atascocita Retail Center - 7506 E FM-1960 Humble, TX 77346",
+    "source_category": "Retail",
+    "source_author": "Eljohn Aytona",
+    "source_publish_date": "2025-07-10T00:26:00-0400",
+    "property_type": "Retail",
+    "transaction_type_candidate": "For Lease",
+    "transaction_confidence": "high",
+    "address_line_1": "7506 E FM-1960",
+    "address_line_2": null,
+    "city": "Humble",
+    "state": "TX",
+    "postal_code": "77346",
+    "address_confidence": "high",
+    "building_sf": null,
+    "available_sf": null,
+    "minimum_available_sf": null,
+    "maximum_contiguous_sf": null,
+    "lot_acres": 5.49,
+    "year_built": null,
+    "renovated_year": null,
+    "building_class": null,
+    "stories": null,
+    "clear_height_ft": null,
+    "parking_spaces": null,
+    "parking_ratio": null,
+    "traffic_count_vpd": 23967,
+    "sale_price": null,
+    "lease_rate_min": 18.0,
+    "lease_rate_max": null,
+    "lease_rate_type": "Base + NNN",
+    "lease_rate_display": "$18.00/SF Base; $5.84/SF NNN",
+    "price_display": null,
+    "featured_image_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/e3566d9f-a0f8-4716-9322-f65f0a2c914e/cover.jpg",
+    "brochure_url": "https://www.aspirecre.com/s/Atascocita-Retail-Center-Flyer_email-hx9r.pdf",
+    "existing_wp_post_id": 119,
+    "source_url": "https://www.aspirecre.com/properties/7506-e-fm-1960-humble-texas-77346",
+    "source_path": "/properties/7506-e-fm-1960-humble-texas-77346",
+    "source_slug": "7506-e-fm-1960-humble-texas-77346",
+    "migration_review_status": "needs_review",
+    "warnings": [
+      "featured_image_low_confidence"
+    ],
+    "warning_details": [],
+    "field_evidence": {
+      "lot_acres": [
+        {
+          "value": 5.49,
+          "source_text": "5.49 acres",
+          "confidence": "high"
+        }
+      ],
+      "traffic_count_vpd": [
+        {
+          "value": 23967,
+          "source_text": "23,967 VPD",
+          "confidence": "high"
+        }
+      ],
+      "lease_rate_display": [
+        {
+          "source_text": "$18.00/SF Base",
+          "confidence": "high"
+        },
+        {
+          "source_text": "$5.84/SF NNN",
+          "confidence": "high"
+        }
+      ]
+    },
+    "property_highlights": [
+      "5.49 acres",
+      "23,967 VPD",
+      "Three mile radius: population is 73,769 and AHHI is $126,871",
+      "National tenant mix including AutoZone and Bike Barn",
+      "Located within Atascocita’s major retail corridor at the signalized intersection of W Lake",
+      "Houston Parkway And FM-1960",
+      "Surrounded By National Retailers Including: H-E-B, Kroger, Best Buy, Lowe’s, Target, Kohl’s, Ross, And Other Reputable Retailers"
+    ],
+    "suite_candidates": [
+      {
+        "square_feet": 4361,
+        "rate": 18.0,
+        "rate_type": "Base + NNN",
+        "former_use": "Second Gen Retail",
+        "notes": "4,361 SF\n$18.00/SF Base\n$5.84/SF NNN\nSecond Gen Retail",
+        "availability_status": null,
+        "suite_name": "SUITE F",
+        "confidence": "medium",
+        "source_text": "SUITE F\n4,361 SF\n$18.00/SF Base\n$5.84/SF NNN\nSecond Gen Retail"
+      }
+    ],
+    "gallery_images": [
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1748016183290-12U83G7EHT31GD8TGEXD/DJI_20241029114153_0627_D+copy.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1748016183290-12U83G7EHT31GD8TGEXD/DJI_20241029114153_0627_D+copy.jpg",
+        "filename": "DJI_20241029114153_0627_D+copy.jpg",
+        "alt_text": "DJI_20241029114153_0627_D copy.jpg",
+        "order": 1,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1748016215041-0IHLE06OZVLZNYDWVNSH/DJI_20241029114233_0629_D.JPG",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1748016215041-0IHLE06OZVLZNYDWVNSH/DJI_20241029114233_0629_D.JPG",
+        "filename": "DJI_20241029114233_0629_D.JPG",
+        "alt_text": "DJI_20241029114233_0629_D.JPG",
+        "order": 2,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1748016214715-QS5TCSQ5HDZQ60E4JAX7/DJI_20241029114327_0632_D+copy.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1748016214715-QS5TCSQ5HDZQ60E4JAX7/DJI_20241029114327_0632_D+copy.jpg",
+        "filename": "DJI_20241029114327_0632_D+copy.jpg",
+        "alt_text": "DJI_20241029114327_0632_D copy.jpg",
+        "order": 3,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1786720386579-XV5FHKW70T8V10J3L1BS/Frame+1171275865.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1786720386579-XV5FHKW70T8V10J3L1BS/Frame+1171275865.png",
+        "filename": "Frame+1171275865.png",
+        "alt_text": "Frame 1171275865.png",
+        "order": 4,
+        "is_featured": false
+      }
+    ],
+    "brochure_candidates": [
+      "https://www.aspirecre.com/s/Atascocita-Retail-Center-Flyer_email-hx9r.pdf"
+    ],
+    "proposed_wp_slug": "7506-e-fm-1960-humble-texas-77346",
+    "redirect_required": false,
+    "source_categories": [
+      "Retail"
+    ],
+    "address_source_text": "Atascocita Retail Center - 7506 E FM-1960 Humble, TX 77346",
+    "source_headings": [
+      "Property Highlights:"
+    ],
+    "unparsed_availability_blocks": [],
+    "transaction_evidence": {
+      "Lease components": [
+        "SUITE F • 4,361 SF • $18.00/SF Base • $5.84/SF NNN • Second Gen Retail"
+      ]
+    },
+    "featured_image_confidence": "low",
+    "image_count": 5,
+    "existing_wp_match_method": "exact_slug"
+  },
+  "info": {
+    "brochure_url": "https://www.aspirecre.com/s/Atascocita-Retail-Center-Flyer_email-hx9r.pdf",
+    "brochure_download_status": "success",
+    "brochure_text_status": "available",
+    "brochure_file_size": 2257153,
+    "brochure_sha256": "4db07245bd2d41e8f9bfc3340fb67b3145bb07d099743520666564b0d4433a61",
+    "cache_key": "da1d288724eb538f444e5e48",
+    "http_status": 200,
+    "brochure_page_count": 11
+  },
+  "metadata": [
+    {
+      "property": "og:site_name",
+      "content": "Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:title",
+      "content": "Atascocita Retail Center - 7506 E FM-1960 Humble, TX 77346 — Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:latitude",
+      "content": "30.1257049"
+    },
+    {
+      "property": "og:longitude",
+      "content": "-95.4524393"
+    },
+    {
+      "property": "og:street-address",
+      "content": "7506 Farm to Market 1960"
+    },
+    {
+      "property": "og:locality",
+      "content": "Humble"
+    },
+    {
+      "property": "og:region",
+      "content": "TX"
+    },
+    {
+      "property": "og:postal-code",
+      "content": "77346"
+    },
+    {
+      "property": "og:country-name",
+      "content": "United States"
+    },
+    {
+      "property": "og:url",
+      "content": "https://www.aspirecre.com/properties/7506-e-fm-1960-humble-texas-77346"
+    },
+    {
+      "property": "og:type",
+      "content": "article"
+    },
+    {
+      "property": "og:description",
+      "content": "Atascocita Retail Center - 7506 E FM-1960 Humble , Texas  77346"
+    },
+    {
+      "property": "og:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/t/660f7a9c407c38034e153e4a/1712290462599/cover.jpg?format=1500w"
+    },
+    {
+      "property": "og:image:width",
+      "content": "1240"
+    },
+    {
+      "property": "og:image:height",
+      "content": "826"
+    },
+    {
+      "name": "twitter:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/t/660f7a9c407c38034e153e4a/1712290462599/cover.jpg?format=1500w"
+    }
+  ],
+  "page_blocks": [
+    [
+      {
+        "tag": "h3",
+        "text": "Property Highlights:"
+      },
+      {
+        "tag": "li",
+        "text": "5.49 acres"
+      },
+      {
+        "tag": "li",
+        "text": "23,967 VPD"
+      },
+      {
+        "tag": "li",
+        "text": "Three mile radius: population is 73,769 and AHHI is $126,871"
+      },
+      {
+        "tag": "li",
+        "text": "National tenant mix including AutoZone and Bike Barn"
+      },
+      {
+        "tag": "li",
+        "text": "Located within Atascocita’s major retail corridor at the signalized intersection of W Lake"
+      },
+      {
+        "tag": "li",
+        "text": "Houston Parkway And FM-1960"
+      },
+      {
+        "tag": "li",
+        "text": "Surrounded By National Retailers Including: H-E-B, Kroger, Best Buy, Lowe’s, Target, Kohl’s, Ross, And Other Reputable Retailers"
+      },
+      {
+        "tag": "p",
+        "text": "SUITE F\n• 4,361 SF\n• $18.00/SF Base\n• $5.84/SF NNN\n• Second Gen Retail"
+      }
+    ]
+  ],
+  "brochure_pages": [
+    "",
+    "SUGAR LAND, TEXAS 77479\n \n  \nSUGAR LAND, TEXAS 77479\n \n  \n7506 FM 1960 ROAD E  \nHUMBLE, TEXAS 77346\n• \t5.49 Acres\n• \t23,967 VPD\n• \tThree Mile Radius: Population Is 73,769 And\nAHHI Is $126,871\n• \tNational Tenant Mix Including AutoZone And Bike Barn\n• \tLocated Within Atascocita’s Major Retail Corridor At The\nSignalized Intersection Of W Lake\n• \tHouston Parkway And FM-1960\n• \tSurrounded By National Retailers Including: H-E-B,\nKroger, Best Buy, Lowe’s, Target, Kohl’s, Ross, And\nOther Reputable Retailers\nProperty Highlights\n",
+    "7506 FM 1960 ROAD E  \nHUMBLE, TEXAS 77346\nSUITE E\n• 5,274 SF\n• $20.00/SF Base\n• Second Gen Retail\n• End Cap\n",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "Commercial Real Estate,\nReimagined\nDavid A. Smith \nM\nManaging Diranaging Director -ector -\nLeasing & PrLeasing & Property Moperty Managementanagement\n(832)\n 715-5300\ndas@aspirecre.com\nLuke Stavinoha \nAssociateAssociate\n(713) 392-2716\nlukes@aspirecre.com\nLeasing Team",
+    "",
+    ""
+  ]
+}

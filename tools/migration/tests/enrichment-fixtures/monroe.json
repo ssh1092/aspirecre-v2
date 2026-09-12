@@ -1,0 +1,319 @@
+{
+  "record": {
+    "source_title": "8401 W Monroe Rd – 8401 W Monroe Road, Houston, TX 77061",
+    "source_category": "Industrial",
+    "source_author": "Eljohn Aytona",
+    "source_publish_date": "2025-05-02T00:04:00-0400",
+    "property_type": "Industrial / Flex",
+    "transaction_type_candidate": null,
+    "transaction_confidence": null,
+    "address_line_1": "8401 W Monroe Rd – 8401 W Monroe Road",
+    "address_line_2": null,
+    "city": "Houston",
+    "state": "TX",
+    "postal_code": "77061",
+    "address_confidence": "high",
+    "building_sf": null,
+    "available_sf": null,
+    "minimum_available_sf": null,
+    "maximum_contiguous_sf": null,
+    "lot_acres": null,
+    "year_built": null,
+    "renovated_year": null,
+    "building_class": null,
+    "stories": null,
+    "clear_height_ft": null,
+    "parking_spaces": null,
+    "parking_ratio": null,
+    "traffic_count_vpd": null,
+    "sale_price": null,
+    "lease_rate_min": null,
+    "lease_rate_max": null,
+    "lease_rate_type": null,
+    "lease_rate_display": null,
+    "price_display": null,
+    "featured_image_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/e90c4b2b-cd8f-4305-8c5d-491d3be18acc/0.png",
+    "brochure_url": "https://www.aspirecre.com/s/8401-W-Monroe-Rd-Compressed.pdf",
+    "existing_wp_post_id": null,
+    "source_url": "https://www.aspirecre.com/properties/8401-w-monroe-road-houston-tx-77061",
+    "source_path": "/properties/8401-w-monroe-road-houston-tx-77061",
+    "source_slug": "8401-w-monroe-road-houston-tx-77061",
+    "migration_review_status": "needs_review",
+    "warnings": [
+      "missing_transaction",
+      "featured_image_low_confidence"
+    ],
+    "warning_details": [],
+    "field_evidence": {},
+    "property_highlights": [
+      "Three-building industrial complex with a combined 15,716 SF adaptable layout.",
+      "Direct airport access adjacent to William P. Hobby Airport for logistical advantage.",
+      "Two 12' x 14' grade-level overhead doors for efficient loading and operations.",
+      "18-foot clear height offers ample warehouse functionality and vertical capacity.",
+      "Situated on the hard corner and signalized intersection of Broadway Avenue J and 59th Street",
+      "Dedicated turn lane on Gulf Freeway",
+      "Dedicated 5,800 SF of office space designed for workforce comfort and productivity.",
+      "Improved outdoor storage (IOS) area provides additional space for equipment or inventory."
+    ],
+    "suite_candidates": [],
+    "gallery_images": [
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755131737-VEJJVWG7BK6ZM47X64R2/1.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755131737-VEJJVWG7BK6ZM47X64R2/1.png",
+        "filename": "1.png",
+        "alt_text": "1.png",
+        "order": 1,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755131675-UN2OL4ZYWHJLDVGOGFYY/2.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755131675-UN2OL4ZYWHJLDVGOGFYY/2.png",
+        "filename": "2.png",
+        "alt_text": "2.png",
+        "order": 2,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755136007-LRKZ7JPW0MR23PWO7TRT/3.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755136007-LRKZ7JPW0MR23PWO7TRT/3.png",
+        "filename": "3.png",
+        "alt_text": "3.png",
+        "order": 3,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755136839-D60PFP2I926ZR4F1Q4LS/4.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755136839-D60PFP2I926ZR4F1Q4LS/4.png",
+        "filename": "4.png",
+        "alt_text": "4.png",
+        "order": 4,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755140441-SS5PKMJ7N8EGG7C6J52Q/5.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755140441-SS5PKMJ7N8EGG7C6J52Q/5.png",
+        "filename": "5.png",
+        "alt_text": "5.png",
+        "order": 5,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755141347-0Q0BXNKGOUS66IXROYOA/6.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755141347-0Q0BXNKGOUS66IXROYOA/6.png",
+        "filename": "6.png",
+        "alt_text": "6.png",
+        "order": 6,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755145288-U3XLL70M4BF1SXHUIFV6/7.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755145288-U3XLL70M4BF1SXHUIFV6/7.png",
+        "filename": "7.png",
+        "alt_text": "7.png",
+        "order": 7,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755145524-YA9IBT8QDJHDK9PH10UV/9.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755145524-YA9IBT8QDJHDK9PH10UV/9.png",
+        "filename": "9.png",
+        "alt_text": "9.png",
+        "order": 8,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755148964-XHDGFU5X4V7N2T4O0G00/10.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755148964-XHDGFU5X4V7N2T4O0G00/10.png",
+        "filename": "10.png",
+        "alt_text": "10.png",
+        "order": 9,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755149210-JXXUM6FJXZBW0PIZCCW2/11.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755149210-JXXUM6FJXZBW0PIZCCW2/11.png",
+        "filename": "11.png",
+        "alt_text": "11.png",
+        "order": 10,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755152842-JMX91UH009QM8ISNGEAC/12.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755152842-JMX91UH009QM8ISNGEAC/12.png",
+        "filename": "12.png",
+        "alt_text": "12.png",
+        "order": 11,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755153790-1UTWLGFVI62ZXQISP1X6/13.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755153790-1UTWLGFVI62ZXQISP1X6/13.png",
+        "filename": "13.png",
+        "alt_text": "13.png",
+        "order": 12,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755157310-LEHS5BK7PYE45JI7ODJM/14.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755157310-LEHS5BK7PYE45JI7ODJM/14.png",
+        "filename": "14.png",
+        "alt_text": "14.png",
+        "order": 13,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755158234-8Y8X2YT9H46TIUIWZGVJ/15.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1784755158234-8Y8X2YT9H46TIUIWZGVJ/15.png",
+        "filename": "15.png",
+        "alt_text": "15.png",
+        "order": 14,
+        "is_featured": false
+      }
+    ],
+    "brochure_candidates": [
+      "https://www.aspirecre.com/s/8401-W-Monroe-Rd-Compressed.pdf"
+    ],
+    "proposed_wp_slug": "8401-w-monroe-road-houston-tx-77061",
+    "redirect_required": false,
+    "source_categories": [
+      "Industrial"
+    ],
+    "address_source_text": "8401 W Monroe Rd – 8401 W Monroe Road, Houston, TX 77061",
+    "source_headings": [
+      "Property Highlights:"
+    ],
+    "unparsed_availability_blocks": [],
+    "transaction_evidence": {},
+    "featured_image_confidence": "low",
+    "image_count": 15
+  },
+  "info": {
+    "brochure_url": "https://www.aspirecre.com/s/8401-W-Monroe-Rd-Compressed.pdf",
+    "brochure_download_status": "success",
+    "brochure_text_status": "unavailable",
+    "brochure_file_size": 3181698,
+    "brochure_sha256": "f101415e8f258a5b94ef2a8974f8c20ad00a6473035c9172d32ab3b28550965f",
+    "cache_key": "eac0b312be4d3abab92bf092",
+    "http_status": 200,
+    "brochure_page_count": 11
+  },
+  "metadata": [
+    {
+      "property": "og:site_name",
+      "content": "Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:title",
+      "content": "Broadway Shopping Center - 5908 Broadway Street — Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:latitude",
+      "content": "30.1257049"
+    },
+    {
+      "property": "og:longitude",
+      "content": "-95.4524393"
+    },
+    {
+      "property": "og:street-address",
+      "content": "5908 Broadway Avenue J"
+    },
+    {
+      "property": "og:locality",
+      "content": "Galveston"
+    },
+    {
+      "property": "og:region",
+      "content": "TX"
+    },
+    {
+      "property": "og:postal-code",
+      "content": "77551"
+    },
+    {
+      "property": "og:country-name",
+      "content": "United States"
+    },
+    {
+      "property": "og:url",
+      "content": "https://www.aspirecre.com/properties/8401-w-monroe-road-houston-tx-77061"
+    },
+    {
+      "property": "og:type",
+      "content": "article"
+    },
+    {
+      "property": "og:description",
+      "content": "Broadway Shopping Center - 5908 Broadway Street"
+    },
+    {
+      "property": "og:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/6526f62ab7c3436641af8c21/660f7608aa79d16f2383892e/1784755301788/0.png?format=1500w"
+    },
+    {
+      "property": "og:image:width",
+      "content": "1500"
+    },
+    {
+      "property": "og:image:height",
+      "content": "1073"
+    },
+    {
+      "name": "twitter:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/6526f62ab7c3436641af8c21/660f7608aa79d16f2383892e/1784755301788/0.png?format=1500w"
+    }
+  ],
+  "page_blocks": [
+    [
+      {
+        "tag": "h3",
+        "text": "Property Highlights:"
+      },
+      {
+        "tag": "li",
+        "text": "Three-building industrial complex with a combined 15,716 SF adaptable layout."
+      },
+      {
+        "tag": "li",
+        "text": "Direct airport access adjacent to William P. Hobby Airport for logistical advantage."
+      },
+      {
+        "tag": "li",
+        "text": "Two 12' x 14' grade-level overhead doors for efficient loading and operations."
+      },
+      {
+        "tag": "li",
+        "text": "18-foot clear height offers ample warehouse functionality and vertical capacity."
+      },
+      {
+        "tag": "li",
+        "text": "Situated on the hard corner and signalized intersection of Broadway Avenue J and 59th Street"
+      },
+      {
+        "tag": "li",
+        "text": "Dedicated turn lane on Gulf Freeway"
+      },
+      {
+        "tag": "li",
+        "text": "Dedicated 5,800 SF of office space designed for workforce comfort and productivity."
+      },
+      {
+        "tag": "li",
+        "text": "Improved outdoor storage (IOS) area provides additional space for equipment or inventory."
+      }
+    ]
+  ],
+  "brochure_pages": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ]
+}

@@ -1,0 +1,348 @@
+{
+  "record": {
+    "source_title": "21617 FM 1093 Richmond TX, 77407",
+    "source_category": "Land",
+    "source_author": "Eljohn Aytona",
+    "source_publish_date": "2025-06-01T17:20:42-0400",
+    "property_type": "Land",
+    "transaction_type_candidate": null,
+    "transaction_confidence": null,
+    "address_line_1": "21617 FM 1093",
+    "address_line_2": null,
+    "city": "Richmond",
+    "state": "TX",
+    "postal_code": "77407",
+    "address_confidence": "high",
+    "building_sf": null,
+    "available_sf": null,
+    "minimum_available_sf": null,
+    "maximum_contiguous_sf": null,
+    "lot_acres": 2.21,
+    "year_built": null,
+    "renovated_year": null,
+    "building_class": null,
+    "stories": null,
+    "clear_height_ft": null,
+    "parking_spaces": null,
+    "parking_ratio": null,
+    "traffic_count_vpd": null,
+    "sale_price": 3410000,
+    "lease_rate_min": null,
+    "lease_rate_max": null,
+    "lease_rate_type": null,
+    "lease_rate_display": null,
+    "price_display": "PRICE - $3,410,000",
+    "featured_image_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/c1c13602-b08b-4cbe-af29-77a5063236cf/13+%281%29.png",
+    "brochure_url": "https://www.aspirecre.com/s/21617-FM-1093-Compressed-2-ef6k.pdf",
+    "existing_wp_post_id": 122,
+    "source_url": "https://www.aspirecre.com/properties/21617-fm-1093-richmond-tx-77407",
+    "source_path": "/properties/21617-fm-1093-richmond-tx-77407",
+    "source_slug": "21617-fm-1093-richmond-tx-77407",
+    "migration_review_status": "needs_review",
+    "warnings": [
+      "missing_transaction",
+      "featured_image_low_confidence",
+      "existing_wp_pricing_review"
+    ],
+    "warning_details": [
+      {
+        "code": "existing_wp_pricing_review",
+        "detail": "Source pricing is preserved for audit only. Review existing local price-suppression policy before any later import."
+      }
+    ],
+    "field_evidence": {
+      "lot_acres": [
+        {
+          "value": 2.21,
+          "source_text": "2.21 -acre commercial tract strategically positioned along the FM 1093 / Westpark Tollway corridor in Richmond, Texas",
+          "confidence": "high"
+        },
+        {
+          "value": 2.21,
+          "source_text": "LOT SIZE - 2.21 Acres",
+          "confidence": "high"
+        }
+      ],
+      "price_display": [
+        {
+          "source_text": "PRICE - $3,410,000",
+          "confidence": "high"
+        }
+      ]
+    },
+    "property_highlights": [
+      "2.21 -acre commercial tract strategically positioned along the FM 1093 / Westpark Tollway corridor in Richmond, Texas",
+      "Excellent positioning between Grand Parkway (SH 99) and the growing communities of Richmond, Katy, Fulshear and West Houston",
+      "Provides convenient access to major regional employment, residential and retail destinations throughout the Kay/Richmond trade area",
+      "Westpark Tollway frontage provides strong regional visibility and connevtivity to the broader Houston metro",
+      "Within the Three-Mile Radius: Population is 93,483 and AHHI is $147,801."
+    ],
+    "suite_candidates": [],
+    "gallery_images": [
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383973875-IQ9KSJ3XIPPK2YL40NW6/1.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383973875-IQ9KSJ3XIPPK2YL40NW6/1.png",
+        "filename": "1.png",
+        "alt_text": "1.png",
+        "order": 1,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383973815-RHCFU6FOLLZZGKQLPXPV/2.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383973815-RHCFU6FOLLZZGKQLPXPV/2.png",
+        "filename": "2.png",
+        "alt_text": "2.png",
+        "order": 2,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383976335-W114ZI766V3TMO36139B/3.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383976335-W114ZI766V3TMO36139B/3.png",
+        "filename": "3.png",
+        "alt_text": "3.png",
+        "order": 3,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383979815-FLADFKSG2LRSD37QVCM0/4.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383979815-FLADFKSG2LRSD37QVCM0/4.png",
+        "filename": "4.png",
+        "alt_text": "4.png",
+        "order": 4,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383979925-65WYJST1OCUZJURZQ3LF/5.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383979925-65WYJST1OCUZJURZQ3LF/5.png",
+        "filename": "5.png",
+        "alt_text": "5.png",
+        "order": 5,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383982213-3ATNIXYT2B9OU4AXET6I/6.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383982213-3ATNIXYT2B9OU4AXET6I/6.png",
+        "filename": "6.png",
+        "alt_text": "6.png",
+        "order": 6,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383982334-IK5O5FNUDAK778E2IY61/7.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383982334-IK5O5FNUDAK778E2IY61/7.png",
+        "filename": "7.png",
+        "alt_text": "7.png",
+        "order": 7,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383984451-WILD8B6LYC1UICW5FP45/8.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383984451-WILD8B6LYC1UICW5FP45/8.png",
+        "filename": "8.png",
+        "alt_text": "8.png",
+        "order": 8,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383984633-MBGHA9Y1PTXPKRK5CCF7/9.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383984633-MBGHA9Y1PTXPKRK5CCF7/9.png",
+        "filename": "9.png",
+        "alt_text": "9.png",
+        "order": 9,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383987052-77LBUHTRL1FOG2O9TJBO/10.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383987052-77LBUHTRL1FOG2O9TJBO/10.png",
+        "filename": "10.png",
+        "alt_text": "10.png",
+        "order": 10,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383987142-JEFZG6FGD43BRFUVEJTY/11.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383987142-JEFZG6FGD43BRFUVEJTY/11.png",
+        "filename": "11.png",
+        "alt_text": "11.png",
+        "order": 11,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383989252-HGDI6GXBWIUGA6214ZF1/12.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383989252-HGDI6GXBWIUGA6214ZF1/12.png",
+        "filename": "12.png",
+        "alt_text": "12.png",
+        "order": 12,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383989365-8BIEDZ8L1R9MYHFFGB0F/13.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383989365-8BIEDZ8L1R9MYHFFGB0F/13.png",
+        "filename": "13.png",
+        "alt_text": "13.png",
+        "order": 13,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383991364-YVA8IZZQO3C998ECH63X/14.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1788383991364-YVA8IZZQO3C998ECH63X/14.png",
+        "filename": "14.png",
+        "alt_text": "14.png",
+        "order": 14,
+        "is_featured": false
+      }
+    ],
+    "brochure_candidates": [
+      "https://www.aspirecre.com/s/21617-FM-1093-Compressed-2-ef6k.pdf"
+    ],
+    "proposed_wp_slug": "21617-fm-1093-richmond-tx-77407",
+    "redirect_required": false,
+    "source_categories": [
+      "Land"
+    ],
+    "address_source_text": "21617 FM 1093 Richmond TX, 77407",
+    "source_headings": [
+      "Property Highlights:",
+      "Property Details"
+    ],
+    "unparsed_availability_blocks": [],
+    "transaction_evidence": {},
+    "featured_image_confidence": "low",
+    "image_count": 15,
+    "existing_wp_match_method": "exact_slug"
+  },
+  "info": {
+    "brochure_url": "https://www.aspirecre.com/s/21617-FM-1093-Compressed-2-ef6k.pdf",
+    "brochure_download_status": "success",
+    "brochure_text_status": "unavailable",
+    "brochure_file_size": 6940628,
+    "brochure_sha256": "96d18f6558eccd1b354e331d78c6e157612cb3af720605170f1b33b6f014aa51",
+    "cache_key": "61f74db495b5a6e7874f9905",
+    "http_status": 200,
+    "brochure_page_count": 16
+  },
+  "metadata": [
+    {
+      "property": "og:site_name",
+      "content": "Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:title",
+      "content": "21617 FM 1093 Richmond TX, 77407 — Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:latitude",
+      "content": "30.1257049"
+    },
+    {
+      "property": "og:longitude",
+      "content": "-95.4524393"
+    },
+    {
+      "property": "og:street-address",
+      "content": "Shops at Almeda - 10900 Gulf Freeway, Houston ,TX 77034"
+    },
+    {
+      "property": "og:locality",
+      "content": "Humble"
+    },
+    {
+      "property": "og:region",
+      "content": "TX"
+    },
+    {
+      "property": "og:postal-code",
+      "content": "77346"
+    },
+    {
+      "property": "og:country-name",
+      "content": "United States"
+    },
+    {
+      "property": "og:url",
+      "content": "https://www.aspirecre.com/properties/21617-fm-1093-richmond-tx-77407"
+    },
+    {
+      "property": "og:type",
+      "content": "article"
+    },
+    {
+      "property": "og:description",
+      "content": "21617 FM 1093 Richmond TX, 77407"
+    },
+    {
+      "property": "og:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/6526f62ab7c3436641af8c21/6a989025fee0b9021864b84d/1788881781221/13+%281%29.png?format=1500w"
+    },
+    {
+      "property": "og:image:width",
+      "content": "1500"
+    },
+    {
+      "property": "og:image:height",
+      "content": "1054"
+    },
+    {
+      "name": "twitter:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/6526f62ab7c3436641af8c21/6a989025fee0b9021864b84d/1788881781221/13+%281%29.png?format=1500w"
+    }
+  ],
+  "page_blocks": [
+    [
+      {
+        "tag": "h3",
+        "text": "Property Highlights:"
+      },
+      {
+        "tag": "li",
+        "text": "2.21 -acre commercial tract strategically positioned along the FM 1093 / Westpark Tollway corridor in Richmond, Texas"
+      },
+      {
+        "tag": "li",
+        "text": "Excellent positioning between Grand Parkway (SH 99) and the growing communities of Richmond, Katy, Fulshear and West Houston"
+      },
+      {
+        "tag": "li",
+        "text": "Provides convenient access to major regional employment, residential and retail destinations throughout the Kay/Richmond trade area"
+      },
+      {
+        "tag": "li",
+        "text": "Westpark Tollway frontage provides strong regional visibility and connevtivity to the broader Houston metro"
+      },
+      {
+        "tag": "li",
+        "text": "Within the Three-Mile Radius: Population is 93,483  and AHHI is $147,801."
+      },
+      {
+        "tag": "h3",
+        "text": "Property Details"
+      },
+      {
+        "tag": "li",
+        "text": "PRICE - $3,410,000"
+      },
+      {
+        "tag": "li",
+        "text": "LOT SIZE - 2.21 Acres"
+      }
+    ]
+  ],
+  "brochure_pages": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ]
+}

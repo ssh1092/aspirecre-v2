@@ -1,6 +1,6 @@
 # Aspire legacy property audit (dry run only)
 
-These tools discover the five fixed archives, require exactly 87 unique property URLs, cache source HTML, and generate review artifacts. There is no importer or WordPress write path. No image or PDF downloads are performed.
+These tools discover the five fixed archives, require exactly 87 unique property URLs, cache source HTML, and generate review artifacts. There is no importer or WordPress write path. V1 performs no image or PDF downloads; the V2 enrichment below adds an ignored PDF cache.
 
 Run from the repository root:
 
@@ -40,3 +40,27 @@ Parser decisions:
 Tests use eight reduced JSON fixtures derived from the cached real pages (Clay, Atascocita, Broadway, Kingsley Ridge, Woodson's Centre, FM 1093, Presidio, and the embedded-slash Pearland Parkway URL). They contain selected text/image/link facts, not full source HTML. `make_fixtures.py` explicitly regenerates those fixtures from an existing crawl; it makes no requests. Additional tests cover exclusions, ambiguous matches, address uncertainty, field conflicts and manifest invariants.
 
 The cache, local SQL snapshots, virtual environment and Python bytecode are Git-ignored. Do not commit cached source HTML. This task ends at human review; run no import.
+
+
+## V2 brochure and source-metadata enrichment
+
+Preserve the three V1 outputs. With the existing HTML cache and V1 manifest present, run:
+
+```sh
+var/migration/venv/bin/pip install -r tools/migration/requirements.txt
+docker compose exec -T wordpress php < tools/migration/snapshot.php > var/migration/aspire-properties/enrichment-before.json
+var/migration/venv/bin/python tools/migration/brochures.py
+docker compose exec -T wordpress php < tools/migration/snapshot.php > var/migration/aspire-properties/enrichment-after.json
+var/migration/venv/bin/python tools/migration/enrich.py
+var/migration/venv/bin/python -m unittest discover -s tools/migration/tests -v
+```
+
+Do not rerun `audit.py` to enrich V1. `enrich.py` writes only the V2 manifest, V2 review CSV, and enrichment summary. It checks the read-only snapshots, records V1 file hashes, and preserves every V1 record field. Human review columns remain blank.
+
+`brochures.py` downloads sequentially using verified HTTPS, bounded timeouts/retries and a 0.75-second delay before uncached requests. It validates PDF signatures and readability using pinned pypdf. PDFs, hashes, status metadata and extracted page text stay under ignored `var/migration/aspire-properties/brochures/`. Subsequent runs reuse PDFs and extracted text matching their SHA-256; `--refresh` explicitly fetches again. Failures are recorded per URL and do not stop other properties. Image-only PDFs remain text-unavailable; no OCR is performed.
+
+Candidates retain page/brochure evidence separately. Conflicts leave numeric and transaction candidates null, with both values available for review. Distinct suites and phase contexts remain separate. Legal brokerage disclosures and generic company narratives are excluded; contacts require property-associated contact headings. An apparent brochure subject mismatch quarantines brochure candidates. FM 1093's existing pricing-review warning remains intact.
+
+Coordinates and primary-image evidence come from cached HTML only. Repeated coordinates across different addresses are retained as evidence but withheld as usable candidates. Image confidence requires matching legitimate existing property media; gallery ordering is preserved and no images are downloaded. Type-specific completeness scores count known fields divided by the documented field catalog and are internal QA only.
+
+Nine additional reduced evidence fixtures cover Clay, Atascocita, Broadway, Woodson's, Greatwood, Prairie, Monroe, Hiram Clarke land and FM 1093. `make_enrichment_fixtures.py` regenerates them offline from the cache. Cache tests make no network requests. No WordPress write API, importer, frontend changes, external geocoder or media-library operation is involved.

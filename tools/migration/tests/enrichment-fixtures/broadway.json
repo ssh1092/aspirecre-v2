@@ -1,0 +1,304 @@
+{
+  "record": {
+    "source_title": "Broadway Shopping Center - 5900 - 5940 Broadway Street Galveston, TX 77551",
+    "source_category": "Retail",
+    "source_author": "Eljohn Aytona",
+    "source_publish_date": "2025-06-01T09:50:47-0400",
+    "property_type": "Retail",
+    "transaction_type_candidate": "For Lease",
+    "transaction_confidence": "high",
+    "address_line_1": "5900 - 5940 Broadway Street",
+    "address_line_2": null,
+    "city": "Galveston",
+    "state": "TX",
+    "postal_code": "77551",
+    "address_confidence": "high",
+    "building_sf": null,
+    "available_sf": 11394,
+    "minimum_available_sf": null,
+    "maximum_contiguous_sf": 8400,
+    "lot_acres": 4.94,
+    "year_built": null,
+    "renovated_year": null,
+    "building_class": null,
+    "stories": null,
+    "clear_height_ft": null,
+    "parking_spaces": null,
+    "parking_ratio": null,
+    "traffic_count_vpd": 42901,
+    "sale_price": null,
+    "lease_rate_min": null,
+    "lease_rate_max": null,
+    "lease_rate_type": null,
+    "lease_rate_display": null,
+    "price_display": null,
+    "featured_image_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/47d91462-a8ef-441f-a645-fe76d5f8a03b/BROADW%7E1.JPG",
+    "brochure_url": "https://www.aspirecre.com/s/Broadway-Shopping-Center-Flyer_email-yk75.pdf",
+    "existing_wp_post_id": null,
+    "source_url": "https://www.aspirecre.com/properties/5900-5940-broadway-street-galveston-tx-77551",
+    "source_path": "/properties/5900-5940-broadway-street-galveston-tx-77551",
+    "source_slug": "5900-5940-broadway-street-galveston-tx-77551",
+    "migration_review_status": "needs_review",
+    "warnings": [
+      "featured_image_low_confidence"
+    ],
+    "warning_details": [],
+    "field_evidence": {
+      "available_sf": [
+        {
+          "value": 11394,
+          "source_text": "Total Space Available - 11,394 SF Max Contiguous – 8,400 SF",
+          "confidence": "high"
+        }
+      ],
+      "maximum_contiguous_sf": [
+        {
+          "value": 8400,
+          "source_text": "Total Space Available - 11,394 SF Max Contiguous – 8,400 SF",
+          "confidence": "high"
+        }
+      ],
+      "lot_acres": [
+        {
+          "value": 4.94,
+          "source_text": "4.94 acres",
+          "confidence": "high"
+        }
+      ],
+      "traffic_count_vpd": [
+        {
+          "value": 42901,
+          "source_text": "42,901 VPD",
+          "confidence": "high"
+        }
+      ]
+    },
+    "property_highlights": [
+      "4.94 acres",
+      "42,901 VPD",
+      "Immediate access to I-45",
+      "Gulf Freeway visibility and frontage",
+      "Situated on the hard corner and signalized intersection of Broadway Avenue J and 59th street",
+      "Dedicated turn lane on Gulf Freewa",
+      "Mix of National, Medical and Retail Tenants including Big Lots, Davita, and Subway",
+      "Adjacent to Galveston’s primary route with one of the highest VPD’s in Galveston",
+      "Surrounded by National Retailers including: Target, Home Depot, PetSmart, Mattress Firm, and other reputable retailers"
+    ],
+    "suite_candidates": [
+      {
+        "square_feet": 8400,
+        "rate": 12.0,
+        "rate_type": "Base",
+        "former_use": "Second Generation Restaurant Space",
+        "notes": "8,400 SF\n$12.00/SF Base\nSecond Generation Restaurant Space",
+        "availability_status": null,
+        "suite_name": "SUITE 5902",
+        "confidence": "medium",
+        "source_text": "SUITE 5902\n8,400 SF\n$12.00/SF Base\nSecond Generation Restaurant Space"
+      },
+      {
+        "square_feet": 2994,
+        "rate": 20.0,
+        "rate_type": "Base",
+        "former_use": "Former Office Space",
+        "notes": "2,994 SF\n$20.00/SF Base\nFormer Office Space\nFull Build-Out",
+        "availability_status": null,
+        "suite_name": "SUITE 5940",
+        "confidence": "medium",
+        "source_text": "SUITE 5940\n2,994 SF\n$20.00/SF Base\nFormer Office Space\nFull Build-Out"
+      }
+    ],
+    "gallery_images": [
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785160221777-CFDIRD8ZHOM8G1QN7Y34/Broadway+Center+Drone+Photo+1.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785160221777-CFDIRD8ZHOM8G1QN7Y34/Broadway+Center+Drone+Photo+1.jpg",
+        "filename": "Broadway+Center+Drone+Photo+1.jpg",
+        "alt_text": "Broadway Center Drone Photo 1.jpg",
+        "order": 1,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785160224648-7FVJ3XXQQ21ZOXG8ECHW/BROADW%7E1.JPG",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785160224648-7FVJ3XXQQ21ZOXG8ECHW/BROADW%7E1.JPG",
+        "filename": "BROADW~1.JPG",
+        "alt_text": "BROADW~1.JPG",
+        "order": 2,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785160227417-0RYXGO8TCLPZYP1703I3/DJI_20241006111104_0466_D+copy.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785160227417-0RYXGO8TCLPZYP1703I3/DJI_20241006111104_0466_D+copy.jpg",
+        "filename": "DJI_20241006111104_0466_D+copy.jpg",
+        "alt_text": "DJI_20241006111104_0466_D copy.jpg",
+        "order": 3,
+        "is_featured": false
+      }
+    ],
+    "brochure_candidates": [
+      "https://www.aspirecre.com/s/Broadway-Shopping-Center-Flyer_email-yk75.pdf"
+    ],
+    "proposed_wp_slug": "5900-5940-broadway-street-galveston-tx-77551",
+    "redirect_required": false,
+    "source_categories": [
+      "Retail"
+    ],
+    "address_source_text": "Broadway Shopping Center - 5900 - 5940 Broadway Street Galveston, TX 77551",
+    "source_headings": [
+      "Property Highlights:"
+    ],
+    "unparsed_availability_blocks": [],
+    "transaction_evidence": {
+      "Lease components": [
+        "SUITE 5902 • 8,400 SF • $12.00/SF Base • Second Generation Restaurant Space",
+        "SUITE 5940 • 2,994 SF • $20.00/SF Base • Former Office Space • Full Build-Out"
+      ]
+    },
+    "featured_image_confidence": "low",
+    "image_count": 4
+  },
+  "info": {
+    "brochure_url": "https://www.aspirecre.com/s/Broadway-Shopping-Center-Flyer_email-yk75.pdf",
+    "brochure_download_status": "success",
+    "brochure_text_status": "available",
+    "brochure_file_size": 1683547,
+    "brochure_sha256": "3f0c7e2c8a4c9f055d76ab57455344cf5d975630850029ea56b71cf3b3175cc2",
+    "cache_key": "37da7a6ea274e767fcf954f0",
+    "http_status": 200,
+    "brochure_page_count": 11
+  },
+  "metadata": [
+    {
+      "property": "og:site_name",
+      "content": "Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:title",
+      "content": "Broadway Shopping Center - 5900 - 5940 Broadway Street Galveston, TX 77551 — Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:latitude",
+      "content": "30.1257049"
+    },
+    {
+      "property": "og:longitude",
+      "content": "-95.4524393"
+    },
+    {
+      "property": "og:street-address",
+      "content": "7506 Farm to Market 1960"
+    },
+    {
+      "property": "og:locality",
+      "content": "Humble"
+    },
+    {
+      "property": "og:region",
+      "content": "TX"
+    },
+    {
+      "property": "og:postal-code",
+      "content": "77346"
+    },
+    {
+      "property": "og:country-name",
+      "content": "United States"
+    },
+    {
+      "property": "og:url",
+      "content": "https://www.aspirecre.com/properties/5900-5940-broadway-street-galveston-tx-77551"
+    },
+    {
+      "property": "og:type",
+      "content": "article"
+    },
+    {
+      "property": "og:description",
+      "content": "Broadway Shopping Center - 5900 - 5940 Broadway Street Galveston, TX 77551"
+    },
+    {
+      "property": "og:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/6526f62ab7c3436641af8c21/6a6760fdb90fe557845f8f52/1785358642184/BROADW%7E1.JPG?format=1500w"
+    },
+    {
+      "property": "og:image:width",
+      "content": "1500"
+    },
+    {
+      "property": "og:image:height",
+      "content": "843"
+    },
+    {
+      "name": "twitter:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/6526f62ab7c3436641af8c21/6a6760fdb90fe557845f8f52/1785358642184/BROADW%7E1.JPG?format=1500w"
+    }
+  ],
+  "page_blocks": [
+    [
+      {
+        "tag": "h3",
+        "text": "Property Highlights:"
+      },
+      {
+        "tag": "li",
+        "text": "4.94 acres"
+      },
+      {
+        "tag": "li",
+        "text": "42,901 VPD"
+      },
+      {
+        "tag": "li",
+        "text": "Immediate access to I-45"
+      },
+      {
+        "tag": "li",
+        "text": "Gulf Freeway visibility and frontage"
+      },
+      {
+        "tag": "li",
+        "text": "Situated on the hard corner and signalized intersection of Broadway Avenue J and 59th street"
+      },
+      {
+        "tag": "li",
+        "text": "Dedicated turn lane on Gulf Freewa"
+      },
+      {
+        "tag": "li",
+        "text": "Mix of National, Medical and Retail Tenants including Big Lots, Davita, and Subway"
+      },
+      {
+        "tag": "li",
+        "text": "Adjacent to Galveston’s primary route with one of the highest VPD’s in Galveston"
+      },
+      {
+        "tag": "li",
+        "text": "Surrounded by National Retailers including: Target, Home Depot, PetSmart, Mattress Firm, and other reputable retailers"
+      },
+      {
+        "tag": "p",
+        "text": "Total Space Available - 11,394 SF\nMax Contiguous – 8,400 SF"
+      },
+      {
+        "tag": "p",
+        "text": "SUITE 5902\n• 8,400 SF\n• $12.00/SF Base\n• Second Generation Restaurant Space"
+      },
+      {
+        "tag": "p",
+        "text": "SUITE 5940\n• 2,994 SF\n• $20.00/SF Base\n• Former Office Space\n• Full Build-Out"
+      }
+    ]
+  ],
+  "brochure_pages": [
+    "",
+    " \n \n  \n \n \nSUGAR LAND, TEXAS 77479\n \n \n  \n \nSUGAR LAND, TEXAS 77479\n \n \n  \n \n5900-5940 BROADWAY STREET\nGALVESTON, TEXAS 77551\n  \n  \n  \n• \t4.94 acres\n• \t42,901 VPD\n• \tImmediate access to I-45\n• \tGulf Freeway visibility and frontage\n• \tSituated on the hard corner and signalized intersection of \nBroadway Avenue J and 59th street\n• \tDedicated turn lane on Gulf Freeway\n• \tMix of National, Medical and Retail Tenants            \nincluding Big Lots, Davita, and Subway\n• \tAdjacent to Galveston’s primary route with one    \nof the highest VPD’s in Galveston \n• \tSurrounded by National Retailers including:               \nTarget, Home Depot, PetSmart, Mattress Firm, \nand other reputable retailers\nProperty Highlights",
+    "     SUITE 5902\n• \t8,400 SF\n• \t$12.00/SF Base\n• \tSecond Generation Restaurant Space\nFor Lease\n  \n \n \n \n  \n \n \n \n  \n \n5900-5940 BROADWAY STREET\nGALVESTON, TEXAS 77551\nLEASEDLEASED\nSUITE 5902SUITE 5902\n8,400 SF8,400 SF\nSUITE 5902SUITE 5902\n8,400 SF8,400 SF\nSUITE 5902SUITE 5902\n8,400 SF8,400 SF\nSUITE 5940SUITE 5940\n2,994 SF2,994 SF\nTotal Space Available - 11,394 SF\nMax Contiguous - 8,400 SF\n8,400 SF - $12.00/SF\n2,994 SF - $20.00/SF\n          SUITE 5940\n• \t2,994 SF\n• \t$20.00/SF Base\n• \tFormer\tOffice\tSpace\n• \tFull Build-Out",
+    "",
+    "",
+    "",
+    "  \n Nearby Amenities \n  \n  \n  \n  \n  \n  \n  \n  \nA\nB\n• \t 7-Eleven - Convenience Store\n• \t A & M Grocery Store\n• \t Aceituno’s - Mexican\n• \t Allen’s\n• \t AutoZone Auto Parts - Auto Parts Store\n• \t Brcnco Burritos\n• \t Broadway Quick Stop - Convenience Store\n• \t China Sea\n• \t Cordray Drug Store - Ice Cream\n• \t Corduroy\tCoffee\tAnd\tClay\n• \t Daiquiris To Go On Broadway\n• \t Dj’s Kitchen Galveston\n• \t El Gusto Del Pueblo - Mexican\n• \t El Jefe Mexican Food\n• \t El Nopalito Grill\nB\n• \t El Sabor Del Taco\n• \t El Sazon Katracho - Honduran\n• \t EZPAWN - Pawn Shop\n• \t Exxon\n• \t Farbs Liquors - Liquor Store\n• \t Galveston Food & Gas\n• \t Henry’s Mexican\n• \t Honduras Food\n• \t iQ\tCoffee\tCo\n• \t Jack In the Box\n• \t Joe’s Seafood\n• \t KFC\n• \t Knapp Flower Shop - Florist\n• \t Koop’s BBQ Kitchen\n• \t La Michoacana Meat Market - Butcher Shop\n• \t Leo’s Cajun Corner\n• \t Leon’s World Finest Bar-B-Que\n• \t Los Patrones Fresh Mexican Cuisine\n• \t Maceo Spice & Import Company \n• \t McDonald’s\n• \t Mercadito Y Taqueria - Mexican\n• \t Ophelia’s - Soul\n• \t O’Reilly Auto Parts - Auto Parts Store\n• \t Our Drive Gym\n• \t Pho Tai - Vietnamese\n• \t Red\tLight\tCoffee\tRoasters\n• \t Restauran El Nopalito\n• \t Sandy’s Best Food - Latin American\n• \t Shipley Do-Nuts (Galveston)\n• \t Shrimp\tN\tStuff\n• \t Shop-N-Drive - Convenience Store\n• \t Solid Gold Beauty Supply\n• \t Sonic Drive-In\n• \t Soul 2 Soul\n• \t Subway\n• \t Taco Bell\n• \t Tacos El Faraon\n• \t Tacos Gabriel\n• \t Taqueria El Jardin Tropical\n• \t Taqueria Flores - Mexican\n• \t Top Gear Apparel - Custom T-shirt Store\n• \t Tortilleria Y Pupusas\n• \t Vida Agave\n• \t Willow\tCoffee\n• \t + Many More\n• \t Anytime Fitness\n• \t Bay Area Auto Parts\n• \t Big Lots - Discount Store\n• \t Bone Voyage Pet Resort\n• \t Burger King\n• \t Cutter Style Custom Homes\n• \t Dollar Tree - Dollar Store\n• \t Exxon\n• \t Galveston Bait & Tackle\n• \t Galveston Inn & Suites\n• \t Galveston Shrimp Company\n• \t Galvez Shopping Center - Shopping Mall\n• \t LOS 3 FLORES MEXICAN\n• \t Mattress Firm Clearance Center Broadway \nStreet - Mattress Store\n• \t Number 13 Prime Steak & Seafood\n• \t PetSmart - Pet Supply Store\n• \t Subway\n• \t Target\n• \t The Home Depot\n• \t U-Haul Neighborhood Dealer\n• \t + Many More\nA\n  \n \n \n  \n \n \n  \n \n5900-5940 BROADWAY STREET\nGALVESTON, TEXAS 77551\n5900-5940 BROADWAY STREET5900-5940 BROADWAY STREET\n",
+    "",
+    "\t\nAbout Us\nCommercial Real Estate,\nReimagined\nDavid A. Smith \nMManaging Diranaging Director -ector -\nLeasing & PrLeasing & Property Moperty Managementanagement\n(832) 715-5300\ndas@aspirecre.com\nLuke Stavinoha \nAssociateAssociate\n(713) 392-2716\nlukes@aspirecre.com\nLeasing Team",
+    "",
+    ""
+  ]
+}

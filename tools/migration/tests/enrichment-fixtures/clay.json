@@ -1,0 +1,240 @@
+{
+  "record": {
+    "source_title": "16840 Clay Road Houston, TX 77084",
+    "source_category": "Industrial",
+    "source_author": "Quentin Brunel",
+    "source_publish_date": "2025-07-09T21:17:00-0400",
+    "property_type": "Industrial / Flex",
+    "transaction_type_candidate": null,
+    "transaction_confidence": null,
+    "address_line_1": "16840 Clay Road",
+    "address_line_2": null,
+    "city": "Houston",
+    "state": "TX",
+    "postal_code": "77084",
+    "address_confidence": "high",
+    "building_sf": null,
+    "available_sf": null,
+    "minimum_available_sf": null,
+    "maximum_contiguous_sf": null,
+    "lot_acres": null,
+    "year_built": null,
+    "renovated_year": null,
+    "building_class": null,
+    "stories": null,
+    "clear_height_ft": 14,
+    "parking_spaces": null,
+    "parking_ratio": null,
+    "traffic_count_vpd": null,
+    "sale_price": null,
+    "lease_rate_min": null,
+    "lease_rate_max": null,
+    "lease_rate_type": null,
+    "lease_rate_display": null,
+    "price_display": null,
+    "featured_image_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1699323166123-BTJXOMNXXY653TWC9FAL/Clay+Rd.+2.jpg",
+    "brochure_url": "https://www.aspirecre.com/s/16840-Clay-Road-Flyer-STE-101-zheg.pdf",
+    "existing_wp_post_id": 120,
+    "source_url": "https://www.aspirecre.com/properties/16840-clay-road-houston-tx-77084",
+    "source_path": "/properties/16840-clay-road-houston-tx-77084",
+    "source_slug": "16840-clay-road-houston-tx-77084",
+    "migration_review_status": "needs_review",
+    "warnings": [
+      "missing_transaction",
+      "featured_image_low_confidence"
+    ],
+    "warning_details": [],
+    "field_evidence": {
+      "clear_height_ft": [
+        {
+          "value": 14,
+          "source_text": "14’ Clear Height",
+          "confidence": "high"
+        }
+      ]
+    },
+    "property_highlights": [
+      "Masonry Construction",
+      "14’ Clear Height",
+      "Grade Level Loading Doors",
+      "Rear Load Configuration",
+      "Professionally Leased and Managed",
+      "Ample Parking",
+      "Convenient Access to Highway 6"
+    ],
+    "suite_candidates": [],
+    "gallery_images": [
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1699323401895-K27B4U5IRHIMCCVBORE1/IMG_7364.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1699323401895-K27B4U5IRHIMCCVBORE1/IMG_7364.jpg",
+        "filename": "IMG_7364.jpg",
+        "alt_text": "IMG_7364.jpg",
+        "order": 1,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1699323413844-SFO40UV66XTBH7MU70EW/IMG_7365.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1699323413844-SFO40UV66XTBH7MU70EW/IMG_7365.jpg",
+        "filename": "IMG_7365.jpg",
+        "alt_text": "IMG_7365.jpg",
+        "order": 2,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1699323430162-SI7FJ49OWFYM9VG8TOQ8/IMG_7369.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1699323430162-SI7FJ49OWFYM9VG8TOQ8/IMG_7369.jpg",
+        "filename": "IMG_7369.jpg",
+        "alt_text": "IMG_7369.jpg",
+        "order": 3,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1699323442291-Y7OAUKWK7PU4FYCZ8CQ7/IMG_7370.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1699323442291-Y7OAUKWK7PU4FYCZ8CQ7/IMG_7370.jpg",
+        "filename": "IMG_7370.jpg",
+        "alt_text": "IMG_7370.jpg",
+        "order": 4,
+        "is_featured": false
+      }
+    ],
+    "brochure_candidates": [
+      "https://www.aspirecre.com/s/16840-Clay-Road-Flyer-STE-101-zheg.pdf"
+    ],
+    "proposed_wp_slug": "16840-clay-road-houston-tx-77084",
+    "redirect_required": false,
+    "source_categories": [
+      "Industrial"
+    ],
+    "address_source_text": "16840 Clay Road Houston, TX 77084",
+    "source_headings": [
+      "Building Highlights:"
+    ],
+    "unparsed_availability_blocks": [],
+    "transaction_evidence": {},
+    "featured_image_confidence": "low",
+    "image_count": 5,
+    "existing_wp_match_method": "exact_slug"
+  },
+  "info": {
+    "brochure_url": "https://www.aspirecre.com/s/16840-Clay-Road-Flyer-STE-101-zheg.pdf",
+    "brochure_download_status": "success",
+    "brochure_text_status": "available",
+    "brochure_file_size": 8405015,
+    "brochure_sha256": "07ba04042b4cdac4547e99c946f4c7a3870b5b94fcd5b433e6b914098a610ed1",
+    "cache_key": "c7c2d964774f97a69aa3c64e",
+    "http_status": 200,
+    "brochure_page_count": 8
+  },
+  "metadata": [
+    {
+      "property": "og:site_name",
+      "content": "Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:title",
+      "content": "16840 Clay Road Houston, TX 77084 — Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:latitude",
+      "content": "29.8346443"
+    },
+    {
+      "property": "og:longitude",
+      "content": "-95.6575445"
+    },
+    {
+      "property": "og:street-address",
+      "content": "16840 Clay Road"
+    },
+    {
+      "property": "og:locality",
+      "content": "Houston"
+    },
+    {
+      "property": "og:region",
+      "content": "TX"
+    },
+    {
+      "property": "og:postal-code",
+      "content": "77084"
+    },
+    {
+      "property": "og:country-name",
+      "content": "United States"
+    },
+    {
+      "property": "og:url",
+      "content": "https://www.aspirecre.com/properties/16840-clay-road-houston-tx-77084"
+    },
+    {
+      "property": "og:type",
+      "content": "article"
+    },
+    {
+      "property": "og:description",
+      "content": "16840 Clay Road"
+    },
+    {
+      "property": "og:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/6526f62ab7c3436641af8c21/65499c1c5471446b52d0271d/1752077165129/Clay+Rd.+2.jpg?format=1500w"
+    },
+    {
+      "property": "og:image:width",
+      "content": "1500"
+    },
+    {
+      "property": "og:image:height",
+      "content": "1125"
+    },
+    {
+      "name": "twitter:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/6526f62ab7c3436641af8c21/65499c1c5471446b52d0271d/1752077165129/Clay+Rd.+2.jpg?format=1500w"
+    }
+  ],
+  "page_blocks": [
+    [
+      {
+        "tag": "h3",
+        "text": "Building Highlights:"
+      },
+      {
+        "tag": "li",
+        "text": "Masonry Construction"
+      },
+      {
+        "tag": "li",
+        "text": "14’ Clear Height"
+      },
+      {
+        "tag": "li",
+        "text": "Grade Level Loading Doors"
+      },
+      {
+        "tag": "li",
+        "text": "Rear Load Configuration"
+      },
+      {
+        "tag": "li",
+        "text": "Professionally Leased and Managed"
+      },
+      {
+        "tag": "li",
+        "text": "Ample Parking"
+      },
+      {
+        "tag": "li",
+        "text": "Convenient Access to Highway 6"
+      }
+    ]
+  ],
+  "brochure_pages": [
+    " \nCommercial Real Estate,\nReimagined\n16840 CLAY ROAD | SUITE 101\nHOUSTON, TEXAS 77084\n16840\nCLAY ROAD\nSUITE 101\n",
+    "  \n \nSUGAR LAND, TEXAS 77479\n \n \n  \n \n \n \n  \n \n  \n  \n  \n  \n  \n• \tMasonry Construction\n• \t14’ Clear Height\n• \tGrade Level Loading Doors\n• \tRear\tLoad\tConfiguration\n• \tProfessionally Leased and Managed\n• \tAmple Parking\n• \tConvenient Access to Highway 6\nProperty Highlights\n 16840 CLAY ROAD | SUITE 101\nHOUSTON, TEXAS 77084\n",
+    "  \n \nSUGAR LAND, TEXAS 77479\n \n \n  \n \n \n \n  \n  \nSuite 101\n 16840 CLAY ROAD | SUITE 101\nHOUSTON, TEXAS 77084\n  \n• \t3,774 SF\n• \t1,687\tSF\tOffice\tSpace\t|\t2,087\tSF\tWarehouse\tSpace\n• \tRear Load\n• \tOne (1) Grade Loading",
+    "  \n \nSUGAR LAND, TEXAS 77479\n \n \n  \n \nSUGAR LAND, TEXAS 77479\n \n \n  \n \nSUGAR LAND, TEXAS 77479\n \nSUGAR LAND, TEXAS 77479\n 16840 CLAY ROAD | SUITE 101\nHOUSTON, TEXAS 77084\n",
+    " \nSUGAR LAND, TEXAS 77479\n \n \n  \n \n \n \n  \nFloor Plan\n 16840 CLAY ROAD | SUITE 101\nHOUSTON, TEXAS 77084\nSuite 101 - 3,774 SF ",
+    "transaction process aligning with your \nspecific\tinvestment\trequirements.\t\nAbout Us\nCommercial Real Estate,\nReimagined\n  \nAlex Bibb\n(832)\t496-9062\nalexb@aspirecre.com\nLeasing Team\n(713)\t347-2904\nbrandona@aspirecre.com\nBrandon Avedikian \n 16840 CLAY ROAD | SUITE 101\nHOUSTON, TEXAS 77084",
+    "Photos by Co-Star\n@aspirecre\ninfo@aspirecre.com\n(713) 933-2001\n16840 CLAY ROAD | SUITE 101\nHOUSTON, TEXAS 77084\n16840 CLAY ROAD\nSUITE 101",
+    ""
+  ]
+}

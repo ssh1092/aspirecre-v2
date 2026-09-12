@@ -1,0 +1,462 @@
+{
+  "record": {
+    "source_title": "4095-4107 Woodson's Centre Drive, Spring, Texas 77386",
+    "source_category": "Retail",
+    "source_author": "Eljohn Aytona",
+    "source_publish_date": "2026-05-04T14:08:49-0400",
+    "property_type": "Retail",
+    "transaction_type_candidate": "For Lease",
+    "transaction_confidence": "high",
+    "address_line_1": "4095-4107 Woodson's Centre Drive",
+    "address_line_2": null,
+    "city": "Spring",
+    "state": "TX",
+    "postal_code": "77386",
+    "address_confidence": "high",
+    "building_sf": null,
+    "available_sf": null,
+    "minimum_available_sf": null,
+    "maximum_contiguous_sf": null,
+    "lot_acres": null,
+    "year_built": null,
+    "renovated_year": null,
+    "building_class": "A",
+    "stories": null,
+    "clear_height_ft": null,
+    "parking_spaces": null,
+    "parking_ratio": null,
+    "traffic_count_vpd": null,
+    "sale_price": null,
+    "lease_rate_min": null,
+    "lease_rate_max": null,
+    "lease_rate_type": null,
+    "lease_rate_display": "$42.00/SF - $44.00/SF NNN; $38.00/SF NNN; $30.00/SF - $35.00/SF NNN",
+    "price_display": null,
+    "featured_image_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/f390688a-ca1c-4cf6-a3dc-b14c40b2ab4c/Woodsons-Reserve_1.jpg",
+    "brochure_url": "https://www.aspirecre.com/s/4095-4107-Woodsons-Centre-Drive-Flyer_email.pdf",
+    "existing_wp_post_id": null,
+    "source_url": "https://www.aspirecre.com/properties/4095-4107-woodsons-centre-dr-spring-texas-77386",
+    "source_path": "/properties/4095-4107-woodsons-centre-dr-spring-texas-77386",
+    "source_slug": "4095-4107-woodsons-centre-dr-spring-texas-77386",
+    "migration_review_status": "needs_review",
+    "warnings": [
+      "suite_parse_review",
+      "structured_value_review",
+      "featured_image_low_confidence"
+    ],
+    "warning_details": [
+      {
+        "code": "suite_parse_review",
+        "detail": "Availability/suite language lacks unambiguous suite headings"
+      },
+      {
+        "code": "structured_value_review",
+        "detail": "Range is not a single building_sf: 1,500 - 40,000 SF available"
+      },
+      {
+        "code": "structured_value_review",
+        "detail": "Range is not a single building_sf: 1,600 – 14,600 SF shell units available"
+      },
+      {
+        "code": "structured_value_review",
+        "detail": "Range is not a single building_sf: 1,500 – 10,000 SF shell units available"
+      },
+      {
+        "code": "structured_value_review",
+        "detail": "Range is not a single building_sf: 1,800 - 40,000 SF shell suites available"
+      },
+      {
+        "code": "structured_value_review",
+        "detail": "Range is not a single available_sf: 1,500 - 40,000 SF available"
+      },
+      {
+        "code": "structured_value_review",
+        "detail": "Range is not a single available_sf: 1,600 – 14,600 SF shell units available"
+      },
+      {
+        "code": "structured_value_review",
+        "detail": "Range is not a single available_sf: 1,500 – 10,000 SF shell units available"
+      },
+      {
+        "code": "structured_value_review",
+        "detail": "Range is not a single available_sf: 1,800 - 40,000 SF shell suites available"
+      },
+      {
+        "code": "structured_value_review",
+        "detail": "Range is not a single lot_acres: 1,500 - 40,000 SF available"
+      },
+      {
+        "code": "structured_value_review",
+        "detail": "Range is not a single lot_acres: 1,600 – 14,600 SF shell units available"
+      },
+      {
+        "code": "structured_value_review",
+        "detail": "Range is not a single lot_acres: 1,500 – 10,000 SF shell units available"
+      },
+      {
+        "code": "structured_value_review",
+        "detail": "Range is not a single lot_acres: 1,800 - 40,000 SF shell suites available"
+      },
+      {
+        "code": "structured_value_review",
+        "detail": "Multiple lease components/contexts retained as display text"
+      }
+    ],
+    "field_evidence": {
+      "building_class": [
+        {
+          "value": "A",
+          "source_text": "Class A retail, medical, and professional office space",
+          "confidence": "high"
+        }
+      ],
+      "lease_rate_display": [
+        {
+          "source_text": "$42.00/SF - $44.00/SF NNN",
+          "confidence": "high"
+        },
+        {
+          "source_text": "$38.00/SF NNN",
+          "confidence": "high"
+        },
+        {
+          "source_text": "$30.00/SF - $35.00/SF NNN",
+          "confidence": "high"
+        }
+      ]
+    },
+    "property_highlights": [
+      "New 2026 development",
+      "Locally owned and managed",
+      "Class A retail, medical, and professional office space",
+      "1,500 - 40,000 SF available",
+      "Walking distance from multiple restaurants, gyms, and childcare centers",
+      "Tenant improvement allowance negotiable"
+    ],
+    "suite_candidates": [],
+    "gallery_images": [
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153264930-OPBI3NHT30ZM963L3F9A/Woodsons-Reserve_1.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153264930-OPBI3NHT30ZM963L3F9A/Woodsons-Reserve_1.jpg",
+        "filename": "Woodsons-Reserve_1.jpg",
+        "alt_text": "Woodsons-Reserve_1.jpg",
+        "order": 1,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153260105-WWU8H0Y0185ZBVRR2VXB/Woodsons-Reserve_2.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153260105-WWU8H0Y0185ZBVRR2VXB/Woodsons-Reserve_2.jpg",
+        "filename": "Woodsons-Reserve_2.jpg",
+        "alt_text": "Woodsons-Reserve_2.jpg",
+        "order": 2,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153265718-4XQLCT6JAU1NSHYR5ROK/Woodsons-Reserve_3.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153265718-4XQLCT6JAU1NSHYR5ROK/Woodsons-Reserve_3.jpg",
+        "filename": "Woodsons-Reserve_3.jpg",
+        "alt_text": "Woodsons-Reserve_3.jpg",
+        "order": 3,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153269884-O298NU84TE3A3XPO1U1Z/Woodsons-Reserve_4.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153269884-O298NU84TE3A3XPO1U1Z/Woodsons-Reserve_4.jpg",
+        "filename": "Woodsons-Reserve_4.jpg",
+        "alt_text": "Woodsons-Reserve_4.jpg",
+        "order": 4,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153273689-ECR97Y1WYXDEDBIBDB3Q/Woodsons-Reserve_5.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153273689-ECR97Y1WYXDEDBIBDB3Q/Woodsons-Reserve_5.jpg",
+        "filename": "Woodsons-Reserve_5.jpg",
+        "alt_text": "Woodsons-Reserve_5.jpg",
+        "order": 5,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153278134-L0WP78I4CKECQ2X0ZY2F/Woodson%27s-Reserve_6.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153278134-L0WP78I4CKECQ2X0ZY2F/Woodson%27s-Reserve_6.jpg",
+        "filename": "Woodson's-Reserve_6.jpg",
+        "alt_text": "Woodson's-Reserve_6.jpg",
+        "order": 6,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153281675-85HY0M7NQPS65R2GJ743/Woodson%27s-Reserve_7.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153281675-85HY0M7NQPS65R2GJ743/Woodson%27s-Reserve_7.jpg",
+        "filename": "Woodson's-Reserve_7.jpg",
+        "alt_text": "Woodson's-Reserve_7.jpg",
+        "order": 7,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153286394-7ZOBSJQ8N8B8Z0U68O0B/Woodson%27s-Reserve_8.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153286394-7ZOBSJQ8N8B8Z0U68O0B/Woodson%27s-Reserve_8.jpg",
+        "filename": "Woodson's-Reserve_8.jpg",
+        "alt_text": "Woodson's-Reserve_8.jpg",
+        "order": 8,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153288913-K3L9MTVIMWIJ4RL8TIYR/Woodson%27s-Reserve_9.jpg",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153288913-K3L9MTVIMWIJ4RL8TIYR/Woodson%27s-Reserve_9.jpg",
+        "filename": "Woodson's-Reserve_9.jpg",
+        "alt_text": "Woodson's-Reserve_9.jpg",
+        "order": 9,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153295247-E84X0H9YWVOXMXA4K236/Woodson%27s-Reserve_10.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153295247-E84X0H9YWVOXMXA4K236/Woodson%27s-Reserve_10.png",
+        "filename": "Woodson's-Reserve_10.png",
+        "alt_text": "Woodson's-Reserve_10.png",
+        "order": 10,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153299403-PNUEYD88KGDJLX4JADRU/Woodson%27s-Reserve_11.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153299403-PNUEYD88KGDJLX4JADRU/Woodson%27s-Reserve_11.png",
+        "filename": "Woodson's-Reserve_11.png",
+        "alt_text": "Woodson's-Reserve_11.png",
+        "order": 11,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153303366-7WJ0C495JWH26KPPGUTO/Woodson%27s-Reserve_12.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153303366-7WJ0C495JWH26KPPGUTO/Woodson%27s-Reserve_12.png",
+        "filename": "Woodson's-Reserve_12.png",
+        "alt_text": "Woodson's-Reserve_12.png",
+        "order": 12,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153303019-DJ834923OVUTHEZ2UM2K/Woodson%27s-Reserve_13.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153303019-DJ834923OVUTHEZ2UM2K/Woodson%27s-Reserve_13.png",
+        "filename": "Woodson's-Reserve_13.png",
+        "alt_text": "Woodson's-Reserve_13.png",
+        "order": 13,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153306466-VMILJQTOH0KYIZULJ8NL/Woodson%27s-Reserve_14.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153306466-VMILJQTOH0KYIZULJ8NL/Woodson%27s-Reserve_14.png",
+        "filename": "Woodson's-Reserve_14.png",
+        "alt_text": "Woodson's-Reserve_14.png",
+        "order": 14,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153306904-T0U0OODV10V3DG9VGW8Y/Woodson%27s-Reserve_15.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153306904-T0U0OODV10V3DG9VGW8Y/Woodson%27s-Reserve_15.png",
+        "filename": "Woodson's-Reserve_15.png",
+        "alt_text": "Woodson's-Reserve_15.png",
+        "order": 15,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153308709-MP1FSBRM6HS030XC0UB5/Woodson%27s-Reserve_16.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1775153308709-MP1FSBRM6HS030XC0UB5/Woodson%27s-Reserve_16.png",
+        "filename": "Woodson's-Reserve_16.png",
+        "alt_text": "Woodson's-Reserve_16.png",
+        "order": 16,
+        "is_featured": false
+      }
+    ],
+    "brochure_candidates": [
+      "https://www.aspirecre.com/s/4095-4107-Woodsons-Centre-Drive-Flyer_email.pdf"
+    ],
+    "proposed_wp_slug": "4095-4107-woodsons-centre-dr-spring-texas-77386",
+    "redirect_required": false,
+    "source_categories": [
+      "Retail"
+    ],
+    "address_source_text": "4095-4107 Woodson's Centre Drive, Spring, Texas 77386",
+    "source_headings": [
+      "Property Highlights:",
+      "Retail Leasing Information",
+      "Medical and Professional Office Leasing Information"
+    ],
+    "unparsed_availability_blocks": [
+      "Property Highlights: New 2026 development Locally owned and managed Class A retail, medical, and professional office space 1,500 - 40,000 SF available Walking distance from multiple restaurants, gyms, and childcare centers Tenant improvement allowance negotiable Retail Leasing Information RETAIL A – PHASE I 1,600 – 14,600 SF shell units available $42.00/SF - $44.00/SF NNN RETAIL B – PHASE II 1,500 – 10,000 SF shell units available $38.00/SF NNN Medical and Professional Office Leasing Information MEDICAL AND PROFESSIONAL OFFICE – PHASE II 1,800 - 40,000 SF shell suites available $30.00/SF - $35.00/SF NNN"
+    ],
+    "transaction_evidence": {
+      "For Lease": [
+        "Retail Leasing Information",
+        "Medical and Professional Office Leasing Information"
+      ]
+    },
+    "featured_image_confidence": "low",
+    "image_count": 17
+  },
+  "info": {
+    "brochure_url": "https://www.aspirecre.com/s/4095-4107-Woodsons-Centre-Drive-Flyer_email.pdf",
+    "brochure_download_status": "success",
+    "brochure_text_status": "available",
+    "brochure_file_size": 2176243,
+    "brochure_sha256": "e16d915a6928c6f5e4a72824f3733c803e4998a9f4a48161634e791ea840ac31",
+    "cache_key": "77529b438ef4130f059ece0c",
+    "http_status": 200,
+    "brochure_page_count": 15
+  },
+  "metadata": [
+    {
+      "property": "og:site_name",
+      "content": "Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:title",
+      "content": "4095-4107 Woodson's Centre Drive, Spring, Texas 77386 — Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:latitude",
+      "content": "30.1257049"
+    },
+    {
+      "property": "og:longitude",
+      "content": "-95.4524393"
+    },
+    {
+      "property": "og:street-address",
+      "content": "1433 Farm to Market 1463"
+    },
+    {
+      "property": "og:locality",
+      "content": "Katy"
+    },
+    {
+      "property": "og:region",
+      "content": "TX"
+    },
+    {
+      "property": "og:postal-code",
+      "content": "77494"
+    },
+    {
+      "property": "og:country-name",
+      "content": "United States"
+    },
+    {
+      "property": "og:url",
+      "content": "https://www.aspirecre.com/properties/4095-4107-woodsons-centre-dr-spring-texas-77386"
+    },
+    {
+      "property": "og:type",
+      "content": "article"
+    },
+    {
+      "property": "og:description",
+      "content": "4095-4107 Woodson's Centre Dr. Spring, Texas 77386"
+    },
+    {
+      "property": "og:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/6526f62ab7c3436641af8c21/69ceaec500b25103a48afcfc/1777903404479/Woodsons-Reserve_1.jpg?format=1500w"
+    },
+    {
+      "property": "og:image:width",
+      "content": "1500"
+    },
+    {
+      "property": "og:image:height",
+      "content": "1161"
+    },
+    {
+      "name": "twitter:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/6526f62ab7c3436641af8c21/69ceaec500b25103a48afcfc/1777903404479/Woodsons-Reserve_1.jpg?format=1500w"
+    }
+  ],
+  "page_blocks": [
+    [
+      {
+        "tag": "h3",
+        "text": "Property Highlights:"
+      },
+      {
+        "tag": "li",
+        "text": "New 2026 development"
+      },
+      {
+        "tag": "li",
+        "text": "Locally owned and managed"
+      },
+      {
+        "tag": "li",
+        "text": "Class A retail, medical, and professional office space"
+      },
+      {
+        "tag": "li",
+        "text": "1,500 - 40,000 SF available"
+      },
+      {
+        "tag": "li",
+        "text": "Walking distance from multiple restaurants, gyms, and childcare centers"
+      },
+      {
+        "tag": "li",
+        "text": "Tenant improvement allowance negotiable"
+      },
+      {
+        "tag": "h3",
+        "text": "Retail Leasing Information"
+      },
+      {
+        "tag": "p",
+        "text": "RETAIL A – PHASE I"
+      },
+      {
+        "tag": "li",
+        "text": "1,600 – 14,600 SF shell units available"
+      },
+      {
+        "tag": "li",
+        "text": "$42.00/SF - $44.00/SF NNN"
+      },
+      {
+        "tag": "p",
+        "text": "RETAIL B – PHASE II"
+      },
+      {
+        "tag": "li",
+        "text": "1,500 – 10,000 SF shell units available"
+      },
+      {
+        "tag": "li",
+        "text": "$38.00/SF NNN"
+      },
+      {
+        "tag": "h3",
+        "text": "Medical and Professional Office Leasing Information"
+      },
+      {
+        "tag": "p",
+        "text": "MEDICAL AND PROFESSIONAL OFFICE – PHASE II"
+      },
+      {
+        "tag": "li",
+        "text": "1,800 - 40,000 SF shell suites available"
+      },
+      {
+        "tag": "li",
+        "text": "$30.00/SF - $35.00/SF NNN"
+      }
+    ]
+  ],
+  "brochure_pages": [
+    "",
+    "   4095-4107 WOODSON’S CENTRE DR,  \nSPRING, TEXAS 77386  \n  \n  \n• \tNew 2026 development\n• \tLocally owned and managed \n• \tClass\tA\tretail,\tmedical,\tand\tprofessional\toffice\t\nspace\n• \t1,500 - 40,000 SF available \n• \tWalking distance from multiple restaurants, \ngyms, and childcare centers\n• \tTenant improvement allowance negotiable\nProperty Highlights\n",
+    "  \nRETAIL A – PHASE I\n• \t1,600 – 14,600 SF shell units available\n• \t$42.00/SF - $44.00/SF NNN\nRETAIL B – PHASE II\n• \t1,500 – 10,000 SF shell units available\n• \t$38.00/SF NNN\nRetail Leasing Information\n 4095-4107 WOODSON’S CENTRE DR,  \nSPRING, TEXAS 77386  ",
+    "  \nMEDICAL AND PROFESSIONAL OFFICE – PHASE II\n• \t1,800 - 40,000 SF shell suites available\n• \t$30.00/SF - $35.00/SF NNN\nMedical and Professional Office Leasing Information\n 4095-4107 WOODSON’S CENTRE DR,  \nSPRING, TEXAS 77386  ",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "Our team of Commercial Professionals is \ndedicated to providing their expertise to \nassist you throughout a customized \ntransaction process aligning with your \nspecific\trequirements.\t\nAbout Us\nCommercial Real Estate,\nReimagined\nLeasing Team\nLuke Stavinoha  \n(713) 392-2716\nlukes@aspirecre.com\nAssociateAssociate\nJared Starnes \n(281) 466-7711\njareds@aspirecre.com\nAnalystAnalyst\nBradley Segreto  \n(713) 424-6380\nbrads@aspirecre.com\nDirectorDirector\n 4095-4107 WOODSON’S CENTRE DR,  \nSPRING, TEXAS 77386  ",
+    "",
+    ""
+  ]
+}

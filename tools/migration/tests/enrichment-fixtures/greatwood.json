@@ -1,0 +1,365 @@
+{
+  "record": {
+    "source_title": "Greatwood Office Condos - 6544 Greatwood Pky, Sugar Land, TX 77479",
+    "source_category": "Office Condos",
+    "source_author": "Eljohn Aytona",
+    "source_publish_date": "2025-06-01T09:06:13-0400",
+    "property_type": "Office Condo",
+    "transaction_type_candidate": null,
+    "transaction_confidence": null,
+    "address_line_1": "6544 Greatwood Pky",
+    "address_line_2": null,
+    "city": "Sugar Land",
+    "state": "TX",
+    "postal_code": "77479",
+    "address_confidence": "high",
+    "building_sf": null,
+    "available_sf": null,
+    "minimum_available_sf": null,
+    "maximum_contiguous_sf": null,
+    "lot_acres": null,
+    "year_built": null,
+    "renovated_year": null,
+    "building_class": null,
+    "stories": null,
+    "clear_height_ft": null,
+    "parking_spaces": null,
+    "parking_ratio": null,
+    "traffic_count_vpd": null,
+    "sale_price": null,
+    "lease_rate_min": null,
+    "lease_rate_max": null,
+    "lease_rate_type": null,
+    "lease_rate_display": null,
+    "price_display": null,
+    "featured_image_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/6a92da42-658c-4b2a-80ca-7f302606e23b/0.png",
+    "brochure_url": "https://www.aspirecre.com/s/6544-Greatwood-Parkway-Office-Condo-Flyer-Compressed-85bh.pdf",
+    "existing_wp_post_id": null,
+    "source_url": "https://www.aspirecre.com/properties/6544-greatwood-pky-sugar-land-tx-77479",
+    "source_path": "/properties/6544-greatwood-pky-sugar-land-tx-77479",
+    "source_slug": "6544-greatwood-pky-sugar-land-tx-77479",
+    "migration_review_status": "needs_review",
+    "warnings": [
+      "missing_transaction",
+      "featured_image_low_confidence"
+    ],
+    "warning_details": [],
+    "field_evidence": {},
+    "property_highlights": [
+      "2,600 SF office condo across 3 floors with private elevator access.",
+      "Fully furnished and move-in ready, with included furnishings valued at over $40,000.",
+      "Premium finishes throughout the interior and exterior, including exposed brick, quartz countertops, and custom millwork.",
+      "Located in The Offices of Greatwood, a gated, professionally maintained office condo community at 6548 Greatwood Parkway.",
+      "Fully gated and secured grounds with ample on-site parking. ?Available for purchase or lease, ideal for owner-users or investors.",
+      "Surrounded by major retail, grocery, and medical amenities including HEB, Costco, Chick-fil-A, Lowe's, Memorial Hermann, and OakBend Medical Center."
+    ],
+    "suite_candidates": [],
+    "gallery_images": [
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330348311-PIV96B6NC2MUVWNBTUYV/1.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330348311-PIV96B6NC2MUVWNBTUYV/1.png",
+        "filename": "1.png",
+        "alt_text": "1.png",
+        "order": 1,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330351909-RHEI9GAUSUHXQMYSGUS3/2.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330351909-RHEI9GAUSUHXQMYSGUS3/2.png",
+        "filename": "2.png",
+        "alt_text": "2.png",
+        "order": 2,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330353035-1R3BQ95VLQHKL7H7T118/3.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330353035-1R3BQ95VLQHKL7H7T118/3.png",
+        "filename": "3.png",
+        "alt_text": "3.png",
+        "order": 3,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330355898-9ZHT5M2GXH1PM9GDMA0N/4.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330355898-9ZHT5M2GXH1PM9GDMA0N/4.png",
+        "filename": "4.png",
+        "alt_text": "4.png",
+        "order": 4,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330358077-DKF14GKOVEC5CFMV6TPX/5.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330358077-DKF14GKOVEC5CFMV6TPX/5.png",
+        "filename": "5.png",
+        "alt_text": "5.png",
+        "order": 5,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330359128-NANLE4VNLVGMT9MQKG0Y/6.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330359128-NANLE4VNLVGMT9MQKG0Y/6.png",
+        "filename": "6.png",
+        "alt_text": "6.png",
+        "order": 6,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330361481-LF7APX8N1YFTDW45DHWA/7.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330361481-LF7APX8N1YFTDW45DHWA/7.png",
+        "filename": "7.png",
+        "alt_text": "7.png",
+        "order": 7,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330362415-TJGJDKMODE1RLWDMNVXF/8.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330362415-TJGJDKMODE1RLWDMNVXF/8.png",
+        "filename": "8.png",
+        "alt_text": "8.png",
+        "order": 8,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330363135-W8GUWKEZLUM32M9SIS2J/9.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330363135-W8GUWKEZLUM32M9SIS2J/9.png",
+        "filename": "9.png",
+        "alt_text": "9.png",
+        "order": 9,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330365697-37UWIBEP4OI1X161IMX4/10.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330365697-37UWIBEP4OI1X161IMX4/10.png",
+        "filename": "10.png",
+        "alt_text": "10.png",
+        "order": 10,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330368917-T960R0EC0XNODUIA5U0B/11.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330368917-T960R0EC0XNODUIA5U0B/11.png",
+        "filename": "11.png",
+        "alt_text": "11.png",
+        "order": 11,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330370062-E3Q7ZOHMDS2WR92I6NRN/12.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330370062-E3Q7ZOHMDS2WR92I6NRN/12.png",
+        "filename": "12.png",
+        "alt_text": "12.png",
+        "order": 12,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330372632-NRSV6V57ZNNLSBZL8EK1/13.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330372632-NRSV6V57ZNNLSBZL8EK1/13.png",
+        "filename": "13.png",
+        "alt_text": "13.png",
+        "order": 13,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330373729-ZTDAO7E93F9H1KL5TJG5/14.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330373729-ZTDAO7E93F9H1KL5TJG5/14.png",
+        "filename": "14.png",
+        "alt_text": "14.png",
+        "order": 14,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330375750-DFDOELCQ1RA75HAT97XO/15.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330375750-DFDOELCQ1RA75HAT97XO/15.png",
+        "filename": "15.png",
+        "alt_text": "15.png",
+        "order": 15,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330376827-NODAW9BVN07PIGYC39K3/16.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330376827-NODAW9BVN07PIGYC39K3/16.png",
+        "filename": "16.png",
+        "alt_text": "16.png",
+        "order": 16,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330381864-W864SMAK8SLL6MX4T4CH/17.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330381864-W864SMAK8SLL6MX4T4CH/17.png",
+        "filename": "17.png",
+        "alt_text": "17.png",
+        "order": 17,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330381818-5NBGAEBR93HOV7K3UPJR/18.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330381818-5NBGAEBR93HOV7K3UPJR/18.png",
+        "filename": "18.png",
+        "alt_text": "18.png",
+        "order": 18,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330386520-G4OVQYDRFIXPWEGEILLD/19.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330386520-G4OVQYDRFIXPWEGEILLD/19.png",
+        "filename": "19.png",
+        "alt_text": "19.png",
+        "order": 19,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330387348-KMPO1L839NTUUBF5YUQJ/20.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330387348-KMPO1L839NTUUBF5YUQJ/20.png",
+        "filename": "20.png",
+        "alt_text": "20.png",
+        "order": 20,
+        "is_featured": false
+      },
+      {
+        "source_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330389604-DMNGEQGLJM7ISSTOGGYJ/21.png",
+        "normalized_url": "https://images.squarespace-cdn.com/content/v1/6526f629b7c3436641af8bc2/1785330389604-DMNGEQGLJM7ISSTOGGYJ/21.png",
+        "filename": "21.png",
+        "alt_text": "21.png",
+        "order": 21,
+        "is_featured": false
+      }
+    ],
+    "brochure_candidates": [
+      "https://www.aspirecre.com/s/6544-Greatwood-Parkway-Office-Condo-Flyer-Compressed-85bh.pdf"
+    ],
+    "proposed_wp_slug": "6544-greatwood-pky-sugar-land-tx-77479",
+    "redirect_required": false,
+    "source_categories": [
+      "Office Condos"
+    ],
+    "address_source_text": "Greatwood Office Condos - 6544 Greatwood Pky, Sugar Land, TX 77479",
+    "source_headings": [
+      "Property Highlights:"
+    ],
+    "unparsed_availability_blocks": [],
+    "transaction_evidence": {},
+    "featured_image_confidence": "low",
+    "image_count": 22
+  },
+  "info": {
+    "brochure_url": "https://www.aspirecre.com/s/6544-Greatwood-Parkway-Office-Condo-Flyer-Compressed-85bh.pdf",
+    "brochure_download_status": "success",
+    "brochure_text_status": "available",
+    "brochure_file_size": 15967150,
+    "brochure_sha256": "2c386799457079cecba01e5c676cd4808dcc6d1d5aec568bfbad40c6950c53bd",
+    "cache_key": "a5968cf9cdb3fe4eec19e0a5",
+    "http_status": 200,
+    "brochure_page_count": 11
+  },
+  "metadata": [
+    {
+      "property": "og:site_name",
+      "content": "Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:title",
+      "content": "Greatwood Office Condos - 6544 Greatwood Pky, Sugar Land, TX 77479 — Aspire Commercial - Commercial Real Estate in Houston, TX"
+    },
+    {
+      "property": "og:latitude",
+      "content": "29.6365373"
+    },
+    {
+      "property": "og:longitude",
+      "content": "-95.60753679999999"
+    },
+    {
+      "property": "og:street-address",
+      "content": "9642 Huffmeister Road"
+    },
+    {
+      "property": "og:locality",
+      "content": "Houston"
+    },
+    {
+      "property": "og:region",
+      "content": "TX"
+    },
+    {
+      "property": "og:postal-code",
+      "content": "77095"
+    },
+    {
+      "property": "og:country-name",
+      "content": "United States"
+    },
+    {
+      "property": "og:url",
+      "content": "https://www.aspirecre.com/properties/6544-greatwood-pky-sugar-land-tx-77479"
+    },
+    {
+      "property": "og:type",
+      "content": "article"
+    },
+    {
+      "property": "og:description",
+      "content": "Greatwood Office Condos - 6544 Greatwood Pky, Sugar Land, TX 77479"
+    },
+    {
+      "property": "og:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/6526f62ab7c3436641af8c21/6a69f992c85dbd3c6358619a/1787846235600/0.png?format=1500w"
+    },
+    {
+      "property": "og:image:width",
+      "content": "1500"
+    },
+    {
+      "property": "og:image:height",
+      "content": "1073"
+    },
+    {
+      "name": "twitter:image",
+      "content": "http://static1.squarespace.com/static/6526f629b7c3436641af8bc2/6526f62ab7c3436641af8c21/6a69f992c85dbd3c6358619a/1787846235600/0.png?format=1500w"
+    }
+  ],
+  "page_blocks": [
+    [
+      {
+        "tag": "h3",
+        "text": "Property Highlights:"
+      },
+      {
+        "tag": "li",
+        "text": "2,600 SF office condo across 3 floors with private elevator access."
+      },
+      {
+        "tag": "li",
+        "text": "Fully furnished and move-in ready, with included furnishings valued at over $40,000."
+      },
+      {
+        "tag": "li",
+        "text": "Premium finishes throughout the interior and exterior, including exposed brick, quartz countertops, and custom millwork."
+      },
+      {
+        "tag": "li",
+        "text": "Located in The Offices of Greatwood, a gated, professionally maintained office condo community at 6548 Greatwood Parkway."
+      },
+      {
+        "tag": "li",
+        "text": "Fully gated and secured grounds with ample on-site parking. ?Available for purchase or lease, ideal for owner-users or investors."
+      },
+      {
+        "tag": "li",
+        "text": "Surrounded by major retail, grocery, and medical amenities including HEB, Costco, Chick-fil-A, Lowe's, Memorial Hermann, and OakBend Medical Center."
+      }
+    ]
+  ],
+  "brochure_pages": [
+    "/C14 /C13 /C10 /C7 /C3 /C6 /C4 /C4 /C12 /C8\n/C5 /C2 /C11 /C10 /C8 /C1 /C4 /C0 /C12 /C4 /C9\n/C30 /C35 /C36 /C36 /C34 /C31 /C33 /C22 /C18 /C28 /C23 /C38 /C38 /C24 /C34 /C37 /C18 /C33 /C21 /C23 /C18 /C29 /C39 /C34 /C27 /C26 /C20 /C18 /C33 /C34 /C19 /C18 /C32 /C24 /C39 /C34 /C25 /C17 /C34 /C16 /C16 /C36 /C16 /C15\n/C49 /C43 /C45 /C8 /C44 /C41 /C47 /C40 /C8 /C43 /C45 /C8 /C46 /C40 /C41 /C42 /C40\n/C49 /C50 /C47 /C47 /C56 /C8 /C49 /C50 /C45 /C54 /C60 /C42 /C61 /C40 /C58",
+    "A V A I L A B L E  F O R\nP u r c h a s e  o r  L e a s e\nF u l l y  F u r n i s h e d\nE s t .  $ 3 0 , 0 0 0 +\nP r e m i u m  f i n i s h e s\nE x t e r i o r  &  I n t e r i o r\nU n i t  S i z e\n2 , 6 0 0  S q u a r e  F e e t\n3  F l o o r s\nP r i v a t e  E l e v a t o r\nS e c u r i t y\nF u l l y  G a t e d\nP r o p e r t y  H i g h l i g h t s",
+    "/C9 /C8 /C5 /C6 /C4 /C2 /C8 /C7 /C1 /C0 /C6 /C3\n/C95 /C22 /C17 /C16 /C26 /C17 /C32\n/C89 /C88 /C26 /C25 /C52 /C18\n/C12 /C14 /C13 /C15 /C11 /C14 /C10\n/C80 /C19 /C49 /C49 /C19 /C25 /C18 /C102 /C116 /C17 /C18 /C21\n/C115 /C25 /C34 /C32\n/C64 /C25 /C22 /C18 /C17 /C22 /C49\n/C80 /C17 /C16 /C21 /C25 /C52 /C49 /C102\n/C96 /C83 /C16 /C39 /C17\n/C80 /C17 /C82 /C17 /C22 /C83 /C16 /C18 /C79\n/C76 /C22 /C17 /C16\n/C64 /C17 /C18 /C26 /C22 /C16 /C58\n/C20 /C25 /C34 /C26 /C41 /C52 /C17 /C49 /C26\n/C20 /C25 /C34 /C26 /C41 /C17 /C16 /C49 /C70\n/C73 /C25 /C34 /C49 /C26 /C25 /C18/C96 /C17 /C39 /C16 /C18 /C102 /C95 /C22 /C25 /C125 /C17\n/C20 /C26 /C16 /C23 /C25 /C22 /C21\n/C80 /C19 /C49 /C49 /C25 /C34 /C22 /C140\n/C64 /C19 /C26 /C82/C43 /C19 /C39 /C41 /C40 /C25 /C18 /C21 /C20 /C34 /C33 /C16 /C32\n/C29 /C16 /C18 /C21\n/C43 /C25 /C49 /C17 /C18 /C45 /C17 /C22 /C33\n/C165 /C164 /C163 /C163 /C162 /C160 /C155 /C157 /C159 /C156 /C153 /C150 /C150 /C149 /C161\n/C147 /C159 /C155 /C152 /C153 /C159 /C158 /C161 /C146 /C145 /C151 /C157 /C161 /C154 /C150 /C148 /C149 /C150\n/C20 /C19 /C17 /C18 /C18 /C16",
+    "",
+    "/C48/C34/C38 /C41/C35 /C44 /C37/C42 /C39 /C44 /C36/C34/C47 /C37 /C32 /C46/C41/C34/C35/C46 /C45/C34\n/C47 /C37 /C44 /C30/C30/C32/C34/C41 /C28 /C37 /C41/C40 /C42 /C32 /C40/C34/C25 /C42 /C27 /C41/C47/C34\n/C31 /C32/C44/C34/C37/C24 /C41/C34/C29 /C35/C40 /C26 /C37/C24/C34/C32 /C39/C34\n/C24 /C42 /C25/C24/C34/C41/C46 /C45/C34/C40 /C41/C47/C42/C45 /C41/C46 /C37/C42/C35/C36/C34\n/C45 /C41/C47/C42 /C25 /C46/C34/C29/C42 /C37/C24/C34/C37/C24 /C41/C34\n/C39 /C44 /C46/C30 /C37/C42 /C32 /C46/C34/C32 /C39/C34/C35/C34\n/C23 /C40 /C32 /C39 /C41/C47 /C47/C42 /C32 /C46 /C35/C36/C34/C32 /C43 /C30/C41 /C22/C33\n/C21 /C14 /C13 /C14 /C10 /C11 /C20 /C9 /C14 /C10 /C18 /C20 /C7 /C12 /C12 /C15 /C17 /C16 /C6 /C20 /C19 /C14 /C5 /C16 /C4 /C8 /C3 /C2 /C20 /C1 /C15 /C0 /C14 /C10 /C5 /C4 /C11\n/C91 /C83/C50 /C58 /C58/C34/C87/C53 /C55 /C58 /C85\n/C53 /C51 /C51/C58 /C61 /C61/C34/C82 /C57 /C49 /C59 /C55 /C61\n/C112/C68/C70/C64/C70 /C75/C68/C74/C64 /C102 /C75/C70/C68/C108/C69/C68/C67/C75/C110/C71/C70/C72/C77/C102/C68\n/C64/C66/C65/C68/C97/C70/C72/C94 /C64/C110/C102/C68/C69 /C108/C70/C68/C64/C68/C110/C108/C66/C65/C108/C63\n/C62 /C55 /C57/C59/C58 /C54 /C53/C59/C52 /C54 /C61 /C55 /C60 /C51 /C51 /C56\n/C51 /C57/C59 /C61 /C55 /C50 /C60 /C51 /C55 /C49 /C57/C59\n/C78/C70 /C75/C73/C72/C71/C73/C68/C70 /C75/C67/C72/C65/C75/C66/C77/C72/C64/C74/C68\n/C69/C72/C66/C72/C67/C76/C75/C67/C63\n/C62 /C55 /C50 /C58 /C61 /C61 /C54 /C124/C50 /C58 /C159\n/C154 /C53 /C49 /C59 /C55 /C58 /C59/C53/C59/C51/C58\n/C184/C108/C66/C65/C108/C68/C64/C67/C67/C108/C110/C72/C64/C77/C72/C108/C66/C68/C110/C108 /C94 /C75/C70/C67/C68\n/C75 /C166/C77 /C75/C70/C72/C108/C70/C68/C72/C66/C67/C71/C70/C64/C66/C110/C75/C182/C68/C70 /C108/C108/C69 /C182/C68\n/C164/C70 /C108/C71/C66/C65/C67/C182/C68/C74/C108/C77/C182/C68/C64/C66/C65/C68/C77/C70/C64/C67/C76/C63\n/C128 /C50 /C57/C124/C58 /C61 /C61/C49 /C57/C59/C53/C118 /C117\n/C82 /C57/C118 /C49/C61 /C83/C58 /C52/C34/C82 /C50 /C58 /C61 /C58 /C59/C51/C58\n/C150/C74/C75 /C94 /C64/C77 /C75/C67/C68/C76/C108 /C137/C68/C102 /C108/C71/C70/C68/C149/C71/C67/C72/C66/C75/C67/C139\n/C72/C67/C68/C97/C75/C70 /C110/C75/C72/C94 /C75/C65/C63",
+    "/C39 /C37 /C36/C35 /C29/C32/C35 /C28 /C28 /C38/C32/C27 /C31/C24/C32/C21 /C23/C20 /C24/C18 /C36 /C22/C32/C27/C20 /C34/C18/C32\n/C20 /C23 /C34 /C36/C23 /C34/C20 /C28 /C23 /C16/C32/C17 /C35 /C36/C31 /C34/C20 /C23 /C15/C32/C31/C32/C24/C26 /C31/C25/C36/C32\n/C27/C18 /C36/C35 /C36/C32/C29 /C28/C19 /C35/C32/C25 /C30 /C20 /C36/C23 /C34 /C24/C32/C14 /C36 /C36/C30/C32\n/C25/C28 /C38 /C14 /C28 /C35 /C34 /C31/C33/C30 /C36/C32/C34/C18 /C36/C32/C38/C28 /C38/C36/C23 /C34/C32/C34/C18 /C36 /C29/C32\n/C27 /C31/C30 /C13/C32/C20 /C23 /C16\n/C54/C45 /C43/C51/C50/C46/C51/C48/C47/C44/C53/C53/C45/C50/C49/C42/C48/C52/C49/C41/C48/C40/C50/C44/C43\n/C63/C72/C58/C53/C66/C43/C41/C48/C64/C45/C50/C57/C71/C48/C52/C57/C57/C43/C49/C40/C48/C55/C52/C44/C44/C66\n/C93/C45/C50/C42/C85/C40/C81/C48/C53/C58/C43/C49/C48/C58/C52/C44/C43/C40/C40 /C43/C75/C48/C93/C52/C44/C52/C49/C57/C43/C80\n/C55/C50/C40 /C85/C48/C55/C52/C45/C51/C48/C55 /C53/C53/C41/C48/C52/C57/C57/C43/C49/C40 /C66\n/C118/C53 /C116 /C43/C95/C50/C49/C48/C45 /C43/C52/C41/C102/C48/C52/C49/C41/C48/C47/C46/C44/C44/C102/C48/C47/C46/C45/C49/C50/C66/C85/C43/C41/C101\n/C98/C50/C49/C50/C66/C85/C43/C66/C48/C102 /C53/C46/C108/C41/C48/C43 /C72/C58/C43/C57/C40/C48/C50/C49/C48/C52/C48/C57/C46/C66/C40 /C53/C51/C48/C85/C53/C51/C43\n/C137/C85/C53/C46/C42/C85/C40/C47/C46/C44/C48/C41/C43/C40/C52/C50/C44/C48/C50/C49/C48/C43 /C116 /C43/C45 /C102/C48/C66/C58/C52/C57/C43/C101\n/C122/C43/C66/C50/C42/C49/C43/C41/C48/C47 /C53/C45/C48/C57/C53/C51/C47 /C53/C45 /C40/C81/C48/C49/C53/C40/C48/C57/C46/C64/C50/C57/C44/C43/C66\n/C12 /C9 /C11 /C9 /C6 /C8 /C7 /C6 /C5 /C1 /C8 /C3 /C10 /C5 /C2 /C7 /C3 /C11 /C5 /C4 /C0 /C6 /C9 /C11 /C7 /C6 /C6",
+    "/C41 /C34 /C38 /C35/C45 /C33 /C43/C42/C30/C21 /C40/C27 /C38 /C26/C37 /C30/C43/C42/C40/C29 /C28/C42/C23/C26 /C24 /C31 /C22 /C38 /C29/C42\n/C34 /C31/C40 /C28 /C25 /C44/C42/C20 /C40/C27 /C45/C42/C26 /C36 /C27/C31/C42/C32 /C40/C39 /C40/C29/C27/C31/C30/C42/C27/C26 /C23 /C19 /C26 /C34 /C33/C42\n/C18/C38 /C33/C45/C42/C19 /C37 /C29/C27 /C33/C38 /C26 /C29 /C43/C42/C30 /C26/C42/C25 /C26/C37 /C34/C42/C33 /C31/C40/C23/C42/C19 /C31 /C31/C39 /C30/C42/C40 /C33/C42\n/C45 /C26 /C23/C31/C42/C18/C45 /C38/C39 /C31/C42/C35 /C31 /C33/C33/C38 /C29 /C35/C42/C18 /C26 /C34 /C17/C42/C28 /C26 /C29/C31 /C44\n/C58/C56/C49/C54/C57/C55/C54/C52/C48/C54/C55/C52/C49/C50/C55/C47/C48/C47/C53/C46/C51/C52\n/C71 /C49/C47/C47/C68/C48/C61/C49/C50/C54/C53/C66/C51/C69/C57\n/C83/C82/C55/C78/C53/C76/C49/C66/C48/C47/C55 /C68 /C76/C49/C52 /C66\n/C103/C51/C69/C48/C82/C69/C50 /C61 /C69/C78/C52/C48/C56/C55/C47/C55/C54/C78/C69/C48/C76/C61/C48/C86/C55/C50/C102/C52 /C51/C48/C55/C54/C57/C48/C61/C49/C54/C78/C52/C53/C76/C54/C55/C47/C53/C52/C68\n/C16 /C14 /C13 /C15 /C12 /C10 /C8 /C7 /C13 /C6 /C10 /C4 /C5 /C2 /C9 /C11 /C10 /C1 /C5 /C2 /C10 /C0 /C5 /C3",
+    "",
+    "/C18 /C26 /C29 /C29 /C24 /C19 /C17 /C20 /C16 /C13 /C15 /C14 /C14 /C28 /C23\n/C22 /C16 /C17 /C21 /C15 /C16 /C12 /C23 /C11 /C10 /C27 /C20 /C23\n/C25 /C14 /C9 /C28 /C14\n/C8 /C7 /C4 /C3 /C5 /C2 /C6 /C1 /C3 /C7 /C0",
+    "/C45 /C4 /C46 /C44 /C42 /C43 /C41\n/C40 /C43 /C3 /C4 /C43 /C38 /C1\n/C55 /C54 /C53 /C52 /C51 /C49 /C50 /C53\n/C62 /C23 /C19 /C65 /C24 /C21 /C19 /C24 /C17 /C16 /C23 /C25 /C20 /C23 /C25 /C15 /C20 /C18 /C14\n/C37 /C76 /C27 /C35 /C32 /C31 /C36 /C29 /C36 /C30 /C34 /C35 /C70 /C28\n/C7 /C5 /C4 /C6 /C2\n/C3 /C4 /C1 /C0\n/C13 /C11 /C13 /C9 /C10 /C12 /C8\n/C20 /C26 /C23 /C16 /C24 /C22 /C21 /C19 /C24 /C17 /C16 /C23 /C25 /C20 /C23 /C25 /C15 /C20 /C18 /C14\n/C37 /C35 /C36 /C34 /C32 /C31 /C29 /C33 /C28 /C30 /C34 /C27 /C36 /C35\n/C38 /C83 /C82 /C81",
+    "/C55 /C56 /C60 /C58 /C54 /C7 /C57 /C59\n/C98 /C95 /C110 /C85 /C111 /C68 /C100 /C99 /C94 /C107 /C101 /C86 /C90 /C101 /C105 /C101 /C88 /C87 /C83 /C83 /C92 /C90 /C97 /C82 /C80 /C86 /C89 /C97 /C101 /C89 /C104 /C79 /C79 /C97 /C82 /C89 /C86 /C105 /C83 /C101\n/C82 /C97 /C105 /C83 /C101 /C97 /C90 /C78 /C105 /C78 /C97 /C101 /C69 /C82 /C104 /C74 /C97 /C82 /C105 /C103 /C97 /C101 /C105 /C91 /C109 /C101 /C71 /C82 /C104 /C71 /C97 /C82 /C78 /C75 /C101\n/C79 /C105 /C91 /C105 /C103 /C97 /C79 /C97 /C91 /C78 /C101 /C88 /C86 /C82 /C79 /C101 /C89 /C104 /C79 /C79 /C86 /C78 /C78 /C97 /C109 /C101 /C78 /C104 /C101 /C87 /C90 /C86 /C91 /C103 /C101\n/C72 /C96 /C93 /C70 /C84 /C106 /C102 /C108 /C73 /C67 /C81 /C66 /C96 /C84 /C72 /C76 /C102 /C67 /C106 /C93 /C102 /C81 /C70 /C77 /C65 /C106 /C96 /C73 /C96 /C64 /C63 /C101 /C78 /C104 /C101\n/C62 /C97 /C83 /C71 /C101 /C71 /C97 /C104 /C71 /C83 /C97 /C101 /C79 /C105 /C74 /C97 /C101 /C69 /C97 /C78 /C78 /C97 /C82 /C101 /C82 /C97 /C105 /C83 /C101 /C97 /C90 /C78 /C105 /C78 /C97 /C101\n/C109 /C97 /C89 /C86 /C90 /C86 /C104 /C91 /C90 /C61\n/C10 /C16 /C13 /C9 /C11 /C5 /C7\n/C4 /C16 /C6 /C6 /C9 /C11 /C12 /C15 /C2 /C1 /C7\n/C0 /C9 /C2 /C1 /C7 /C3 /C8 /C14 /C2 /C14 /C9\n/C23 /C21 /C20 /C19 /C18 /C17 /C21 /C22\n/C52 /C38 /C39 /C36 /C44 /C42 /C39 /C49 /C40 /C45 /C42 /C36 /C47 /C29 /C29 /C42 /C39 /C40 /C43 /C37 /C44 /C36 /C46 /C39 /C42 /C36\n/C33 /C42 /C44 /C40 /C37 /C43 /C42 /C33 /C36 /C29 /C47 /C39 /C36 /C51 /C47 /C34 /C36 /C32 /C38 /C44 /C40 /C43 /C42 /C44 /C44 /C36 /C40 /C44 /C36\n/C46 /C45 /C50 /C38 /C46 /C41 /C41 /C31 /C36 /C45 /C47 /C43 /C33 /C38 /C45 /C50 /C42 /C33 /C36 /C40 /C43 /C36 /C50 /C51 /C42 /C36\n/C27 /C47 /C33 /C42 /C39 /C43 /C36 /C34 /C47 /C39 /C41 /C33 /C30\n/C35\n/C52 /C38 /C39 /C36 /C50 /C42 /C46 /C27 /C36 /C40 /C44 /C36 /C51 /C42 /C39 /C42 /C36 /C50 /C47 /C36 /C27 /C46 /C48 /C42 /C36 /C50 /C51 /C42 /C36\n/C26 /C39 /C47 /C45 /C42 /C44 /C44 /C36 /C44 /C50 /C39 /C46 /C40 /C37 /C51 /C50 /C29 /C47 /C39 /C34 /C46 /C39 /C33 /C36 /C46 /C43 /C33 /C36 /C50 /C47 /C36\n/C42 /C43 /C44 /C38 /C39 /C42 /C36 /C42 /C49 /C42 /C39 /C31 /C36 /C40 /C43 /C50 /C42 /C39 /C46 /C45 /C50 /C40 /C47 /C43 /C36 /C39 /C42 /C29 /C41 /C42 /C45 /C50 /C44 /C36\n/C50 /C51 /C42 /C36 /C44 /C50 /C46 /C43 /C33 /C46 /C39 /C33 /C36 /C47 /C29 /C36 /C44 /C42 /C39 /C49 /C40 /C45 /C42 /C36 /C34 /C42 /C36 /C51 /C47 /C41 /C33 /C36\n/C47 /C38 /C39 /C44 /C42 /C41 /C49 /C42 /C44 /C36 /C50 /C47 /C30\n/C35\n/C25 /C44 /C26 /C40 /C39 /C42 /C36 /C29 /C47 /C39 /C36 /C24 /C39 /C42 /C46 /C50 /C43 /C42 /C44 /C44 /C28"
+  ]
+}
