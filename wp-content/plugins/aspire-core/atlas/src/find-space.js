@@ -4,6 +4,7 @@ import {isDiscovery,isGuided,defaultInvestFilters,filterInvest,investMetric,SF_O
 import {createGuided} from './guided.js';
 import {newOwner,newManagement} from './workflow-data.js';
 import {createBrief} from './brief.js';
+import {mobileViewport} from './mobile.js';
 import {createPropertyFocus} from './property-focus.js';
 
 // One state owner for controls, accessible cards, and the map adapter. No network work here.
@@ -16,7 +17,7 @@ export function createFindSpace(root, reduced) {
  const dossier=createPropertyFocus(root),focusAnnouncement=root.querySelector('.atlas-focus-announcement'),focusError=root.querySelector('.atlas-focus-error');
  let returnFocus=null;
  const controls=[...find.querySelectorAll('[data-filter]')];
- let features=[],visible=[],loaded=false,error=false,adapter=()=>{};
+ let features=[],visible=[],loaded=false,error=false,adapter=()=>{},presentation=()=>{};
  const cards=new Map();
  const guided=createGuided(root,state,reason=>emit(reason),()=>mode('explore'),()=>openBrief());
  const brief=createBrief(root,state,{getFeatures:()=>features,getDataState:()=>({loaded,error}),change:reason=>{focusLayout();emit(reason);},close:closeBrief,select:id=>select(id,'brief'),explore:()=>{closeBrief();mode('explore');}});
@@ -35,6 +36,7 @@ export function createFindSpace(root, reduced) {
    card.setAttribute('aria-pressed',String(id===state.selectedPropertyId));
    card.classList.toggle('is-hovered',id===state.hoveredPropertyId);
   }
+  presentation(state,reason);
   adapter(state,state.briefOpen?brief.matches():visible,reason);
  };
  function hover(id) {if(state.briefOpen||isGuided(state.mode))return;if(state.hoveredPropertyId===id)return;state.hoveredPropertyId=id;emit('hover');}
@@ -78,6 +80,7 @@ export function createFindSpace(root, reduced) {
   const f=(state.briefOpen?brief.matches():visible).find(f=>f.id===id);
   if(id!==null && !f){closeFocus('This property is unavailable. Please choose another opportunity.');return;}
   if(!f){state.selectedPropertyId=null;emit(origin);return;}
+  if(mobileViewport()&&origin==='card'&&state.selectedPropertyId!==id){state.selectedPropertyId=id;state.hoveredPropertyId=null;selectedLabel.textContent='Selected. Tap again to view property details.';emit('card');return;}
   const opens=['card','marker','keyboard','brief'].includes(origin);
   if(opens){
    try{if(!dossier.render(f))throw Error('Missing property');}
@@ -183,6 +186,7 @@ export function createFindSpace(root, reduced) {
  root.dataset.mode='explore';
  return {
   state,hover,select,
+  present(fn){presentation=fn;root.addEventListener('atlas-mobile-change',()=>presentation(state,'layout'));presentation(state,'layout');},
   setData(data){loaded=!!data;error=!data;features=data?.features??[];update('data');brief.refresh();},
   connect(fn){adapter=fn;emit('ready');},
  };

@@ -65,6 +65,6 @@ $request->set_param('attributes',array('headline'=>'Custom editorial headline','
 $preview=rest_do_request($request);$html=$preview->get_data()['rendered']??'';
 atlas_check($preview->get_status()===200&&str_contains($html,'Custom editorial headline'),'Editor REST preview accepts headline setting');
 atlas_check(str_contains($html,'4 ASPIRE OPPORTUNITIES')&&str_contains($html,'Interactive map renders on the frontend.'),'Useful static editor preview');
-atlas_check(!str_contains($html,'data-atlas')&&!str_contains($html,'class="atlas-input"')&&str_contains($html,'Build My Brief'),'Editor no map initialization; toggles affect preview');
+atlas_check(!str_contains($html,'data-atlas')&&!str_contains($html,'class="atlas-input"')&&str_contains($html,'CREATE MY REAL ESTATE BRIEF'),'Editor no map initialization; toggles affect preview');
 atlas_check(!str_contains($html,'class="atlas-find"'),'Editor preview excludes frontend-only discovery controls');
 echo "SUCCESS: $checks Atlas checks. Temporary fixtures rolled back.\n";

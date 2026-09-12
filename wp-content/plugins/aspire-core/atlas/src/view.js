@@ -7,6 +7,8 @@ import {isDiscovery,isGuided} from './invest.js';
 import {AREAS} from './filters.js';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './view.css';
+import './mobile.css';
+import {createMobileSheet} from './mobile.js';
 const protocol = new Protocol();
 maplibregl.addProtocol('pmtiles',protocol.tile);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -19,6 +21,7 @@ async function start(root) {
  const count=root.querySelector('.atlas-count');
  let map,failed=false;
  const discovery=createFindSpace(root,reduced);
+ const mobile=createMobileSheet(root);discovery.present(mobile.sync);
  const fallbackLink=root.querySelector('.atlas-fallback-link');
  root.querySelectorAll('.atlas-fallback-link,.atlas-properties-nav').forEach(link=>link.addEventListener('click',e=>{e.preventDefault();const list=root.querySelector('.atlas-fallback-properties');list.hidden=!list.hidden;fallbackLink.setAttribute('aria-expanded',String(!list.hidden));if(!list.hidden)list.querySelector('a')?.focus();}));
  const fail=message=>{failed=true;root.classList.add('atlas-map-failed');root.dataset.mapState='failed';mapStatus.textContent=message;};
@@ -43,8 +46,9 @@ async function start(root) {
   // Validate the local archive before creating WebGL. Range-capable static serving is required.
   const header=await Promise.race([archive.getHeader(),new Promise((_,reject)=>setTimeout(()=>reject(Error('Basemap timeout')),15000))]);
   if(header.tileType!==1) throw Error('Expected vector archive');
-  map=new maplibregl.Map({padding:{top:0,right:0,bottom:0,left:root.clientWidth>900?root.clientWidth*.32:0},container:root.querySelector('.atlas-map'),style:atlasStyle(root.dataset.tiles,root.dataset.glyphs),center:[-95.45,29.82],zoom:9.4,bearing:reduced?0:-7,pitch:reduced?0:38,minZoom:8,maxZoom:16,maxBounds:[[-95.95,29.45],[-95.05,30.25]],attributionControl:false,cooperativeGestures:true,renderWorldCopies:false});
+  map=new maplibregl.Map({padding:{top:0,right:0,bottom:0,left:root.clientWidth>900?root.clientWidth*.32:0},container:root.querySelector('.atlas-map'),style:atlasStyle(root.dataset.tiles,root.dataset.glyphs),center:[-95.45,29.82],zoom:9.4,bearing:reduced?0:-7,pitch:reduced?0:38,minZoom:8,maxZoom:16,maxBounds:[[-95.95,29.45],[-95.05,30.25]],attributionControl:false,cooperativeGestures:!mobile.active,renderWorldCopies:false});
   const cameraPadding=()=>{
+   if(mobile.active)return mobile.padding();
    if(discovery.state.propertyFocusOpen){
     const bounds=root.getBoundingClientRect(),panel=root.querySelector('.atlas-dossier').getBoundingClientRect(),nav=root.querySelector('.atlas-nav')?.getBoundingClientRect();
     const top=Math.ceil((nav?.bottom??bounds.top)-bounds.top+25);
@@ -63,6 +67,8 @@ async function start(root) {
    return {top:Math.ceil(rail.bottom-bounds.top+30),bottom:Math.ceil(bounds.bottom-results.top+25),left:45,right:65};
   };
   const syncComposition=()=>{map.resize();const padding=cameraPadding();if(Object.keys(padding).some(key=>padding[key]!==map.getPadding()[key]))map.setPadding(padding);};
+  mobile.connect(()=>{if(map)syncComposition();});
+  root.addEventListener('atlas-mobile-change',()=>{if(mobile.active)map.cooperativeGestures.disable();else map.cooperativeGestures.enable();});
   const composition=new ResizeObserver(()=>{if(!map.isMoving())syncComposition();});composition.observe(root);
   map.on('remove',()=>composition.disconnect());
   map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'top-right');
