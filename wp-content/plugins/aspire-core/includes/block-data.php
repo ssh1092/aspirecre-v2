@@ -22,6 +22,8 @@ function aspire_core_block_metric( int $id ): string {
 		$value = get_post_meta( $id, '_aspire_' . $key, true );
 		if ( is_numeric( $value ) && (float) $value > 0 ) { return number_format_i18n( (float) $value, min( 4, strlen( rtrim( explode( '.', (string) $value )[1] ?? '', '0' ) ) ) ) . $suffix; }
 	}
+	// Respect the same public price suppression used by Atlas and Property Detail.
+	if ( in_array( $id, array_map( 'intval', (array) get_option( 'aspire_atlas_suppressed_price_ids', array() ) ), true ) ) { return ''; }
 	$display = get_post_meta( $id, '_aspire_price_display', true );
 	if ( is_string( $display ) && '' !== trim( $display ) ) { return $display; }
 	$price = get_post_meta( $id, '_aspire_sale_price', true );

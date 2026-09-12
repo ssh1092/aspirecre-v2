@@ -4,3 +4,11 @@
 .aspire-atlas-preview .atlas-opening{width:480px;max-width:85%;margin:30px 4% 90px;animation:none}
 .aspire-atlas-preview h1{font-size:42px;overflow-wrap:normal;word-break:normal}
 @container(max-width:600px){.aspire-atlas-preview .atlas-opening{width:auto;max-width:none;margin:20px 16px 90px;padding:20px}.aspire-atlas-preview h1{font-size:36px}}
+.aspire-atlas-preview.atlas-corporate{min-height:0!important;border:1px solid #82917f;border-radius:0;padding-block:22px}
+.aspire-atlas-preview.atlas-corporate .atlas-map{background:repeating-linear-gradient(23deg,transparent 0 70px,#89927b33 71px 73px,transparent 74px 120px),#304039}
+.aspire-atlas-preview.atlas-corporate .atlas-opening{width:520px;max-width:88%;margin:0 4%;padding:26px 30px}
+.aspire-atlas-preview.atlas-corporate h1{font-size:38px}
+.aspire-atlas-preview.atlas-corporate .atlas-editor-label{margin:0 0 22px;color:#56715b;font:600 9px/1.5 var(--sans,Arial,sans-serif);letter-spacing:.15em}
+.aspire-atlas-preview.atlas-corporate .atlas-scope,.aspire-atlas-preview.atlas-corporate .atlas-editor-capabilities{font-size:10px;color:#5e705f;margin:12px 0 0}
+.aspire-atlas-preview.atlas-corporate .atlas-map-meta,.aspire-atlas-preview.atlas-corporate .atlas-attribution{display:none}
+@container(max-width:600px){.aspire-atlas-preview.atlas-corporate .atlas-opening{width:auto;max-width:none;margin-inline:16px;padding:22px}.aspire-atlas-preview.atlas-corporate h1{font-size:32px}}

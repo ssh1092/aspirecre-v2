@@ -1,49 +1,3 @@
-/* Atlas product shell. Cartography lives separately in style.js. */
-.aspire-atlas{--atlas-teal:#22B7A8;position:relative;isolation:isolate;min-height:max(800px,100svh);overflow:hidden;background:#09100F;color:#F3F0E8;font:14px/1.5 var(--sans,Arial,sans-serif)}
-body.admin-bar .aspire-atlas{min-height:max(800px,calc(100svh - 32px))}
-.aspire-atlas *{box-sizing:border-box}.aspire-atlas [hidden]{display:none!important}
-.aspire-atlas .atlas-map{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,#1a2923,#09100F)}
-.atlas-shade{position:absolute;inset:0;pointer-events:none;z-index:1;background:linear-gradient(180deg,#09100fc9,transparent 150px),linear-gradient(90deg,#09100f38,transparent 60%)}
-.atlas-nav{position:relative;z-index:4;display:flex;align-items:center;justify-content:space-between;gap:30px;padding:30px 4%;min-height:96px}
-.atlas-brand{display:inline-flex;flex-shrink:0}.aspire-atlas .atlas-brand .custom-logo{width:185px;height:auto;max-height:48px;object-fit:contain;filter:brightness(0) invert(1)}
-.atlas-nav nav{display:flex;align-items:center;gap:30px}.aspire-atlas .atlas-nav a{color:#E4EAE5;text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.015em}.aspire-atlas .atlas-nav a:hover{color:#63D5C4}
-.aspire-atlas .atlas-nav .atlas-contact{padding:12px 17px;border:1px solid #88B3A557;border-radius:3px;background:#12231ba8;display:flex;gap:22px;align-items:center}
-.atlas-opening{position:relative;z-index:2;width:min(480px,43%);margin:30px 0 120px 4%;padding:28px;border:1px solid #A0C3B51f;border-radius:8px;background:linear-gradient(135deg,#10201bd6,#0B1512b3);backdrop-filter:blur(12px);box-shadow:0 18px 60px #00000024;animation:atlas-enter .55s ease-out both}
-.aspire-atlas .atlas-eyebrow{font:600 10px/1.5 var(--sans,Arial,sans-serif);letter-spacing:.22em;color:#9CCABF;margin:0 0 18px;display:flex;align-items:center;gap:9px}.atlas-eyebrow span{width:5px;height:5px;border-radius:50%;background:var(--atlas-teal)}
-.aspire-atlas h1{font:400 clamp(36px,3.6vw,52px)/1.06 var(--serif,Georgia,serif);letter-spacing:-.045em;color:#F3F0E8;margin:0 0 20px;max-width:none}
-.aspire-atlas .atlas-support{color:#B8C9C0;font-size:13px;line-height:1.65;margin:0 0 25px}
-.aspire-atlas .atlas-prompt{font-size:11px;font-weight:600;color:#D4E2DA;margin:0 0 12px}
-.atlas-intents{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.aspire-atlas button.atlas-intent{display:flex;align-items:flex-start;justify-content:space-between;gap:7px;width:100%;min-height:96px;padding:15px 12px;border:1px solid #759B8940;background:#16271e78;text-align:left;color:#F3F0E8;border-radius:4px;cursor:pointer;font:inherit;transition:border-color .18s,background .18s,box-shadow .18s}
-.atlas-intent strong,.atlas-intent small{display:block}.atlas-intent strong{font-size:12px;line-height:1.35;font-weight:500}.atlas-intent small{font-size:10px;line-height:1.45;color:#9CB3A6;margin-top:7px}.atlas-intent>span:last-child{color:#73BBAA;font-size:16px}
-.aspire-atlas button.atlas-intent:hover,.aspire-atlas button.atlas-intent:focus-visible{border-color:#22B7A8;background:#1845369c;box-shadow:inset 0 0 0 1px #22B7A82b}
-.aspire-atlas button.atlas-intent[aria-pressed=true]{border-color:#22B7A88f;background:#164535a8}
-.aspire-atlas :is(button,a,input,select):focus-visible{outline:2px solid #69E0CD;outline-offset:4px}
-.atlas-input-label,.atlas-sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important;border:0!important}
-.aspire-atlas input.atlas-input{width:100%;min-height:48px;padding:14px 16px;margin:17px 0 0;background:#091511a6;color:#D2E1D8;border:1px solid #759B8952;border-radius:4px;font:12px var(--sans,Arial,sans-serif);box-shadow:inset 0 1px 4px #0003}.atlas-input::placeholder{color:#A9BFB2}
-.aspire-atlas .atlas-command-example{font-size:9px;line-height:1.5;color:#8CA99A;margin:9px 0 0}.atlas-scope{font-size:11px;color:#9CB3A6}
-.atlas-map-meta{position:absolute;z-index:3;right:4%;bottom:35px;text-align:right;max-width:310px}
-.aspire-atlas .atlas-count{font-size:9px;font-weight:600;letter-spacing:.16em;color:#D0E2D7;margin:0}
-.aspire-atlas a{color:#AFE2D7}.atlas-fallback-link{display:none;font-size:12px;margin-top:10px}
-.atlas-fallback-properties{text-align:left;background:#102019f2;border:1px solid #3D584A;padding:16px;margin-top:12px;font-size:11px;max-height:250px;overflow:auto;border-radius:4px}.atlas-fallback-properties ul{padding-left:16px}.atlas-fallback-properties li+li{margin-top:10px}
-/* Screen-reader selector becomes visible on keyboard focus, never removed from accessibility. */
-.atlas-keyboard-selection{position:absolute;z-index:5;left:0;top:0;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
-.atlas-keyboard-selection:focus-within{left:auto;top:auto;bottom:70px;right:4%;width:min(340px,90%);height:auto;clip-path:none;padding:16px;background:#102019f5;border:1px solid #69E0CD;border-radius:4px}
-.atlas-selection label{display:block;font-size:11px;color:#B8C9C0;margin-bottom:8px}.aspire-atlas .atlas-selection select{width:100%;min-height:44px;background:#14251D;color:#F3F0E8;border:1px solid #547965;font:12px var(--sans,Arial,sans-serif);padding:8px}.atlas-selected-label{font-size:11px;color:#BDDAC9;margin:8px 0 0}
-.atlas-attribution{position:absolute;right:4%;bottom:9px;z-index:3;font:9px/1.5 var(--sans,Arial,sans-serif);padding:3px 0;color:#B8C1BD}.atlas-attribution a{color:#9EB4A8}
-.atlas-map .maplibregl-ctrl-top-right{top:125px;right:4%}.atlas-map .maplibregl-ctrl-group{background:#12241de8;border:1px solid #60816f4d;box-shadow:0 8px 25px #0003;border-radius:5px;overflow:hidden}.atlas-map .maplibregl-ctrl-group button{width:40px;height:40px}.atlas-map .maplibregl-ctrl-group button+button{border-top:1px solid #60816f4d}.atlas-map .maplibregl-ctrl-group button:hover{background:#244738}.atlas-map .maplibregl-ctrl-icon{filter:invert(1);opacity:.8}
-.atlas-map .maplibregl-popup-content{background:#12281ff2;color:#F3F0E8;box-shadow:0 8px 28px #0006;padding:11px 14px;border:1px solid #54867280;border-radius:4px;max-width:235px}.atlas-map .maplibregl-popup-tip{border-top-color:#12281f}.atlas-map-label{font:11px/1.5 var(--sans,Arial,sans-serif)}
-.atlas-map-failed .atlas-map-meta,.atlas-data-failed .atlas-map-meta{padding:16px;text-align:left;border:1px solid #806A4766;background:#102019f2;border-radius:4px}
-.atlas-map-failed .atlas-map-status,.atlas-data-failed .atlas-data-status{position:static!important;width:auto!important;height:auto!important;margin:8px 0!important;overflow:visible!important;clip-path:none!important;white-space:normal!important;font-size:12px;color:#D8C9A5}
-.atlas-map-failed .atlas-fallback-link,.atlas-data-failed .atlas-fallback-link{display:inline-block}.atlas-map-failed .atlas-selection{display:none}.atlas-noscript{position:absolute;bottom:80px;right:4%;z-index:3;max-width:300px;background:#102019;padding:18px;font-size:12px}
-.atlas-brief{color:#AFF0DF;background:#16382E;border:1px solid #427B67;border-radius:4px;min-height:44px;padding:10px 16px;margin-top:12px}
-@keyframes atlas-enter{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
-@media(min-width:1600px){.atlas-opening{margin-top:65px;width:500px;padding:32px}.aspire-atlas h1{font-size:52px}}
-@media(max-width:1000px){.atlas-nav nav{gap:18px}.atlas-opening{width:440px;max-width:65%;margin-top:20px}.aspire-atlas h1{font-size:40px}}
-@media(max-width:700px){.aspire-atlas,body.admin-bar .aspire-atlas{min-height:1180px}.atlas-nav{padding:22px 24px;align-items:flex-start;flex-wrap:wrap;gap:18px}.aspire-atlas .atlas-brand .custom-logo{width:160px}.atlas-nav nav{width:100%;justify-content:space-between;gap:12px}.aspire-atlas .atlas-nav a{font-size:11px}.aspire-atlas .atlas-nav .atlas-contact{padding:9px 11px;gap:8px}.atlas-opening{width:auto;max-width:none;margin:10px 24px 400px;padding:24px;background:#10201bc9}.aspire-atlas h1{font-size:38px}.atlas-map .maplibregl-ctrl-top-right{top:auto;bottom:105px;right:20px}.atlas-map .maplibregl-ctrl-top-right .maplibregl-ctrl{margin:0}.atlas-map-meta{right:24px;bottom:40px}.atlas-attribution{right:24px;font-size:8px}.atlas-keyboard-selection:focus-within{right:24px;bottom:100px}.atlas-intent strong{font-size:12px}.atlas-intent small{font-size:10px}}
-@media(max-width:380px){.atlas-opening{padding:20px;margin-inline:16px}.aspire-atlas h1{font-size:34px}.atlas-intents{grid-template-columns:1fr}.aspire-atlas button.atlas-intent{min-height:74px}.atlas-nav{padding-inline:16px}.atlas-nav nav{gap:8px}.aspire-atlas .atlas-nav a{font-size:10px}}
-@media(prefers-reduced-motion:reduce){.aspire-atlas *{transition:none!important;animation:none!important}}
-
 /* Company-first homepage presentation. Existing Atlas embeds retain their own shell. */
 .aspire-atlas.atlas-corporate{--atlas-teal:#80ac96;background:#2b3632;color:#ecede4;min-height:max(810px,94svh)}
 body.admin-bar .aspire-atlas.atlas-corporate{min-height:max(810px,calc(94svh - 32px))}
@@ -134,18 +88,3 @@ body.admin-bar .aspire-atlas.atlas-corporate{min-height:max(810px,calc(94svh - 3
  .aspire-atlas.atlas-mobile.atlas-corporate .atlas-sheet-content{scrollbar-color:#839878 transparent}
  .atlas-page-continue{padding-inline:max(18px,env(safe-area-inset-left)) max(18px,env(safe-area-inset-right));min-height:48px}
 }
-
-/* Static editor representation; map assets are never initialized here. */
-.aspire-atlas-preview{min-height:680px!important;border:1px solid #34413D;border-radius:6px;container-type:inline-size}
-.aspire-atlas-preview .atlas-map{background:radial-gradient(ellipse at 82% 32%,#1A3C32,transparent 50%),repeating-linear-gradient(23deg,transparent 0 70px,#273C3240 71px 73px,transparent 74px 120px),#0D1513}
-.aspire-atlas-preview .atlas-opening{width:480px;max-width:85%;margin:30px 4% 90px;animation:none}
-.aspire-atlas-preview h1{font-size:42px;overflow-wrap:normal;word-break:normal}
-@container(max-width:600px){.aspire-atlas-preview .atlas-opening{width:auto;max-width:none;margin:20px 16px 90px;padding:20px}.aspire-atlas-preview h1{font-size:36px}}
-.aspire-atlas-preview.atlas-corporate{min-height:0!important;border:1px solid #82917f;border-radius:0;padding-block:22px}
-.aspire-atlas-preview.atlas-corporate .atlas-map{background:repeating-linear-gradient(23deg,transparent 0 70px,#89927b33 71px 73px,transparent 74px 120px),#304039}
-.aspire-atlas-preview.atlas-corporate .atlas-opening{width:520px;max-width:88%;margin:0 4%;padding:26px 30px}
-.aspire-atlas-preview.atlas-corporate h1{font-size:38px}
-.aspire-atlas-preview.atlas-corporate .atlas-editor-label{margin:0 0 22px;color:#56715b;font:600 9px/1.5 var(--sans,Arial,sans-serif);letter-spacing:.15em}
-.aspire-atlas-preview.atlas-corporate .atlas-scope,.aspire-atlas-preview.atlas-corporate .atlas-editor-capabilities{font-size:10px;color:#5e705f;margin:12px 0 0}
-.aspire-atlas-preview.atlas-corporate .atlas-map-meta,.aspire-atlas-preview.atlas-corporate .atlas-attribution{display:none}
-@container(max-width:600px){.aspire-atlas-preview.atlas-corporate .atlas-opening{width:auto;max-width:none;margin-inline:16px;padding:22px}.aspire-atlas-preview.atlas-corporate h1{font-size:32px}}

@@ -62,6 +62,16 @@ final class Aspire_Atlas {
   // Preserve intentional headline line breaks while keeping all output plain text.
   $headline = sanitize_textarea_field( $attributes['headline'] ?? "Explore Houston.\nFind your next move." );
   $support = sanitize_text_field( $attributes['supportingText'] ?? 'Commercial real estate intelligence. Real opportunities. A stronger view of Houston.' );
+  // Opt-in company presentation leaves existing Atlas blocks and shared maps intact.
+  $corporate = ! empty($attributes['corporateHero']);
+  $anchor = sanitize_title($attributes['anchor'] ?? ($corporate?'aspire-atlas':''));
+  $company = sanitize_text_field($attributes['companyName'] ?? 'ASPIRE COMMERCIAL');
+  $product = sanitize_text_field($attributes['productName'] ?? 'ASPIRE ATLAS');
+  $product_line = sanitize_text_field($attributes['productLine'] ?? 'Explore Houston. Find your next move.');
+  $advisor_prompt = sanitize_text_field($attributes['advisorPrompt'] ?? 'Prefer to talk it through?');
+  $advisor_label = sanitize_text_field($attributes['advisorLabel'] ?? 'Talk to an Aspire advisor');
+  $continue_label = sanitize_text_field($attributes['continueLabel'] ?? 'Discover Aspire Commercial');
+  $destination = static fn($key) => function_exists('aspirecre_home_destination') ? aspirecre_home_destination($key) : ($key==='contact'?'tel:+17139332001':home_url('/'.($key==='properties'?'properties/':'#'.($key==='insights'?'insights':($key==='services'?'expertise':'human-expertise')))));
   $natural = $attributes['showNaturalLanguage'] ?? true;
   $brief = $attributes['enableBrief'] ?? false;
   if ( ! $editor ) { wp_enqueue_script('aspire-atlas-view'); wp_enqueue_style('aspire-atlas-view'); }

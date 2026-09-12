@@ -1,10 +1,10 @@
 <?php
-/** Read-only Gutenberg migration assertions. */
+/** Read-only assertions for the approved Phase 2 Gutenberg homepage. */
 if ( PHP_SAPI !== 'cli' ) { exit; }
 require dirname( __DIR__, 4 ) . '/wp-load.php';
 require_once ABSPATH . 'wp-admin/includes/post.php';
 $checks = 0;
-function aspirecre_block_check( $ok, $message ) {
+function aspirecre_block_check( $ok, $message ): void {
 	global $checks;
 	if ( ! $ok ) { throw new RuntimeException( $message ); }
 	++$checks; echo "PASS: $message\n";
@@ -14,17 +14,41 @@ aspirecre_block_check( $home && 'Home' === $home->post_title && 'page' === $home
 aspirecre_block_check( 'page' === get_option( 'show_on_front' ), 'Static homepage configured' );
 aspirecre_block_check( use_block_editor_for_post( $home ), 'Home uses Gutenberg' );
 $top = array_values( array_filter( parse_blocks( $home->post_content ), static fn( $b ) => $b['blockName'] ) );
-aspirecre_block_check( array( 'Hero', 'Property Finder', 'Featured Properties', 'Services', 'Houston / Why Aspire', 'Team', 'Final CTA' ) === array_map( static fn( $b ) => $b['attrs']['metadata']['name'], $top ), 'Seven named sections in approved order' );
+aspirecre_block_check( 10 === count( $top ) && 'aspire/atlas' === $top[0]['blockName'], 'One Atlas hero followed by nine corporate sections' );
+aspirecre_block_check( true === ( $top[0]['attrs']['corporateHero'] ?? false ), 'Atlas hero uses company-first presentation' );
+$anchors = array( 'current-opportunities', 'client-objectives', 'human-expertise', 'expertise', 'how-aspire-works', 'about-atlas', 'property-management', 'insights', 'talk-to-aspire' );
+aspirecre_block_check( $anchors === array_map( static fn( $b ) => $b['attrs']['anchor'] ?? '', array_slice( $top, 1 ) ), 'Corporate section order matches the approved narrative' );
+foreach ( array_slice( $top, 1 ) as $section ) {
+	aspirecre_block_check( 'core/group' === $section['blockName'] && 'section' === ( $section['attrs']['tagName'] ?? '' ) && ! empty( $section['attrs']['metadata']['name'] ), 'Named native section: ' . $section['attrs']['anchor'] );
+}
 $flat = array();
-$walk = static function ( $blocks ) use ( &$walk, &$flat ) { foreach ( $blocks as $block ) { if ( $block['blockName'] ) { $flat[] = $block; } $walk( $block['innerBlocks'] ); } };
+$walk = static function ( $blocks ) use ( &$walk, &$flat ): void {
+	foreach ( $blocks as $block ) { if ( $block['blockName'] ) { $flat[] = $block; } $walk( $block['innerBlocks'] ); }
+};
 $walk( $top );
-foreach ( $flat as $block ) { aspirecre_block_check( ( str_starts_with( $block['blockName'], 'core/' ) || in_array( $block['blockName'], array( 'aspire-core/property-finder', 'aspire-core/featured-properties', 'aspire-core/team-grid' ), true ) ) && ! in_array( $block['blockName'], array( 'core/html', 'core/freeform' ), true ), 'Native editable ' . $block['blockName'] ); }
+$allowed_dynamic = array( 'aspire/atlas', 'aspire-core/featured-properties', 'aspire-core/team-grid' );
+$invalid = array_filter( $flat, static fn( $b ) => ( ! str_starts_with( $b['blockName'], 'core/' ) && ! in_array( $b['blockName'], $allowed_dynamic, true ) ) || in_array( $b['blockName'], array( 'core/html', 'core/freeform', 'core/shortcode' ), true ) );
+aspirecre_block_check( ! $invalid, 'Static content uses native editable blocks, without HTML, freeform or shortcodes' );
 $types = array_count_values( array_column( $flat, 'blockName' ) );
-aspirecre_block_check( 2 === $types['core/image'], 'Both photos are native Image blocks' );
-aspirecre_block_check( ! isset( $types['core/shortcode'] ), 'No shortcode blocks remain on Home' );
-foreach ( array( 'property-finder', 'featured-properties', 'team-grid' ) as $slug ) { aspirecre_block_check( 1 === $types[ 'aspire-core/' . $slug ] && WP_Block_Type_Registry::get_instance()->is_registered( 'aspire-core/' . $slug ), 'Registered native dynamic block: ' . $slug ); }
-foreach ( array( 'aspire_property_finder', 'aspire_featured_properties', 'aspire_team_members' ) as $shortcode ) { aspirecre_block_check( shortcode_exists( $shortcode ) && ! str_contains( do_shortcode( '[' . $shortcode . ']' ), '[' . $shortcode . ']' ), "$shortcode renders" ); }
-aspirecre_block_check( str_contains( $home->post_content, 'Your real estate goals.<br>A more direct path.' ) && str_contains( $home->post_content, 'Market-driven' ) && str_contains( $home->post_content, "What's your next real estate move?" ), 'Approved service, Houston and CTA copy stored in page' );
+foreach ( $allowed_dynamic as $name ) {
+	aspirecre_block_check( 1 === ( $types[ $name ] ?? 0 ) && WP_Block_Type_Registry::get_instance()->is_registered( $name ), 'One registered dynamic block: ' . $name );
+}
+$featured = current( array_filter( $flat, static fn( $b ) => 'aspire-core/featured-properties' === $b['blockName'] ) );
+$team = current( array_filter( $flat, static fn( $b ) => 'aspire-core/team-grid' === $b['blockName'] ) );
+aspirecre_block_check( 3 === $featured['attrs']['count'] && 'editorial' === $featured['attrs']['presentation'], 'Opportunities reuse the featured block with three editorial listings' );
+aspirecre_block_check( true === $team['attrs']['hideWhenEmpty'] && 'editorial' === $team['attrs']['presentation'], 'Real Team component is present and safely hides empty public inventory' );
+aspirecre_block_check( ( $types['core/image'] ?? 0 ) >= 1, 'Corporate photography is editable through native Image blocks' );
+aspirecre_block_check( 1 === ( $types['core/query'] ?? 0 ) && 1 === ( $types['core/post-template'] ?? 0 ), 'Insights uses one native Query and Post Template' );
+$query = current( array_filter( $flat, static fn( $b ) => 'core/query' === $b['blockName'] ) );
+aspirecre_block_check( 'post' === $query['attrs']['query']['postType'] && false === $query['attrs']['query']['inherit'] && 3 === $query['attrs']['query']['perPage'], 'Insights queries three real Posts independently of Home' );
+$headings = array_values( array_filter( $flat, static fn( $b ) => 'core/heading' === $b['blockName'] ) );
+aspirecre_block_check( count( $headings ) >= 9 && ! array_filter( $headings, static fn( $b ) => ! in_array( $b['attrs']['level'] ?? 2, array( 2, 3 ), true ) ), 'Editable marketing headings use H2 and H3; Atlas owns the single H1' );
+foreach ( array( 'aspire_property_finder', 'aspire_featured_properties', 'aspire_team_members' ) as $shortcode ) {
+	aspirecre_block_check( shortcode_exists( $shortcode ) && ! str_contains( do_shortcode( '[' . $shortcode . ']' ), '[' . $shortcode . ']' ), 'Legacy rendering remains compatible: ' . $shortcode );
+}
+aspirecre_block_check( ! str_contains( $home->post_content, 'Atascocita Retail Center' ) && ! str_contains( $home->post_content, 'Sugarwell Plaza' ) && ! str_contains( $home->post_content, 'Sienna Park Office Condos' ), 'Property records are not hardcoded in marketing content' );
 $count = get_posts( array( 'post_type' => 'page', 'post_status' => 'any', 'title' => 'Home', 'numberposts' => -1 ) );
 aspirecre_block_check( 1 === count( $count ), 'No duplicate Home page' );
-echo "SUCCESS: $checks checks\n";
+$template = file_get_contents( get_theme_file_path( '/front-page.php' ) );
+aspirecre_block_check( str_contains( $template, 'the_content()' ) && ! str_contains( $template, 'template-parts/home/' ) && ! str_contains( $template, 'Houston Commercial Real Estate' ), 'Front page remains a normal content template' );
+echo "SUCCESS: $checks Gutenberg checks\n";

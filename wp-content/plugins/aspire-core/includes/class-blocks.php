@@ -15,10 +15,13 @@ final class Aspire_Core_Blocks {
 	public static function render( string $part, array $attributes = array(), ?bool $editor = null ): string {
 		if ( ! in_array( $part, array( 'finder', 'properties', 'team' ), true ) ) { return ''; }
 		$count = max( 1, min( 8, (int) ( $attributes['count'] ?? 4 ) ) );
+		$editorial = 'editorial' === ( $attributes['presentation'] ?? '' );
+		$hide_when_empty = ! empty( $attributes['hideWhenEmpty'] );
 		$editor = $editor ?? ( defined( 'REST_REQUEST' ) && REST_REQUEST && current_user_can( 'edit_posts' ) );
 		ob_start();
 		include dirname( ASPIRE_CORE_FILE ) . '/blocks/templates/' . $part . '.php';
 		$content = ob_get_clean();
+		if ( '' === trim( $content ) ) { return ''; }
 		return '<div ' . get_block_wrapper_attributes( array( 'class' => 'aspire-dynamic-block aspire-dynamic-' . $part ) ) . '>' . $content . '</div>';
 	}
 }

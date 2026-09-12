@@ -10,7 +10,7 @@ if(metadata.name!=='aspire/atlas'||metadata.apiVersion!==3)throw Error('Invalid 
 await build({entryPoints:[new URL('../node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs',root).pathname],bundle:true,minify:true,format:'iife',target:['es2022'],outfile:new URL('worker.js',out).pathname,legalComments:'linked'});
 await build({entryPoints:[new URL('src/view.js',root).pathname],bundle:true,minify:true,format:'iife',target:['es2022'],outfile:new URL('view.js',out).pathname,legalComments:'linked'});
 writeFileSync(new URL('editor.js',out),readFileSync(new URL('src/editor.js',root)));
-writeFileSync(new URL('editor.css',out),readFileSync(new URL('src/view.css',root),'utf8')+'\n'+readFileSync(new URL('src/editor.css',root),'utf8'));
+writeFileSync(new URL('editor.css',out),readFileSync(new URL('src/view.css',root),'utf8')+'\n'+readFileSync(new URL('src/corporate.css',root),'utf8')+'\n'+readFileSync(new URL('src/editor.css',root),'utf8'));
 const hash=createHash('sha256');
 for(const f of ['view.js','view.css','worker.js','editor.js','editor.css'])hash.update(readFileSync(new URL(f,out)));
 writeFileSync(new URL('manifest.json',out),JSON.stringify({version:hash.digest('hex').slice(0,12)}));

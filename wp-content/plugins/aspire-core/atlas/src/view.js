@@ -1,6 +1,8 @@
 import * as maplibregl from 'maplibre-gl';
 import {Protocol,PMTiles} from 'pmtiles';
 import {atlasStyle} from './style.js';
+import {corporateStyle,corporateMarkers} from './corporate-style.js';
+import {cameraInsets} from './camera-padding.js';
 import {loadProperties,addPropertyLayers} from './properties.js';
 import {createFindSpace} from './find-space.js';
 import {isDiscovery,isGuided} from './invest.js';
@@ -8,6 +10,7 @@ import {AREAS} from './filters.js';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './view.css';
 import './mobile.css';
+import './corporate.css';
 import {createMobileSheet} from './mobile.js';
 const protocol = new Protocol();
 maplibregl.addProtocol('pmtiles',protocol.tile);
@@ -46,8 +49,10 @@ async function start(root) {
   // Validate the local archive before creating WebGL. Range-capable static serving is required.
   const header=await Promise.race([archive.getHeader(),new Promise((_,reject)=>setTimeout(()=>reject(Error('Basemap timeout')),15000))]);
   if(header.tileType!==1) throw Error('Expected vector archive');
-  map=new maplibregl.Map({padding:{top:0,right:0,bottom:0,left:root.clientWidth>900?root.clientWidth*.32:0},container:root.querySelector('.atlas-map'),style:atlasStyle(root.dataset.tiles,root.dataset.glyphs),center:[-95.45,29.82],zoom:9.4,bearing:reduced?0:-7,pitch:reduced?0:38,minZoom:8,maxZoom:16,maxBounds:[[-95.95,29.45],[-95.05,30.25]],attributionControl:false,cooperativeGestures:!mobile.active,renderWorldCopies:false});
-  const cameraPadding=()=>{
+  const baseStyle=atlasStyle(root.dataset.tiles,root.dataset.glyphs),mapElement=root.querySelector('.atlas-map');
+  const safePadding=measured=>cameraInsets(measured,mapElement.clientWidth,mapElement.clientHeight);
+  map=new maplibregl.Map({padding:safePadding({top:0,right:0,bottom:0,left:root.clientWidth>900?root.clientWidth*.32:0}),container:mapElement,style:root.dataset.corporateHero==='true'?corporateStyle(baseStyle):baseStyle,center:[-95.45,29.82],zoom:9.4,bearing:reduced?0:-7,pitch:reduced?0:38,minZoom:8,maxZoom:16,maxBounds:[[-95.95,29.45],[-95.05,30.25]],attributionControl:false,cooperativeGestures:!mobile.active,renderWorldCopies:false});
+  const measuredPadding=()=>{
    if(mobile.active)return mobile.padding();
    if(discovery.state.propertyFocusOpen){
     const bounds=root.getBoundingClientRect(),panel=root.querySelector('.atlas-dossier').getBoundingClientRect(),nav=root.querySelector('.atlas-nav')?.getBoundingClientRect();
@@ -66,6 +71,8 @@ async function start(root) {
    const bounds=root.getBoundingClientRect(),rail=root.querySelector('.atlas-filter-rail').getBoundingClientRect(),results=root.querySelector('.atlas-results').getBoundingClientRect();
    return {top:Math.ceil(rail.bottom-bounds.top+30),bottom:Math.ceil(bounds.bottom-results.top+25),left:45,right:65};
   };
+  // All setPadding/easeTo paths share this boundary, including mobile sheet transitions.
+  const cameraPadding=()=>safePadding(measuredPadding());
   const syncComposition=()=>{map.resize();const padding=cameraPadding();if(Object.keys(padding).some(key=>padding[key]!==map.getPadding()[key]))map.setPadding(padding);};
   mobile.connect(()=>{if(map)syncComposition();});
   root.addEventListener('atlas-mobile-change',()=>{if(mobile.active)map.cooperativeGestures.disable();else map.cooperativeGestures.enable();});
@@ -81,6 +88,7 @@ async function start(root) {
    const data=await dataPromise;
    if(!data)return;
    addPropertyLayers(map,data);
+   if(root.dataset.corporateHero==='true')corporateMarkers(map);
    root.dataset.markerCount=String(data.features.length);
    const popup=new maplibregl.Popup({closeButton:false,closeOnClick:false,offset:16});
    const showLabel=f=>{

@@ -58,6 +58,14 @@ foreach(get_terms(array('taxonomy'=>'property_type','hide_empty'=>false)) as $te
  atlas_check(str_contains($frontend,'value="'.esc_attr($term->slug).'"'), 'Filter contains registered property type: '.$term->slug);
 }
 atlas_check(!str_contains($frontend,'value="ground-lease"'),'Transaction controls limited to approved supported choices');
+$corporate_attributes=array('corporateHero'=>true,'headline'=>'Houston Commercial Real Estate, Made Clear.','supportingText'=>'Aspire Commercial helps tenants, property owners, investors and developers navigate leasing, investment, development, property management and commercial real estate decisions across Greater Houston.','enableBrief'=>true,'anchor'=>'aspire-atlas');
+$corporate=Aspire_Atlas::render($corporate_attributes);
+atlas_check(substr_count($corporate,'<h1 ')===1&&preg_match('/<h1[^>]*>Houston Commercial Real Estate, Made Clear\.<\/h1>/',$corporate),'Company hero contains exactly the approved H1');
+atlas_check(str_contains($corporate,'id="aspire-atlas"')&&str_contains($corporate,'data-corporate-hero="true"'),'Corporate presentation and return anchor are opt-in');
+atlas_check(str_contains($corporate,'class="atlas-product-line">Explore Houston. Find your next move.</p>')&&strpos($corporate,'ASPIRE COMMERCIAL')<strpos($corporate,'class="atlas-product-line"'),'Atlas product line remains subordinate to company content');
+atlas_check(str_contains($corporate,'Prefer to talk it through?')&&str_contains($corporate,'Talk to an Aspire advisor')&&str_contains($corporate,'href="tel:+17139332001"'),'Corporate hero includes an approved human contact path');
+atlas_check(str_contains($corporate,'href="#current-opportunities"')&&str_contains($corporate,'Describe what you\'re looking for'),'Hero exposes a native path below while retaining requirements input');
+atlas_check(!str_contains($frontend,'atlas-corporate')&&!str_contains($frontend,'data-corporate-hero'),'Existing Atlas embeds retain their original presentation');
 $admin=get_users(array('role'=>'administrator','number'=>1));wp_set_current_user($admin[0]->ID);
 define('REST_REQUEST',true);
 $request=new WP_REST_Request('GET','/wp/v2/block-renderer/aspire/atlas');$request->set_param('context','edit');
@@ -67,4 +75,8 @@ atlas_check($preview->get_status()===200&&str_contains($html,'Custom editorial h
 atlas_check(str_contains($html,'4 ASPIRE OPPORTUNITIES')&&str_contains($html,'Interactive map renders on the frontend.'),'Useful static editor preview');
 atlas_check(!str_contains($html,'data-atlas')&&!str_contains($html,'class="atlas-input"')&&str_contains($html,'CREATE MY REAL ESTATE BRIEF'),'Editor no map initialization; toggles affect preview');
 atlas_check(!str_contains($html,'class="atlas-find"'),'Editor preview excludes frontend-only discovery controls');
+$request->set_param('attributes',$corporate_attributes);
+$preview=rest_do_request($request);$html=$preview->get_data()['rendered']??'';
+atlas_check($preview->get_status()===200&&str_contains($html,'ASPIRE ATLAS HERO')&&str_contains($html,'Map enabled · Four client intents · Real Estate Brief enabled'),'Corporate static editor preview communicates the real enabled capabilities');
+atlas_check(str_contains($html,'Houston Commercial Real Estate, Made Clear.')&&str_contains($html,'Explore Houston. Find your next move.')&&!str_contains($html,'data-atlas')&&!str_contains($html,'data-worker'),'Company editor preview includes editable hierarchy without WebGL startup attributes');
 echo "SUCCESS: $checks Atlas checks. Temporary fixtures rolled back.\n";

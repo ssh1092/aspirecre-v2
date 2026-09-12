@@ -1,0 +1,136 @@
+/* Aspire Commercial corporate foundation. Reusable by marketing block patterns;
+   scoped so Directory, Property Detail and the Property Workspace stay unchanged. */
+.aspire-corporate-section {
+ --corp-ink:#263330; --corp-muted:#58635e; --corp-accent:#255b4e; --corp-line:#d5dcd5;
+ --corp-paper:#f3f4ef; --corp-white:#fff; --corp-gutter:clamp(20px,5vw,72px);
+ --corp-space:clamp(52px,6vw,88px); --corp-max:1296px;
+ --corp-sans:'DM Sans',Arial,sans-serif; --corp-serif:'Source Serif',Georgia,serif;
+ color:var(--corp-ink); background:var(--corp-white); font:400 16px/1.65 var(--corp-sans);
+ padding:var(--corp-space) 0; margin:0!important; scroll-margin-top:24px;
+}
+.aspire-corporate-section * { box-sizing:border-box; }
+.aspire-corporate-section :where(.wp-block-group,p,h2,h3,figure,.wp-block-buttons) { margin:0; }
+.aspire-corporate-section .corp-container { width:calc(100% - 2 * var(--corp-gutter)); max-width:var(--corp-max); margin-inline:auto; }
+.aspire-corporate-section :where(h2,h3) { font-family:var(--corp-serif); font-weight:400; color:inherit; text-wrap:balance; letter-spacing:-.025em; }
+.aspire-corporate-section h2 { font-size:clamp(32px,3.25vw,47px); line-height:1.12; max-width:26ch; }
+.aspire-corporate-section h3 { font-size:clamp(23px,2.2vw,30px); line-height:1.2; }
+.aspire-corporate-section p { max-width:none; }
+.aspire-corporate-section :where(a) { color:inherit; text-decoration:none; text-underline-offset:5px; }
+.aspire-corporate-section a:hover { text-decoration:underline; }
+.aspire-corporate-section :where(a,button):focus-visible { outline:2px solid var(--corp-accent); outline-offset:5px; }
+.aspire-corporate-section .corp-eyebrow { font-size:11px; font-weight:700; letter-spacing:.15em; color:var(--corp-accent); line-height:1.5; margin-bottom:17px; }
+.aspire-corporate-section .corp-intro { color:var(--corp-muted); font-size:clamp(16px,1.3vw,18px); line-height:1.65; max-width:68ch; }
+.aspire-corporate-section .corp-section-heading > .corp-intro { margin-top:20px; }
+.aspire-corporate-section .corp-section-heading { margin-bottom:36px; }
+.aspire-corporate-section .corp-text-link a,.aspire-corporate-section .corp-objective-links a { display:inline-flex; align-items:center; min-height:44px; font-size:13px; font-weight:700; color:var(--corp-accent); }
+.aspire-corporate-section .corp-heading-row { display:flex; align-items:flex-end; justify-content:space-between; gap:36px; margin-bottom:34px; }
+.aspire-corporate-section .corp-heading-row .corp-section-heading { margin:0; max-width:780px; }
+.aspire-corporate-section .corp-section-action { flex-shrink:0; }
+.aspire-corporate-section .corp-editorial-split { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:clamp(32px,6vw,88px); }
+.aspire-corporate-section .corp-editorial-copy > * + * { margin-top:18px; }
+.aspire-corporate-section .corp-editorial-copy > .corp-section-heading { margin-bottom:0; }
+.aspire-corporate-section img { display:block; width:100%; height:auto; }
+.aspire-corporate-section .aspire-dynamic-block { margin:0; }
+/* Property photography and facts form an editorial spread, without portal chrome. */
+.aspire-corporate-section .corp-opportunity-list { display:grid; grid-template-columns:1.05fr 1fr; gap:28px 40px; }
+.aspire-corporate-section .corp-opportunity { min-width:0; padding-bottom:22px; border-bottom:1px solid var(--corp-line); }
+.aspire-corporate-section .corp-opportunity:first-child { grid-row:span 2; padding-bottom:0; }
+.aspire-corporate-section .corp-opportunity-link { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1fr); gap:22px; height:100%; }
+.aspire-corporate-section .corp-opportunity:first-child .corp-opportunity-link { display:block; }
+.aspire-corporate-section .corp-opportunity-link:hover { text-decoration:none; }
+.aspire-corporate-section .corp-opportunity-link:hover h3 { text-decoration:underline; text-underline-offset:5px; }
+.aspire-corporate-section .corp-opportunity-image { background:var(--corp-paper); overflow:hidden; }
+.aspire-corporate-section .corp-opportunity-image img { height:100%; min-height:180px; aspect-ratio:1; object-fit:cover; }
+.aspire-corporate-section .corp-opportunity:first-child .corp-opportunity-image img { aspect-ratio:1.8; min-height:0; }
+.aspire-corporate-section .corp-opportunity:first-child .corp-opportunity-copy { padding-top:22px; }
+.aspire-corporate-section .corp-opportunity-tags { display:flex; flex-wrap:wrap; gap:3px 14px; font-size:10px; text-transform:uppercase; font-weight:700; letter-spacing:.06em; color:var(--corp-accent); margin-bottom:12px; }
+.aspire-corporate-section .corp-opportunity h3 { font-size:clamp(22px,2vw,29px); }
+.aspire-corporate-section .corp-opportunity-locality { font-size:13px; color:var(--corp-muted); margin-top:8px; }
+.aspire-corporate-section .corp-opportunity-bottom { display:flex; align-items:end; justify-content:space-between; gap:12px; margin-top:22px; }
+.aspire-corporate-section .corp-opportunity dl { display:flex; flex-wrap:wrap; gap:14px 24px; margin:0; }
+.aspire-corporate-section .corp-opportunity dt { font-size:10px; color:var(--corp-muted); }
+.aspire-corporate-section .corp-opportunity dd { margin:3px 0 0; font-size:14px; font-weight:700; line-height:1.3; }
+.aspire-corporate-section .corp-opportunity-arrow { color:var(--corp-accent); font-size:24px; line-height:1; }
+/* Objectives are numbered advisory pathways; expertise is a compact service index. */
+.aspire-corporate-section.corp-objectives { background:var(--corp-paper); }
+.aspire-corporate-section .corp-objectives-list { border-top:1px solid var(--corp-line); }
+.aspire-corporate-section .corp-objective { display:grid; grid-template-columns:54px 1fr; gap:24px; padding:25px 0; border-bottom:1px solid var(--corp-line); }
+.aspire-corporate-section .corp-number { font-size:12px; font-weight:700; letter-spacing:.08em; color:var(--corp-accent); padding-top:5px; }
+.aspire-corporate-section .corp-objective-body { display:grid; grid-template-columns:1fr 1fr .85fr; align-items:start; gap:24px; }
+.aspire-corporate-section .corp-objective-body h3 { max-width:20ch; }
+.aspire-corporate-section .corp-objective-body > p { color:var(--corp-muted); font-size:14px; }
+.aspire-corporate-section .corp-objective-links { margin-top:-10px; }
+.aspire-corporate-section .corp-human-statement { font:400 clamp(25px,2.5vw,35px)/1.32 var(--corp-serif); letter-spacing:-.02em; }
+.aspire-corporate-section .corp-houston-image img { aspect-ratio:701/238; object-fit:cover; }
+.aspire-corporate-section .corp-team-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px; margin-top:36px; }
+.aspire-corporate-section .corp-team-grid .person-image:empty { display:none; }
+.aspire-corporate-section.corp-expertise { background:var(--corp-paper); }
+.aspire-corporate-section .corp-expertise-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:64px; }
+.aspire-corporate-section .corp-expertise-item { padding:25px 0; border-top:1px solid var(--corp-line); scroll-margin-top:30px; }
+.aspire-corporate-section .corp-expertise-item h3 { font-size:27px; }
+.aspire-corporate-section .corp-expertise-item p { margin-top:12px; color:var(--corp-muted); max-width:54ch; font-size:15px; }
+.aspire-corporate-section .corp-process-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:36px; }
+.aspire-corporate-section .corp-process-step { border-top:1px solid var(--corp-line); padding-top:20px; }
+.aspire-corporate-section .corp-process-step h3 { margin:18px 0 14px; }
+.aspire-corporate-section .corp-process-step > p:last-child { font-size:15px; color:var(--corp-muted); }
+.aspire-corporate-section.corp-atlas { background:#e9eee7; }
+.aspire-corporate-section.corp-atlas .corp-section-heading,.aspire-corporate-section.corp-insights .corp-section-heading { margin:0; }
+.aspire-corporate-section .corp-management-image img { aspect-ratio:1.04; object-fit:cover; }
+.aspire-corporate-section.corp-insights { border-top:1px solid var(--corp-line); }
+.aspire-corporate-section .corp-insights-query:empty { display:none; }
+.aspire-corporate-section .corp-insights-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px; margin:32px 0 0; padding:0; list-style:none; }
+.aspire-corporate-section .corp-insights-list h3 { margin:18px 0 12px; }
+.aspire-corporate-section .corp-insights-list p { font-size:14px; color:var(--corp-muted); }
+.aspire-corporate-section .corp-contact-layout { display:grid; grid-template-columns:1.4fr 1fr; gap:64px; align-items:center; }
+.aspire-corporate-section.corp-contact { background:#e7ece5; }
+.aspire-corporate-section .corp-contact-copy .corp-section-heading { margin-bottom:22px; }
+.aspire-corporate-section .corp-contact-copy .wp-block-buttons { margin-top:26px; }
+.aspire-corporate-section .wp-block-button__link { display:inline-flex; align-items:center; justify-content:center; min-height:48px; border-radius:0; padding:12px 22px; font:700 13px/1.5 var(--corp-sans); background:var(--corp-accent); color:#fff; }
+.aspire-corporate-section .corp-contact-details { border-left:1px solid #becabe; padding:28px 0 28px 40px; }
+.aspire-corporate-section .corp-contact-phone a { display:inline-flex; min-height:44px; font:400 clamp(28px,3vw,42px)/1.25 var(--corp-serif); }
+.aspire-corporate-section .corp-contact-address { margin-top:18px; color:var(--corp-muted); }
+@media(max-width:1100px) {
+ .aspire-corporate-section .corp-heading-row { align-items:start; flex-direction:column; gap:12px; }
+ .aspire-corporate-section .corp-opportunity-list { grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+ .aspire-corporate-section .corp-opportunity:first-child { grid-row:auto; padding-bottom:22px; }
+ .aspire-corporate-section .corp-opportunity-link { display:block; }
+ .aspire-corporate-section .corp-opportunity-image img,.aspire-corporate-section .corp-opportunity:first-child .corp-opportunity-image img { aspect-ratio:1.4; min-height:0; }
+ .aspire-corporate-section .corp-opportunity-copy { padding-top:20px; }
+ .aspire-corporate-section .corp-objective-body { grid-template-columns:1fr 1.2fr; }
+ .aspire-corporate-section .corp-objective-links { grid-column:2; margin-top:-12px; }
+ .aspire-corporate-section .corp-contact-layout { gap:32px; }
+}
+@media(max-width:700px) {
+ .aspire-corporate-section { --corp-gutter:20px; --corp-space:50px; }
+ .aspire-corporate-section .corp-section-heading { margin-bottom:28px; }
+ .aspire-corporate-section h2 { font-size:34px; }
+ .aspire-corporate-section .corp-opportunity-list,.aspire-corporate-section .corp-editorial-split,.aspire-corporate-section .corp-expertise-grid,.aspire-corporate-section .corp-process-grid,.aspire-corporate-section .corp-contact-layout,.aspire-corporate-section .corp-insights-list,.aspire-corporate-section .corp-team-grid { grid-template-columns:1fr; }
+ .aspire-corporate-section .corp-opportunity-list { gap:28px; }
+ .aspire-corporate-section .corp-opportunity h3 { font-size:28px; }
+ .aspire-corporate-section .corp-opportunity-tags { font-size:11px; }
+ .aspire-corporate-section .corp-opportunity-bottom { margin-top:18px; }
+ .aspire-corporate-section .corp-objective { grid-template-columns:28px 1fr; gap:16px; padding:24px 0; }
+ .aspire-corporate-section .corp-objective-body { display:block; }
+ .aspire-corporate-section .corp-objective-body > p { margin-top:12px; }
+ .aspire-corporate-section .corp-objective-body > .corp-objective-links { margin-top:5px; }
+ .aspire-corporate-section .corp-expertise-item h3 { font-size:25px; }
+ .aspire-corporate-section .corp-editorial-split { gap:30px; }
+ .aspire-corporate-section .corp-management-image img { aspect-ratio:1.4; }
+ .aspire-corporate-section .corp-contact-details { border-left:0; border-top:1px solid #becabe; padding:26px 0 0; }
+}
+@media(max-width:359px) {
+ .aspire-corporate-section h2 { font-size:30px; }
+ .aspire-corporate-section .corp-eyebrow { letter-spacing:.1em; }
+}
+/* The same patterns adapt to the available Gutenberg canvas, not the browser. */
+@container aspire-editor (max-width:900px) {
+ .editor-styles-wrapper .aspire-corporate-section { --corp-gutter:24px; --corp-space:42px; }
+ .editor-styles-wrapper .corp-heading-row { flex-direction:column; align-items:start; gap:12px; }
+ .editor-styles-wrapper .corp-objective-body,.editor-styles-wrapper .corp-editorial-split,.editor-styles-wrapper .corp-contact-layout { grid-template-columns:1fr; }
+ .editor-styles-wrapper .corp-objective-links { grid-column:auto; }
+ .editor-styles-wrapper .corp-opportunity-list { grid-template-columns:1fr; }
+ .editor-styles-wrapper .corp-opportunity:first-child { grid-row:auto; }
+ .editor-styles-wrapper .corp-opportunity-link { display:block; }
+ .editor-styles-wrapper .corp-process-grid { grid-template-columns:1fr; }
+ .editor-styles-wrapper .corp-contact-details { border:0; padding:0; }
+}

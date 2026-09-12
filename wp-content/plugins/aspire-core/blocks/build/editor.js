@@ -14,7 +14,7 @@
 			title: definition[1],
 			icon: definition[2],
 			category: 'aspirecre',
-			attributes: definition[3] ? { count: { type: 'integer', default: 4 } } : {},
+			attributes: definition[3] ? { count: { type: 'integer', default: 4 }, presentation: { type: 'string', enum: ['classic', 'editorial'], default: 'classic' }, ...(definition[0] === 'team-grid' ? { hideWhenEmpty: { type: 'boolean', default: false } } : {}) } : {},
 			supports: { html: false, align: ['wide', 'full'] },
 			edit: function (props) {
 				const count = Math.max(1, Math.min(8, props.attributes.count || 4));
@@ -24,12 +24,14 @@
 							el(components.RangeControl, {
 								label: definition[3], value: count, min: 1, max: 8,
 								onChange: function (value) { props.setAttributes({ count: Math.max(1, Math.min(8, value || 4)) }); }
-							})
+							}),
+							el(components.SelectControl, { label: 'Presentation', value: props.attributes.presentation, options: [{label: 'Classic', value: 'classic'}, {label: 'Corporate editorial', value: 'editorial'}], onChange: function (value) { props.setAttributes({ presentation: value }); } }),
+							definition[0] === 'team-grid' && el(components.ToggleControl, { label: 'Hide when no team members are published', checked: !!props.attributes.hideWhenEmpty, onChange: function (value) { props.setAttributes({ hideWhenEmpty: value }); } })
 						)
 					),
 					el('div', blockEditor.useBlockProps({ className: 'aspire-editor-dynamic aspire-editor-' + definition[0] }),
 						el('div', { className: 'aspire-block-caption' }, definition[1]),
-						el(components.Disabled, null, el(SSR, { block: name, attributes: definition[3] ? { count: count } : {}, httpMethod: 'GET' }))
+						el(components.Disabled, null, el(SSR, { block: name, attributes: definition[3] ? { count: count, presentation: props.attributes.presentation, ...(definition[0] === 'team-grid' ? { hideWhenEmpty: !!props.attributes.hideWhenEmpty } : {}) } : {}, httpMethod: 'GET' }))
 					)
 				);
 			},

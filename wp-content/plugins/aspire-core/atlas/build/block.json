@@ -1,13 +1,66 @@
 {
- "$schema":"https://schemas.wp.org/trunk/block.json",
- "apiVersion":3,"name":"aspire/atlas","version":"0.1.0","title":"Aspire Atlas","category":"aspirecre","icon":"location-alt",
- "description":"An interactive Houston commercial real estate map. Task 1 opening experience.",
- "attributes":{
-  "headline":{"type":"string","default":"Explore Houston.\nFind your next move."},
-  "supportingText":{"type":"string","default":"Commercial real estate intelligence. Real opportunities. A stronger view of Houston."},
-  "showNaturalLanguage":{"type":"boolean","default":true},
-  "enableBrief":{"type":"boolean","default":false}
- },
- "supports":{"html":false,"align":["wide","full"]},
- "editorScript":"aspire-atlas-editor","editorStyle":"aspire-atlas-editor"
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "aspire/atlas",
+  "version": "0.1.0",
+  "title": "Aspire Atlas",
+  "category": "aspirecre",
+  "icon": "location-alt",
+  "description": "Aspire’s interactive Houston commercial real estate capability, with an optional company-first homepage hero.",
+  "attributes": {
+    "headline": {
+      "type": "string",
+      "default": "Explore Houston.\nFind your next move."
+    },
+    "supportingText": {
+      "type": "string",
+      "default": "Commercial real estate intelligence. Real opportunities. A stronger view of Houston."
+    },
+    "showNaturalLanguage": {
+      "type": "boolean",
+      "default": true
+    },
+    "enableBrief": {
+      "type": "boolean",
+      "default": false
+    },
+    "corporateHero": {
+      "type": "boolean",
+      "default": false
+    },
+    "companyName": {
+      "type": "string",
+      "default": "ASPIRE COMMERCIAL"
+    },
+    "productName": {
+      "type": "string",
+      "default": "ASPIRE ATLAS"
+    },
+    "productLine": {
+      "type": "string",
+      "default": "Explore Houston. Find your next move."
+    },
+    "advisorPrompt": {
+      "type": "string",
+      "default": "Prefer to talk it through?"
+    },
+    "advisorLabel": {
+      "type": "string",
+      "default": "Talk to an Aspire advisor"
+    },
+    "continueLabel": {
+      "type": "string",
+      "default": "Discover Aspire Commercial"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "anchor": true
+  },
+  "editorScript": "aspire-atlas-editor",
+  "editorStyle": "aspire-atlas-editor"
 }

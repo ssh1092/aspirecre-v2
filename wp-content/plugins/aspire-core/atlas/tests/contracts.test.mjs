@@ -1,8 +1,54 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {atlasStyle} from '../src/style.js';
+import {corporateStyle,corporateMarkers} from '../src/corporate-style.js';
+import {cameraInsets} from '../src/camera-padding.js';
 import {loadProperties,addPropertyLayers} from '../src/properties.js';
 import {validateStyleMin} from '@maplibre/maplibre-gl-style-spec';
+test('camera padding preserves normal desktop and mobile composition without mutating measurements',()=>{
+ for(const [measured,width,height] of [[{top:130,right:580,bottom:40,left:24},1440,940],[{top:82,right:60,bottom:612,left:16},390,796]]){
+  const before={...measured};assert.deepEqual(cameraInsets(measured,width,height),measured);assert.deepEqual(measured,before);
+ }
+});
+test('camera padding survives scrolled roots, hidden panels and zero-size reparenting',()=>{
+ const cases=[
+  [{top:1230,right:65,bottom:-235,left:45},1440,940],
+  [{top:-270,right:65,bottom:1265,left:45},1024,810],
+  [{top:82,right:60,bottom:-122,left:16},390,0],
+  [{top:NaN,right:Infinity,bottom:undefined,left:-Infinity},0,0],
+  [{top:1e308,right:1e308,bottom:1e308,left:1e308},320,240],
+ ];
+ for(const [measured,width,height] of cases){
+  const padding=cameraInsets(measured,width,height);
+  assert.ok(Object.values(padding).every(value=>Number.isFinite(value)&&value>=0));
+  assert.ok(padding.left+padding.right<=Math.max(0,width-40)+1e-9);
+  assert.ok(padding.top+padding.bottom<=Math.max(0,height-40)+1e-9);
+ }
+});
+test('camera padding recovers across desktop/mobile viewport transitions without retaining stale geometry',()=>{
+ const desktop={top:130,right:580,bottom:40,left:24};
+ const narrow=cameraInsets(desktop,320,240);
+ assert.ok(narrow.left+narrow.right<=280);assert.equal(narrow.top+narrow.bottom,170);
+ assert.deepEqual(cameraInsets({top:180,right:60,bottom:-220,left:16},0,0),{top:0,right:0,bottom:0,left:0});
+ assert.deepEqual(cameraInsets(desktop,1440,940),desktop);
+});
+test('corporate map is opt-in and preserves shared sources, layer detail and default paints',()=>{
+ const base=atlasStyle('http://localhost/houston.pmtiles','http://localhost/fonts/{fontstack}/{range}.pbf');
+ const before=JSON.stringify(base),corporate=corporateStyle(base);
+ assert.deepEqual(validateStyleMin(corporate),[]);
+ assert.equal(JSON.stringify(base),before);
+ assert.deepEqual(corporate.sources,base.sources);
+ assert.deepEqual(corporate.layers.map(({id,type,filter,minzoom,maxzoom,layout})=>({id,type,filter,minzoom,maxzoom,layout})),base.layers.map(({id,type,filter,minzoom,maxzoom,layout})=>({id,type,filter,minzoom,maxzoom,layout})));
+ assert.notEqual(corporate.layers.find(l=>l.id==='background').paint['background-color'],base.layers.find(l=>l.id==='background').paint['background-color']);
+ assert.equal(base.layers.find(l=>l.id==='water').paint['fill-color'],'#071516');
+});
+test('corporate marker palette preserves hit targets and selected/hover behavior',()=>{
+ const paints=[];corporateMarkers({setPaintProperty:(...args)=>paints.push(args)});
+ assert.ok(paints.every(([layer])=>['atlas-properties','atlas-property-ring'].includes(layer)));
+ assert.ok(!paints.some(([,key])=>['circle-radius','circle-opacity','circle-stroke-opacity'].includes(key)));
+ const color=paints.find(([layer,key])=>layer==='atlas-properties'&&key==='circle-color')[2];
+ assert.ok(JSON.stringify(color).includes('selected'));assert.ok(JSON.stringify(color).includes('hover'));
+});
 test('custom map style validates against MapLibre style schema',()=>{
  const style=atlasStyle('http://localhost/houston.pmtiles','http://localhost/fonts/{fontstack}/{range}.pbf');
  assert.deepEqual(validateStyleMin(style),[]);

@@ -13,6 +13,18 @@
       "default": 4,
       "minimum": 1,
       "maximum": 8
+    },
+    "presentation": {
+      "type": "string",
+      "enum": [
+        "classic",
+        "editorial"
+      ],
+      "default": "classic"
+    },
+    "hideWhenEmpty": {
+      "type": "boolean",
+      "default": false
     }
   },
   "supports": {

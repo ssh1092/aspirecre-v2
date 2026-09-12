@@ -1,4 +1,4 @@
 <?php defined( 'ABSPATH' ) || exit; $properties = aspire_core_block_featured_properties( $count ); ?>
-	<?php if ( $properties ) : ?><div class="property-grid">
-		<?php foreach ( $properties as $property ) : include __DIR__ . '/property-card.php'; endforeach; ?>
-	</div><?php else : ?><div class="empty-state"><p><?php echo esc_html( $editor ? 'No featured properties are available yet. Add or feature properties under Properties.' : 'Property listings will appear here when available.' ); ?></p><?php if ( current_user_can( 'edit_posts' ) ) : ?><a href="<?php echo esc_url( admin_url( 'edit.php?post_type=property' ) ); ?>">Manage properties <span aria-hidden="true">→</span></a><?php endif; ?></div><?php endif; ?>
+	<?php if ( $properties ) : ?><div class="<?php echo $editorial ? 'corp-opportunity-list' : 'property-grid'; ?>">
+		<?php foreach ( $properties as $property ) : include __DIR__ . ( $editorial ? '/opportunity.php' : '/property-card.php' ); endforeach; ?>
+	</div><?php else : ?><div class="empty-state"><p><?php echo esc_html( $editor ? 'No featured properties are available yet. Add or feature properties under Properties.' : 'Property listings will appear here when available.' ); ?></p><?php if ( $editor && current_user_can( 'edit_posts' ) ) : ?><a href="<?php echo esc_url( admin_url( 'edit.php?post_type=property' ) ); ?>">Manage properties <span aria-hidden="true">→</span></a><?php endif; ?></div><?php endif; ?>

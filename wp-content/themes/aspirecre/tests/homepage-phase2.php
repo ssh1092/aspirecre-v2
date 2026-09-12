@@ -1,0 +1,109 @@
+<?php
+/** Read-only rendered content, SEO, real-inventory and link-safety checks. */
+if ( PHP_SAPI !== 'cli' ) { exit; }
+require dirname( __DIR__, 4 ) . '/wp-load.php';
+$checks = 0;
+function phase2_check( bool $ok, string $message ): void {
+	global $checks;
+	if ( ! $ok ) { throw new RuntimeException( $message ); }
+	++$checks; echo "PASS: $message\n";
+}
+function phase2_text( DOMNode $node ): string { return trim( preg_replace( '/\s+/u', ' ', $node->textContent ) ); }
+wp_set_current_user( 0 );
+$home = get_post( (int) get_option( 'page_on_front' ) );
+phase2_check( $home instanceof WP_Post && 'publish' === $home->post_status, 'Live Home is published' );
+$GLOBALS['wp_query'] = new WP_Query( array( 'page_id' => $home->ID ) );
+$GLOBALS['post'] = $home;
+setup_postdata( $home );
+$html = apply_filters( 'the_content', $home->post_content );
+$doc = new DOMDocument();
+$previous_errors = libxml_use_internal_errors( true );
+$doc->loadHTML( '<?xml encoding="utf-8" ?><main id="phase2-test">' . $html . '</main>' );
+libxml_clear_errors(); libxml_use_internal_errors( $previous_errors );
+$xpath = new DOMXPath( $doc );
+$h1 = $xpath->query( '//h1' );
+phase2_check( 1 === $h1->length && 'Houston Commercial Real Estate, Made Clear.' === phase2_text( $h1->item( 0 ) ), 'Exactly one H1 with the locked company headline' );
+phase2_check( 1 === $xpath->query( '//*[@data-atlas]' )->length, 'Exactly one Atlas application is rendered' );
+phase2_check( str_contains( phase2_text( $doc->documentElement ), 'Explore Houston. Find your next move.' ), 'Atlas product language remains visible and distinct from the H1' );
+phase2_check( str_contains( phase2_text( $doc->documentElement ), 'Aspire Commercial helps tenants, property owners, investors and developers navigate leasing, investment, development, property management and commercial real estate decisions across Greater Houston.' ), 'Company purpose and all four audiences are explicit' );
+$outline = array(
+	'current-opportunities' => 'Commercial Real Estate Opportunities Across Houston',
+	'client-objectives' => 'Commercial Real Estate Services Built Around Your Objective',
+	'human-expertise' => 'Local Expertise. Better Real Estate Decisions.',
+	'expertise' => 'Commercial Real Estate Expertise Across the Property Lifecycle',
+	'how-aspire-works' => 'A Clearer Way Through Commercial Real Estate',
+	'about-atlas' => 'A Better View of Houston Commercial Real Estate',
+	'property-management' => 'Commercial Property Management That Goes Beyond Operations',
+	'insights' => 'Insights From Houston Commercial Real Estate',
+	'talk-to-aspire' => 'What’s Your Next Real Estate Move?',
+);
+foreach ( $outline as $anchor => $heading ) {
+	$section = $xpath->query( '//section[@id="' . $anchor . '"]' );
+	phase2_check( 1 === $section->length, 'One semantic region: ' . $anchor );
+	$headings = $xpath->query( './/h2', $section->item( 0 ) );
+	phase2_check( 1 === $headings->length && $heading === phase2_text( $headings->item( 0 ) ), 'Approved section H2: ' . $anchor );
+	phase2_check( 0 === $xpath->query( './/h1|.//h4|.//h5|.//h6', $section->item( 0 ) )->length, 'Corporate section preserves H2/H3 hierarchy: ' . $anchor );
+}
+$opportunities = $xpath->query( '//section[@id="current-opportunities"]' )->item( 0 );
+$selected = aspire_core_block_featured_properties( 3 );
+phase2_check( 3 === count( $selected ) && 3 === $xpath->query( './/article', $opportunities )->length, 'Three current opportunities come from live local inventory' );
+foreach ( $selected as $property ) {
+	$url = get_permalink( $property->ID );
+	phase2_check( 'publish' === $property->post_status && 'property' === $property->post_type && $property->ID === url_to_postid( $url ), 'Opportunity is published with a real permalink: ' . $property->ID );
+	phase2_check( 1 === $xpath->query( './/a[@href="' . esc_url( $url ) . '"]', $opportunities )->length, 'Opportunity has one descriptive property link: ' . $property->ID );
+	phase2_check( has_post_thumbnail( $property->ID ) && 'attachment' === get_post_type( get_post_thumbnail_id( $property->ID ) ), 'Opportunity uses real Media Library photography: ' . $property->ID );
+}
+$property_images = $xpath->query( './/img', $opportunities );
+phase2_check( 3 === $property_images->length, 'Each current opportunity has a property photograph' );
+foreach ( $property_images as $image ) {
+	phase2_check( str_starts_with( $image->getAttribute( 'src' ), home_url( '/' ) ) && 'lazy' === $image->getAttribute( 'loading' ) && $image->hasAttribute( 'alt' ) && $image->hasAttribute( 'srcset' ), 'Below-fold opportunity uses a local responsive, lazy image with alt attribute' );
+}
+foreach ( array( 351, 392 ) as $id ) {
+	phase2_check( 'draft' === get_post_status( $id ) && ! str_contains( $html, get_permalink( $id ) ) && ! in_array( $id, wp_list_pluck( $selected, 'ID' ), true ), 'Pilot draft stays out of homepage inventory: ' . $id );
+}
+phase2_check( ! str_contains( $html, '$3,410,000' ) && ! str_contains( $html, '$2,232,000' ) && ! str_contains( $html, '3410000' ), 'FM 1093 legacy price remains absent from page and Atlas data' );
+$all_opportunities = Aspire_Core_Blocks::render( 'properties', array( 'count' => 8, 'presentation' => 'editorial' ), false );
+phase2_check( str_contains( $all_opportunities, esc_url( get_permalink( 122 ) ) ) && ! str_contains( $all_opportunities, '$3,410,000' ) && ! str_contains( $all_opportunities, '$2,232,000' ), 'Editorial block also preserves price suppression when FM is included' );
+$team = aspire_core_block_team_members( 3 );
+$human = $xpath->query( '//section[@id="human-expertise"]' )->item( 0 );
+if ( ! $team ) {
+	phase2_check( 0 === $xpath->query( './/article', $human )->length && ! str_contains( phase2_text( $human ), 'profiles will appear' ) && ! str_contains( phase2_text( $human ), 'Portrait to come' ), 'No fabricated Team cards or public placeholder when real Team is empty' );
+} else {
+	foreach ( $team as $member ) { phase2_check( 'publish' === $member->post_status && str_contains( $doc->saveHTML( $human ), esc_url( get_permalink( $member->ID ) ) ), 'Human section renders real published Team: ' . $member->ID ); }
+}
+$insights = $xpath->query( '//section[@id="insights"]' )->item( 0 );
+$posts = get_posts( array( 'post_type' => 'post', 'post_status' => 'publish', 'numberposts' => 3 ) );
+if ( ! $posts ) {
+	phase2_check( 0 === $xpath->query( './/*[contains(concat(" ",normalize-space(@class)," ")," wp-block-post ")]', $insights )->length && 0 === $xpath->query( './/time', $insights )->length, 'No fabricated Insights cards or dates when real posts are empty' );
+} else {
+	foreach ( $xpath->query( './/a[@href]', $insights ) as $link ) {
+		$post_id = url_to_postid( $link->getAttribute( 'href' ) );
+		if ( 'post' === get_post_type( $post_id ) ) { phase2_check( 'publish' === get_post_status( $post_id ), 'Insights links only to published posts' ); }
+	}
+}
+foreach ( $xpath->query( '//section[starts-with(@class,"wp-block-group")]//a[@href]' ) as $link ) {
+	$href = html_entity_decode( $link->getAttribute( 'href' ), ENT_QUOTES, 'UTF-8' );
+	$label = phase2_text( $link );
+	phase2_check( '' !== $label && ! preg_match( '/^(learn more|read more)$/i', $label ), 'Descriptive corporate anchor: ' . $label );
+	if ( str_starts_with( $href, 'tel:' ) ) { phase2_check( 'tel:+17139332001' === $href, 'Contact link uses the approved phone' ); continue; }
+	$parts = wp_parse_url( $href );
+	if ( str_starts_with( $href, '#' ) || ( ! empty( $parts['fragment'] ) && ( $parts['path'] ?? '/' ) === '/' ) ) {
+		$anchor = $parts['fragment'] ?? substr( $href, 1 );
+		phase2_check( 1 === $xpath->query( '//*[@id="' . $anchor . '"]' )->length, 'In-page destination exists: ' . $anchor );
+		continue;
+	}
+	if ( str_starts_with( $href, home_url( '/' ) ) ) {
+		$target_id = url_to_postid( $href );
+		phase2_check( $target_id > 0 && 'publish' === get_post_status( $target_id ), 'Internal destination is published: ' . $label );
+	}
+}
+phase2_check( (int) get_option( 'blog_public' ) === 1 && empty( apply_filters( 'wp_robots', array() )['noindex'] ), 'Homepage remains indexable' );
+phase2_check( home_url( '/' ) === wp_get_canonical_url( $home->ID ), 'Homepage canonical resolves to site root' );
+phase2_check( 'Houston Commercial Real Estate | Aspire Commercial' === wp_get_document_title(), 'Existing WordPress title pipeline emits the recommended SEO title' );
+phase2_check( str_contains( phase2_text( $human ), 'brokerage and advisory company' ) && str_contains( phase2_text( $human ), 'an Aspire advisor' ), 'Human expertise clearly identifies a brokerage and advisory company' );
+phase2_check( 1 === $xpath->query( '//section[@id="talk-to-aspire"]//a[starts-with(normalize-space(.),"Talk to Aspire") and @href="tel:+17139332001"]' )->length, 'Final primary CTA reaches Aspire directly' );
+foreach ( $xpath->query( '//section[contains(@class,"aspire-corporate-section")]//img' ) as $image ) {
+	phase2_check( 'lazy' === $image->getAttribute( 'loading' ) && '' !== $image->getAttribute( 'srcset' ), 'Below-fold corporate image is lazy and responsive' );
+}
+wp_reset_postdata();
+echo "SUCCESS: $checks Phase 2 rendered checks\n";

@@ -10,9 +10,21 @@ function aspirecre_check( bool $ok, string $label ): void {
 	echo "PASS: $label\n";
 }
 $ids = array();
+$property_fixtures = array();
+$team_fixtures = array();
+// Scope this test's queries, rather than assuming the real site has no inventory.
+$fixture_scope = static function ( $query ) use ( &$property_fixtures, &$team_fixtures ): void {
+	$type = $query->get( 'post_type' );
+	if ( ! in_array( $type, array( 'property', 'team_member' ), true ) ) { return; }
+	// WP_Query gives post__in precedence over post__not_in; keep tier deduplication.
+	$allowed = array_diff( 'property' === $type ? $property_fixtures : $team_fixtures, (array) $query->get( 'post__not_in' ) );
+	$query->set( 'post__in', array_values( $allowed ) ?: array( -1 ) );
+};
+$suppress_fixture = null;
 $wpdb->query( 'START TRANSACTION' );
 try {
 	wp_set_current_user( 0 );
+	add_action( 'pre_get_posts', $fixture_scope );
 	aspirecre_check( str_ends_with( get_front_page_template(), '/front-page.php' ), 'WordPress resolves proper front-page template' );
 	aspirecre_check( post_type_exists( 'property' ) && post_type_exists( 'team_member' ), 'Aspire Core CPTs remain registered' );
 	ob_start(); get_template_part( 'template-parts/home/finder' ); $form = ob_get_clean();
@@ -25,6 +37,7 @@ try {
 	foreach ( array( array( 'available', 1, 'publish' ), array( 'available', 0, 'publish' ), array( 'sold', 1, 'publish' ), array( 'available', 1, 'draft' ), array( 'leased', 0, 'publish' ) ) as $i => $fixture ) {
 		$id = wp_insert_post( array( 'post_type' => 'property', 'post_status' => $fixture[2], 'post_title' => 'Temporary property ' . $i, 'post_name' => 'temporary-home-test-' . $i ) );
 		$ids[] = $id;
+		$property_fixtures[] = $id;
 		update_post_meta( $id, '_aspire_listing_status', $fixture[0] );
 		update_post_meta( $id, '_aspire_featured_property', $fixture[1] );
 	}
@@ -47,6 +60,13 @@ try {
 	aspirecre_check( 'Contact for pricing' === aspirecre_metric( $id ), 'Price display fallback' );
 	delete_post_meta( $id, '_aspire_price_display' );
 	aspirecre_check( '$500,000' === aspirecre_metric( $id ), 'Sale price fallback' );
+	$suppress_fixture = static fn() => array( $id );
+	add_filter( 'pre_option_aspire_atlas_suppressed_price_ids', $suppress_fixture );
+	aspirecre_check( '' === aspirecre_metric( $id ), 'Suppressed price never appears through metric fallback' );
+	update_post_meta( $id, '_aspire_price_display', 'Legacy price must remain private' );
+	aspirecre_check( '' === aspirecre_metric( $id ), 'Suppressed price display also stays private' );
+	delete_post_meta( $id, '_aspire_price_display' );
+	remove_filter( 'pre_option_aspire_atlas_suppressed_price_ids', $suppress_fixture );
 	delete_post_meta( $id, '_aspire_sale_price' );
 	aspirecre_check( '' === aspirecre_metric( $id ), 'No invented metric for missing values' );
 	update_post_meta( $id, '_aspire_city', 'Houston' );
@@ -58,6 +78,7 @@ try {
 	foreach ( range( 0, 4 ) as $i ) {
 		$member = wp_insert_post( array( 'post_type' => 'team_member', 'post_status' => 4 === $i ? 'draft' : 'publish', 'post_title' => 'Temporary member ' . $i, 'post_name' => 'temporary-member-' . $i ) );
 		$ids[] = $member;
+		$team_fixtures[] = $member;
 		update_post_meta( $member, '_aspire_job_title', 'Broker' );
 	}
 	aspirecre_check( 1 === count( aspire_core_block_team_members( 1 ) ), 'Team count honored' );
@@ -67,6 +88,8 @@ try {
 	aspirecre_check( ! str_contains( $card . $team, 'Read More' ), 'Cards omit blog affordances' );
 	echo "SUCCESS: $checks checks\n";
 } finally {
+	remove_action( 'pre_get_posts', $fixture_scope );
+	if ( $suppress_fixture ) { remove_filter( 'pre_option_aspire_atlas_suppressed_price_ids', $suppress_fixture ); }
 	$wpdb->query( 'ROLLBACK' );
 	foreach ( $ids as $id ) { clean_post_cache( $id ); }
 	echo "Fixture transaction rolled back.\n";
