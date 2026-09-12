@@ -19,6 +19,7 @@ final class Aspire_Core_Fields {
 	}
 	public static function clean( $value, $kind ) {
 		if ( ! is_scalar( $value ) ) { return ''; }
+		if ( is_array( $kind ) && '' === $value ) { return ''; }
 		if ( is_array( $kind ) ) { return in_array( $value, $kind, true ) ? $value : $kind[0]; }
 		if ( 'boolean' === $kind ) { return in_array( $value, array( true, 1, '1' ), true ); }
 		if ( in_array( $kind, array( 'number', 'integer', 'latitude', 'longitude' ), true ) ) {

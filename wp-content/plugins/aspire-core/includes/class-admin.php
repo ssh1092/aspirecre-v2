@@ -37,6 +37,7 @@ final class Aspire_Core_Admin {
 	public static function control( $name, $kind, $value, $id ) {
 		if ( is_array( $kind ) ) {
 			echo '<select id="' . esc_attr( $id ) . '" name="' . esc_attr( $name ) . '">';
+			echo '<option value="" ' . selected( $value, '', false ) . '>Not confirmed</option>';
 			foreach ( $kind as $option ) { echo '<option value="' . esc_attr( $option ) . '" ' . selected( $value, $option, false ) . '>' . esc_html( self::label( $option ) ) . '</option>'; }
 			echo '</select>';
 		} elseif ( 'textarea' === $kind ) {
@@ -59,7 +60,9 @@ final class Aspire_Core_Admin {
 		echo '<div class="aspire-fields">';
 		foreach ( $box['args'] as $name => $kind ) {
 			echo '<div><label for="aspire-' . esc_attr( $name ) . '">' . esc_html( self::label( $name ) ) . '</label>';
-			self::control( 'aspire[' . $name . ']', $kind, get_post_meta( $post->ID, '_aspire_' . $name, true ), 'aspire-' . $name );
+			$value = get_post_meta( $post->ID, '_aspire_' . $name, true );
+			if ( 'listing_status' === $name && 'draft' === $post->post_status && ! metadata_exists( 'post', $post->ID, '_aspire_listing_status' ) ) { $value = ''; }
+			self::control( 'aspire[' . $name . ']', $kind, $value, 'aspire-' . $name );
 			echo '</div>';
 		}
 		echo '</div>';
@@ -87,7 +90,7 @@ final class Aspire_Core_Admin {
 			$value = get_post_meta( $post->ID, '_aspire_' . $name, true );
 			$ids = is_array( $value ) ? $value : array_filter( array( (int) $value ) );
 			echo '<div class="aspire-media" data-kind="' . esc_attr( $name ) . '"><p><strong>' . esc_html( $label ) . '</strong></p><input type="hidden" name="aspire[' . esc_attr( $name ) . ']" value="' . esc_attr( implode( ',', $ids ) ) . '"><ul class="aspire-media-preview">';
-			foreach ( $ids as $id ) { echo '<li>' . esc_html( get_the_title( $id ) ?: 'Attachment ' . $id ) . ' (#' . esc_html( $id ) . ')</li>'; }
+			foreach ( $ids as $id ) { echo '<li><a href="' . esc_url( wp_get_attachment_url( $id ) ) . '" target="_blank" rel="noopener">' . ( wp_attachment_is_image( $id ) ? wp_get_attachment_image( $id, array( 96, 72 ) ) : '' ) . esc_html( get_the_title( $id ) ?: 'Attachment ' . $id ) . ' (#' . esc_html( $id ) . ')</a></li>'; }
 			echo '</ul><button type="button" class="button aspire-select-media">Select ' . esc_html( $label ) . '</button> <button type="button" class="button aspire-clear-media">Clear</button></div>';
 		}
 	}

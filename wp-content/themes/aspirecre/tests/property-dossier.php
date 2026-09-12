@@ -16,7 +16,9 @@ foreach($ids as $id){
  check(str_contains($html,'tel:+17139332001')&&str_contains($html,'CREATE MY REAL ESTATE BRIEF'),'Genuine actions '.$id);
  check(!str_contains($html,'aspire-atlas-view-js')&&!str_contains($html,'aspire-directory-view-js'),'No application runtime '.$id);
  check(!preg_match('/<link[^>]+href=["\'][^"\']*\/map\.css/',$html),'Map stylesheet not eager '.$id);
- check(!str_contains($html,'id="property-gallery"')&&!str_contains($html,'DOWNLOAD BROCHURE')&&!str_contains($html,'YOUR ASPIRE ADVISORS'),'Absent media/advisors omitted '.$id);
+ check(str_contains($html,'id="property-gallery"')===(bool)$d['gallery'],'Gallery follows local attachment data '.$id);
+ check(str_contains($html,'DOWNLOAD BROCHURE')===(bool)$d['brochure'],'Brochure follows local PDF field '.$id);
+ check(str_contains($html,'YOUR ASPIRE ADVISORS')===(bool)$d['brokers'],'Only assigned advisors render '.$id);
  check(!str_contains($html,'PROPERTY OVERVIEW</h2>'),'Empty editor body omitted '.$id);
  check(str_contains($html,'PROPERTY HIGHLIGHTS')&&str_contains($html,esc_html($d['highlights'][0])),'Structured highlights '.$id);
  check(!str_contains($html,'comments-area')&&!str_contains($html,'post-navigation')&&!str_contains($html,'entry-meta'),'No blog UI '.$id);
