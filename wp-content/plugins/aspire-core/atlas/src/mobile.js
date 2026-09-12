@@ -1,19 +1,18 @@
 export const mobileViewport=()=>matchMedia('(max-width: 767px)').matches;
 export function createMobileSheet(root){
  const media=matchMedia('(max-width: 767px)'),sheet=document.createElement('section'),bar=document.createElement('div'),content=document.createElement('div'),footer=document.createElement('div');
- sheet.className='atlas-mobile-sheet';sheet.hidden=true;sheet.setAttribute('aria-label','Atlas workspace');
+ sheet.className='atlas-mobile-sheet';sheet.hidden=true;sheet.setAttribute('aria-label','Atlas panel');
  bar.className='atlas-sheet-handle';content.className='atlas-sheet-content';footer.className='atlas-sheet-footer';
- content.id=`${root.querySelector('h1').id}-workspace`;content.tabIndex=0;content.setAttribute('role','region');content.setAttribute('aria-label','Atlas workspace content');
- const label=document.createElement('span');label.className='atlas-sheet-label';
+ content.id=`${root.querySelector('h1').id}-workspace`;content.tabIndex=0;content.setAttribute('role','region');content.setAttribute('aria-label','Atlas content');
  const status=document.createElement('span');status.className='atlas-sr-only';status.setAttribute('role','status');
- const controls=['Collapse','Expand'].map(text=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.setAttribute('aria-controls',content.id);bar.append(b);return b;});
- bar.prepend(label);sheet.append(bar,content,footer,status);root.append(sheet);
+ const controls=['Collapse','Expand'].map(text=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',text==='Collapse'?'Show more map':'Show more content');b.title=text==='Collapse'?'Show more map':'Show more content';const icon=document.createElement('span');icon.className=`atlas-sheet-chevron ${text==='Collapse'?'is-down':'is-up'}`;icon.setAttribute('aria-hidden','true');b.append(icon);b.setAttribute('aria-controls',content.id);bar.append(b);return b;});
+ sheet.append(bar,content,footer,status);root.append(sheet);
  const panels=[...root.querySelectorAll('.atlas-opening,.atlas-find,.atlas-dossier,.atlas-guided,.atlas-cre-brief')];
  const homes=new Map(panels.map(p=>{const marker=document.createComment('Atlas panel position');p.before(marker);return[p,marker];}));
  const history=new Map();
  let position='half',drag=null,active=null,actionHomes=[],lastKey='',onLayout=()=>{};
  const sizes=()=>{const height=root.clientHeight;const expanded=Math.max(150,height-(height<500?110:180));return{peek:Math.min(112,expanded),half:Math.min(expanded,Math.max(240,height*.56)),expanded};};
- function layout(notify=true){const h=sizes()[position];root.style.setProperty('--atlas-sheet-height',`${h}px`);sheet.dataset.position=position;label.textContent=position==='peek'?'Workspace':position==='half'?'Workspace · Half':'Workspace · Expanded';status.textContent=`Atlas workspace ${position}.`;controls[0].disabled=position==='peek';controls[1].disabled=position==='expanded';content.inert=position==='peek';footer.hidden=position==='peek';if(notify)onLayout();}
+ function layout(notify=true){const h=sizes()[position];root.style.setProperty('--atlas-sheet-height',`${h}px`);sheet.dataset.position=position;status.textContent=position==='peek'?'Map view. Use Show more content to return to your details.':position==='half'?'Map and details visible.':'More room for your details.';controls[0].disabled=position==='peek';controls[1].disabled=position==='expanded';content.inert=position==='peek';footer.hidden=position==='peek';if(notify)onLayout();}
  function snap(next){position=next;sheet.classList.remove('is-dragging');layout();}
  controls[0].onclick=()=>snap(position==='expanded'?'half':'peek');controls[1].onclick=()=>snap(position==='peek'?'half':'expanded');
  function restoreActions(){for(const [node,marker] of actionHomes){marker.replaceWith(node);}actionHomes=[];}
