@@ -102,3 +102,50 @@ No classification authorizes publication. Contact candidates are not approved
 for display and team order does not select a primary. The CSV leaves both human
 review columns blank. Tests exercise the ten requested real-property cases plus
 immutability, coordinates, pricing policy, transaction semantics and CSV safety.
+
+## V4 Census coordinates and existing-map coverage
+
+This is a pre-import audit. Only V3 supplies property identities and addresses.
+The 71 `geocoding_eligible` records are submitted verbatim, plus three reliable
+addresses for the explicitly requested comparison of five source-coordinate
+candidates. The other two have no reliable address and are not submitted.
+
+```sh
+docker compose exec -T wordpress php < tools/migration/snapshot.php > var/migration/aspire-properties/geocoding-before.json
+mkdir -p var/migration/aspire-properties/geocoding
+node tools/migration/inspect-map.mjs > var/migration/aspire-properties/geocoding/pmtiles.json
+docker compose exec -T wordpress php < tools/migration/snapshot.php > var/migration/aspire-properties/geocoding-after.json
+var/migration/venv/bin/python tools/migration/geocode.py --fetch
+var/migration/venv/bin/python -m unittest discover -s tools/migration/tests -v
+```
+
+`--fetch` permits one Census `locations/addressbatch` submission using
+`Public_AR_Current` only when a cached response is absent. Subsequent runs reuse
+that response without a network request; omit `--fetch` for an explicitly offline
+run. Input, request provenance and raw CSV stay in the ignored migration cache.
+The manifest includes request/response hashes, exact submitted fields and every
+raw returned result field. Census unavailability stops execution; there is no
+fallback provider, address rewrite, centroid substitute or runtime dependency.
+
+The classifier accepts geographically valid, exact Census matches only after
+street-number, normalized road, state, ZIP and city consistency checks. Standard
+street suffixes/directions are compared without altering submitted addresses.
+Non-exact, range, tied and material-address mismatches require review. Their
+coordinates remain evidence, never import coordinates. Census addresses are
+interpolated along address ranges; acceptance is not rooftop verification.
+
+`inspect-map.mjs` resolves the actual configured Atlas archive and reads its
+header and metadata through Atlas's existing installed PMTiles package. It hashes
+the unchanged file and probes the header-center tile at minimum and maximum
+zoom. Bounding-box inclusion and those samples cannot establish detailed tile
+coverage at every property. No map download/build or frontend edit occurs.
+
+V4 copies V3 decisions, changing only candidate coordinates and adding audit
+fields. `geocode_readiness` concerns coordinates only and does not approve V3
+transactions, image choices, contacts or publication. Source and prototype
+coordinate comparisons use haversine distance with 250 m / 2 km thresholds.
+Unmatched records have no comparison distance. Full read-only SQL snapshots must
+match before outputs are generated. Tests cover all preserved artifact hashes,
+exact input eligibility, parser/classifier behavior, distance calculations,
+actual PMTiles header extraction, map bounds, prototype comparisons and
+byte-identical offline output regeneration. No property or media import exists.
