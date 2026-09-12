@@ -3,6 +3,7 @@ import {Protocol,PMTiles} from 'pmtiles';
 import {atlasStyle} from './style.js';
 import {corporateStyle,corporateMarkers} from './corporate-style.js';
 import {cameraInsets} from './camera-padding.js';
+import {connectJourneyIntent,captureMapPreview} from './presentation-bridge.js';
 import {loadProperties,addPropertyLayers} from './properties.js';
 import {createFindSpace} from './find-space.js';
 import {isDiscovery,isGuided} from './invest.js';
@@ -24,6 +25,7 @@ async function start(root) {
  const count=root.querySelector('.atlas-count');
  let map,failed=false;
  const discovery=createFindSpace(root,reduced);
+ if(root.dataset.corporateHero==='true')connectJourneyIntent(root);
  const mobile=createMobileSheet(root);discovery.present(mobile.sync);
  const fallbackLink=root.querySelector('.atlas-fallback-link');
  root.querySelectorAll('.atlas-fallback-link,.atlas-properties-nav').forEach(link=>link.addEventListener('click',e=>{e.preventDefault();const list=root.querySelector('.atlas-fallback-properties');list.hidden=!list.hidden;fallbackLink.setAttribute('aria-expanded',String(!list.hidden));if(!list.hidden)list.querySelector('a')?.focus();}));
@@ -51,7 +53,8 @@ async function start(root) {
   if(header.tileType!==1) throw Error('Expected vector archive');
   const baseStyle=atlasStyle(root.dataset.tiles,root.dataset.glyphs),mapElement=root.querySelector('.atlas-map');
   const safePadding=measured=>cameraInsets(measured,mapElement.clientWidth,mapElement.clientHeight);
-  map=new maplibregl.Map({padding:safePadding({top:0,right:0,bottom:0,left:root.clientWidth>900?root.clientWidth*.32:0}),container:mapElement,style:root.dataset.corporateHero==='true'?corporateStyle(baseStyle):baseStyle,center:[-95.45,29.82],zoom:9.4,bearing:reduced?0:-7,pitch:reduced?0:38,minZoom:8,maxZoom:16,maxBounds:[[-95.95,29.45],[-95.05,30.25]],attributionControl:false,cooperativeGestures:!mobile.active,renderWorldCopies:false});
+  const corporate=root.dataset.corporateHero==='true';
+  map=new maplibregl.Map({padding:safePadding({top:0,right:0,bottom:0,left:root.clientWidth>900?root.clientWidth*.32:0}),container:mapElement,style:corporate?corporateStyle(baseStyle):baseStyle,center:[-95.45,29.82],zoom:9.4,bearing:reduced||corporate?0:-7,pitch:reduced||corporate?0:38,minZoom:8,maxZoom:16,maxBounds:[[-95.95,29.45],[-95.05,30.25]],attributionControl:false,cooperativeGestures:!mobile.active,renderWorldCopies:false});
   const measuredPadding=()=>{
    if(mobile.active)return mobile.padding();
    if(discovery.state.propertyFocusOpen){
@@ -89,10 +92,13 @@ async function start(root) {
    if(!data)return;
    addPropertyLayers(map,data);
    if(root.dataset.corporateHero==='true')corporateMarkers(map);
+   if(corporate)captureMapPreview(root,map,data.features);
    root.dataset.markerCount=String(data.features.length);
    const popup=new maplibregl.Popup({closeButton:false,closeOnClick:false,offset:16});
    const showLabel=f=>{
-    const label=document.createElement('div');label.className='atlas-map-label';label.textContent=f.properties.displayTitle||f.properties.title;
+    const label=document.createElement('div');label.className='atlas-map-label';
+    if(corporate){const title=document.createElement('strong');title.textContent=f.properties.displayTitle||f.properties.title;const context=document.createElement('span');context.textContent=[f.properties.propertyType?.label,f.properties.location?.city].filter(Boolean).join(' · ');label.append(title,context);}
+    else label.textContent=f.properties.displayTitle||f.properties.title;
     popup.setLngLat(f.geometry.coordinates).setDOMContent(label).addTo(map);
    };
    let lastIds='';
@@ -139,13 +145,13 @@ async function start(root) {
      if(state.cameraBeforeFocus)map.easeTo({...state.cameraBeforeFocus,padding:cameraPadding(),duration});
      state.cameraBeforeFocus=null;
     }else if(reason==='explore'){
-     map.easeTo({center:[-95.45,29.82],zoom:9.4,bearing:reduced?0:-7,pitch:reduced?0:38,padding:cameraPadding(),duration});
+     map.easeTo({center:[-95.45,29.82],zoom:9.4,bearing:reduced||corporate?0:-7,pitch:reduced||corporate?0:38,padding:cameraPadding(),duration});
     }else if(['card','keyboard'].includes(reason) && selected){
      map.easeTo({center:selected.geometry.coordinates,zoom:finding?13.3:map.getZoom(),padding:cameraPadding(),duration});
     }else if(guided && ['enter','workflow-area','ready'].includes(reason)){
      const flow=state.mode==='manage-asset'?state.management:state.ownerDisposition,preset=AREAS[flow.areaPreset];
      syncComposition();
-     if(preset)map.fitBounds(preset.bounds,{padding:0,maxZoom:11.5,duration,linear:true,bearing:reduced?0:-7});
+     if(preset)map.fitBounds(preset.bounds,{padding:0,maxZoom:11.5,duration,linear:true,bearing:reduced||corporate?0:-7});
      else map.easeTo({center:[-95.45,29.82],zoom:9.4,padding:cameraPadding(),duration});
     }else if(finding && ['enter','area','filter','reset','ready','data'].includes(reason)){
      const area=AREAS[state.filters.area];
@@ -155,7 +161,7 @@ async function start(root) {
       const bounds=points.reduce((box,point)=>box.extend(point),new maplibregl.LngLatBounds(points[0],points[0]));
       // MapLibre adds fit padding to persistent edge padding: apply the shell inset only once.
       syncComposition();
-      map.fitBounds(bounds,{padding:0,maxZoom:points.length===1?12.5:11.5,duration,linear:true,bearing:reduced?0:-7});
+      map.fitBounds(bounds,{padding:0,maxZoom:points.length===1?12.5:11.5,duration,linear:true,bearing:reduced||corporate?0:-7});
      }
     }
    });

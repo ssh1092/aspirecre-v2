@@ -18,7 +18,8 @@
       "type": "string",
       "enum": [
         "classic",
-        "editorial"
+        "editorial",
+        "portraits"
       ],
       "default": "classic"
     },

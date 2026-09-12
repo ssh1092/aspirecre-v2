@@ -51,6 +51,10 @@
     "continueLabel": {
       "type": "string",
       "default": "Discover Aspire Commercial"
+    },
+    "continueTarget": {
+      "type": "string",
+      "default": "current-opportunities"
     }
   },
   "supports": {

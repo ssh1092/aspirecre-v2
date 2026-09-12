@@ -8,14 +8,16 @@ final class Aspire_Core_Blocks {
 		$asset = require $base . '/blocks/build/editor.asset.php';
 		wp_register_script( 'aspire-core-block-editor', plugins_url( 'blocks/build/editor.js', ASPIRE_CORE_FILE ), $asset['dependencies'], $asset['version'], true );
 		wp_register_style( 'aspire-core-block-editor', plugins_url( 'blocks/build/editor.css', ASPIRE_CORE_FILE ), array(), $asset['version'] );
-		foreach ( array( 'property-finder' => 'finder', 'featured-properties' => 'properties', 'team-grid' => 'team' ) as $slug => $part ) {
+		foreach ( array( 'property-finder' => 'finder', 'featured-properties' => 'properties', 'team-grid' => 'team', 'property-types' => 'types' ) as $slug => $part ) {
 			register_block_type( $base . '/blocks/build/' . $slug, array( 'render_callback' => static function ( $attributes ) use ( $part ): string { return self::render( $part, $attributes ); } ) );
 		}
 	}
 	public static function render( string $part, array $attributes = array(), ?bool $editor = null ): string {
-		if ( ! in_array( $part, array( 'finder', 'properties', 'team' ), true ) ) { return ''; }
+		if ( ! in_array( $part, array( 'finder', 'properties', 'team', 'types' ), true ) ) { return ''; }
 		$count = max( 1, min( 8, (int) ( $attributes['count'] ?? 4 ) ) );
 		$editorial = 'editorial' === ( $attributes['presentation'] ?? '' );
+		$portfolio = 'portfolio' === ( $attributes['presentation'] ?? '' );
+		$portraits = 'portraits' === ( $attributes['presentation'] ?? '' );
 		$hide_when_empty = ! empty( $attributes['hideWhenEmpty'] );
 		$editor = $editor ?? ( defined( 'REST_REQUEST' ) && REST_REQUEST && current_user_can( 'edit_posts' ) );
 		ob_start();

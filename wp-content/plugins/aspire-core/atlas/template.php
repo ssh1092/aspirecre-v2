@@ -40,4 +40,4 @@
  <div class="atlas-attribution">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a> · <a href="https://protomaps.com" target="_blank" rel="noopener">Protomaps</a></div>
  <noscript><div class="atlas-noscript"><p>Enable JavaScript to explore the map. Properties:</p><ul><?php foreach($mapped as $feature): ?><li><a href="<?php echo esc_url($feature['properties']['permalink']); ?>"><?php echo esc_html($feature['properties']['title']); ?></a></li><?php endforeach; ?></ul></div></noscript>
 </section>
-<?php if($corporate && !$editor): ?><a class="atlas-page-continue" href="#current-opportunities"><?php echo esc_html($continue_label); ?> <span aria-hidden="true">↓</span></a><?php endif; ?>
+<?php if($corporate && !$editor): ?><a class="atlas-page-continue" href="#<?php echo esc_attr($continue_target); ?>"><?php echo esc_html($continue_label); ?> <span aria-hidden="true">↓</span></a><?php endif; ?>

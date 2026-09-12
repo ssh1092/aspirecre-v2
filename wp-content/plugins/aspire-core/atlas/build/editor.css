@@ -44,96 +44,116 @@ body.admin-bar .aspire-atlas{min-height:max(800px,calc(100svh - 32px))}
 @media(max-width:380px){.atlas-opening{padding:20px;margin-inline:16px}.aspire-atlas h1{font-size:34px}.atlas-intents{grid-template-columns:1fr}.aspire-atlas button.atlas-intent{min-height:74px}.atlas-nav{padding-inline:16px}.atlas-nav nav{gap:8px}.aspire-atlas .atlas-nav a{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.aspire-atlas *{transition:none!important;animation:none!important}}
 
-/* Company-first homepage presentation. Existing Atlas embeds retain their own shell. */
-.aspire-atlas.atlas-corporate{--atlas-teal:#80ac96;background:#2b3632;color:#ecede4;min-height:max(810px,94svh)}
+/* Atlas is a geographic stage within Aspire Commercial, not a separate dashboard. */
+.aspire-atlas.atlas-corporate{--atlas-teal:#365f43;background:#eeece5;color:#29342e;min-height:max(810px,94svh)}
 body.admin-bar .aspire-atlas.atlas-corporate{min-height:max(810px,calc(94svh - 32px))}
-.atlas-corporate .atlas-map{background:#2b3632}
-.atlas-corporate .atlas-shade{background:linear-gradient(180deg,#23302bdb,transparent 130px),linear-gradient(90deg,#23302b55,transparent 65%)}
-.atlas-corporate .atlas-nav{min-height:88px;padding:22px 4%;gap:24px}
+.atlas-corporate .atlas-map{background:#eeece5}
+.atlas-corporate .atlas-shade{background:linear-gradient(90deg,#f7f6f0 0%,#f7f6f0f2 24%,#f7f6f0cc 34%,#f7f6f066 47%,transparent 62%),linear-gradient(180deg,#f7f6f0e6,transparent 145px)}
+.atlas-corporate .atlas-nav{min-height:92px;padding:22px 4%;gap:24px}
 .atlas-corporate .atlas-nav nav{gap:26px}
-.aspire-atlas.atlas-corporate .atlas-nav a{font-size:12px;letter-spacing:0;color:#f1f1e9}
-.aspire-atlas.atlas-corporate .atlas-nav a:hover{color:#c4d2bf}
-.aspire-atlas.atlas-corporate .atlas-nav .atlas-contact{border-color:#c4d2bf66;background:transparent;border-radius:0}
-.atlas-corporate .atlas-opening{width:min(530px,44%);max-width:none;margin:8px 0 48px 4%;padding:26px 30px;background:#f4f4ed;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;color:#29342f;animation:none}
-.aspire-atlas.atlas-corporate .atlas-eyebrow{font-size:10px;letter-spacing:.15em;color:#486451;margin:0 0 13px}
-.aspire-atlas.atlas-corporate h1{font:400 clamp(34px,3vw,43px)/1.06 var(--serif,Georgia,serif);letter-spacing:-.04em;color:#29342f;margin:0 0 15px}
-.aspire-atlas.atlas-corporate .atlas-support{font-size:14px;line-height:1.6;color:#58635b;margin:0 0 20px}
-.atlas-corporate .atlas-product-introduction{border-top:1px solid #cbd1c6;padding-top:16px;margin-bottom:16px}
-.aspire-atlas.atlas-corporate .atlas-product-name{margin:0 0 6px;font:600 9px/1.4 var(--sans,Arial,sans-serif);letter-spacing:.16em;color:#486451}
-.aspire-atlas.atlas-corporate .atlas-product-line{margin:0;font:500 17px/1.35 var(--sans,Arial,sans-serif);letter-spacing:-.025em;color:#2d3d33}
-.aspire-atlas.atlas-corporate .atlas-prompt{font-size:11px;font-weight:500;color:#58635b;margin:0 0 5px}
-.atlas-corporate .atlas-intents{gap:0 18px}
-.aspire-atlas.atlas-corporate button.atlas-intent{min-height:65px;border:0;border-bottom:1px solid #cbd1c6;border-radius:0;background:transparent;color:#293b30;padding:12px 0;box-shadow:none;align-items:center}
-.atlas-corporate .atlas-intent strong{font-size:12px;font-weight:600;line-height:1.3}
+.aspire-atlas.atlas-corporate .atlas-brand .custom-logo{filter:brightness(0);opacity:.82;width:185px}
+.aspire-atlas.atlas-corporate a,.aspire-atlas.atlas-corporate button{color:#2d5038}
+.aspire-atlas.atlas-corporate .atlas-nav a{font-size:13px;letter-spacing:0;color:#303c33}
+.aspire-atlas.atlas-corporate .atlas-nav a:hover{color:#547459}
+.aspire-atlas.atlas-corporate .atlas-nav .atlas-contact{border-color:#7e917f80;background:#f7f6f066;border-radius:0}
+.atlas-corporate .atlas-opening{width:min(620px,49%);max-width:none;margin:14px 0 48px 4%;padding:0;background:none;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;color:#29342e;animation:none}
+.aspire-atlas.atlas-corporate .atlas-eyebrow{font-size:11px;letter-spacing:.1em;color:#536951;margin:0 0 22px}
+.aspire-atlas.atlas-corporate h1{font:400 clamp(43px,4.85vw,70px)/.99 var(--serif,Georgia,serif);letter-spacing:-.05em;color:#27332c;margin:0 0 25px;max-width:17ch}
+.aspire-atlas.atlas-corporate .atlas-support{font-size:14px;line-height:1.65;color:#576257;margin:0 0 30px;max-width:490px}
+.atlas-corporate .atlas-product-introduction{margin-bottom:18px}
+.aspire-atlas.atlas-corporate .atlas-product-name{margin:0 0 7px;font:500 11px/1.4 var(--sans,Arial,sans-serif);letter-spacing:.08em;color:#526c53}
+.aspire-atlas.atlas-corporate .atlas-product-line{margin:0;font:500 21px/1.35 var(--sans,Arial,sans-serif);letter-spacing:-.035em;color:#2d3d33}
+.aspire-atlas.atlas-corporate .atlas-prompt{font-size:12px;font-weight:400;color:#667066;margin:0 0 5px}
+.atlas-corporate .atlas-intents{gap:0 28px;max-width:505px}
+.aspire-atlas.atlas-corporate button.atlas-intent{min-height:60px;border:0;border-bottom:1px solid #a5b3a380;border-radius:0;background:transparent;color:#293b30;padding:12px 0;box-shadow:none;align-items:center}
+.atlas-corporate .atlas-intent strong{font-size:14px;font-weight:500;line-height:1.3}
 .atlas-corporate .atlas-intent small{display:none}
-.atlas-corporate .atlas-intent>span:last-child{color:#536e5b;font-size:17px}
-.aspire-atlas.atlas-corporate button.atlas-intent:is(:hover,:focus-visible,[aria-pressed=true]){background:#e5e9df;border-color:#647d68;box-shadow:none}
-.aspire-atlas.atlas-corporate input.atlas-input{margin-top:16px;min-height:44px;padding:11px 12px;background:#fff;color:#293b30;border:1px solid #bec9bc;border-radius:0;box-shadow:none;font-size:12px}
-.atlas-corporate .atlas-input::placeholder{color:#5e6c61}
-.aspire-atlas.atlas-corporate .atlas-command-example{font-size:9px;margin:6px 0 0;color:#667268}
-.aspire-atlas.atlas-corporate .atlas-brief{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;border:1px solid #476552;border-radius:0;background:#365442;color:#fff;min-height:44px;margin-top:12px;padding:12px;font:600 10px/1.4 var(--sans,Arial,sans-serif);letter-spacing:.025em;cursor:pointer}
-.aspire-atlas.atlas-corporate .atlas-brief:hover{background:#294635}
-.aspire-atlas.atlas-corporate .atlas-advisor{margin:14px 0 0;font-size:10px;line-height:1.55;color:#667268;display:flex;flex-wrap:wrap;align-items:center;gap:0 7px}
-.aspire-atlas.atlas-corporate .atlas-advisor a{color:#345640;text-decoration:none;display:inline-flex;gap:8px;align-items:center;min-height:32px;font-weight:600}
-.aspire-atlas.atlas-corporate :is(button,a,input,select,textarea):focus-visible{outline-color:#789d82}
-.atlas-corporate .atlas-map .maplibregl-ctrl-group{background:#35473e;border-color:#75867466;border-radius:2px;box-shadow:none}
-.atlas-corporate .atlas-map .maplibregl-ctrl-group button:hover{background:#485d4e}
-.atlas-corporate .atlas-map .maplibregl-popup-content{background:#34483e;border-color:#83967b;border-radius:2px;box-shadow:none}
-.atlas-corporate .atlas-map .maplibregl-popup-tip{border-top-color:#34483e}
-.aspire-atlas.atlas-corporate .atlas-count{font-size:10px;letter-spacing:.08em;color:#d6dfcd}
-.atlas-corporate .atlas-attribution,.atlas-corporate .atlas-attribution a{color:#c3d0c1}
-.atlas-page-continue{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:48px;padding:12px 4%;box-sizing:border-box;background:#e9ece3;color:#35493d;text-decoration:none;font:500 11px/1.5 var(--sans,Arial,sans-serif);letter-spacing:.02em;border-bottom:1px solid #d4dbcd}
-.atlas-page-continue:hover{background:#e2e7dc;color:#203d2c}.atlas-page-continue span{font-size:17px}.atlas-page-continue:focus-visible{outline:2px solid #476552;outline-offset:-4px}
-/* Keep the working workflow layout and data controls; calm only the large surfaces. */
-.aspire-atlas.atlas-corporate :is(.atlas-filter-rail,.atlas-results,.atlas-guided,.atlas-dossier,.atlas-cre-brief){background:#304239;border-color:#61745f66;backdrop-filter:none;box-shadow:none;border-radius:0}
-.aspire-atlas.atlas-corporate :is(.atlas-brief-controls,.atlas-dossier-actions){background:#304239}
-.aspire-atlas.atlas-corporate :is(.atlas-guided-next,.atlas-brief-next,.atlas-focus-full){background:#9fbea4;color:#203d2a;border-color:#9fbea4}
-.aspire-atlas.atlas-corporate .atlas-brief-controls .atlas-brief-next:not(:disabled):hover,.aspire-atlas.atlas-corporate .atlas-guided-controls .atlas-guided-next:not(:disabled):hover,.aspire-atlas.atlas-corporate .atlas-dossier-actions .atlas-focus-full:hover{background:#b8cdb4;color:#203d2a;border-color:#b8cdb4;filter:none}
-.aspire-atlas.atlas-corporate :is(.atlas-brief-choice,.atlas-guided-choice) input{accent-color:#9fbea4}
-.aspire-atlas.atlas-corporate :is(.atlas-brief-choice,.atlas-guided-choice):has(input:checked){background:#435d48;border-color:#9fbea4}
-.aspire-atlas.atlas-corporate :is(.atlas-brief-choice,.atlas-guided-choice,.atlas-dossier-content):is(:focus-within,:focus-visible){outline-color:#9fbea4}
-.aspire-atlas.atlas-corporate .atlas-brief-steps progress{accent-color:#9fbea4}
-.aspire-atlas.atlas-corporate .atlas-brief-steps progress::-webkit-progress-value{background:#9fbea4}
-.aspire-atlas.atlas-corporate .atlas-brief-steps progress::-moz-progress-bar{background:#9fbea4}
-.aspire-atlas.atlas-corporate :is(.atlas-explore,.atlas-reset,.atlas-focus-back):hover{color:#d8e5cc;border-color:#a7b99d;background:#3c5644}
+.atlas-corporate .atlas-intent>span:last-child{color:#536e5b;font-size:18px;transition:transform .25s ease}
+.aspire-atlas.atlas-corporate button.atlas-intent:is(:hover,:focus-visible,[aria-pressed=true]){background:transparent;border-color:#365f43;box-shadow:none;color:#214e38}
+.atlas-corporate .atlas-intent:is(:hover,:focus-visible)>span:last-child{transform:translate(3px,-3px)}
+.aspire-atlas.atlas-corporate input.atlas-input{width:min(100%,505px);margin-top:18px;min-height:44px;padding:11px 0;background:transparent;color:#293b30;border:0;border-bottom:1px solid #a5b3a380;border-radius:0;box-shadow:none;font-size:13px}
+.atlas-corporate .atlas-input::placeholder{color:#667065}
+.aspire-atlas.atlas-corporate .atlas-command-example{font-size:10px;margin:6px 0 0;color:#687469}
+.aspire-atlas.atlas-corporate .atlas-brief{display:inline-flex;justify-content:space-between;align-items:center;gap:25px;width:auto;border:0;border-bottom:1px solid #476552;border-radius:0;background:none;color:#2b5339;min-height:44px;margin-top:13px;padding:10px 0;font:600 11px/1.4 var(--sans,Arial,sans-serif);letter-spacing:.015em;cursor:pointer}
+.aspire-atlas.atlas-corporate .atlas-brief:hover{background:transparent;color:#142f1e;border-color:#142f1e}
+.aspire-atlas.atlas-corporate .atlas-advisor{margin:8px 0 0;font-size:11px;line-height:1.55;color:#687469;display:flex;flex-wrap:wrap;align-items:center;gap:0 7px}
+.aspire-atlas.atlas-corporate .atlas-advisor a{color:#345640;text-decoration:none;display:inline-flex;gap:8px;align-items:center;min-height:40px;font-weight:500}
+.aspire-atlas.atlas-corporate :is(button,a,input,select,textarea):focus-visible{outline-color:#476b4c}
+.atlas-corporate .atlas-map .maplibregl-ctrl-group{background:#faf9f5;border-color:#a4b2a180;border-radius:2px;box-shadow:0 3px 10px #3f4a3910}
+.atlas-corporate .atlas-map .maplibregl-ctrl-group button:hover{background:#e4eadf}
+.atlas-corporate .atlas-map .maplibregl-ctrl-icon{filter:none;opacity:.7}
+.atlas-corporate .atlas-map .maplibregl-popup-content{background:#fffefa;color:#2d3d32;border-color:#b4c0aa;border-radius:0;box-shadow:0 6px 22px #304a3020;padding:13px 16px}
+.atlas-corporate .atlas-map .maplibregl-popup-tip{border-top-color:#fffefa}
+.atlas-corporate .atlas-map-label strong,.atlas-corporate .atlas-map-label span{display:block}.atlas-corporate .atlas-map-label strong{font-size:12px;font-weight:500}.atlas-corporate .atlas-map-label span{font-size:10px;color:#697663;margin-top:3px}
+.aspire-atlas.atlas-corporate .atlas-count{font-size:11px;letter-spacing:.035em;color:#3f5a42}
+.atlas-corporate .atlas-attribution{background:#f8f7f0cc;padding:2px 4px}
+.atlas-corporate .atlas-attribution,.atlas-corporate .atlas-attribution a{color:#536651}
+.atlas-corporate .atlas-keyboard-selection:focus-within,.atlas-corporate .atlas-fallback-properties,.atlas-corporate .atlas-noscript{background:#fbfaf5;border-color:#9cae96;color:#354b38}
+.aspire-atlas.atlas-corporate:is(.atlas-map-failed,.atlas-data-failed) .atlas-map-meta{background:#fbfaf5;border-color:#b6c1a9}
+.aspire-atlas.atlas-corporate :is(.atlas-map-status,.atlas-data-status){color:#6c5035}
+.aspire-atlas.atlas-corporate .atlas-selection :is(label,select),.atlas-corporate .atlas-selected-label{color:#354b38;background:#fbfaf5;border-color:#a5b49f}
+.atlas-page-continue{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:48px;padding:12px 4%;box-sizing:border-box;background:#f7f6f0;color:#35493d;text-decoration:none;font:500 11px/1.5 var(--sans,Arial,sans-serif);letter-spacing:.02em;border-bottom:1px solid #d7dccf}
+.atlas-page-continue:hover{background:#ecefe5;color:#203d2c}.atlas-page-continue span{font-size:17px}.atlas-page-continue:focus-visible{outline:2px solid #476552;outline-offset:-4px}
+/* Working Atlas panels retain their layout and behavior on the lighter map. */
+.aspire-atlas.atlas-corporate :is(.atlas-filter-rail,.atlas-results,.atlas-guided,.atlas-dossier,.atlas-cre-brief){background:#fcfbf6;color:#303d33;border-color:#a7b49e80;backdrop-filter:none;box-shadow:none;border-radius:0}
+.aspire-atlas.atlas-corporate :is(.atlas-find,.atlas-dossier,.atlas-guided,.atlas-cre-brief) :is(h2,h3,h4,p,label,legend,dt,dd,li,span){color:inherit}
+.aspire-atlas.atlas-corporate :is(.atlas-brief-controls,.atlas-dossier-actions){background:#fcfbf6;border-color:#c3cdbc}
+.aspire-atlas.atlas-corporate :is(.atlas-filter-rail,.atlas-guided,.atlas-cre-brief) :is(input,select,textarea),.aspire-atlas.atlas-corporate .atlas-cre-brief input:not([type=radio]):not([type=checkbox]){background:#fffefa;color:#354536;border-color:#b0bfa8;accent-color:#476b4c}
+.aspire-atlas.atlas-corporate :is(.atlas-build-brief,.atlas-explore,.atlas-reset,.atlas-guided-explore,.atlas-brief-close,.atlas-focus-back,.atlas-brief-edit,.atlas-brief-property,.atlas-guided-phone,.atlas-brief-success-action),.aspire-atlas.atlas-corporate :is(.atlas-guided-controls,.atlas-brief-controls) button,.aspire-atlas.atlas-corporate .atlas-dossier-actions a{color:#355d3f;border-color:#b3c0aa;background:transparent}
+.aspire-atlas.atlas-corporate .atlas-guided-controls .atlas-guided-next,.aspire-atlas.atlas-corporate .atlas-brief-controls .atlas-brief-next,.aspire-atlas.atlas-corporate .atlas-dossier-actions .atlas-focus-full{background:#365c40;color:#fffefa;border-color:#365c40}
+.aspire-atlas.atlas-corporate .atlas-cre-brief button:not(:disabled):hover{background:#e8eee1;border-color:#7c9975;color:#345538}
+.aspire-atlas.atlas-corporate .atlas-brief-controls .atlas-brief-next:not(:disabled):hover,.aspire-atlas.atlas-corporate .atlas-guided-controls .atlas-guided-next:not(:disabled):hover,.aspire-atlas.atlas-corporate .atlas-dossier-actions .atlas-focus-full:hover{background:#244b30;color:#fffefa;border-color:#244b30;filter:none}
+.aspire-atlas.atlas-corporate :is(.atlas-brief-choice,.atlas-guided-choice){background:#f7f8f1;border-color:#bdc9b5}
+.aspire-atlas.atlas-corporate :is(.atlas-brief-choice,.atlas-guided-choice) input{accent-color:#476b4c}
+.aspire-atlas.atlas-corporate :is(.atlas-brief-choice,.atlas-guided-choice):has(input:checked){background:#e5eddd;border-color:#64835a}
+.aspire-atlas.atlas-corporate :is(.atlas-brief-choice,.atlas-guided-choice,.atlas-dossier-content,.atlas-brief-body):is(:focus-within,:focus-visible){outline-color:#476b4c}
+.aspire-atlas.atlas-corporate .atlas-brief-steps progress{accent-color:#476b4c;background:#d8e0d1}
+.aspire-atlas.atlas-corporate .atlas-brief-steps progress::-webkit-progress-bar{background:#d8e0d1}.aspire-atlas.atlas-corporate .atlas-brief-steps progress::-webkit-progress-value{background:#476b4c}.aspire-atlas.atlas-corporate .atlas-brief-steps progress::-moz-progress-bar{background:#476b4c}
+.aspire-atlas.atlas-corporate :is(.atlas-explore,.atlas-reset,.atlas-focus-back):hover{color:#244b30;border-color:#76956d;background:#e5eddd}
+.aspire-atlas.atlas-corporate button.atlas-property{background:#fffefa;border-color:#cad2c2;color:#334334}
+.aspire-atlas.atlas-corporate button.atlas-property:is(:hover,:focus-visible,.is-hovered,[aria-pressed=true]){background:#eaf0e2;border-color:#78916d;box-shadow:none}
+.aspire-atlas.atlas-corporate :is(.atlas-result-list,.atlas-brief-body,.atlas-dossier-content){scrollbar-color:#a4b599 transparent}
+.aspire-atlas.atlas-corporate .atlas-brief-value-cues li:before,.aspire-atlas.atlas-corporate .atlas-dossier-highlights li::marker{color:#53774f}
+.aspire-atlas.atlas-corporate :is(.atlas-brief-error,.atlas-guided-error,.atlas-focus-error){color:#824926}.aspire-atlas.atlas-corporate .atlas-cre-brief [aria-invalid=true]{border-color:#a76940!important}
 @media(min-width:768px){.aspire-atlas.atlas-corporate .atlas-nav nav a{display:inline-flex;align-items:center;min-height:44px}}
-@media(min-width:1600px){.atlas-corporate .atlas-opening{width:550px;margin-top:16px;padding:30px}.aspire-atlas.atlas-corporate h1{font-size:46px}}
-@media(min-width:768px) and (max-width:1100px){.atlas-corporate .atlas-opening{width:470px;max-width:56%;padding:24px}.atlas-corporate .atlas-nav nav{gap:16px}.aspire-atlas.atlas-corporate h1{font-size:37px}.atlas-corporate .atlas-nav{padding-inline:3%}.atlas-corporate .atlas-opening{margin-left:3%}}
-@media(min-width:768px) and (max-width:900px){.atlas-corporate .atlas-nav{gap:18px}.aspire-atlas.atlas-corporate .atlas-brand .custom-logo{width:150px}.atlas-corporate .atlas-nav nav{gap:12px}.aspire-atlas.atlas-corporate .atlas-nav a{font-size:10px}.aspire-atlas.atlas-corporate .atlas-nav .atlas-contact{padding:10px;gap:8px}.atlas-corporate .atlas-opening{max-width:61%}}
+@media(min-width:1600px){.atlas-corporate .atlas-opening{width:660px;margin-top:26px}.aspire-atlas.atlas-corporate h1{font-size:76px}}
+@media(min-width:768px) and (max-width:1100px){.atlas-corporate .atlas-opening{width:510px;max-width:56%;margin-left:3%}.atlas-corporate .atlas-nav nav{gap:16px}.aspire-atlas.atlas-corporate h1{font-size:52px}.atlas-corporate .atlas-nav{padding-inline:3%}.aspire-atlas.atlas-corporate .atlas-support{max-width:430px;font-size:13px}}
+@media(min-width:768px) and (max-width:900px){.atlas-corporate .atlas-nav{gap:18px}.aspire-atlas.atlas-corporate .atlas-brand .custom-logo{width:145px}.atlas-corporate .atlas-nav nav{gap:12px}.aspire-atlas.atlas-corporate .atlas-nav a{font-size:11px}.aspire-atlas.atlas-corporate .atlas-nav .atlas-contact{padding:10px;gap:8px}.atlas-corporate .atlas-opening{max-width:61%}.aspire-atlas.atlas-corporate h1{font-size:48px}}
 @media(max-width:767px){
- /* Only the completed company homepage releases the legacy full-screen document lock. */
  html:has(.atlas-mobile.atlas-corporate):not(:has(.atlas-mobile:not(.atlas-corporate))),body:has(.atlas-mobile.atlas-corporate):not(:has(.atlas-mobile:not(.atlas-corporate))){overflow:visible;overscroll-behavior:auto}
  body:has(.atlas-mobile.atlas-corporate):not(:has(.atlas-mobile:not(.atlas-corporate))) .site-footer{display:block}
  .aspire-atlas.atlas-mobile.atlas-corporate{position:relative!important;inset:auto!important;min-height:0!important;height:calc(100svh - 48px);margin:0!important;z-index:1;overflow:hidden}
  body.admin-bar .aspire-atlas.atlas-mobile.atlas-corporate{top:auto;height:calc(100svh - 94px)}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-nav{background:linear-gradient(#293a31ee,transparent);padding-top:calc(10px + env(safe-area-inset-top))}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-mobile-menu{background:#33483c;color:#f2f3e9;border-color:#afbea18c;border-radius:2px}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-nav nav{background:#304438;border-color:#81947a;border-radius:0}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-nav nav a{border-color:#7e927754;font-size:13px}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-nav nav .atlas-contact{color:#dce8d0}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-mobile-sheet{background:#304239;border-color:#788a72;border-radius:12px 12px 0 0;box-shadow:none}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-mobile-sheet:has(.atlas-opening:not([hidden])){background:#f4f4ed;border-color:#b4c1ad}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-sheet-footer{background:#304239;box-shadow:0 -4px 12px #23352a33}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-sheet-handle:before{background:#b7c6ac;box-shadow:0 3px 0 #798f71}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-sheet-handle button{color:#d1ddc8}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-mobile-sheet:has(.atlas-opening:not([hidden])) .atlas-sheet-handle button{color:#426047}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-sheet-handle button:not(:disabled):hover{background:#829b732b}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-shade{background:linear-gradient(180deg,#f7f6f0a6,transparent 140px)}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-nav{background:linear-gradient(#f7f6f0f2,transparent);padding-top:calc(10px + env(safe-area-inset-top))}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-brand .custom-logo{width:145px}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-mobile-menu{background:#f7f7f0e6;color:#2a4331;border-color:#839b7e;border-radius:0}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-nav nav{background:#fcfbf6;border-color:#9cae90;border-radius:0}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-nav nav a{border-color:#c6d1bd;font-size:13px;color:#334735}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-nav nav .atlas-contact{color:#355b3d}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-mobile-sheet{background:#faf9f3;border-color:#b4c1a9;border-radius:12px 12px 0 0;box-shadow:0 -6px 22px #394a3210;color:#334735}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-sheet-footer{background:#faf9f3;box-shadow:0 -4px 12px #394a3210}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-sheet-handle:before{background:#8d9f81;box-shadow:0 3px 0 #c9d3be}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-sheet-handle button{color:#426047}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-sheet-handle button:not(:disabled):hover{background:#e2ead8}
  .aspire-atlas.atlas-mobile.atlas-corporate .atlas-opening{padding-top:2px!important;color:#29342f}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-opening h1{font-size:29px;line-height:1.08;margin:10px 0 12px}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-eyebrow{font-size:9px;margin:0 0 8px}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-support{font-size:13px;line-height:1.6;margin:0 0 16px}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-product-introduction{padding-top:13px;margin-bottom:14px}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-product-line{font-size:17px}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-opening h1{font-size:37px;line-height:1.03;margin:12px 0 16px;max-width:none}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-eyebrow{font-size:10px;margin:0 0 8px}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-support{font-size:13px;line-height:1.6;margin:0 0 22px}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-product-introduction{margin-bottom:15px}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-product-line{font-size:19px}
  .aspire-atlas.atlas-mobile.atlas-corporate .atlas-prompt{margin:0 0 4px}
  .aspire-atlas.atlas-mobile.atlas-corporate .atlas-intents{gap:0 16px}
  .aspire-atlas.atlas-mobile.atlas-corporate .atlas-intent{padding:12px 0;min-height:65px}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-intent strong{font-size:12px}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-intent strong{font-size:13px}
  .aspire-atlas.atlas-mobile.atlas-corporate .atlas-advisor{font-size:11px;margin-top:10px;gap:0 6px}
  .aspire-atlas.atlas-mobile.atlas-corporate .atlas-advisor a{min-height:44px}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-fallback-properties{background:#304239}
- .aspire-atlas.atlas-mobile.atlas-corporate .atlas-sheet-content{scrollbar-color:#839878 transparent}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-fallback-properties{background:#faf9f3;color:#334735}
+ .aspire-atlas.atlas-mobile.atlas-corporate .atlas-sheet-content{scrollbar-color:#a4b599 transparent}
+ .aspire-atlas.atlas-mobile.atlas-corporate button.atlas-property[aria-pressed=true]{background:#eaf0e2;border-color:#78916d}
  .atlas-page-continue{padding-inline:max(18px,env(safe-area-inset-left)) max(18px,env(safe-area-inset-right));min-height:48px}
 }
+@media(max-width:350px){.aspire-atlas.atlas-mobile.atlas-corporate .atlas-opening h1{font-size:33px}}
 
 /* Static editor representation; map assets are never initialized here. */
 .aspire-atlas-preview{min-height:680px!important;border:1px solid #34413D;border-radius:6px;container-type:inline-size}
@@ -141,9 +161,9 @@ body.admin-bar .aspire-atlas.atlas-corporate{min-height:max(810px,calc(94svh - 3
 .aspire-atlas-preview .atlas-opening{width:480px;max-width:85%;margin:30px 4% 90px;animation:none}
 .aspire-atlas-preview h1{font-size:42px;overflow-wrap:normal;word-break:normal}
 @container(max-width:600px){.aspire-atlas-preview .atlas-opening{width:auto;max-width:none;margin:20px 16px 90px;padding:20px}.aspire-atlas-preview h1{font-size:36px}}
-.aspire-atlas-preview.atlas-corporate{min-height:0!important;border:1px solid #82917f;border-radius:0;padding-block:22px}
-.aspire-atlas-preview.atlas-corporate .atlas-map{background:repeating-linear-gradient(23deg,transparent 0 70px,#89927b33 71px 73px,transparent 74px 120px),#304039}
-.aspire-atlas-preview.atlas-corporate .atlas-opening{width:520px;max-width:88%;margin:0 4%;padding:26px 30px}
+.aspire-atlas-preview.atlas-corporate{min-height:0!important;border:1px solid #bdc8b3;border-radius:0;padding-block:22px}
+.aspire-atlas-preview.atlas-corporate .atlas-map{background:repeating-linear-gradient(23deg,transparent 0 70px,#fffefa 71px 73px,transparent 74px 120px),#e4e9dc}
+.aspire-atlas-preview.atlas-corporate .atlas-opening{width:520px;max-width:88%;margin:0 4%;padding:26px 0}
 .aspire-atlas-preview.atlas-corporate h1{font-size:38px}
 .aspire-atlas-preview.atlas-corporate .atlas-editor-label{margin:0 0 22px;color:#56715b;font:600 9px/1.5 var(--sans,Arial,sans-serif);letter-spacing:.15em}
 .aspire-atlas-preview.atlas-corporate .atlas-scope,.aspire-atlas-preview.atlas-corporate .atlas-editor-capabilities{font-size:10px;color:#5e705f;margin:12px 0 0}

@@ -31,7 +31,7 @@ function aspirecre_home_destination( string $key ): string {
 	if ( 'team' === $key && ( ! $page || 'publish' !== $page->post_status ) ) { $page = get_page_by_path( 'team', OBJECT, 'page' ); }
 	if ( $page && 'publish' === $page->post_status ) { return get_permalink( $page ); }
 	if ( 'contact' === $key ) { return 'tel:+17139332001'; }
-	$anchors = array( 'services' => 'expertise', 'about' => 'human-expertise', 'team' => 'human-expertise', 'insights' => 'insights', 'atlas' => 'aspire-atlas' );
+	$anchors = array( 'services' => 'expertise', 'about' => 'human-expertise', 'team' => 'human-expertise', 'insights' => get_post_meta( (int) get_option( 'page_on_front' ), '_aspirecre_home_presentation', true ) ? 'in-the-field' : 'insights', 'atlas' => 'aspire-atlas' );
 	return home_url( '/' ) . '#' . ( $anchors[ $key ] ?? ( in_array( $key, $services, true ) ? $key : 'talk-to-aspire' ) );
 }
 

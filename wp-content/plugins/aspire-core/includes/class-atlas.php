@@ -71,6 +71,7 @@ final class Aspire_Atlas {
   $advisor_prompt = sanitize_text_field($attributes['advisorPrompt'] ?? 'Prefer to talk it through?');
   $advisor_label = sanitize_text_field($attributes['advisorLabel'] ?? 'Talk to an Aspire advisor');
   $continue_label = sanitize_text_field($attributes['continueLabel'] ?? 'Discover Aspire Commercial');
+  $continue_target = sanitize_title(ltrim((string)($attributes['continueTarget'] ?? 'current-opportunities'),'#')) ?: 'current-opportunities';
   $destination = static fn($key) => function_exists('aspirecre_home_destination') ? aspirecre_home_destination($key) : ($key==='contact'?'tel:+17139332001':home_url('/'.($key==='properties'?'properties/':'#'.($key==='insights'?'insights':($key==='services'?'expertise':'human-expertise')))));
   $natural = $attributes['showNaturalLanguage'] ?? true;
   $brief = $attributes['enableBrief'] ?? false;

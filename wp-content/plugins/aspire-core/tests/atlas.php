@@ -65,6 +65,10 @@ atlas_check(str_contains($corporate,'id="aspire-atlas"')&&str_contains($corporat
 atlas_check(str_contains($corporate,'class="atlas-product-line">Explore Houston. Find your next move.</p>')&&strpos($corporate,'ASPIRE COMMERCIAL')<strpos($corporate,'class="atlas-product-line"'),'Atlas product line remains subordinate to company content');
 atlas_check(str_contains($corporate,'Prefer to talk it through?')&&str_contains($corporate,'Talk to an Aspire advisor')&&str_contains($corporate,'href="tel:+17139332001"'),'Corporate hero includes an approved human contact path');
 atlas_check(str_contains($corporate,'href="#current-opportunities"')&&str_contains($corporate,'Describe what you\'re looking for'),'Hero exposes a native path below while retaining requirements input');
+$journey_continuation=Aspire_Atlas::render(array_merge($corporate_attributes,array('continueLabel'=>'Your next move, from here','continueTarget'=>'#client-journey')));
+atlas_check(str_contains($journey_continuation,'class="atlas-page-continue" href="#client-journey">Your next move, from here'),'Homepage continuation supports the client journey with a sanitized fragment');
+$empty_continuation=Aspire_Atlas::render(array_merge($corporate_attributes,array('continueTarget'=>'')));
+atlas_check(str_contains($empty_continuation,'class="atlas-page-continue" href="#current-opportunities"'),'Blank continuation targets preserve the existing opportunity fallback');
 atlas_check(!str_contains($frontend,'atlas-corporate')&&!str_contains($frontend,'data-corporate-hero'),'Existing Atlas embeds retain their original presentation');
 $admin=get_users(array('role'=>'administrator','number'=>1));wp_set_current_user($admin[0]->ID);
 define('REST_REQUEST',true);

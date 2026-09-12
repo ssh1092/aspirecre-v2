@@ -21,6 +21,8 @@ add_action( 'wp_enqueue_scripts', static function (): void {
 	if ( ! is_front_page() ) { return; }
 	wp_enqueue_style( 'aspire-home', get_stylesheet_uri(), array(), (string) filemtime( get_stylesheet_directory() . '/style.css' ) );
 	wp_enqueue_style( 'aspire-corporate', get_theme_file_uri( '/assets/corporate.css' ), array( 'aspire-home' ), (string) filemtime( get_theme_file_path( '/assets/corporate.css' ) ) );
+	wp_enqueue_style( 'aspire-presentation', get_theme_file_uri( '/assets/presentation.css' ), array( 'aspire-corporate' ), (string) filemtime( get_theme_file_path( '/assets/presentation.css' ) ) );
+	wp_enqueue_script( 'aspire-presentation', get_theme_file_uri( '/assets/js/presentation.js' ), array(), (string) filemtime( get_theme_file_path( '/assets/js/presentation.js' ) ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
 	wp_enqueue_script( 'aspire-navigation', get_theme_file_uri( '/assets/js/navigation.js' ), array(), (string) filemtime( get_theme_file_path( '/assets/js/navigation.js' ) ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
 } );
 require_once __DIR__ . '/inc/blocks.php';

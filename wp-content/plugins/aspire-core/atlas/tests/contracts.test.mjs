@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {atlasStyle} from '../src/style.js';
 import {corporateStyle,corporateMarkers} from '../src/corporate-style.js';
 import {cameraInsets} from '../src/camera-padding.js';
+import {journeyIntentFor,connectJourneyIntent,captureMapPreview} from '../src/presentation-bridge.js';
 import {loadProperties,addPropertyLayers} from '../src/properties.js';
 import {validateStyleMin} from '@maplibre/maplibre-gl-style-spec';
 test('camera padding preserves normal desktop and mobile composition without mutating measurements',()=>{
@@ -32,22 +33,44 @@ test('camera padding recovers across desktop/mobile viewport transitions without
  assert.deepEqual(cameraInsets({top:180,right:60,bottom:-220,left:16},0,0),{top:0,right:0,bottom:0,left:0});
  assert.deepEqual(cameraInsets(desktop,1440,940),desktop);
 });
-test('corporate map is opt-in and preserves shared sources, layer detail and default paints',()=>{
+test('real-estate map preserves shared defaults and uses inspected local vector layers',()=>{
  const base=atlasStyle('http://localhost/houston.pmtiles','http://localhost/fonts/{fontstack}/{range}.pbf');
  const before=JSON.stringify(base),corporate=corporateStyle(base);
  assert.deepEqual(validateStyleMin(corporate),[]);
  assert.equal(JSON.stringify(base),before);
  assert.deepEqual(corporate.sources,base.sources);
- assert.deepEqual(corporate.layers.map(({id,type,filter,minzoom,maxzoom,layout})=>({id,type,filter,minzoom,maxzoom,layout})),base.layers.map(({id,type,filter,minzoom,maxzoom,layout})=>({id,type,filter,minzoom,maxzoom,layout})));
+ for(const layer of base.layers){const adapted=corporate.layers.find(item=>item.id===layer.id);assert.equal(adapted.type,layer.type);assert.equal(adapted['source-layer'],layer['source-layer']);}
+ const schema=new Set(['earth','landuse','water','roads','buildings','places']);
+ assert.ok(corporate.layers.filter(layer=>layer.source).every(layer=>schema.has(layer['source-layer'])));
+ assert.ok(corporate.layers.find(layer=>layer.id==='street-labels').minzoom>=14);
+ assert.ok(corporate.layers.find(layer=>layer.id==='buildings').minzoom>=12);
  assert.notEqual(corporate.layers.find(l=>l.id==='background').paint['background-color'],base.layers.find(l=>l.id==='background').paint['background-color']);
  assert.equal(base.layers.find(l=>l.id==='water').paint['fill-color'],'#071516');
 });
 test('corporate marker palette preserves hit targets and selected/hover behavior',()=>{
  const paints=[];corporateMarkers({setPaintProperty:(...args)=>paints.push(args)});
  assert.ok(paints.every(([layer])=>['atlas-properties','atlas-property-ring'].includes(layer)));
- assert.ok(!paints.some(([,key])=>['circle-radius','circle-opacity','circle-stroke-opacity'].includes(key)));
+ assert.ok(!paints.some(([,key])=>['circle-opacity','circle-stroke-opacity'].includes(key)));
+ const radius=paints.find(([layer,key])=>layer==='atlas-properties'&&key==='circle-radius')[2];
+ assert.ok(JSON.stringify(radius).includes('selected'));assert.ok(JSON.stringify(radius).includes('hover'));assert.ok(radius.at(-1)>=6);
  const color=paints.find(([layer,key])=>layer==='atlas-properties'&&key==='circle-color')[2];
  assert.ok(JSON.stringify(color).includes('selected'));assert.ok(JSON.stringify(color).includes('hover'));
+});
+test('Atlas presentation intent bridge maps the four existing objectives without handling business state',()=>{
+ assert.deepEqual(['find-space','invest','owner-disposition','manage-asset','unknown'].map(journeyIntentFor),['tenant','investor','owner','management',null]);
+ const events=[];let click;
+ const root={dataset:{},contains:()=>true,addEventListener:(name,handler)=>{assert.equal(name,'click');click=handler;},dispatchEvent:event=>events.push(event)};
+ connectJourneyIntent(root);click({target:{closest:()=>({dataset:{intent:'invest'}})}});
+ assert.equal(root.dataset.journeyIntent,'investor');assert.equal(events.length,1);assert.equal(events[0].type,'aspire:intent');assert.equal(events[0].bubbles,true);assert.deepEqual(events[0].detail,{intent:'investor'});
+ click({target:{closest:()=>null}});assert.equal(events.length,1);
+});
+test('Atlas static map reference captures once from the existing render and fails gracefully',()=>{
+ let render;const events=[];const root={dispatchEvent:event=>events.push(event)};
+ const map={once:(name,handler)=>{assert.equal(name,'render');render=handler;},triggerRepaint:()=>render(),getCanvas:()=>({clientWidth:1200,clientHeight:900,toDataURL:()=> 'data:image/webp;base64,real-canvas'}),project:coordinates=>({x:coordinates[0],y:coordinates[1]})};
+ captureMapPreview(root,map,[{id:120,geometry:{coordinates:[450,260]}}]);
+ assert.equal(events.length,1);assert.equal(events[0].type,'aspire:map-preview');assert.deepEqual(events[0].detail.points,[{id:120,x:450,y:260}]);assert.equal(events[0].detail.width,1200);
+ map.getCanvas=()=>({clientWidth:1200,clientHeight:900,toDataURL:()=>{throw Error('Canvas unavailable');}});
+ assert.doesNotThrow(()=>captureMapPreview(root,map,[]));assert.equal(events.length,1);
 });
 test('custom map style validates against MapLibre style schema',()=>{
  const style=atlasStyle('http://localhost/houston.pmtiles','http://localhost/fonts/{fontstack}/{range}.pbf');

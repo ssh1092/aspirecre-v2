@@ -1,0 +1,11 @@
+{
+  "apiVersion": 3,
+  "name": "aspire-core/field-feed",
+  "title": "Aspire In the Field",
+  "category": "aspirecre",
+  "icon": "format-gallery",
+  "description": "Official Instagram activity, with an honest local photography fallback.",
+  "attributes": { "count": { "type": "integer", "default": 6 } },
+  "supports": { "html": false, "align": ["wide", "full"] },
+  "editorScript": "aspire-social-editor"
+}
