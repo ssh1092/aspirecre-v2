@@ -320,6 +320,18 @@
 .hp-journey.is-enhanced .hp-journey-scene,.hp-journey.is-enhanced .hp-compare-object{overflow:clip}
 @media(max-width:767px){.hp-journey.is-enhanced .hp-journey-scene{height:615px}}
 .hp-property-type.is-active .hp-type-toggle{font-size:12px}
+/* Homepage-only photo experiment: decorative, narrow and clear of map interaction. */
+@media(min-width:768px){
+ body.home .atlas-corporate:has(>.atlas-opening:not([hidden]))>.atlas-shade::before{
+  content:"";position:absolute;inset:0 auto 0 0;pointer-events:none;
+  width:min(calc(560px + 4% + 24px),calc(47% + 24px));
+  background:linear-gradient(90deg,rgba(247,246,240,.5),rgba(247,246,240,.72) 12%,rgba(247,246,240,.76) 65%,rgba(247,246,240,.8)),url("images/houston-real-estate-aspire-cre.webp") center center/cover no-repeat;
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 42%,#000b 68%,transparent 100%);
+  mask-image:linear-gradient(90deg,#000 0%,#000 42%,#000b 68%,transparent 100%);
+ }
+}
+@media(min-width:901px) and (max-width:1100px){body.home .atlas-corporate:has(>.atlas-opening:not([hidden]))>.atlas-shade::before{width:calc(46% + 24px)}}
+@media(min-width:768px) and (max-width:900px){body.home .atlas-corporate:has(>.atlas-opening:not([hidden]))>.atlas-shade::before{width:calc(49% + 24px)}}
 .hp-journey:not(.is-enhanced) .hp-journey-heading{position:static!important;width:auto;height:auto;clip-path:none;overflow:visible;font-size:40px;margin-bottom:25px}
 @media(max-width:767px){
  .hp-property-types.is-enhanced .hp-property-type:not(.is-active) .hp-type-details{max-height:220px;opacity:1}
