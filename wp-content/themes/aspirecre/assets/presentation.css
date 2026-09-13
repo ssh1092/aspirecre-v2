@@ -320,6 +320,39 @@
 .hp-journey.is-enhanced .hp-journey-scene,.hp-journey.is-enhanced .hp-compare-object{overflow:clip}
 @media(max-width:767px){.hp-journey.is-enhanced .hp-journey-scene{height:615px}}
 .hp-property-type.is-active .hp-type-toggle{font-size:12px}
+/* A short orientation connects the locked hero to the existing journey stages. */
+.hp-journey .hp-orientation{display:block;background:#203b30;color:#f6f3e9;padding-block:45px 30px}
+.hp-journey.has-objective .hp-orientation{padding-block:45px 30px}
+.hp-orientation .hp-orientation-eyebrow{font:500 11px/1.4 var(--hp-sans);letter-spacing:.14em;color:#c0cfbc;margin:0 0 12px}
+.hp-orientation .hp-orientation-heading{font:400 clamp(34px,3.2vw,48px)/1.08 var(--hp-serif);letter-spacing:-.04em;max-width:none;margin:0 0 24px;color:#f6f3e9}
+.hp-orientation-requirement{border-left:2px solid #9aac8b;padding-left:18px;margin:0 0 25px;max-width:75ch}
+.hp-orientation .hp-requirement-label{font:400 12px/1.5 var(--hp-sans);color:#c0cfbc;margin:0 0 5px}
+.hp-orientation blockquote{margin:0;padding:0;border:0;font:400 18px/1.5 var(--hp-sans);color:#f6f3e9;overflow-wrap:anywhere;white-space:pre-wrap}
+.hp-journey.has-orientation .hp-change-objective,.hp-journey.has-orientation .hp-journey-rail{display:none}
+.hp-journey.has-orientation:not(.has-hero-intent) .hp-objectives{display:flex;gap:24px;margin:0 0 25px}
+.hp-journey.has-hero-intent .hp-objectives{display:none!important}
+.hp-orientation .hp-objective-link a{font:400 17px/1.4 var(--hp-serif);min-height:44px;padding:10px 0;color:#f6f3e9}
+.hp-orientation .hp-objective-link a[aria-current=true]{color:#d5dfb8;text-decoration:underline;text-underline-offset:5px}
+.hp-orientation .hp-orientation-service{font:400 12px/1.5 var(--hp-sans);color:#c0cfbc;margin:0 0 17px}
+.hp-orientation-path{display:none}.hp-orientation-tenant,.hp-orientation-path.is-active{display:block}
+.hp-orientation [hidden]{display:none!important}
+.hp-orientation-chapters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:35px;border-top:1px solid #8b9c8055;padding-top:20px}
+.hp-orientation .hp-chapter-heading{font:500 12px/1.5 var(--hp-sans);letter-spacing:.06em;text-transform:uppercase;color:#f6f3e9;margin:0 0 7px}
+.hp-chapter-steps{display:flex;gap:25px;flex-wrap:wrap}
+.hp-orientation .hp-orientation-step a{display:flex;align-items:center;min-height:44px;font:400 17px/1.4 var(--hp-serif);color:#cdd8c4;text-decoration:none}
+.hp-orientation .hp-orientation-start{margin-top:20px}
+.hp-orientation .hp-orientation-start a{display:inline-flex;align-items:center;min-height:44px;font:500 15px/1.4 var(--hp-sans);color:#f6f3e9;text-decoration:none;border-bottom:1px solid #b9c6a9}
+.hp-orientation a:hover{text-decoration:underline}.hp-orientation a:focus-visible{outline:2px solid #d9e3bc;outline-offset:5px}
+@media(max-width:767px){
+ .hp-journey .hp-orientation,.hp-journey.has-objective .hp-orientation{padding-block:35px 28px}
+ .hp-orientation .hp-orientation-heading{font-size:35px;max-width:18ch;margin-bottom:23px}
+ .hp-orientation blockquote{font-size:16px}.hp-orientation-requirement{padding-left:14px;margin-bottom:24px}
+ .hp-journey.has-orientation:not(.has-hero-intent) .hp-objectives{display:grid;grid-template-columns:1fr;gap:0;margin-bottom:25px!important}
+ .hp-orientation .hp-objective-link{border-color:#8b9c8055}.hp-orientation .hp-objective-link a{font-size:20px}
+ .hp-orientation-chapters{grid-template-columns:1fr;gap:15px;padding-top:20px}
+ .hp-orientation .hp-chapter-heading{margin-bottom:2px}.hp-chapter-steps{gap:28px}
+ .hp-orientation .hp-orientation-start{margin-top:15px}
+}
 /* Homepage-only photo experiment: decorative, narrow and clear of map interaction. */
 @media(min-width:768px){
  body.home .atlas-corporate:has(>.atlas-opening:not([hidden]))>.atlas-shade::before{

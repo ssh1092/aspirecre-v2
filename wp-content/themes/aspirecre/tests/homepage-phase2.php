@@ -29,7 +29,7 @@ phase2_check( 1 === $xpath->query( '//*[@data-atlas]' )->length, 'Exactly one At
 phase2_check( str_contains( phase2_text( $doc->documentElement ), 'TELL US WHAT YOU NEED' ), 'The company hero exposes its primary conversion action' );
 phase2_check( str_contains( phase2_text( $doc->documentElement ), 'Aspire helps tenants, property owners, investors and developers make better commercial real estate decisions across Greater Houston.' ), 'Company purpose and all four audiences are explicit' );
 $outline = array(
-	'client-journey' => 'Your real estate journey',
+	'client-journey' => 'Here’s how Aspire helps you get there.',
 	'current-opportunities' => 'Commercial Real Estate Opportunities Across Houston',
 	'property-types' => 'Explore Houston Commercial Properties by Type',
 	'human-expertise' => 'Meet the Aspire Commercial Team',
@@ -147,5 +147,23 @@ $collect_stages = function ( $blocks ) use ( &$collect_stages ): array {
     return $result;
 };
 phase2_check( is_string( $before_choreography ) && 24 === count( $collect_stages( parse_blocks( $before_choreography ) ) ) && $collect_stages( parse_blocks( $before_choreography ) ) === $collect_stages( parse_blocks( $home->post_content ) ), 'All 24 approved native journey stages are byte-for-byte preserved' );
+$before_orientation = get_post_meta( $home->ID, '_aspirecre_before_journey_orientation', true );
+$without_intro = function ( array $blocks ) use ( &$without_intro ): array {
+ foreach ( $blocks as &$block ) {
+  if ( in_array( 'hp-journey-intro', explode( ' ', $block['attrs']['className'] ?? '' ), true ) ) {
+   $block = array( 'blockName' => 'core/paragraph', 'attrs' => array(), 'innerBlocks' => array(), 'innerHTML' => '', 'innerContent' => array() );
+  } else { $block['innerBlocks'] = $without_intro( $block['innerBlocks'] ); }
+ }
+ return $blocks;
+};
+phase2_check( is_string( $before_orientation ) && '' !== $before_orientation && serialize_blocks( $without_intro( parse_blocks( $before_orientation ) ) ) === serialize_blocks( $without_intro( parse_blocks( $home->post_content ) ) ), 'Only the native journey introduction changed; hero, stages and remaining homepage content are preserved' );
+foreach ( array( 'tenant', 'owner', 'investor', 'management' ) as $key ) {
+ $path = '//*[contains(concat(" ",normalize-space(@class)," ")," hp-orientation-' . $key . ' ")]';
+ phase2_check( 3 === $xpath->query( $path . '//*[contains(concat(" ",normalize-space(@class)," ")," hp-orientation-chapter ")]' )->length, "$key has three native orientation chapters" );
+ phase2_check( 6 === $xpath->query( $path . '//*[contains(concat(" ",normalize-space(@class)," ")," hp-orientation-step ")]/a' )->length, "$key chapters retain all six stage links" );
+ foreach ( $xpath->query( $path . '//a[starts-with(@href,"#")]' ) as $link ) {
+  phase2_check( 1 === $xpath->query( '//*[@id="' . substr( $link->getAttribute( 'href' ), 1 ) . '"]' )->length, 'Orientation link reaches a real existing stage: ' . $link->getAttribute( 'href' ) );
+ }
+}
 wp_reset_postdata();
 echo "SUCCESS: $checks homepage presentation checks\n";

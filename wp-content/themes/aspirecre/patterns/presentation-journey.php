@@ -41,10 +41,30 @@ $journeys = array(
 		array( 'Reassess', 'Keep the property and the objective aligned.', 'Review what has changed and what the asset needs next.', 'Aspire revisits operations, leasing and the broader ownership direction.', 'An updated set of priorities for the next stage of the asset.', 'The record preserves the history. Human judgment determines the next move.' ),
 	) ),
 );
-$intro = aspire_hp_h( 'Your real estate journey', 2, 'hp-journey-heading' );
+$intro = aspire_hp_p( 'YOUR NEXT MOVE', 'hp-orientation-eyebrow' ) . aspire_hp_h( 'Here’s how Aspire helps you get there.', 2, 'hp-orientation-heading' );
 $selector = '';
 foreach ( $journeys as $key => $journey ) { $selector .= aspire_hp_link( $journey[0] . ' ↗', '#journey-' . $key, 'hp-objective-link' ); }
 $intro .= aspire_hp_group( $selector, 'hp-objectives', '', 'div', 'Choose a client objective' );
+$chapter_titles = array(
+ 'tenant' => array( 'Find the right options', 'Make the decision', 'Get the deal done' ),
+ 'owner' => array( 'Position the property', 'Find the right fit', 'Deliver the outcome' ),
+ 'investor' => array( 'Find the right options', 'Make the decision', 'Get the deal done' ),
+ 'management' => array( 'Understand the asset', 'Plan the next move', 'Put the plan to work' ),
+);
+foreach ( $journeys as $key => $journey ) {
+ $chapters = '';
+ foreach ( $chapter_titles[$key] as $chapter => $title ) {
+  $steps = '';
+  foreach ( array( $chapter * 2, $chapter * 2 + 1 ) as $index ) {
+   $name = $journey[3][$index][0];
+   $steps .= aspire_hp_link( sprintf( '%02d', $index + 1 ) . ' ' . $name, '#' . $key . '-' . sanitize_title( $name ), 'hp-orientation-step' );
+  }
+  $chapters .= aspire_hp_group( aspire_hp_h( $title, 3, 'hp-chapter-heading' ) . aspire_hp_group( $steps, 'hp-chapter-steps' ), 'hp-orientation-chapter' );
+ }
+ $first = $journey[3][0][0];
+ $intro .= aspire_hp_group( aspire_hp_p( $journey[1], 'hp-orientation-service' ) . aspire_hp_group( $chapters, 'hp-orientation-chapters' ) . aspire_hp_link( 'Start with ' . $first . ' ↓', '#' . $key . '-' . sanitize_title( $first ), 'hp-orientation-start' ), 'hp-orientation-path hp-orientation-' . $key );
+}
+
 $brief = aspire_hp_p( 'ASPIRE / REAL ESTATE BRIEF', 'hp-document-label' ) . aspire_hp_p( 'Room for<br>what’s next.', 'hp-document-title' );
 foreach ( array( 'Use' => 'How the property needs to work', 'Size' => 'The space your plans call for', 'Area' => 'Where the opportunity belongs', 'Timing' => 'When the move needs to happen', 'Priorities' => 'What matters most to you' ) as $label => $value ) { $brief .= aspire_hp_p( '<strong>' . $label . '</strong><span>' . $value . '</span>', 'hp-brief-line' ); }
 $brief .= aspire_hp_p( 'A starting point for a conversation.', 'hp-document-note' );
@@ -78,4 +98,4 @@ foreach ( $journeys as $key => $journey ) {
 }
 $service_links = '';
 foreach ( array( 'tenant-representation' => array( 'Tenant Representation', 'tenant' ), 'landlord-representation' => array( 'Landlord Representation', 'owner' ), 'investment-sales' => array( 'Investment Sales', 'investor' ), 'investor-developer-services' => array( 'Investor & Developer Services', 'investor' ), 'property-management' => array( 'Property Management', 'management' ), 'cre-consulting' => array( 'CRE Consulting', 'management' ) ) as $slug => $item ) { $service_links .= aspire_hp_group( aspire_hp_link( $item[0], '#journey-' . $item[1] ), 'hp-service-destination', $slug ); }
-echo aspire_hp_group( aspire_hp_group( $intro, 'hp-journey-intro hp-shell' ) . aspire_hp_group( aspire_hp_group( $scene, 'hp-journey-scene', '', 'div', 'Transforming property story' ) . aspire_hp_group( $tracks, 'hp-journey-content' ), 'hp-journey-experience' ) . aspire_hp_group( $service_links, 'hp-service-index hp-shell', 'expertise', 'nav', 'Aspire service index' ), 'hp-section hp-journey', 'client-journey', 'section', 'Client journey experience' );
+echo aspire_hp_group( aspire_hp_group( $intro, 'hp-journey-intro hp-shell hp-orientation' ) . aspire_hp_group( aspire_hp_group( $scene, 'hp-journey-scene', '', 'div', 'Transforming property story' ) . aspire_hp_group( $tracks, 'hp-journey-content' ), 'hp-journey-experience' ) . aspire_hp_group( $service_links, 'hp-service-index hp-shell', 'expertise', 'nav', 'Aspire service index' ), 'hp-section hp-journey', 'client-journey', 'section', 'Client journey experience' );

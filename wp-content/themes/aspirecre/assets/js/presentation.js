@@ -16,6 +16,8 @@
  const controls=new Map();
  const mobile=matchMedia('(max-width: 767px)');
  const experience=journey.querySelector('.hp-journey-experience');
+ const orientation=journey.querySelector('.hp-orientation');
+ if(orientation)journey.classList.add('has-orientation');
  const mobileNavigation=document.createElement('div');mobileNavigation.className='hp-mobile-stage-navigation hp-journey-rail';experience.prepend(mobileNavigation);
  function placeNavigation(){
   controls.forEach((control,key)=>{
@@ -36,12 +38,12 @@
  const portfolio=document.querySelector('[data-hp-rail="portfolio"] [data-hp-rail-track]');
  const originalProperties=portfolio?[...portfolio.children]:[];
  const compatible=(item,key)=>{const types=item.dataset.transactions?.split(' ')??[];return types.includes(key==='tenant'?'for-lease':'for-sale')||types.includes('for-sale-or-lease');};
- function orderProperties(key){
+ function orderProperties(key,localOnly=false){
   const ordered=[...originalProperties].sort((a,b)=>{
    const relevant=['tenant','investor'].includes(key)?Number(compatible(b,key))-Number(compatible(a,key)):0;
    return relevant||Number(a.dataset.editorialOrder)-Number(b.dataset.editorialOrder);
   });
-  if(lastOrdered!==key){ordered.forEach(item=>portfolio.append(item));portfolio?.scrollTo({left:0,behavior:'instant'});portfolio?.dispatchEvent(new Event('scroll'));lastOrdered=key;}
+  if(!localOnly&&lastOrdered!==key){ordered.forEach(item=>portfolio.append(item));portfolio?.scrollTo({left:0,behavior:'instant'});portfolio?.dispatchEvent(new Event('scroll'));lastOrdered=key;}
   if(lastIllustrated!==active){const illustrated=[...ordered].sort((a,b)=>['tenant','investor'].includes(active)?Number(compatible(b,active))-Number(compatible(a,active)):active==='management'?Number(b.querySelector('.hp-property-tags span')?.textContent==='Office')-Number(a.querySelector('.hp-property-tags span')?.textContent==='Office'):0);comparison(illustrated,active);lastIllustrated=active;}
  }
  // Shared real-property elements persist from the map to the shortlist and preferred option.
@@ -124,10 +126,10 @@
   sceneObjects.forEach((object,i)=>{if(!object)return;const visible=visibleObjects.includes(i);object.inert=!visible;object.setAttribute('aria-hidden',String(!visible));});
   layoutProperties(index,previousStage!==index);
   if(focus){
-   c.navigation.querySelectorAll('.hp-stage-link a')[index]?.focus({preventScroll:true});experience.scrollIntoView({behavior:reduced.matches?'instant':'smooth',block:'start'});
+   const focusTarget=orientation?current[index].querySelector('h3'):c.navigation.querySelectorAll('.hp-stage-link a')[index];if(orientation&&focusTarget)focusTarget.tabIndex=-1;focusTarget?.focus({preventScroll:true});experience.scrollIntoView({behavior:reduced.matches?'instant':'smooth',block:'start'});
   }
  }
- function selectJourney(key,explicit=true){
+ function selectJourney(key,explicit=true,localOnly=false){
   if(!keys.includes(key))return;
   const changed=active!==key||!journey.dataset.intent;active=key;chosen=chosen||explicit;journey.dataset.intent=key;journey.classList.toggle('has-objective',chosen);journey.classList.remove('is-choosing');changeObjective.setAttribute('aria-expanded','false');
   tracks.forEach((track,i)=>track.hidden=keys[i]!==key);
@@ -135,8 +137,9 @@
   if(artifact&&changed){const documentObject=scene.querySelector('.hp-brief-object');documentObject.replaceChildren(...[...artifact.children].map(child=>child.cloneNode(true)));const milestones=selectedTrack.querySelector('.hp-artifact-milestones');const destination=scene.querySelector('.hp-milestones');if(milestones&&destination){destination.replaceChildren(...milestones.textContent.split('→').map((label,i)=>{const step=document.createElement('span');step.textContent=label.trim();step.dataset.number=String(i+1).padStart(2,'0');return step;}));}}
   selectedTrack.querySelectorAll('.hp-artifact-topic').forEach((topic,i)=>{if(!termLinks[i]||!termCopy[i])return;termLinks[i].textContent=topic.querySelector('.hp-artifact-topic-label')?.textContent;termCopy[i].querySelector('p').textContent=topic.querySelector('.hp-artifact-topic-explanation')?.textContent;});
   journey.querySelectorAll('.hp-objective-link a').forEach(link=>link.setAttribute('aria-current',String(link.hash===`#journey-${key}`)));
-  selectTerm(0);placeNavigation();stage(progress[key]);orderProperties(chosen?key:null);
-  if(finalAction){finalAction.textContent=chosen?tracks[keys.indexOf(key)].querySelector('.hp-journey-advisor a').textContent:defaultCTA;}
+  selectTerm(0);placeNavigation();stage(progress[key]);orderProperties(chosen?key:null,localOnly);
+  if(orientation)orientation.querySelectorAll('.hp-orientation-path').forEach(path=>{const current=path.classList.contains(`hp-orientation-${key}`);path.hidden=!current;path.classList.toggle('is-active',current);});
+  if(finalAction&&!localOnly){finalAction.textContent=chosen?tracks[keys.indexOf(key)].querySelector('.hp-journey-advisor a').textContent:defaultCTA;}
  }
  tracks.forEach((track,ti)=>{
   const key=keys[ti];
@@ -157,7 +160,8 @@
   const link=event.target.closest('a');if(!link)return;
   if(link.origin!==location.origin||link.pathname!==location.pathname)return;
   const key=keys.find(k=>link.hash===`#journey-${k}`);if(!key)return;
-  event.preventDefault();selectJourney(key);
+  event.preventDefault();selectJourney(key,true,Boolean(orientation));
+  if(link.closest('.hp-objectives')&&orientation)return;
   history.pushState(null,'',link.hash);
   journey.querySelector('.hp-journey-experience').scrollIntoView({behavior:reduced.matches?'instant':'smooth',block:'start'});
  });
@@ -178,6 +182,21 @@
  scene.addEventListener('touchend',event=>{if(!startTouch)return;const t=event.changedTouches[0],dx=t.clientX-startTouch.x,dy=t.clientY-startTouch.y;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5){if(mobile.matches&&progress[active]===2)setCompared(compared+(dx<0?1:-1));else stage(progress[active]+(dx<0?1:-1));}startTouch=null;},{passive:true});
  const initial=document.querySelector('[data-atlas]')?.dataset.journeyIntent;
  journey.classList.add('is-enhanced');selectJourney(keys.includes(initial)?initial:keys[0],Boolean(initial));
+ // Read the existing hero's live state; the hero and its workflow remain untouched.
+ if(orientation){
+  const hero=document.querySelector('[data-corporate-hero]'),input=hero?.querySelector('.atlas-need-input');
+  const intentKeys={'find-space':'tenant','owner-disposition':'owner',invest:'investor','manage-asset':'management'};
+  const requirement=document.createElement('div');requirement.className='hp-orientation-requirement';requirement.hidden=true;
+  const label=paragraph('You told us:','hp-requirement-label'),quote=document.createElement('blockquote');requirement.append(label,quote);
+  orientation.querySelector('.hp-orientation-heading').after(requirement);
+  const syncRequirement=()=>{const text=input?.value.trim()||'';quote.textContent=text;requirement.hidden=!text;};
+  const syncHero=()=>{const key=intentKeys[hero?.dataset.heroIntent];journey.classList.toggle('has-hero-intent',Boolean(key));if(key){if(active!==key)progress[key]=0;selectJourney(key,true,true);}syncRequirement();};
+  hero?.addEventListener('atlas-hero-intent',syncHero);input?.addEventListener('input',syncRequirement);addEventListener('pageshow',syncHero);syncHero();
+  orientation.querySelectorAll('.hp-orientation-step a,.hp-orientation-start a').forEach(link=>{
+   link.addEventListener('click',event=>{const key=keys.find(k=>stages[k].some(item=>`#${item.id}`===link.hash));if(!key)return;event.preventDefault();selectJourney(key,true,true);stage(stages[key].findIndex(item=>`#${item.id}`===link.hash),true);history.replaceState(null,'',link.hash);});
+  });
+ }
+
  const followHash=()=>{let hash;try{hash=decodeURIComponent(location.hash.slice(1));}catch{return false;}for(const key of keys){const index=stages[key].findIndex(item=>item.id===hash);if(hash===`journey-${key}`||index>=0){selectJourney(key);if(index>=0)stage(index);return true;}}return false;};
  if(followHash()){const align=()=>experience.scrollIntoView({block:'start'});if(document.readyState==='complete')align();else addEventListener('load',align,{once:true});}
  addEventListener('hashchange',followHash);addEventListener('popstate',followHash);
