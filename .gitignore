@@ -10,3 +10,6 @@ node_modules/
 
 # Python audit bytecode
 __pycache__/
+
+# Local backups and QA artifacts
+var/
