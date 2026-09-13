@@ -14,6 +14,12 @@ export function prefillBrief(state){
  if(isLand(b)&&schema.sizes[b.size]?.unit==='sf')b.size='';
  return normalizeBrief(b);
 }
+// The existing free-text requirement/location field carries the visitor's words.
+// No inferred type, size, budget or geocoding is derived from the hero input.
+export function prefillHeroBrief(state,hero){
+ const seed=prefillBrief(state);
+ return normalizeBrief({...seed,goal:hero.goal,location:{...seed.location,text:hero.need.trim().slice(0,240)}});
+}
 export function normalizeBrief(b){
  b=structuredClone(b);
  if(b.goal==='lease_space')b.propertyTypes=b.propertyTypes.filter(t=>t!=='mixed-use');

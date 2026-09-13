@@ -23,10 +23,12 @@ final class Aspire_Atlas {
   $terms = wp_get_post_terms( $id, $taxonomy, array( 'orderby'=>'term_id','order'=>'ASC' ) );
   return ! is_wp_error( $terms ) && $terms ? array( 'slug'=>sanitize_title( $terms[0]->slug ),'label'=>sanitize_text_field( $terms[0]->name ) ) : null;
  }
- private static function display_title(string $title, string $city, string $state, string $zip): string {
+ private static function display_title(string $title, string $city, string $state, string $zip, string $address=''): string {
   if($city==='' || $state==='')return $title;
   $suffix='/(?:,\s*|\s+)'.preg_quote($city,'/').'(?:\s*,\s*|\s+)'.preg_quote($state,'/').($zip!==''?'(?:\s+'.preg_quote($zip,'/').')?':'').'\s*$/iu';
   $display=trim((string)preg_replace($suffix,'',$title)," ,\t\n\r\0\x0B");
+  // Same exact stored-address suffix treatment as the public Property presenter.
+  if($address!=='')$display=(string)preg_replace('/\s+-\s+'.preg_quote($address,'/').'\s*$/iu','',$display);
   return $display!==''?$display:$title;
  }
  public static function collection(): array {
@@ -41,17 +43,19 @@ final class Aspire_Atlas {
    $type = self::term( $id,'property_type' ); $transaction = self::term( $id,'transaction_type' );
    $image_id = get_post_thumbnail_id( $id ); $src = wp_get_attachment_image_src( $image_id, 'large' );
    $local = $src && wp_parse_url( $src[0], PHP_URL_HOST ) === wp_parse_url( home_url(), PHP_URL_HOST );
+   $preview = $local ? wp_get_attachment_image_src( $image_id, 'medium' ) : false;
+   $preview_srcset = $preview ? implode(', ',array_filter(explode(', ',wp_get_attachment_image_srcset($image_id,'medium_large') ?: ''),static fn($candidate)=>preg_match('/ (\d+)w$/',$candidate,$match) && (int)$match[1] <= 800)) : '';
    $hide_price = in_array( $id, $suppressed, true );
    $properties = array(
     'id'=>$id,'slug'=>get_post_field( 'post_name',$id ),'title'=>sanitize_text_field( get_post_field( 'post_title',$id ) ),'permalink'=>esc_url_raw( get_permalink( $id ) ),
-    'displayTitle'=>self::display_title(sanitize_text_field(get_post_field('post_title',$id)),$text('city'),$text('state'),$text('postal_code')),
+    'displayTitle'=>self::display_title(sanitize_text_field(get_post_field('post_title',$id)),$text('city'),$text('state'),$text('postal_code'),$text('address_line_1')),
     'propertyType'=>$type,'transactionType'=>$transaction,'listingStatus'=>'available',
     'coordinateStatus'=>in_array( $id,$provisional,true ) ? 'provisional' : 'prototype',
     'location'=>array( 'address'=>trim( $text('address_line_1').' '.$text('address_line_2') ),'city'=>$text('city'),'state'=>$text('state'),'postalCode'=>$text('postal_code') ),
     'metrics'=>array( 'availableSf'=>self::number($id,'available_sf'),'buildingSf'=>self::number($id,'building_sf'),'lotAcres'=>self::number($id,'lot_acres') ),
     'pricing'=>array( 'leaseRateDisplay'=>$hide_price ? null : ( $text('lease_rate_display') ?: null ),'priceDisplay'=>$hide_price ? null : ( $text('price_display') ?: null ),'salePrice'=>! $hide_price && has_term( array('for-sale','for-sale-or-lease'),'transaction_type',$id ) ? self::number($id,'sale_price') : null ),
     'propertyHighlights'=>array_values(array_filter(array_map('sanitize_text_field',preg_split('/\r\n|\r|\n/',(string)get_post_meta($id,'_aspire_property_highlights',true))),static fn($line)=>$line!=='')),
-    'image'=>$local ? array('url'=>esc_url_raw($src[0]),'alt'=>sanitize_text_field(get_post_meta($image_id,'_wp_attachment_image_alt',true)),'width'=>(int)$src[1],'height'=>(int)$src[2]) : null,
+    'image'=>$local ? array('url'=>esc_url_raw($src[0]),'alt'=>sanitize_text_field(get_post_meta($image_id,'_wp_attachment_image_alt',true)),'width'=>(int)$src[1],'height'=>(int)$src[2], 'preview'=>$preview ? array('url'=>esc_url_raw($preview[0]),'srcset'=>$preview_srcset, 'width'=>(int)$preview[1],'height'=>(int)$preview[2]) : null) : null,
    );
    $features[] = array('type'=>'Feature','id'=>$id,'geometry'=>array('type'=>'Point','coordinates'=>array((float)$lon,(float)$lat)),'properties'=>$properties);
   }

@@ -6,6 +6,7 @@ import {newOwner,newManagement} from './workflow-data.js';
 import {createBrief} from './brief.js';
 import {mobileViewport} from './mobile.js';
 import {createPropertyFocus} from './property-focus.js';
+import {prioritizeProperties} from './hero-data.js';
 
 // One state owner for controls, accessible cards, and the map adapter. No network work here.
 export function createFindSpace(root, reduced) {
@@ -51,11 +52,12 @@ export function createFindSpace(root, reduced) {
   results.hidden=state.propertyFocusOpen;
   root.dataset.propertyFocus=String(state.propertyFocusOpen);
  }
- function openBrief(){
+ function openBrief(hero){
   if(state.propertyFocusOpen)closeFocus();
   briefReturn=document.activeElement;briefSelection=state.selectedPropertyId;
   state.railScrollBeforeBrief=list.scrollLeft;state.briefOpen=true;state.selectedPropertyId=null;state.hoveredPropertyId=null;
-  brief.open();focusLayout();emit('brief-open');
+  brief.open(hero);focusLayout();emit('brief-open');
+  if(hero)requestAnimationFrame(()=>{root.scrollIntoView({block:'start',behavior:'instant'});brief.heading.focus({preventScroll:true});});
  }
  function closeBrief(){
   if(state.propertyFocusOpen)closeFocus();
@@ -80,6 +82,7 @@ export function createFindSpace(root, reduced) {
   const f=(state.briefOpen?brief.matches():visible).find(f=>f.id===id);
   if(id!==null && !f){closeFocus('This property is unavailable. Please choose another opportunity.');return;}
   if(!f){state.selectedPropertyId=null;emit(origin);return;}
+  if(origin==='preview'){state.selectedPropertyId=id;state.hoveredPropertyId=null;emit('preview');return;}
   if(mobileViewport()&&origin==='card'&&state.selectedPropertyId!==id){state.selectedPropertyId=id;state.hoveredPropertyId=null;selectedLabel.textContent='Selected. Tap again to view property details.';emit('card');return;}
   const opens=['card','marker','keyboard','brief'].includes(origin);
   if(opens){
@@ -180,14 +183,15 @@ export function createFindSpace(root, reduced) {
   if(empty.contains(button))controls[0].focus({preventScroll:true});
   update('reset');
  }));
- root.querySelectorAll('[data-intent]').forEach(button=>button.addEventListener('click',()=>mode(button.dataset.intent)));
+ if(root.dataset.corporateHero!=='true')root.querySelectorAll('[data-intent]').forEach(button=>button.addEventListener('click',()=>mode(button.dataset.intent)));
  find.querySelector('.atlas-explore').addEventListener('click',()=>mode('explore'));
- root.querySelectorAll('.atlas-build-brief,.atlas-brief').forEach(button=>button.addEventListener('click',openBrief));
+ root.querySelectorAll('.atlas-build-brief,.atlas-brief').forEach(button=>button.addEventListener('click',()=>openBrief()));
  root.dataset.mode='explore';
  return {
-  state,hover,select,
+  state,hover,select,openHeroBrief:hero=>openBrief(hero),
+  prioritizeHero(intent){if(state.mode!=='explore'||state.briefOpen)return;state.selectedPropertyId=mobileViewport()?prioritizeProperties(features,intent)[0]?.id??null:null;state.hoveredPropertyId=null;emit('hero-intent');},
   present(fn){presentation=fn;root.addEventListener('atlas-mobile-change',()=>presentation(state,'layout'));presentation(state,'layout');},
-  setData(data){loaded=!!data;error=!data;features=data?.features??[];update('data');brief.refresh();},
+  setData(data){loaded=!!data;error=!data;features=data?.features??[];if(root.dataset.corporateHero==='true'&&mobileViewport()&&state.mode==='explore'&&!state.selectedPropertyId)state.selectedPropertyId=prioritizeProperties(features,root.dataset.heroIntent)[0]?.id??null;update('data');brief.refresh();},
   connect(fn){adapter=fn;emit('ready');},
  };
 }

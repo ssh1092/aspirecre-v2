@@ -1,4 +1,4 @@
-import {schema,prefillBrief,normalizeBrief,stepsFor,stepComplete,summaryRows,matchBrief,isMatching,isInvestment,isLand,isOwner,priorityOptions,toggleChoice} from './brief-data.js';
+import {schema,prefillBrief,prefillHeroBrief,normalizeBrief,stepsFor,stepComplete,summaryRows,matchBrief,isMatching,isInvestment,isLand,isOwner,priorityOptions,toggleChoice} from './brief-data.js';
 import {propertyMetric} from './filters.js';
 import {investMetric} from './invest.js';
 import {localUrl} from './focus-data.js';
@@ -32,7 +32,7 @@ export function createBrief(root,state,{getFeatures,getDataState,change,close,se
   ]){
    if(!selected.length)continue;
    const group=node('section',null,'atlas-brief-summary-group'),dl=node('dl',null,'atlas-brief-summary');group.append(node('h3',title),dl);
-   selected.forEach(([key,label,value])=>{const row=node('div');row.append(node('dt',label),node('dd',value||'Not specified'),button('Edit',()=>edit(key),'atlas-brief-edit'));row.lastChild.setAttribute('aria-label',`Edit ${label.toLowerCase()}`);dl.append(row);});stage.append(group);
+   selected.forEach(([key,label,value])=>{if(key==='location'&&state.brief.fromHero)label='Requirement / area';const row=node('div');row.append(node('dt',label),node('dd',value||'Not specified'),button('Edit',()=>edit(key),'atlas-brief-edit'));row.lastChild.setAttribute('aria-label',`Edit ${label.toLowerCase()}`);dl.append(row);});stage.append(group);
   }
   const matches=matchBrief(getFeatures(),b());state.brief.matches=matches;
   if(isMatching(b())){
@@ -85,6 +85,7 @@ export function createBrief(root,state,{getFeatures,getDataState,change,close,se
   if(screen==='questions'){
    const progress=node('progress');progress.max=6;progress.value=steps().indexOf(step)+1;progress.setAttribute('aria-label',`Step ${progress.value} of 6: ${labels[step]}`);nav.append(progress);
    stage.append(node('p','Your Atlas selections are already filled in. You can change anything.','atlas-brief-hint'));
+   if(state.brief.fromHero&&step==='propertyTypes')stage.append(node('p',b().location.text,'atlas-hero-need-summary'));
    if(step==='goal'){
     choices('Your goal',schema.goals,'goal');
     if(b().goal==='lease_space')choices('Transaction',{'for-lease':'For Lease','for-sale-or-lease':'For Sale or Lease','':'All Transactions'},'transaction');
@@ -98,7 +99,7 @@ export function createBrief(root,state,{getFeatures,getDataState,change,close,se
    }
    if(step==='location'){
     const field=node('fieldset');field.append(node('legend','Houston location'));const label=node('label','Approximate area'),area=node('select');area.add(new Option('All Houston / flexible',''));Object.entries(schema.areas).forEach(([k,v])=>area.add(new Option(v.label,k)));area.value=b().location.areaPreset;area.addEventListener('change',()=>{b().location.areaPreset=area.value;update();change('brief-area');});label.append(area);
-    const address=node('label','Address, area or submarket'),input=node('input');input.type='text';input.maxLength=240;input.value=b().location.text;input.addEventListener('input',()=>b().location.text=input.value);address.append(input);field.append(label,address,node('p','Choose an approximate Houston area, or tell us a location you have in mind.','atlas-brief-hint'));stage.append(field);
+    const address=node('label',state.brief.fromHero?'Your requirement, address or area':'Address, area or submarket'),input=node('input');input.type='text';input.maxLength=240;input.value=b().location.text;input.addEventListener('input',()=>b().location.text=input.value);address.append(input);field.append(label,address,node('p','Choose an approximate Houston area, or tell us a location you have in mind.','atlas-brief-hint'));stage.append(field);
    }
    if(step==='size'){
     choices(isLand(b())?'Approximate lot size':'Approximate building / space size',Object.fromEntries(Object.entries(schema.sizes).filter(([k,v])=>k==='unsure'||v.unit===(isLand(b())?'acres':'sf')&&(!v.legacy||k===b().size)).map(([k,v])=>[k,v.label])),'size');
@@ -116,7 +117,7 @@ export function createBrief(root,state,{getFeatures,getDataState,change,close,se
   back.hidden=screen==='success';next.hidden=screen==='success'||screen==='review'&&state.brief.submitted;
   back.textContent=screen==='intro'?'← Back to Atlas':screen==='review'?'← Edit answers':screen==='contact'?'← Back to brief':'← Back';
   next.textContent=screen==='intro'?'CREATE MY BRIEF →':screen==='review'||screen==='contact'?'SEND MY BRIEF TO ASPIRE →':state.brief.editing?'Save changes →':'Continue →';
-  if(focus){if(root.clientWidth>700&&root.getBoundingClientRect().top<0)root.scrollIntoView({block:'start',behavior:'instant'});panel.querySelector('.atlas-brief-body').scrollTop=0;heading.focus({preventScroll:true});if(root.clientWidth<=700)heading.scrollIntoView({block:'nearest'});}
+  if(focus){if(root.clientWidth>700&&root.getBoundingClientRect().top<0)root.scrollIntoView({block:'start',behavior:'instant'});panel.querySelector('.atlas-brief-body').scrollTop=0;heading.focus({preventScroll:true});if(root.clientWidth<=700&&!state.brief.fromHero)heading.scrollIntoView({block:'nearest'});}
   else if(focused)stage.querySelectorAll('input').forEach(i=>{if(i.value===focused)i.focus({preventScroll:true});});
   announce(heading.textContent);
  }
@@ -142,7 +143,7 @@ export function createBrief(root,state,{getFeatures,getDataState,change,close,se
  });
  panel.querySelector('.atlas-brief-close').addEventListener('click',close);
  return {panel,heading,render,
-  open(){const seed=prefillBrief(state),key=state.mode+JSON.stringify(seed);state.brief=drafts.get(key)||{data:seed,screen:'intro',step:'goal',editing:false,submitted:false};drafts.set(key,state.brief);render();},
+  open(hero){const seed=hero?prefillHeroBrief(state,hero):prefillBrief(state),key=state.mode+JSON.stringify(seed);state.brief=drafts.get(key)||{data:seed,screen:hero?'questions':'intro',step:hero?'propertyTypes':'goal',fromHero:!!hero,editing:false,submitted:false};drafts.set(key,state.brief);render();},
   refresh(){if(state.briefOpen&&state.brief.screen==='review'&&!state.propertyFocusOpen)render(false);},
   matches:()=>matchBrief(getFeatures(),b()),
  };

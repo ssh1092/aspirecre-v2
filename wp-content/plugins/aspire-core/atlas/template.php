@@ -13,15 +13,23 @@
   <p class="atlas-eyebrow"><?php if(!$corporate): ?><span aria-hidden="true"></span> ASPIRE ATLAS<?php else: echo esc_html($company); endif; ?></p>
   <h1 id="<?php echo esc_attr($uid); ?>title"><?php echo nl2br(esc_html($headline)); ?></h1>
   <p class="atlas-support"><?php echo $corporate?esc_html($support):nl2br(esc_html(str_replace('. ', ".\n", $support))); ?></p>
-  <?php if($corporate): ?><div class="atlas-product-introduction"><p class="atlas-product-name"><?php echo esc_html($product); ?></p><p class="atlas-product-line"><?php echo esc_html($product_line); ?></p></div><?php endif; ?>
-  <p class="atlas-prompt">What are you looking to do?</p>
+  <p class="atlas-prompt"><?php echo $corporate?'What do you need help with?':'What are you looking to do?'; ?></p>
   <div class="atlas-intents">
-   <?php foreach(array('Find Space'=>'Lease commercial space','Buy or Invest'=>'Explore investment opportunities','Lease or Sell My Property'=>'Get a market perspective','Manage an Asset'=>'Expert support for better performance') as $title=>$description): ?>
-    <button type="button" class="atlas-intent" data-intent="<?php echo esc_attr(array('Find Space'=>'find-space','Buy or Invest'=>'invest','Lease or Sell My Property'=>'owner-disposition','Manage an Asset'=>'manage-asset')[$title]); ?>" <?php if($title==='Find Space'): ?>data-find-space<?php endif; ?> aria-pressed="false"><span><strong><?php echo esc_html($title); ?></strong><small><?php echo esc_html($description); ?></small></span><span aria-hidden="true">↗</span></button>
+   <?php foreach(($corporate?array('Find Space'=>'Lease commercial space','Lease or Sell My Property'=>'Get a market perspective','Buy or Invest'=>'Explore investment opportunities','Manage an Asset'=>'Expert support for better performance'):array('Find Space'=>'Lease commercial space','Buy or Invest'=>'Explore investment opportunities','Lease or Sell My Property'=>'Get a market perspective','Manage an Asset'=>'Expert support for better performance')) as $title=>$description): ?>
+    <button type="button" class="atlas-intent" data-intent="<?php echo esc_attr(array('Find Space'=>'find-space','Buy or Invest'=>'invest','Lease or Sell My Property'=>'owner-disposition','Manage an Asset'=>'manage-asset')[$title]); ?>" <?php if($title==='Find Space'): ?>data-find-space<?php endif; ?> aria-pressed="false"><span><strong><?php echo esc_html($corporate&&$title==='Manage an Asset'?'Manage a Property':$title); ?></strong><small><?php echo esc_html($description); ?></small></span><span aria-hidden="true"><?php echo $corporate?'':'↗'; ?></span></button>
    <?php endforeach; ?>
   </div>
-  <?php if($natural): ?><label class="atlas-input-label" for="<?php echo esc_attr($uid); ?>input">Describe what you're looking for…</label><input id="<?php echo esc_attr($uid); ?>input" class="atlas-input" type="text" placeholder="Describe what you're looking for…" readonly aria-describedby="<?php echo esc_attr($uid); ?>example"><p class="atlas-command-example" id="<?php echo esc_attr($uid); ?>example">10,000–20,000 SF industrial space in West Houston</p><?php endif; ?>
-  <?php if($brief): ?><button type="button" class="atlas-brief">CREATE MY REAL ESTATE BRIEF <span aria-hidden="true">↗</span></button><?php endif; ?>
+  <?php if($corporate): ?>
+   <form class="atlas-hero-form">
+    <label class="atlas-need-label" for="<?php echo esc_attr($uid); ?>input">Tell us a little about your real estate need</label>
+    <textarea id="<?php echo esc_attr($uid); ?>input" class="atlas-need-input" rows="2" maxlength="240" placeholder="A space, a property, an investment or a management need" required></textarea>
+    <p class="atlas-hero-error" role="alert" hidden>Choose what you need help with above.</p>
+    <button type="submit" class="atlas-hero-submit">TELL US WHAT YOU NEED <span aria-hidden="true">→</span></button>
+   </form>
+  <?php else: ?>
+   <?php if($natural): ?><label class="atlas-input-label" for="<?php echo esc_attr($uid); ?>input">Describe what you're looking for…</label><input id="<?php echo esc_attr($uid); ?>input" class="atlas-input" type="text" placeholder="Describe what you're looking for…" readonly aria-describedby="<?php echo esc_attr($uid); ?>example"><p class="atlas-command-example" id="<?php echo esc_attr($uid); ?>example">10,000–20,000 SF industrial space in West Houston</p><?php endif; ?>
+   <?php if($brief): ?><button type="button" class="atlas-brief">CREATE MY REAL ESTATE BRIEF <span aria-hidden="true">↗</span></button><?php endif; ?>
+  <?php endif; ?>
   <?php if($corporate): ?><p class="atlas-advisor"><span><?php echo esc_html($advisor_prompt); ?></span> <a href="<?php echo esc_url($destination('contact')); ?>"><?php echo esc_html($advisor_label); ?> <span aria-hidden="true">→</span></a></p><?php endif; ?>
   <?php if($editor): ?><p class="atlas-scope">Interactive map renders on the frontend.</p><?php endif; ?>
   <?php if($editor && $corporate): ?><p class="atlas-editor-capabilities">Map enabled · Four client intents · Real Estate Brief <?php echo $brief?'enabled':'disabled'; ?></p><?php endif; ?>

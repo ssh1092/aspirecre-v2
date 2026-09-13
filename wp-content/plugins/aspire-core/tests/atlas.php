@@ -62,9 +62,9 @@ $corporate_attributes=array('corporateHero'=>true,'headline'=>'Houston Commercia
 $corporate=Aspire_Atlas::render($corporate_attributes);
 atlas_check(substr_count($corporate,'<h1 ')===1&&preg_match('/<h1[^>]*>Houston Commercial Real Estate, Made Clear\.<\/h1>/',$corporate),'Company hero contains exactly the approved H1');
 atlas_check(str_contains($corporate,'id="aspire-atlas"')&&str_contains($corporate,'data-corporate-hero="true"'),'Corporate presentation and return anchor are opt-in');
-atlas_check(str_contains($corporate,'class="atlas-product-line">Explore Houston. Find your next move.</p>')&&strpos($corporate,'ASPIRE COMMERCIAL')<strpos($corporate,'class="atlas-product-line"'),'Atlas product line remains subordinate to company content');
+atlas_check(!str_contains($corporate,'class="atlas-product-introduction"')&&str_contains($corporate,'TELL US WHAT YOU NEED'),'Company hero prioritizes the client conversion action');
 atlas_check(str_contains($corporate,'Prefer to talk it through?')&&str_contains($corporate,'Talk to an Aspire advisor')&&str_contains($corporate,'href="tel:+17139332001"'),'Corporate hero includes an approved human contact path');
-atlas_check(str_contains($corporate,'href="#current-opportunities"')&&str_contains($corporate,'Describe what you\'re looking for'),'Hero exposes a native path below while retaining requirements input');
+atlas_check(str_contains($corporate,'href="#current-opportunities"')&&str_contains($corporate,'class="atlas-need-input"'),'Hero exposes a native path below while retaining requirements input');
 $journey_continuation=Aspire_Atlas::render(array_merge($corporate_attributes,array('continueLabel'=>'Your next move, from here','continueTarget'=>'#client-journey')));
 atlas_check(str_contains($journey_continuation,'class="atlas-page-continue" href="#client-journey">Your next move, from here'),'Homepage continuation supports the client journey with a sanitized fragment');
 $empty_continuation=Aspire_Atlas::render(array_merge($corporate_attributes,array('continueTarget'=>'')));
@@ -82,5 +82,5 @@ atlas_check(!str_contains($html,'class="atlas-find"'),'Editor preview excludes f
 $request->set_param('attributes',$corporate_attributes);
 $preview=rest_do_request($request);$html=$preview->get_data()['rendered']??'';
 atlas_check($preview->get_status()===200&&str_contains($html,'ASPIRE ATLAS HERO')&&str_contains($html,'Map enabled · Four client intents · Real Estate Brief enabled'),'Corporate static editor preview communicates the real enabled capabilities');
-atlas_check(str_contains($html,'Houston Commercial Real Estate, Made Clear.')&&str_contains($html,'Explore Houston. Find your next move.')&&!str_contains($html,'data-atlas')&&!str_contains($html,'data-worker'),'Company editor preview includes editable hierarchy without WebGL startup attributes');
+atlas_check(str_contains($html,'Houston Commercial Real Estate, Made Clear.')&&str_contains($html,'TELL US WHAT YOU NEED')&&!str_contains($html,'data-atlas')&&!str_contains($html,'data-worker'),'Company editor preview includes editable hierarchy without WebGL startup attributes');
 echo "SUCCESS: $checks Atlas checks. Temporary fixtures rolled back.\n";

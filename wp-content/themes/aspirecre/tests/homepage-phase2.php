@@ -26,8 +26,8 @@ $xpath = new DOMXPath( $doc );
 $h1 = $xpath->query( '//h1' );
 phase2_check( 1 === $h1->length && 'Houston Commercial Real Estate, Made Clear.' === phase2_text( $h1->item( 0 ) ), 'Exactly one H1 with the locked company headline' );
 phase2_check( 1 === $xpath->query( '//*[@data-atlas]' )->length, 'Exactly one Atlas application is rendered' );
-phase2_check( str_contains( phase2_text( $doc->documentElement ), 'Explore Houston. Find your next move.' ), 'Atlas product language remains visible and distinct from the H1' );
-phase2_check( str_contains( phase2_text( $doc->documentElement ), 'Aspire Commercial helps tenants, property owners, investors and developers navigate leasing, investment, development, property management and commercial real estate decisions across Greater Houston.' ), 'Company purpose and all four audiences are explicit' );
+phase2_check( str_contains( phase2_text( $doc->documentElement ), 'TELL US WHAT YOU NEED' ), 'The company hero exposes its primary conversion action' );
+phase2_check( str_contains( phase2_text( $doc->documentElement ), 'Aspire helps tenants, property owners, investors and developers make better commercial real estate decisions across Greater Houston.' ), 'Company purpose and all four audiences are explicit' );
 $outline = array(
 	'client-journey' => 'Your real estate journey',
 	'current-opportunities' => 'Commercial Real Estate Opportunities Across Houston',

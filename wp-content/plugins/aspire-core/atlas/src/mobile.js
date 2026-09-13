@@ -1,5 +1,6 @@
 export const mobileViewport=()=>matchMedia('(max-width: 767px)').matches;
 export function createMobileSheet(root){
+ const corporate=root.dataset.corporateHero==='true';
  const media=matchMedia('(max-width: 767px)'),sheet=document.createElement('section'),bar=document.createElement('div'),content=document.createElement('div'),footer=document.createElement('div');
  sheet.className='atlas-mobile-sheet';sheet.hidden=true;sheet.setAttribute('aria-label','Atlas panel');
  bar.className='atlas-sheet-handle';content.className='atlas-sheet-content';footer.className='atlas-sheet-footer';
@@ -17,6 +18,9 @@ export function createMobileSheet(root){
  controls[0].onclick=()=>snap(position==='expanded'?'half':'peek');controls[1].onclick=()=>snap(position==='peek'?'half':'expanded');
  function restoreActions(){for(const [node,marker] of actionHomes){marker.replaceWith(node);}actionHomes=[];}
  function sync(state,reason){if(!media.matches)return;
+  const conversion=corporate&&state.mode==='explore'&&!state.briefOpen&&!state.propertyFocusOpen;
+  root.classList.toggle('atlas-hero-conversion',conversion);sheet.hidden=conversion;
+  if(conversion){restoreActions();active=null;lastKey='';onLayout();return;}
   const panel=state.propertyFocusOpen?panels[2]:state.briefOpen?panels[4]:['owner-disposition','manage-asset'].includes(state.mode)?panels[3]:state.mode==='explore'?panels[0]:panels[1];
   const key=state.propertyFocusOpen?'focus':state.briefOpen?`brief-${state.brief?.screen}-${state.brief?.step}`:`${state.mode}-${root.dataset.workflowStep||''}`;
   if(key!==lastKey&&lastKey)history.set(lastKey,{position,scroll:content.scrollTop});
@@ -42,10 +46,10 @@ export function createMobileSheet(root){
  root.addEventListener('pointerdown',e=>{if(menu.getAttribute('aria-expanded')==='true'&&!e.target.closest('.atlas-nav')){closeMenu();menu.textContent='Menu';}});
  nav?.addEventListener('click',e=>{if(e.target.closest('a')){closeMenu();menu.textContent='Menu';}});
  function toggle(){closeMenu();restoreActions();active=null;lastKey='';sheet.hidden=!media.matches;menu.hidden=!media.matches;root.classList.toggle('atlas-mobile',media.matches);
-  if(media.matches){panels.forEach(p=>content.append(p));nav&&(nav.hidden=true);layout(false);}else{panels.forEach(p=>homes.get(p).after(p));nav&&(nav.hidden=false);root.style.removeProperty('--atlas-sheet-height');closeMenu();}
+  if(media.matches){panels.forEach(p=>{if(!corporate||p!==panels[0])content.append(p);});nav&&(nav.hidden=true);layout(false);}else{panels.forEach(p=>homes.get(p).after(p));nav&&(nav.hidden=false);root.classList.remove('atlas-hero-conversion');root.style.removeProperty('--atlas-sheet-height');closeMenu();}
   root.dispatchEvent(new Event('atlas-mobile-change'));onLayout();
  }
  media.addEventListener('change',toggle);toggle();
  let timer;new ResizeObserver(()=>{if(media.matches){clearTimeout(timer);timer=setTimeout(()=>layout(),100);}}).observe(root);
- return{sync,connect(fn){onLayout=fn;},get active(){return media.matches;},padding(){const bounds=root.getBoundingClientRect();const top=Math.ceil((root.querySelector('.atlas-nav')?.getBoundingClientRect().bottom??bounds.top+60)-bounds.top+8);return{top,left:16,right:60,bottom:Math.min(bounds.height-top-40,sizes()[position]+12)};}};
+ return{sync,connect(fn){onLayout=fn;},get active(){return media.matches;},padding(){if(root.classList.contains('atlas-hero-conversion'))return{top:38,left:26,right:62,bottom:36};const bounds=root.getBoundingClientRect();const top=Math.ceil((root.querySelector('.atlas-nav')?.getBoundingClientRect().bottom??bounds.top+60)-bounds.top+8);return{top,left:16,right:60,bottom:Math.min(bounds.height-top-40,sizes()[position]+12)};}};
 }

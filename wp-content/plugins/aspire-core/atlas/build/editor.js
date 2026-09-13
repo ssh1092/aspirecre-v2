@@ -12,14 +12,12 @@
      attributes.corporateHero&&el(components.TextControl,{label:'Company name',value:attributes.companyName,onChange:companyName=>setAttributes({companyName})}),
      el(components.TextareaControl,{label:attributes.corporateHero?'Company heading (H1)':'Headline',value:attributes.headline,onChange:headline=>setAttributes({headline})}),
      el(components.TextareaControl,{label:attributes.corporateHero?'Company supporting copy':'Supporting text',value:attributes.supportingText,onChange:supportingText=>setAttributes({supportingText})}),
-     attributes.corporateHero&&el(components.TextControl,{label:'Product name',value:attributes.productName,onChange:productName=>setAttributes({productName})}),
-     attributes.corporateHero&&el(components.TextControl,{label:'Atlas product line',value:attributes.productLine,onChange:productLine=>setAttributes({productLine})}),
      attributes.corporateHero&&el(components.TextControl,{label:'Advisor prompt',value:attributes.advisorPrompt,onChange:advisorPrompt=>setAttributes({advisorPrompt})}),
      attributes.corporateHero&&el(components.TextControl,{label:'Advisor link label',value:attributes.advisorLabel,onChange:advisorLabel=>setAttributes({advisorLabel})}),
      attributes.corporateHero&&el(components.TextControl,{label:'Continue down the page',value:attributes.continueLabel,onChange:continueLabel=>setAttributes({continueLabel})}),
      attributes.corporateHero&&el(components.SelectControl,{label:'Continue to',value:attributes.continueTarget,options:[{label:'Client journey',value:'client-journey'},{label:'Current opportunities',value:'current-opportunities'}],onChange:continueTarget=>setAttributes({continueTarget})}),
-     el(components.ToggleControl,{label:'Show requirements input',help:'Displays the existing read-only requirements prompt. Visitors can start with the Real Estate Brief button.',checked:attributes.showNaturalLanguage,onChange:showNaturalLanguage=>setAttributes({showNaturalLanguage})}),
-     el(components.ToggleControl,{label:'Enable Real Estate Brief',help:'Includes the existing guided requirements and enquiry workflow.',checked:attributes.enableBrief,onChange:enableBrief=>setAttributes({enableBrief})})
+     !attributes.corporateHero&&el(components.ToggleControl,{label:'Show requirements input',help:'Displays the existing read-only requirements prompt. Visitors can start with the Real Estate Brief button.',checked:attributes.showNaturalLanguage,onChange:showNaturalLanguage=>setAttributes({showNaturalLanguage})}),
+     !attributes.corporateHero&&el(components.ToggleControl,{label:'Enable Real Estate Brief',help:'Includes the existing guided requirements and enquiry workflow.',checked:attributes.enableBrief,onChange:enableBrief=>setAttributes({enableBrief})})
     )),
     el('div',blockEditor.useBlockProps(),el(components.Disabled,null,el(SSR,{block:'aspire/atlas',attributes})))
    );
