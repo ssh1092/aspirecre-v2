@@ -9,7 +9,7 @@ export function createMapCards(root,map,features,discovery){
  previous.type=next.type='button';previous.setAttribute('aria-label','Previous map property');next.setAttribute('aria-label','Next map property');count.setAttribute('role','status');controls.append(previous,count,next);layer.append(controls);root.append(layer);
  // The existing map remains the sole geographic surface and source of coordinates.
  const mapElement=root.querySelector('.atlas-map');for(const el of root.querySelectorAll('.atlas-map-meta,.atlas-attribution'))mapElement.append(el);
- const stableLayoutOrder=[...features];
+ const stableLayoutOrder=[...features],expandedHeights=new Map();
  let state=discovery.state,frame=0,ordered=[],effective=null;
  const mobile=()=>matchMedia('(max-width:767px)').matches;
  function choose(id){discovery.select(id,'preview');}
@@ -37,6 +37,11 @@ export function createMapCards(root,map,features,discovery){
   button.onclick=()=>choose(f.id);button.addEventListener('pointerenter',()=>discovery.hover(f.id));button.addEventListener('pointerleave',()=>discovery.hover(null));button.addEventListener('focus',()=>discovery.hover(f.id));button.addEventListener('blur',()=>discovery.hover(null));
   image.addEventListener('error',()=>{entries.get(f.id).url=null;image.remove();schedule();},{once:true});
  }
+ function measureExpandedHeights(){
+  const visibility=layer.style.visibility;layer.style.visibility='hidden';
+  for(const [id,e] of entries){const hidden=e.detail.hidden;e.detail.hidden=false;expandedHeights.set(id,Math.max(expandedHeights.get(id)??0,Math.ceil(e.article.getBoundingClientRect().height)));e.detail.hidden=hidden;}
+  layer.style.visibility=visibility;
+ }
  function load(entry){if(!entry.url||entry.image.getAttribute('src'))return;entry.image.sizes='(max-width:767px) calc(100vw - 36px), 208px';if(entry.preview.srcset)entry.image.srcset=entry.preview.srcset;entry.image.src=entry.url;}
  function render(){
   frame=0;const showing=state.mode==='explore'&&!state.briefOpen&&!state.propertyFocusOpen;layer.hidden=!showing;if(!showing)return;
@@ -51,9 +56,10 @@ export function createMapCards(root,map,features,discovery){
   }
   const rootBox=root.getBoundingClientRect(),opening=root.querySelector('.atlas-opening').getBoundingClientRect(),nav=root.querySelector('.atlas-nav')?.getBoundingClientRect();
   const bounds={left:opening.right-rootBox.left+24,right:root.clientWidth-22,top:(nav?.bottom??rootBox.top+90)-rootBox.top+45,bottom:root.clientHeight-62};
-  // Desktop collision placement is based only on the source feature order and
-  // collapsed card size. Intent, selection and emphasis must never move cards.
-  const items=stableLayoutOrder.filter(f=>entries.get(f.id).url).map(f=>({id:f.id,point:map.project(f.geometry.coordinates),height:entries.get(f.id).button.offsetHeight+2}));
+  // Measure every card fully expanded while the layer cannot paint. Collision
+  // geometry then remains independent of intent, selection and emphasis.
+  measureExpandedHeights();
+  const items=stableLayoutOrder.filter(f=>entries.get(f.id).url).map(f=>({id:f.id,point:map.project(f.geometry.coordinates),height:expandedHeights.get(f.id)}));
   const reserved=[...mapElement.querySelectorAll('.maplibregl-ctrl-group')].map(el=>{const b=el.getBoundingClientRect();return{x:b.left-rootBox.left,y:b.top-rootBox.top,width:b.width,height:b.height};});
   const placements=placePropertyCards(items,bounds,208,reserved);
   for(const [id,e] of entries){const item=placements.find(p=>p.id===id);e.article.hidden=!item?.box;if(!item?.box)continue;
