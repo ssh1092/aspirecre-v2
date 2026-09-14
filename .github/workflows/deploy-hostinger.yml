@@ -1,0 +1,114 @@
+name: Deploy WordPress assets to Hostinger staging
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "wp-content/themes/aspirecre/**"
+      - "wp-content/plugins/aspire-core/**"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-hostinger-staging
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+      HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+      HOSTINGER_USER: ${{ secrets.HOSTINGER_USER }}
+      SSHPASS: ${{ secrets.HOSTINGER_PASSWORD }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install deployment tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes sshpass rsync
+
+      - name: Add Hostinger to known hosts
+        run: |
+          mkdir -p "$HOME/.ssh"
+          chmod 700 "$HOME/.ssh"
+          ssh-keyscan -p "$HOSTINGER_PORT" -H "$HOSTINGER_HOST" >> "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+
+      - name: Locate and validate the WordPress root
+        id: wordpress-root
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          wordpress_root="$(
+            sshpass -e ssh \
+              -p "$HOSTINGER_PORT" \
+              -o BatchMode=no \
+              -o StrictHostKeyChecking=yes \
+              "$HOSTINGER_USER@$HOSTINGER_HOST" \
+              'bash -s' <<'REMOTE_SCRIPT'
+          set -eu
+
+          for candidate in \
+            "$HOME/domains/lightcoral-stingray-643791.hostingersite.com/public_html" \
+            "$HOME/public_html" \
+            "/home/$USER/domains/lightcoral-stingray-643791.hostingersite.com/public_html" \
+            "/home/$USER/public_html"
+          do
+            if [ -f "$candidate/wp-config.php" ] && [ -d "$candidate/wp-content" ]; then
+              printf '%s\n' "$candidate"
+              exit 0
+            fi
+          done
+
+          echo "No valid WordPress root was found in the approved locations." >&2
+          exit 1
+          REMOTE_SCRIPT
+          )"
+
+          if [[ -z "$wordpress_root" || "$wordpress_root" == *$'\n'* ]]; then
+            echo "The remote WordPress root check returned an invalid result." >&2
+            exit 1
+          fi
+
+          echo "wordpress_root=$wordpress_root" >> "$GITHUB_OUTPUT"
+          echo "A valid WordPress installation was found in an approved location."
+
+      - name: Deploy only the Aspire theme and plugin
+        shell: bash
+        env:
+          WORDPRESS_ROOT: ${{ steps.wordpress-root.outputs.wordpress_root }}
+        run: |
+          set -euo pipefail
+
+          remote_shell="sshpass -e ssh -p $HOSTINGER_PORT -o BatchMode=no -o StrictHostKeyChecking=yes"
+
+          rsync --archive --compress --delete \
+            --rsh="$remote_shell" \
+            wp-content/themes/aspirecre/ \
+            "$HOSTINGER_USER@$HOSTINGER_HOST:$WORDPRESS_ROOT/wp-content/themes/aspirecre/"
+
+          rsync --archive --compress --delete \
+            --rsh="$remote_shell" \
+            wp-content/plugins/aspire-core/ \
+            "$HOSTINGER_USER@$HOSTINGER_HOST:$WORDPRESS_ROOT/wp-content/plugins/aspire-core/"
+
+      - name: Verify deployment
+        shell: bash
+        env:
+          WORDPRESS_ROOT: ${{ steps.wordpress-root.outputs.wordpress_root }}
+        run: |
+          set -euo pipefail
+
+          sshpass -e ssh \
+            -p "$HOSTINGER_PORT" \
+            -o BatchMode=no \
+            -o StrictHostKeyChecking=yes \
+            "$HOSTINGER_USER@$HOSTINGER_HOST" \
+            "test -d '$WORDPRESS_ROOT/wp-content/themes/aspirecre' && test -d '$WORDPRESS_ROOT/wp-content/plugins/aspire-core'"
+
+          echo "Deployment completed successfully: https://lightcoral-stingray-643791.hostingersite.com/"
