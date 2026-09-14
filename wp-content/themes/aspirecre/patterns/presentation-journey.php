@@ -148,14 +148,14 @@ foreach ( $journeys as $key => $journey ) {
 		if ( '' !== $stage[5] ) { $copy .= aspire_hp_group( aspire_hp_h( 'Technology', 4, 'hp-copy-label' ) . aspire_hp_p( $stage[5] ), 'hp-stage-detail hp-stage-technology' ); }
 		$copy .= aspire_hp_link( $journey[2], 'tel:+17139332001', 'hp-journey-advisor hp-link' );
 		$controls = aspire_hp_p( '<button type="button" class="hp-stage-prev">Previous</button><button type="button" class="hp-stage-next">Next</button>', 'hp-step-controls' );
-		$panel = aspire_hp_group( aspire_hp_group( $copy . $controls, 'hp-stage-information' ) . $stage_visual( $key, $index, $stage ), 'hp-stage-panel', $id . '-panel' );
+		$panel = aspire_hp_group( aspire_hp_group( $copy . $controls, 'hp-stage-information' ) . $stage_visual( $key, $index, $stage ), 'hp-stage-panel', $id . '-panel', 'div', '', 'full' );
 		$accordion = aspire_hp_p( '<button type="button" class="hp-accordion-trigger" aria-expanded="false" aria-controls="' . esc_attr( $id ) . '-panel"><span>' . sprintf( '%02d', $index + 1 ) . '</span> ' . esc_html( $stage[0] ) . '</button>', 'hp-accordion-heading' );
-		$panels .= aspire_hp_group( $accordion . $panel, 'hp-stage', $id, 'section', $journey[0] . ' — ' . $stage[0] );
+		$panels .= aspire_hp_group( $accordion . $panel, 'hp-stage', $id, 'section', $journey[0] . ' — ' . $stage[0], 'full' );
 	}
 	$stage_groups = '';
 	foreach ( $groups[ $key ] as $i => $group ) { $stage_groups .= aspire_hp_p( $group, 'hp-stage-group hp-stage-group-' . ( $i + 1 ) ); }
-	$track = $anchors . aspire_hp_h( $journey[1], 3, 'hp-journey-service' ) . aspire_hp_group( $stage_groups . $nav, 'hp-stage-navigation', '', 'div', 'Journey stages' ) . aspire_hp_group( $panels, 'hp-stage-copy' );
-	$tracks .= aspire_hp_group( $track, 'hp-journey-track hp-track-' . $key, 'journey-' . $key, 'section', $journey[0] );
+	$track = $anchors . aspire_hp_h( $journey[1], 3, 'hp-journey-service' ) . aspire_hp_group( $stage_groups . $nav, 'hp-stage-navigation', '', 'div', 'Journey stages' ) . aspire_hp_group( $panels, 'hp-stage-copy', '', 'div', '', 'full' );
+	$tracks .= aspire_hp_group( $track, 'hp-journey-track hp-track-' . $key, 'journey-' . $key, 'section', $journey[0], 'full' );
 }
 
-echo aspire_hp_group( aspire_hp_group( $header . $tracks, 'hp-shell hp-integrated-journey', 'expertise' ), 'hp-section hp-journey', 'client-journey', 'section', 'Client journey experience' );
+echo aspire_hp_group( aspire_hp_group( $header . $tracks, 'hp-shell hp-integrated-journey', 'expertise', 'div', '', 'full' ), 'hp-section hp-journey', 'client-journey', 'section', 'Client journey experience' );

@@ -437,9 +437,8 @@
 .hp-journey .hp-static-milestones{padding-left:45px;border-left:2px solid var(--hp-green)}.hp-journey .hp-milestone-list{counter-reset:milestones}.hp-journey .hp-milestone-list li{counter-increment:milestones;position:relative;padding:15px 0 15px 42px;font:400 clamp(21px,2.3vw,32px)/1.2 var(--hp-serif)}.hp-journey .hp-milestone-list li:before{content:counter(milestones,decimal-leading-zero);position:absolute;left:0;top:21px;color:var(--hp-green);font:500 10px var(--hp-sans)}
 .hp-journey .hp-static-stage-work{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hp-line)}.hp-journey .hp-static-stage-work>.hp-document-label,.hp-journey .hp-static-stage-work>.hp-artifact-heading{grid-column:1/-1;background:#e9eae6}.hp-journey .hp-work-step{padding:25px;background:#f6f3e9}.hp-journey .hp-work-label{color:var(--hp-green);font-size:10px;letter-spacing:.1em;text-transform:uppercase}.hp-journey .hp-work-copy{margin-top:60px;font-size:13px;line-height:1.6}
 @media(min-width:1024px){
- .hp-journey .hp-stage-copy,.hp-journey .hp-stage,.hp-journey .hp-stage-panel{width:100%!important;max-width:none!important;margin-inline:0!important}
  .hp-journey .hp-stage-copy,.hp-journey .hp-stage,.hp-journey .hp-stage-panel{min-width:0;overflow-x:clip}
- .hp-journey .hp-stage-panel{display:grid;grid-template-columns:minmax(0,42%) minmax(0,58%)}
+ .hp-journey .hp-stage-panel{display:grid;width:100%;grid-template-columns:minmax(0,42%) minmax(0,58%)}
  .hp-journey .hp-stage-visual{width:100%;max-width:none}
 }
 @media(max-width:1023px) and (min-width:768px){

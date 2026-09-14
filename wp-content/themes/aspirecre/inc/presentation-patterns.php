@@ -11,12 +11,14 @@ function aspire_hp_p( string $text, string $class = '' ): string {
 function aspire_hp_h( string $text, int $level = 2, string $class = '' ): string {
 	return aspire_hp_block( 'heading', array_filter( array( 'level' => $level, 'className' => $class ) ), '<h' . $level . ' class="wp-block-heading' . ( $class ? ' ' . esc_attr( $class ) : '' ) . '">' . $text . '</h' . $level . '>' );
 }
-function aspire_hp_group( string $content, string $class, string $anchor = '', string $tag = 'div', string $name = '' ): string {
+function aspire_hp_group( string $content, string $class, string $anchor = '', string $tag = 'div', string $name = '', string $align = '' ): string {
 	$attrs = array( 'className' => $class, 'layout' => array( 'type' => 'default' ) );
 	if ( $anchor ) { $attrs['anchor'] = $anchor; }
 	if ( 'div' !== $tag ) { $attrs['tagName'] = $tag; }
 	if ( $name ) { $attrs['metadata'] = array( 'name' => $name ); }
-	return aspire_hp_block( 'group', $attrs, '<' . $tag . ( $anchor ? ' id="' . esc_attr( $anchor ) . '"' : '' ) . ' class="wp-block-group ' . esc_attr( $class ) . '">' . "\n$content</$tag>" );
+	if ( $align ) { $attrs['align'] = $align; }
+	$wrapper_class = 'wp-block-group' . ( $align ? ' align' . $align : '' ) . ' ' . $class;
+	return aspire_hp_block( 'group', $attrs, '<' . $tag . ( $anchor ? ' id="' . esc_attr( $anchor ) . '"' : '' ) . ' class="' . esc_attr( $wrapper_class ) . '">' . "\n$content</$tag>" );
 }
 function aspire_hp_image( int $id, string $class, string $alt ): string {
 	if ( ! wp_attachment_is_image( $id ) ) { return ''; }
