@@ -48,26 +48,76 @@ $groups = array(
 	'management' => array( 'UNDERSTAND THE ASSET', 'PLAN THE NEXT MOVE', 'PUT THE PLAN TO WORK' ),
 );
 
-$stage_visual = static function ( string $journey, int $index ): string {
-	$names = array(
-		'tenant' => array( 'Real Estate Brief', 'Search and shortlist', 'Property comparison', 'Property validation', 'Commercial terms', 'Execution timeline' ),
-		'owner' => array( 'Asset assessment', 'Property positioning', 'Market presentation', 'Prospect qualification', 'Commercial terms', 'Operations handoff' ),
-		'investor' => array( 'Investment brief', 'Opportunity search', 'Investment analysis', 'Property diligence', 'Commercial terms', 'Transaction timeline' ),
-		'management' => array( 'Asset review', 'Operating priorities', 'Leasing coordination', 'Asset plan', 'Execution plan', 'Asset reassessment' ),
+$stage_visual = static function ( string $journey, int $index, array $stage ): string {
+	$briefs = array(
+		'tenant' => array( 'Real Estate Brief', 'Room for<br>what’s next.', array( 'Use' => 'How the property needs to work', 'Size' => 'The space your plans call for', 'Area' => 'Where the opportunity belongs', 'Timing' => 'When the move needs to happen', 'Priorities' => 'What matters most to you' ), 'A starting point for a conversation.' ),
+		'owner' => array( 'Asset Assessment', 'The asset.<br>The objective.', array( 'Objective' => 'What should the property accomplish?', 'Position' => 'What is the asset offering today?', 'Audience' => 'Who could the property serve?', 'Timing' => 'What needs to happen, and when?', 'Priorities' => 'Which ownership needs come first?' ), 'A starting point for an advisor-led asset assessment.' ),
+		'investor' => array( 'Investment Brief', 'A considered<br>investment.', array( 'Objective' => 'What is the investment intended to achieve?', 'Asset' => 'Which property types belong in the search?', 'Market' => 'Where should opportunity be evaluated?', 'Criteria' => 'Which assumptions need to be tested?', 'Horizon' => 'What is the ownership or development plan?' ), 'Questions to frame the opportunity, before the numbers.' ),
+		'management' => array( 'Asset Review', 'The whole<br>asset.', array( 'Operations' => 'What needs attention at the property?', 'Tenants' => 'Which needs require coordination?', 'Leasing' => 'How does occupancy support the objective?', 'Asset plan' => 'Which improvements or decisions lie ahead?', 'Priorities' => 'What should ownership address first?' ), 'A starting point for a conversation with the management team.' ),
 	);
-	$title = $names[ $journey ][ $index ];
-	$visual = aspire_hp_image( 116, 'hp-stage-image', 'Industrial and flex property in Houston' );
-	if ( 'tenant' === $journey && 0 === $index ) {
-		$brief = aspire_hp_p( 'ASPIRE / REAL ESTATE BRIEF', 'hp-document-label' ) . aspire_hp_p( 'Room for<br>what’s next.', 'hp-document-title' );
-		foreach ( array( 'Use' => 'How the property needs to work', 'Size' => 'The space your plans call for', 'Area' => 'Where the opportunity belongs', 'Timing' => 'When the move needs to happen', 'Priorities' => 'What matters most to you' ) as $label => $value ) {
-			$brief .= aspire_hp_p( '<strong>' . $label . '</strong><span>' . $value . '</span>', 'hp-brief-line' );
-		}
-		$brief .= aspire_hp_p( 'A starting point for a conversation.', 'hp-document-note' );
-		$visual .= aspire_hp_group( $brief, 'hp-integrated-brief', '', 'div', 'Real Estate Brief illustration' );
-	} else {
-		$visual .= aspire_hp_group( aspire_hp_p( sprintf( '%02d', $index + 1 ), 'hp-visual-number' ) . aspire_hp_h( $title, 4, 'hp-visual-title' ), 'hp-stage-artifact', '', 'div', $title . ' artifact' );
+	$milestones = array(
+		'tenant' => 'Selected property → Commercial terms → LOI → Documentation → Handoff / occupancy',
+		'owner' => 'Positioning → Qualified prospect → Commercial terms → Agreement → Operations',
+		'investor' => 'Opportunity → Commercial terms → Diligence → Closing → Asset strategy',
+		'management' => 'Priorities → Responsibilities → Leasing → Asset plan → Reassessment',
+	);
+	$terms = array(
+		'tenant' => array( 'Economics', 'Improvements', 'Timing', 'Flexibility', 'Operating obligations' ),
+		'owner' => array( 'Economics', 'Property commitments', 'Timing', 'Fit', 'Ongoing obligations' ),
+		'investor' => array( 'Price and terms', 'Contingencies', 'Timing', 'Responsibilities', 'Asset strategy' ),
+		'management' => array( 'Priorities', 'Responsibilities', 'Tenant coordination', 'Leasing and improvements', 'Follow-through' ),
+	);
+	$questions = array(
+		'tenant' => array( 'Loading / access?', 'Parking / circulation?', 'Improvements / fit?', 'Costs / obligations?' ),
+		'owner' => array( 'Property position?', 'Prospect fit?', 'Information gaps?', 'Ownership objective?' ),
+		'investor' => array( 'Property condition?', 'Intended use?', 'Unresolved risks?', 'Information gaps?' ),
+		'management' => array( 'Operating needs?', 'Tenant needs?', 'Current priorities?', 'Ownership direction?' ),
+	);
+	$make_list = static function ( array $items, string $class ): string {
+		$list = '';
+		foreach ( $items as $item ) { $list .= '<li>' . esc_html( $item ) . '</li>'; }
+		return aspire_hp_block( 'list', array( 'className' => $class ), '<ul class="wp-block-list ' . esc_attr( $class ) . '">' . $list . '</ul>' );
+	};
+
+	if ( 0 === $index ) {
+		$brief = $briefs[ $journey ];
+		$document = aspire_hp_p( 'ASPIRE / ' . strtoupper( $brief[0] ), 'hp-document-label' ) . aspire_hp_p( $brief[1], 'hp-document-title' );
+		foreach ( $brief[2] as $label => $value ) { $document .= aspire_hp_p( '<strong>' . esc_html( $label ) . '</strong><span>' . esc_html( $value ) . '</span>', 'hp-brief-line' ); }
+		$document .= aspire_hp_p( $brief[3], 'hp-document-note' );
+		// The approved property photograph belongs only to the Tenant Define brief.
+		$image = 'tenant' === $journey ? aspire_hp_image( 116, 'hp-stage-image', 'Industrial and flex property in Houston' ) : '';
+		return aspire_hp_group( $image . aspire_hp_group( $document, 'hp-integrated-brief', '', 'div', $brief[0] . ' prompts' ), 'hp-stage-visual hp-visual-brief', '', 'div', $brief[0] . ' visual' );
 	}
-	return aspire_hp_group( $visual, 'hp-stage-visual', '', 'div', $title . ' visual' );
+	if ( 'tenant' !== $journey && $index < 4 ) {
+		$artifact = aspire_hp_p( sprintf( '%02d / %s', $index + 1, esc_html( $stage[0] ) ), 'hp-document-label' ) . aspire_hp_h( $stage[1], 4, 'hp-artifact-heading' );
+		foreach ( array( 'Decision' => $stage[2], 'Aspire' => $stage[3], 'Outcome' => $stage[4] ) as $label => $text ) {
+			$artifact .= aspire_hp_group( aspire_hp_p( $label, 'hp-work-label' ) . aspire_hp_p( $text, 'hp-work-copy' ), 'hp-work-step' );
+		}
+		return aspire_hp_group( aspire_hp_group( $artifact, 'hp-static-stage-work', '', 'div', $stage[0] . ' working artifact' ), 'hp-stage-visual hp-visual-stage-work', '', 'div', $stage[0] . ' visual' );
+	}
+	if ( 1 === $index ) {
+		$artifact = aspire_hp_p( 'HOUSTON', 'hp-map-place' ) . aspire_hp_group( aspire_hp_p( 'Requirement', 'hp-map-node' ) . aspire_hp_p( 'Geography', 'hp-map-node' ) . aspire_hp_p( 'Potential properties', 'hp-map-node' ), 'hp-map-path' );
+		$artifact .= aspire_hp_p( $stage[4], 'hp-artifact-note' );
+		return aspire_hp_group( aspire_hp_group( $artifact, 'hp-static-map-artifact', '', 'div', 'Houston search context' ), 'hp-stage-visual hp-visual-search', '', 'div', 'Search and geography visual' );
+	}
+	if ( 2 === $index ) {
+		$artifact = aspire_hp_p( 'PROPERTY COMPARISON', 'hp-document-label' ) . aspire_hp_h( $stage[1], 4, 'hp-artifact-heading' );
+		$artifact .= aspire_hp_group( aspire_hp_p( 'Physical fit', 'hp-comparison-heading' ) . aspire_hp_p( 'Known property information', 'hp-comparison-copy' ), 'hp-comparison-column' );
+		$artifact .= aspire_hp_group( aspire_hp_p( 'Business fit', 'hp-comparison-heading' ) . aspire_hp_p( 'Trade-offs and questions to confirm', 'hp-comparison-copy' ), 'hp-comparison-column' );
+		$artifact .= aspire_hp_p( 'Suitability has not been determined.', 'hp-artifact-note' );
+		return aspire_hp_group( aspire_hp_group( $artifact, 'hp-static-comparison', '', 'div', 'Property comparison framework' ), 'hp-stage-visual hp-visual-compare', '', 'div', 'Property comparison visual' );
+	}
+	if ( 3 === $index ) {
+		$artifact = aspire_hp_p( 'QUESTIONS TO VALIDATE', 'hp-document-label' ) . aspire_hp_h( $stage[1], 4, 'hp-artifact-heading' ) . $make_list( $questions[ $journey ], 'hp-question-list' );
+		return aspire_hp_group( aspire_hp_group( $artifact, 'hp-static-diligence', '', 'div', 'Validation questions' ), 'hp-stage-visual hp-visual-diligence', '', 'div', 'Diligence visual' );
+	}
+	if ( 4 === $index ) {
+		$artifact = aspire_hp_p( 'COMMERCIAL TERMS', 'hp-document-label' ) . aspire_hp_h( $stage[1], 4, 'hp-artifact-heading' ) . $make_list( $terms[ $journey ], 'hp-terms-list');
+		$artifact .= aspire_hp_p( 'Your advisor weighs the whole agreement.', 'hp-artifact-note' );
+		return aspire_hp_group( aspire_hp_group( $artifact, 'hp-static-terms', '', 'div', 'Commercial negotiation topics' ), 'hp-stage-visual hp-visual-terms', '', 'div', 'Commercial terms visual' );
+	}
+	$artifact = aspire_hp_p( 'A CLEAR PATH TO WHAT’S NEXT.', 'hp-document-label' ) . aspire_hp_h( $stage[1], 4, 'hp-artifact-heading' ) . $make_list( explode( ' → ', $milestones[ $journey ] ), 'hp-milestone-list' );
+	return aspire_hp_group( aspire_hp_group( $artifact, 'hp-static-milestones', '', 'div', 'Execution milestones' ), 'hp-stage-visual hp-visual-execute', '', 'div', 'Execution milestones visual' );
 };
 
 $selector = '';
@@ -90,7 +140,7 @@ foreach ( $journeys as $key => $journey ) {
 		if ( '' !== $stage[5] ) { $copy .= aspire_hp_group( aspire_hp_h( 'Technology', 4, 'hp-copy-label' ) . aspire_hp_p( $stage[5] ), 'hp-stage-detail hp-stage-technology' ); }
 		$copy .= aspire_hp_link( $journey[2], 'tel:+17139332001', 'hp-journey-advisor hp-link' );
 		$controls = aspire_hp_p( '<button type="button" class="hp-stage-prev">Previous</button><button type="button" class="hp-stage-next">Next</button>', 'hp-step-controls' );
-		$panel = aspire_hp_group( aspire_hp_group( $copy . $controls, 'hp-stage-information' ) . $stage_visual( $key, $index ), 'hp-stage-panel', $id . '-panel' );
+		$panel = aspire_hp_group( aspire_hp_group( $copy . $controls, 'hp-stage-information' ) . $stage_visual( $key, $index, $stage ), 'hp-stage-panel', $id . '-panel' );
 		$accordion = aspire_hp_p( '<button type="button" class="hp-accordion-trigger" aria-expanded="false" aria-controls="' . esc_attr( $id ) . '-panel"><span>' . sprintf( '%02d', $index + 1 ) . '</span> ' . esc_html( $stage[0] ) . '</button>', 'hp-accordion-heading' );
 		$panels .= aspire_hp_group( $accordion . $panel, 'hp-stage', $id, 'section', $journey[0] . ' — ' . $stage[0] );
 	}
