@@ -97,6 +97,47 @@ jobs:
             wp-content/plugins/aspire-core/ \
             "$HOSTINGER_USER@$HOSTINGER_HOST:$WORDPRESS_ROOT/wp-content/plugins/aspire-core/"
 
+      - name: Migrate the integrated homepage journey
+        shell: bash
+        env:
+          WORDPRESS_ROOT: ${{ steps.wordpress-root.outputs.wordpress_root }}
+        run: |
+          set -euo pipefail
+
+          sshpass -e ssh \
+            -p "$HOSTINGER_PORT" \
+            -o BatchMode=no \
+            -o StrictHostKeyChecking=yes \
+            "$HOSTINGER_USER@$HOSTINGER_HOST" \
+            'bash -s' -- "$WORDPRESS_ROOT" <<'REMOTE_SCRIPT'
+          set -euo pipefail
+          WORDPRESS_ROOT="$1"
+          migration="$WORDPRESS_ROOT/wp-content/themes/aspirecre/bin/setup-home-integrated-journey.php"
+
+          if [ ! -f "$migration" ]; then
+            echo "Integrated homepage journey migration is missing: $migration" >&2
+            exit 1
+          fi
+
+          if ! command -v wp >/dev/null 2>&1; then
+            echo "WP-CLI is required for the homepage journey migration, but 'wp' is unavailable." >&2
+            exit 1
+          fi
+
+          cd "$WORDPRESS_ROOT"
+          wp eval-file "$migration"
+
+          wp eval '
+          $front_page_id = (int) get_option( "page_on_front" );
+          $front_page = $front_page_id ? get_post( $front_page_id ) : null;
+          if ( ! $front_page || false === strpos( $front_page->post_content, "hp-integrated-journey" ) ) {
+              fwrite( STDERR, "The configured front page does not contain the integrated journey after migration.\n" );
+              exit( 1 );
+          }
+          echo "Verified integrated journey on front page {$front_page_id}.\n";
+          '
+          REMOTE_SCRIPT
+
       - name: Verify deployment
         shell: bash
         env:
