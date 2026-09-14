@@ -9,6 +9,7 @@
   if(!keys.length)return;
   const tracks=Object.fromEntries(keys.map(key=>[key,journey.querySelector(`#journey-${key}`)]));
   let active=keys[0],activeStage=0;
+	const serviceIntents={'tenant-representation':'tenant','landlord-representation':'owner','investment-sales':'investor','investor-developer-services':'investor','property-management':'management','cre-consulting':'management'};
 	const objectives=journey.querySelector('.hp-objectives');objectives.setAttribute('role','tablist');objectives.setAttribute('aria-label','Choose a client objective');
 	keys.forEach(key=>{tracks[key].setAttribute('role','tabpanel');const nav=tracks[key].querySelector('.hp-stage-navigation');nav.setAttribute('role','tablist');nav.setAttribute('aria-label','Journey stages');tracks[key].querySelectorAll('.hp-stage-panel').forEach(panel=>panel.setAttribute('role','tabpanel'));});
 
@@ -61,7 +62,11 @@
   });
   const mobile=matchMedia('(max-width: 767px)');
   const refresh=()=>setStage(activeStage);mobile.addEventListener('change',refresh);
-  journey.classList.add('is-enhanced');selectJourney(keys[0]);
+  document.addEventListener('aspire:intent',event=>selectJourney(event.detail?.intent));
+  document.addEventListener('click',event=>{const link=event.target.closest('a[href*="#"]');if(!link)return;let hash;try{hash=new URL(link.href,location.href).hash.slice(1);}catch{return;}const key=serviceIntents[hash];if(key)selectJourney(key);});
+  const initialIntent=document.querySelector('[data-journey-intent]')?.dataset.journeyIntent;
+  const hashIntent=serviceIntents[location.hash.slice(1)];
+  journey.classList.add('is-enhanced');selectJourney(keys.includes(initialIntent)?initialIntent:hashIntent||keys[0]);
  }
  enhanceJourney();
  // A territory can be opened by pointer, focus or an explicit button. Its actual link stays a link.

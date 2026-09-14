@@ -127,9 +127,17 @@ foreach ( $journeys as $key => $journey ) {
 $header = aspire_hp_p( 'YOUR NEXT MOVE', 'hp-orientation-eyebrow' ) . aspire_hp_h( 'Here’s how Aspire helps you get there.', 2, 'hp-orientation-heading' ) . aspire_hp_group( $selector, 'hp-objectives', '', 'div', 'Choose a client objective' );
 
 $tracks = '';
+$service_anchors = array(
+	'tenant' => array( 'tenant-representation' ),
+	'owner' => array( 'landlord-representation' ),
+	'investor' => array( 'investment-sales', 'investor-developer-services' ),
+	'management' => array( 'property-management', 'cre-consulting' ),
+);
 foreach ( $journeys as $key => $journey ) {
 	$nav = '';
 	$panels = '';
+	$anchors = '';
+	foreach ( $service_anchors[ $key ] as $anchor ) { $anchors .= aspire_hp_group( '', 'hp-service-anchor', $anchor, 'div', $journey[1] . ' anchor' ); }
 	foreach ( $journey[3] as $index => $stage ) {
 		$id = $key . '-' . sanitize_title( $stage[0] );
 		$nav .= aspire_hp_p( '<button type="button" role="tab" aria-selected="false" aria-controls="' . esc_attr( $id ) . '-panel" data-stage="' . $index . '"><span>' . sprintf( '%02d', $index + 1 ) . '</span> ' . esc_html( $stage[0] ) . '</button>', 'hp-stage-link' );
@@ -146,8 +154,8 @@ foreach ( $journeys as $key => $journey ) {
 	}
 	$stage_groups = '';
 	foreach ( $groups[ $key ] as $i => $group ) { $stage_groups .= aspire_hp_p( $group, 'hp-stage-group hp-stage-group-' . ( $i + 1 ) ); }
-	$track = aspire_hp_h( $journey[1], 3, 'hp-journey-service' ) . aspire_hp_group( $stage_groups . $nav, 'hp-stage-navigation', '', 'div', 'Journey stages' ) . aspire_hp_group( $panels, 'hp-stage-copy' );
+	$track = $anchors . aspire_hp_h( $journey[1], 3, 'hp-journey-service' ) . aspire_hp_group( $stage_groups . $nav, 'hp-stage-navigation', '', 'div', 'Journey stages' ) . aspire_hp_group( $panels, 'hp-stage-copy' );
 	$tracks .= aspire_hp_group( $track, 'hp-journey-track hp-track-' . $key, 'journey-' . $key, 'section', $journey[0] );
 }
 
-echo aspire_hp_group( aspire_hp_group( $header . $tracks, 'hp-shell hp-integrated-journey' ), 'hp-section hp-journey', 'client-journey', 'section', 'Client journey experience' );
+echo aspire_hp_group( aspire_hp_group( $header . $tracks, 'hp-shell hp-integrated-journey', 'expertise' ), 'hp-section hp-journey', 'client-journey', 'section', 'Client journey experience' );
