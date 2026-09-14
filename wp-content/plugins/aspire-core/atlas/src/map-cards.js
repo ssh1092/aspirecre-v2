@@ -9,6 +9,7 @@ export function createMapCards(root,map,features,discovery){
  previous.type=next.type='button';previous.setAttribute('aria-label','Previous map property');next.setAttribute('aria-label','Next map property');count.setAttribute('role','status');controls.append(previous,count,next);layer.append(controls);root.append(layer);
  // The existing map remains the sole geographic surface and source of coordinates.
  const mapElement=root.querySelector('.atlas-map');for(const el of root.querySelectorAll('.atlas-map-meta,.atlas-attribution'))mapElement.append(el);
+ const stableLayoutOrder=[...features];
  let state=discovery.state,frame=0,ordered=[],effective=null;
  const mobile=()=>matchMedia('(max-width:767px)').matches;
  function choose(id){discovery.select(id,'preview');}
@@ -39,7 +40,7 @@ export function createMapCards(root,map,features,discovery){
  function load(entry){if(!entry.url||entry.image.getAttribute('src'))return;entry.image.sizes='(max-width:767px) calc(100vw - 36px), 208px';if(entry.preview.srcset)entry.image.srcset=entry.preview.srcset;entry.image.src=entry.url;}
  function render(){
   frame=0;const showing=state.mode==='explore'&&!state.briefOpen&&!state.propertyFocusOpen;layer.hidden=!showing;if(!showing)return;
-  ordered=prioritizeProperties(features,root.dataset.heroIntent);effective=state.selectedPropertyId??ordered[0]?.id;
+  ordered=mobile()?prioritizeProperties(features,root.dataset.heroIntent):stableLayoutOrder;effective=state.selectedPropertyId??ordered[0]?.id;
   controls.hidden=!mobile()||features.length<2;count.textContent=`${ordered.findIndex(f=>f.id===effective)+1} / ${features.length}`;
   lines.replaceChildren();
   const transaction=root.dataset.heroIntent==='find-space'?'for-lease':root.dataset.heroIntent==='invest'?'for-sale':null;
@@ -50,8 +51,9 @@ export function createMapCards(root,map,features,discovery){
   }
   const rootBox=root.getBoundingClientRect(),opening=root.querySelector('.atlas-opening').getBoundingClientRect(),nav=root.querySelector('.atlas-nav')?.getBoundingClientRect();
   const bounds={left:opening.right-rootBox.left+24,right:root.clientWidth-22,top:(nav?.bottom??rootBox.top+90)-rootBox.top+45,bottom:root.clientHeight-62};
-  const ranked=prioritizeProperties(features,root.dataset.heroIntent,state.selectedPropertyId);
-  const items=ranked.filter(f=>entries.get(f.id).url).map(f=>({id:f.id,point:map.project(f.geometry.coordinates),height:entries.get(f.id).article.offsetHeight}));
+  // Desktop collision placement is based only on the source feature order and
+  // collapsed card size. Intent, selection and emphasis must never move cards.
+  const items=stableLayoutOrder.filter(f=>entries.get(f.id).url).map(f=>({id:f.id,point:map.project(f.geometry.coordinates),height:entries.get(f.id).button.offsetHeight+2}));
   const reserved=[...mapElement.querySelectorAll('.maplibregl-ctrl-group')].map(el=>{const b=el.getBoundingClientRect();return{x:b.left-rootBox.left,y:b.top-rootBox.top,width:b.width,height:b.height};});
   const placements=placePropertyCards(items,bounds,208,reserved);
   for(const [id,e] of entries){const item=placements.find(p=>p.id===id);e.article.hidden=!item?.box;if(!item?.box)continue;

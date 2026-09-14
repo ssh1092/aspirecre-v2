@@ -31,7 +31,7 @@ body.admin-bar .aspire-atlas.atlas-corporate{min-height:max(850px,calc(94svh - 3
 .atlas-map-preview:is(.is-hovered,:focus-within){box-shadow:0 8px 26px #24372342;border-color:#6b8061;z-index:2}
 .atlas-map-preview.is-selected{border-color:#4b6946;box-shadow:0 9px 28px #2437233d;z-index:3}
 .atlas-map-preview.is-priority{border-color:#879779}
-.atlas-map-preview.has-matching-intent:not(.is-priority):not(.is-selected):not(.is-hovered):not(:focus-within){opacity:.82}
+.atlas-map-preview.has-matching-intent:not(.is-priority):not(.is-selected):not(.is-hovered):not(:focus-within){border-color:#c9cec2}
 .aspire-atlas.atlas-corporate button.atlas-preview-select{width:100%;padding:0;border:0;border-radius:0;background:transparent;color:#29392e;display:block;text-align:left;font:inherit;cursor:pointer}
 .atlas-preview-select img{display:block;width:100%;height:117px;object-fit:cover;object-position:center}
 .atlas-preview-copy{display:flex;flex-direction:column;gap:5px;padding:11px 13px 12px}
